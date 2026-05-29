@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-05-29T21:55:54",
+  "current_f1_macro": 0.8405,
+  "baseline_f1_macro": 0.8405,
+  "f1_drop_from_baseline": 0.0,
+  "status": "Healthy",
+  "thresholds": {
+    "warning_drop": 0.05,
+    "review_drop": 0.1
+  },
+  "message": "Model performance is within the healthy range relative to baseline."
+}

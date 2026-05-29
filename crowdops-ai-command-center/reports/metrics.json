@@ -1,0 +1,29 @@
+{
+  "trained_at": "2026-05-29T21:55:53",
+  "best_model": "LogisticRegression",
+  "best_metrics": {
+    "accuracy": 0.868,
+    "precision_macro": 0.8437,
+    "recall_macro": 0.8382,
+    "f1_macro": 0.8405
+  },
+  "all_models": {
+    "LogisticRegression": {
+      "accuracy": 0.868,
+      "precision_macro": 0.8437,
+      "recall_macro": 0.8382,
+      "f1_macro": 0.8405
+    },
+    "RandomForest": {
+      "accuracy": 0.844,
+      "precision_macro": 0.8144,
+      "recall_macro": 0.811,
+      "f1_macro": 0.8123
+    }
+  },
+  "dataset": {
+    "total_rows": 2500,
+    "train_rows": 2000,
+    "test_rows": 500
+  }
+}

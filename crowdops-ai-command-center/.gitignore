@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Trained model binary (regenerate with `python -m src.train`).
+models/*.joblib
+
+# Note: data/crowd_ops.csv and reports/*.json are intentionally committed so
+# the dashboard works immediately on a fresh clone. Re-generate them anytime
+# with `python -m src.generate_data` and `python -m src.train`.

@@ -1,0 +1,22 @@
+[project]
+name = "crowdops-ai-command-center"
+version = "1.0.0"
+description = "Local AI engineering lifecycle demo for crowd risk prediction (synthetic, no-API)."
+requires-python = ">=3.10"
+
+[tool.ruff]
+# Keep the configuration simple and project-friendly.
+line-length = 100
+target-version = "py310"
+extend-exclude = ["models", "reports", "data"]
+
+[tool.ruff.lint]
+# E/W = pycodestyle, F = pyflakes, I = isort, UP = pyupgrade, B = bugbear.
+select = ["E", "W", "F", "I", "UP", "B"]
+ignore = ["E501"]  # long lines are handled by formatter; do not fail CI on them
+
+[tool.pytest.ini_options]
+# Allow `import src` when running `pytest` from the project root.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

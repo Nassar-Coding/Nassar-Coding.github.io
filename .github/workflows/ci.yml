@@ -1,0 +1,48 @@
+name: CrowdOps CI
+
+# GitHub Actions only runs workflows located at the repository root
+# (.github/workflows/). This repo hosts the project in a subdirectory, so this
+# root-level workflow drives CI against crowdops-ai-command-center/.
+# (A mirror copy lives in the project folder to keep its portfolio structure
+# self-contained.)
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: crowdops-ai-command-center
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with ruff
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest
+
+      - name: Train model (lifecycle / MLOps step)
+        run: python -m src.train
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crowdops-metrics
+          path: crowdops-ai-command-center/reports/metrics.json
+          if-no-files-found: error

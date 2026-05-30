@@ -45,13 +45,13 @@ borough x complaint-group cells in proportion to forecasted next-day demand:
 
 ## Metrics
 
-- **Total weighted unmet demand** — unmet demand summed across cells and days,
+- **Total weighted unmet demand** - unmet demand summed across cells and days,
   weighted by complaint-group importance (primary decision metric).
-- **Average service shortfall** — mean unmet demand per cell-day.
-- **High-demand coverage rate** — fraction of high-demand cell-days (at or above
+- **Average service shortfall** - mean unmet demand per cell-day.
+- **High-demand coverage rate** - fraction of high-demand cell-days (at or above
   the daily 75th percentile of actual demand) whose capacity meets actual demand.
-- **Allocation efficiency** — served demand divided by total allocated capacity.
-- **Percent improvement of augmented over baseline** — relative reduction in
+- **Allocation efficiency** - served demand divided by total allocated capacity.
+- **Percent improvement of augmented over baseline** - relative reduction in
   total weighted unmet demand from the baseline policy to the augmented policy.
 
 ## Why decision quality matters beyond forecast accuracy

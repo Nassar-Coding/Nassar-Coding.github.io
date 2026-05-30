@@ -9,10 +9,10 @@ active mode in `data/metadata/data_source_report.json`.
 
 ## Data source modes
 
-- **`real_public_data`** — Reserved for a fully documented, key-free public
+- **`real_public_data`** - Reserved for a fully documented, key-free public
   ingestion. The included `download_data` routine attempts a bounded, key-free
   download of a public NYC 311 export and archives a sample.
-- **`synthetic_fallback`** — A deterministic synthetic dataset generated with a
+- **`synthetic_fallback`** - A deterministic synthetic dataset generated with a
   fixed seed when real data is unavailable or when a reproducible offline run is
   required. **Unless the metadata explicitly records otherwise, the active mode
   is `synthetic_fallback`.**

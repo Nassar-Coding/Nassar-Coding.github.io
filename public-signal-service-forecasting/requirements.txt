@@ -1,0 +1,17 @@
+# Core runtime and modelling dependencies.
+# Version floors reflect the versions the project was developed and tested with.
+# No external APIs, keys, paid services, or cloud dependencies are required.
+pandas>=2.1
+numpy>=1.26
+scikit-learn>=1.4
+matplotlib>=3.8
+joblib>=1.3
+streamlit>=1.30
+
+# Development and quality tooling.
+pytest>=8.0
+ruff>=0.5
+
+# Optional: only used by the best-effort public download. The pipeline runs
+# fully offline with the synthetic fallback if requests is unavailable.
+requests>=2.31

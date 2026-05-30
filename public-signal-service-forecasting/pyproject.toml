@@ -44,3 +44,7 @@ ignore = ["E501"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+# Add the project root to sys.path so `from src import ...` resolves when tests
+# are run via the bare `pytest` console script (which, unlike `python -m pytest`,
+# does not place the working directory on sys.path).
+pythonpath = ["."]

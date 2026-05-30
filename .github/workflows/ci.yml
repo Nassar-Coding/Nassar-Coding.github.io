@@ -1,0 +1,63 @@
+name: CI
+
+# Repository-root workflow so GitHub Actions discovers and runs the project CI.
+# GitHub only triggers workflows defined under the repository-root
+# .github/workflows directory. The project also keeps a self-contained copy at
+# public-signal-service-forecasting/.github/workflows/ci.yml for when it is used
+# as a standalone repository. This root workflow runs the same steps with the
+# working directory set to the project folder.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: public-signal-service-forecasting
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint with ruff
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest
+
+      - name: Build processed dataset
+        run: python -m src.build_dataset
+
+      - name: Train models
+        run: python -m src.train
+
+      - name: Evaluate models
+        run: python -m src.evaluate
+
+      - name: Run decision simulation
+        run: python -m src.decision_simulation
+
+      - name: Run monitoring
+        run: python -m src.monitor
+
+      - name: Upload reports and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: forecasting-artifacts
+          path: |
+            public-signal-service-forecasting/reports/
+            public-signal-service-forecasting/figures/
+          if-no-files-found: warn

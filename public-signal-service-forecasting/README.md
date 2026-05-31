@@ -3,6 +3,24 @@
 A reproducible real public-data ML baseline for NYC 311 service-request
 forecasting and staffing decision simulation.
 
+## Research Artifact Package
+
+The repository includes a `research_artifacts/` folder with a research-facing
+package summarising and auditing the real-data baseline. All values in these
+documents are read from the committed artifacts under `reports/` and
+`data/metadata/`.
+
+- [`research_artifacts/research_memo.md`](research_artifacts/research_memo.md) - research memo (question, method, results, limitations, next steps).
+- [`research_artifacts/extended_abstract.md`](research_artifacts/extended_abstract.md) - workshop-style extended abstract.
+- [`research_artifacts/results_brief.md`](research_artifacts/results_brief.md) - concise tabular results brief.
+- [`research_artifacts/figure_interpretation_guide.md`](research_artifacts/figure_interpretation_guide.md) - how to read each figure.
+- [`research_artifacts/claims_audit.md`](research_artifacts/claims_audit.md) - claim-by-claim audit tied to artifacts.
+- [`research_artifacts/reviewer_risk_register.md`](research_artifacts/reviewer_risk_register.md) - anticipated reviewer concerns and mitigations.
+- [`research_artifacts/public_project_summary.md`](research_artifacts/public_project_summary.md) - public-facing project summary.
+
+This is a research baseline package, not a finished paper, and it makes no
+causal, production-readiness, or real-staffing-optimization claims.
+
 ## 1. Summary
 
 This repository is a local, reproducible machine-learning baseline that tests

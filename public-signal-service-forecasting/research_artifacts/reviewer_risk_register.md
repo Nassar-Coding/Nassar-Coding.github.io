@@ -1,0 +1,28 @@
+# Reviewer Risk Register
+
+Anticipated reviewer concerns for the real NYC 311 baseline, with current
+mitigations (already in the repository) and future mitigations (out of scope for
+this baseline). Severity is the likely weight a workshop or research reviewer
+would place on the issue.
+
+| Risk | Severity | Why a reviewer might care | Current mitigation | Future mitigation |
+|------|----------|---------------------------|--------------------|-------------------|
+| 311 reporting bias | High | 311 measures reporting, not true incidence; counts can encode community- and time-varying reporting propensity, so forecasts predict reporting rather than need. | Documented explicitly in `docs/limitations.md`, `docs/responsible_ai.md`, and `data_source_report.json`; the project frames the target as reported volume and makes no need-based claim. | Compare reporting against external incidence proxies; model or stratify by reporting propensity; sensitivity analysis across boroughs. |
+| Aggregation hides within-borough heterogeneity | Medium | Borough-level cells average over neighbourhoods with different demand and reporting patterns, which can mask important variation. | Unit of analysis and its coarseness stated in the data card and limitations; aggregation rule documented. | Repeat at finer geography (community district or ZIP) while preserving the no-personal-data boundary. |
+| Complaint-group mapping may be coarse | Medium | A deterministic substring mapping into eight groups (plus Other) groups heterogeneous types and could affect group-level counts. | Mapping is deterministic, order-sensitive, and documented; the Housing-before-Water ordering is explained; a residual Other group is reported (about 1.23M rows mapped to Other). | Expert-reviewed taxonomy; sensitivity analysis over alternative mappings. |
+| Calendar features may proxy seasonality, not operational signals | Medium | Improvement from calendar features might reflect generic seasonality rather than actionable operational structure. | Framed honestly as internal-historical vs calendar-augmented, not external-signal augmentation; no mechanism is claimed. | Add genuinely external signals (e.g., weather) and decompose contributions; feature-importance and ablation analysis. |
+| Forecast improvement may not imply operational improvement | High | A common reviewer critique is that MAE gains need not translate into decision value. | This is the central design point: a decision simulation is evaluated alongside forecasts, and the attenuated transfer (about 11% MAE gain to about 1.35% weighted-unmet reduction) is reported, not hidden. | Test multiple decision settings and loss structures; report decision-metric uncertainty. |
+| Decision simulation is stylized | High | Proportional allocation omits crew travel, shifts, backlog, intra-day arrivals, and substitution, so results may not reflect real operations. | Clearly labelled stylized in the report description and `docs/decision_simulation.md`; assumptions (135 crews, 50 requests/crew, weights) are recorded; oracle bound included. | Constrained optimization with service-level targets; richer operational constraints; sensitivity to budget and weights. |
+| No causal identification | High | Reviewers may probe whether any causal interpretation is implied. | No causal claim anywhere; limitations state the work is correlational; claims audit flags causal statements as unsupported. | Quasi-experimental designs (e.g., event studies around holidays/weather) if a causal question is pursued. |
+| No external validity beyond NYC 2022-2024 | Medium | Results are specific to one city, daily granularity, eight groups, and a fixed window. | External-validity limitation stated explicitly; study window and scope documented. | Replicate across cities, periods, and granularities; test temporal stability. |
+| No real dispatch policy validation | High | The allocation is not validated against any real policy or outcome. | Out-of-scope use stated in `docs/model_card.md` and `docs/responsible_ai.md`; report description disclaims real dispatch. | Partner-validated evaluation against a real policy, with human oversight, before any operational consideration. |
+| Single chronological split | Medium | One held-out split gives a point estimate, not a distribution, and may be sensitive to the cut date. | Split is strictly chronological and documented (70/15/15 by date) to avoid leakage; selection refit on train+validation. | Rolling-origin cross-validation; Diebold-Mariano tests for forecast differences; repeated decision-metric evaluation. |
+| Reproducibility of the raw aggregation | Medium | The full monthly exports are not committed (size), so a reviewer cannot trivially re-derive the daily counts. | The aggregated daily-counts CSV and a documented local aggregation script (`scripts/aggregate_nyc_311_local.py`) are committed; metadata records all 36 input files and drop counts. | Provide a fully scripted, checksummed acquisition path or hosted aggregated data with provenance. |
+
+## Summary
+
+The highest-severity risks are the ones the project is explicitly built to
+confront or disclose: reporting bias, the forecast-to-decision gap, the stylized
+nature of the decision simulation, the absence of causal identification, and the
+lack of real dispatch validation. Each is documented in the repository and
+reflected honestly in the reported results rather than mitigated by overclaiming.

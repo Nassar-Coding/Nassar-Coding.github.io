@@ -6,14 +6,26 @@ name: CI
 # public-signal-service-forecasting/.github/workflows/ci.yml for when it is used
 # as a standalone repository. This root workflow runs the same steps with the
 # working directory set to the project folder.
+#
+# CI uses the committed small real-schema sample (USE_SAMPLE_DATA=1) so the
+# pipeline runs quickly and reproducibly without the full real dataset. Research
+# mode uses the full real NYC 311 2022-2024 data locally.
 
 on:
   push:
+    paths:
+      - "public-signal-service-forecasting/**"
+      - ".github/workflows/ci.yml"
   pull_request:
+    paths:
+      - "public-signal-service-forecasting/**"
+      - ".github/workflows/ci.yml"
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      USE_SAMPLE_DATA: "1"
     defaults:
       run:
         working-directory: public-signal-service-forecasting
@@ -38,7 +50,7 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Build processed dataset
+      - name: Build processed dataset (sample real-schema mode)
         run: python -m src.build_dataset
 
       - name: Train models

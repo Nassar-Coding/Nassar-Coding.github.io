@@ -25,6 +25,17 @@ qualification beyond the noted caveats.
 | Augmented policy closes about 19% of oracle gap | `reports/decision_simulation_report.json` | `gap_to_oracle_closed_pct: 18.94` | High | Yes | Oracle is an upper-bound benchmark only. |
 | Leakage-controlled chronological split (70/15/15) | `reports/metrics.json`; `src/train.py` | `split` block; `chronological_split` | High | Yes | Lag/rolling features use past only. |
 
+## Robustness claims (closure pass)
+
+| Claim | Supported by | Evidence location | Confidence | Safe publicly? | Notes |
+|-------|--------------|-------------------|------------|----------------|-------|
+| Calendar augmentation wins in every rolling fold for every model | `reports/rolling_validation_summary.json` | `calendar_augmentation_consistency` (RF 5/5, GB 5/5, Ridge 5/5) | High | Yes | 5 expanding-window folds; mean improvements RF 15.13%, GB 9.94%, Ridge 0.94%. |
+| Improvement holds for all five boroughs | `reports/borough_performance.csv` | `augmented_better` true for 5/5 | High | Yes | Range about 4.7% to 15.8%. |
+| Improvement holds for all eight complaint groups | `reports/complaint_group_performance.csv` | `augmented_better` true for 8/8 | High | Yes | Range about 5.8% to 25.7%. |
+| Augmented decision policy better at every crew budget | `reports/decision_sensitivity_summary.json` | `augmented_better_in_all_settings: true` | High | Yes, with caveat | Magnitude budget-dependent (0.21%, 3.19%, 12.05%). |
+| Decision effect is budget-dependent | `reports/decision_sensitivity_summary.json` | per-setting reductions | High | Yes | Must be stated alongside the decision claim. |
+| Not strong enough for full-paper drafting | `reports/practical_significance_summary.json` | `strong_enough_for_full_paper_drafting: false` | High | Yes | Forecasting strong; decision evidence budget-dependent. |
+
 ## Boundary (negative) claims that must be preserved
 
 | Claim | Supported by | Evidence location | Confidence | Safe publicly? | Notes |

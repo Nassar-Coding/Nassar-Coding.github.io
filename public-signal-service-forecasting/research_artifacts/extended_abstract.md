@@ -121,6 +121,18 @@ decision-quality gain. The transfer from accuracy to operational value is real a
 directionally consistent but strongly attenuated, which is precisely the effect a
 joint forecast-and-decision evaluation is meant to surface.
 
+A robustness package confirms that the forecasting result is not an artifact of a
+single split. Five-fold expanding-window rolling-origin validation shows calendar
+augmentation lowering MAE in every fold for every model (mean improvement 15.13%
+for the random forest, 9.94% for gradient boosting, 0.94% for Ridge), and the
+improvement holds for all five boroughs (about 4.7% to 15.8%) and all eight
+complaint groups (about 5.8% to 25.7%). A crew-budget sensitivity sweep shows the
+calendar-augmented allocation policy dominating the internal-only policy in
+direction under scarce, moderate, and generous budgets, while the magnitude of the
+decision benefit grows with capacity (weighted-unmet reductions of 0.21%, 3.19%,
+and 12.05% respectively). The forecasting evidence is thus robust; the decision
+evidence is directionally robust but budget-dependent.
+
 ## Managerial and operational implications
 
 For planners, the result is a caution and a method rather than a recommendation.

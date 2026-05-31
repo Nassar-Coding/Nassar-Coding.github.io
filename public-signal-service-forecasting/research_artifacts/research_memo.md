@@ -132,6 +132,23 @@ forecasts yield better allocation outcomes here - but the decision-quality gain
 best model). This is exactly the forecast-versus-decision distinction the project
 is designed to expose.
 
+## 11b. Robustness package
+
+A closure-pass robustness package tests whether the forecasting result is stable
+beyond the single split. Five-fold expanding-window rolling-origin validation
+shows calendar augmentation lowering MAE in every fold for every model (random
+forest mean improvement 15.13%, gradient boosting 9.94%, Ridge 0.94%; each 5 of
+5 folds). Segmented evaluation on the held-out test partition shows the
+improvement holds for all five boroughs (about 4.7% to 15.8%) and all eight
+complaint groups (about 5.8% to 25.7%). Decision sensitivity across scarce
+(100 crews), moderate (160), and generous (220) budgets shows the
+calendar-augmented policy is better in all three, but the weighted-unmet
+reduction is budget-dependent (0.21%, 3.19%, 12.05% respectively). The
+practical-significance summary records the forecasting evidence as strong and
+the decision evidence as directionally consistent but budget-dependent, and
+therefore not strong enough for full-paper drafting. The final phase decision is
+recorded in `candidate_c_final_decision.md`.
+
 ## 12. What the project can claim
 
 - It uses real, observed NYC 311 data for 2022-2024 with a documented,

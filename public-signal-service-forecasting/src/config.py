@@ -52,10 +52,32 @@ EVALUATION_REPORT_FILE: Path = REPORTS_DIR / "evaluation_report.json"
 DECISION_SIMULATION_REPORT_FILE: Path = REPORTS_DIR / "decision_simulation_report.json"
 MONITORING_REPORT_FILE: Path = REPORTS_DIR / "monitoring_report.json"
 
+# Robustness package artifacts (final closure pass).
+ROLLING_VALIDATION_REPORT_FILE: Path = REPORTS_DIR / "rolling_validation_report.csv"
+ROLLING_VALIDATION_SUMMARY_FILE: Path = REPORTS_DIR / "rolling_validation_summary.json"
+COMPLAINT_GROUP_PERFORMANCE_FILE: Path = REPORTS_DIR / "complaint_group_performance.csv"
+BOROUGH_PERFORMANCE_FILE: Path = REPORTS_DIR / "borough_performance.csv"
+DECISION_SENSITIVITY_REPORT_FILE: Path = REPORTS_DIR / "decision_sensitivity_report.csv"
+DECISION_SENSITIVITY_SUMMARY_FILE: Path = REPORTS_DIR / "decision_sensitivity_summary.json"
+PRACTICAL_SIGNIFICANCE_FILE: Path = REPORTS_DIR / "practical_significance_summary.json"
+
 FIG_FORECAST_ERROR: Path = FIGURES_DIR / "forecast_error_by_model.png"
 FIG_INTERNAL_VS_AUGMENTED: Path = FIGURES_DIR / "internal_vs_calendar_augmented_mae.png"
 FIG_DECISION_QUALITY: Path = FIGURES_DIR / "decision_quality_comparison.png"
 FIG_ACTUAL_VS_PREDICTED: Path = FIGURES_DIR / "forecast_actual_vs_predicted.png"
+FIG_ROLLING_VALIDATION: Path = FIGURES_DIR / "rolling_validation_mae.png"
+FIG_COMPLAINT_GROUP_MAE: Path = FIGURES_DIR / "complaint_group_mae.png"
+FIG_BOROUGH_MAE: Path = FIGURES_DIR / "borough_mae.png"
+FIG_DECISION_SENSITIVITY: Path = FIGURES_DIR / "decision_sensitivity.png"
+
+# Decision sensitivity crew-budget settings (scarce / moderate / generous).
+# Calibrated relative to mean daily demand (~8,977 next-day requests across
+# 40 cells) with REQUESTS_PER_CREW = 50.
+DECISION_CREW_SETTINGS: dict[str, int] = {
+    "scarce": 100,
+    "moderate": 160,
+    "generous": 220,
+}
 
 # ---------------------------------------------------------------------------
 # Study window (real NYC 311 data; 2022-2024 only)

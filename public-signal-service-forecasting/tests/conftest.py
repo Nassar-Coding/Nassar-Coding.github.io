@@ -48,6 +48,19 @@ _FILE_ATTRS: dict[str, tuple[str, ...]] = {
     "FIG_INTERNAL_VS_AUGMENTED": ("figures", "internal_vs_calendar_augmented_mae.png"),
     "FIG_DECISION_QUALITY": ("figures", "decision_quality_comparison.png"),
     "FIG_ACTUAL_VS_PREDICTED": ("figures", "forecast_actual_vs_predicted.png"),
+    # Robustness package artifacts (must be isolated so tests never overwrite
+    # the real-data reports/figures).
+    "ROLLING_VALIDATION_REPORT_FILE": ("reports", "rolling_validation_report.csv"),
+    "ROLLING_VALIDATION_SUMMARY_FILE": ("reports", "rolling_validation_summary.json"),
+    "COMPLAINT_GROUP_PERFORMANCE_FILE": ("reports", "complaint_group_performance.csv"),
+    "BOROUGH_PERFORMANCE_FILE": ("reports", "borough_performance.csv"),
+    "DECISION_SENSITIVITY_REPORT_FILE": ("reports", "decision_sensitivity_report.csv"),
+    "DECISION_SENSITIVITY_SUMMARY_FILE": ("reports", "decision_sensitivity_summary.json"),
+    "PRACTICAL_SIGNIFICANCE_FILE": ("reports", "practical_significance_summary.json"),
+    "FIG_ROLLING_VALIDATION": ("figures", "rolling_validation_mae.png"),
+    "FIG_COMPLAINT_GROUP_MAE": ("figures", "complaint_group_mae.png"),
+    "FIG_BOROUGH_MAE": ("figures", "borough_mae.png"),
+    "FIG_DECISION_SENSITIVITY": ("figures", "decision_sensitivity.png"),
 }
 
 

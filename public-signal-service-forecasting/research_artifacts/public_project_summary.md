@@ -56,6 +56,12 @@ proportion to the forecast - the calendar-augmented forecast reduces weighted
 unmet demand by about 1.35% over the internal-only baseline and closes roughly
 19% of the gap to an idealized oracle that knows true demand.
 
+The forecasting improvement is robust: across five rolling time windows it holds
+for every model, and on the test period it holds for every borough and every
+complaint type. The staffing benefit holds in direction across tight, moderate,
+and generous crew budgets, but its size grows with the budget, so the operational
+payoff is real yet conditional rather than guaranteed.
+
 ## Why the decision simulation matters
 
 The most informative result is the contrast between the two numbers: an 11% gain

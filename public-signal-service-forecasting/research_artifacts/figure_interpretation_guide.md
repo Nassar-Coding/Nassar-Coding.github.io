@@ -60,9 +60,59 @@ missing.
   oracle is an unattainable benchmark; the absolute values depend on the assumed
   crew budget and complaint-group weights.
 
+## 5. rolling_validation_mae.png
+
+- What it shows: per-fold test MAE for every model and feature-set configuration
+  across the five expanding-window chronological folds.
+- How to read it: each line is one configuration; the x-axis is the fold
+  (chronological). Compare each model's internal-historical line with its
+  calendar-augmented line within and across folds.
+- Key takeaway: the calendar-augmented lines sit below their internal-historical
+  counterparts in every fold for every model (random forest mean improvement
+  15.13%, gradient boosting 9.94%, Ridge 0.94%), showing the forecasting effect is
+  stable, not a one-split artifact.
+- Do not overclaim: fold-to-fold MAE varies with the test window; the lines show
+  consistency of the gap, not a formal significance test.
+
+## 6. complaint_group_mae.png
+
+- What it shows: internal-historical vs calendar-augmented test MAE for the best
+  model (random forest), by complaint group.
+- How to read it: within each group, the lower (green) bar is the
+  calendar-augmented MAE. Groups are ordered by augmented MAE.
+- Key takeaway: calendar augmentation improves all eight groups (about 5.8% to
+  25.7%); absolute error is largest for Noise and Housing.
+- Do not overclaim: absolute error scales with group volume; smaller bars for
+  low-volume groups do not mean those groups are modelled better in relative
+  terms.
+
+## 7. borough_mae.png
+
+- What it shows: internal-historical vs calendar-augmented test MAE for the best
+  model, by borough.
+- How to read it: within each borough, the lower (green) bar is the
+  calendar-augmented MAE.
+- Key takeaway: calendar augmentation improves all five boroughs (about 4.7% to
+  15.8%); absolute error is largest for the Bronx and smallest for Staten Island.
+- Do not overclaim: borough differences in absolute error reflect volume, not
+  necessarily model quality.
+
+## 8. decision_sensitivity.png
+
+- What it shows: total weighted unmet demand for the three policies (baseline
+  internal-historical, calendar-augmented, oracle) under scarce, moderate, and
+  generous crew budgets.
+- How to read it: within each budget group, compare the three bars; lower is
+  better. Compare across budget groups to see how the gaps change with capacity.
+- Key takeaway: the calendar-augmented policy beats the baseline in all three
+  budgets, but the margin grows with capacity (0.21% scarce, 3.19% moderate,
+  12.05% generous), so the decision benefit is budget-dependent.
+- Do not overclaim: the simulation is stylized; the budget levels are
+  illustrative; absolute values depend on the allocation rule and weights.
+
 ## Optional additional figures (not currently generated)
 
-The four figures above cover the core narrative. Two optional figures could be
+The eight figures above cover the core narrative. Two optional figures could be
 added later, strictly from existing artifacts, if a richer presentation is needed:
 
 - Per-borough or per-complaint-group test MAE for the best model (values already

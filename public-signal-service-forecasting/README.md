@@ -17,9 +17,33 @@ documents are read from the committed artifacts under `reports/` and
 - [`research_artifacts/claims_audit.md`](research_artifacts/claims_audit.md) - claim-by-claim audit tied to artifacts.
 - [`research_artifacts/reviewer_risk_register.md`](research_artifacts/reviewer_risk_register.md) - anticipated reviewer concerns and mitigations.
 - [`research_artifacts/public_project_summary.md`](research_artifacts/public_project_summary.md) - public-facing project summary.
+- [`research_artifacts/candidate_c_final_decision.md`](research_artifacts/candidate_c_final_decision.md) - final phase decision.
+- [`research_artifacts/final_candidate_c_summary.md`](research_artifacts/final_candidate_c_summary.md) - concise executive summary.
 
 This is a research baseline package, not a finished paper, and it makes no
 causal, production-readiness, or real-staffing-optimization claims.
+
+## Candidate C Final Status
+
+This project is a real-data NYC 311 research baseline. A closure-pass robustness
+package (rolling-origin validation, borough and complaint-group robustness, and
+decision-budget sensitivity) shows that calendar augmentation improves next-day
+forecast accuracy consistently across folds, boroughs, and complaint groups, and
+improves a stylized staffing-allocation metric in direction across crew budgets
+(with budget-dependent magnitude).
+
+- It is suitable for public presentation and for an extended-abstract / workshop
+  artifact.
+- It is not a full paper. The evidence supports an extended abstract, not
+  full-paper drafting, per
+  [`research_artifacts/candidate_c_final_decision.md`](research_artifacts/candidate_c_final_decision.md).
+- It does not claim causal impact, production readiness, real dispatch impact, or
+  real staffing optimization, and it makes no external-validity claim beyond NYC
+  2022-2024.
+
+The reproducible robustness artifacts are produced by
+`python -m src.rolling_validation`, `python -m src.robustness_analysis`,
+`python -m src.decision_sensitivity`, and `python -m src.practical_significance`.
 
 ## 1. Summary
 

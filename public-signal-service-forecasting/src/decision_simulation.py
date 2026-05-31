@@ -89,7 +89,10 @@ def allocate_crews(
 
 
 def _evaluate_policy(
-    daily_groups: list[pd.DataFrame], forecast_column: str
+    daily_groups: list[pd.DataFrame],
+    forecast_column: str,
+    total_crews: int = config.TOTAL_CREWS,
+    requests_per_crew: int = config.REQUESTS_PER_CREW,
 ) -> dict[str, float]:
     """Run the allocation policy across all days and aggregate decision metrics."""
     total_weighted_unmet = 0.0
@@ -105,8 +108,8 @@ def _evaluate_policy(
         actual = day[config.TARGET_COLUMN].to_numpy(dtype=float)
         weights = day["complaint_group"].map(config.COMPLAINT_GROUP_WEIGHTS).to_numpy(dtype=float)
 
-        crews = allocate_crews(forecast)
-        capacity = crews * config.REQUESTS_PER_CREW
+        crews = allocate_crews(forecast, total_crews=total_crews)
+        capacity = crews * requests_per_crew
 
         unmet = np.clip(actual - capacity, 0.0, None)
         served = np.minimum(actual, capacity)

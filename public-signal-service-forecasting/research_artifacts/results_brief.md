@@ -123,6 +123,52 @@ Safety (2.0), Water (1.5), and Traffic (1.5).
 | Improvement threshold | 5.0% |
 | Status | healthy |
 
+## Robustness package (closure pass)
+
+### Rolling-origin validation (5 expanding-window chronological folds)
+
+Calendar-augmentation MAE improvement, by model, across folds
+(`reports/rolling_validation_summary.json`):
+
+| Model | Mean improvement | Folds augmented better |
+|-------|------------------|------------------------|
+| random_forest | 15.13% | 5 / 5 |
+| gradient_boosting | 9.94% | 5 / 5 |
+| ridge | 0.94% | 5 / 5 |
+
+Random-forest mean fold test MAE: internal_historical 57.03 (std 8.05) vs
+calendar_augmented 48.69 (std 9.59).
+
+### Robustness by borough (best model, held-out test)
+
+Calendar augmentation improved MAE for all 5 boroughs (4.7% to 15.8%); largest
+absolute error in the Bronx, smallest in Staten Island
+(`reports/borough_performance.csv`).
+
+### Robustness by complaint group (best model, held-out test)
+
+Calendar augmentation improved MAE for all 8 complaint groups (5.8% to 25.7%);
+largest absolute error in Noise and Housing
+(`reports/complaint_group_performance.csv`).
+
+### Decision sensitivity by crew budget
+
+| Setting | Crews | Weighted-unmet reduction | Gap to oracle closed |
+|---------|-------|--------------------------|----------------------|
+| Scarce | 100 | 0.21% | 14.50% |
+| Moderate | 160 | 3.19% | 16.75% |
+| Generous | 220 | 12.05% | 17.46% |
+
+The calendar-augmented policy is better in all three budgets, but the effect size
+is budget-dependent (`reports/decision_sensitivity_summary.json`).
+
+### Practical-significance summary
+
+`reports/practical_significance_summary.json`: forecasting evidence strong
+(consistent across folds, boroughs, and complaint groups); decision evidence
+directionally consistent but budget-dependent; not strong enough for full-paper
+drafting.
+
 ## Key takeaways
 
 - Calendar augmentation reduces next-day forecast error for every model and most

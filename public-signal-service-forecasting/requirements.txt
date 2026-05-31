@@ -11,7 +11,3 @@ streamlit>=1.30
 # Development and quality tooling.
 pytest>=8.0
 ruff>=0.5
-
-# Optional: only used by the best-effort public download. The pipeline runs
-# fully offline with the synthetic fallback if requests is unavailable.
-requests>=2.31

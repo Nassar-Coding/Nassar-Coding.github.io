@@ -82,12 +82,24 @@ def _holiday_lookup(dates: pd.Series) -> set[pd.Timestamp]:
 
 
 def add_calendar_features(frame: pd.DataFrame) -> pd.DataFrame:
-    """Add day_of_week, month, is_weekend, and is_holiday columns."""
+    """Add deterministic calendar features derived from the observation date.
+
+    Adds day_of_week, month, quarter, year, is_weekend, is_holiday,
+    day_of_year, week_of_year, is_month_start, and is_month_end.
+    """
     frame = frame.copy()
     frame["date"] = pd.to_datetime(frame["date"])
-    frame["day_of_week"] = frame["date"].dt.dayofweek.astype(int)
-    frame["month"] = frame["date"].dt.month.astype(int)
+    dates = frame["date"].dt
+
+    frame["day_of_week"] = dates.dayofweek.astype(int)
+    frame["month"] = dates.month.astype(int)
+    frame["quarter"] = dates.quarter.astype(int)
+    frame["year"] = dates.year.astype(int)
     frame["is_weekend"] = (frame["day_of_week"] >= 5).astype(int)
+    frame["day_of_year"] = dates.dayofyear.astype(int)
+    frame["week_of_year"] = dates.isocalendar().week.astype(int).to_numpy()
+    frame["is_month_start"] = dates.is_month_start.astype(int)
+    frame["is_month_end"] = dates.is_month_end.astype(int)
 
     holiday_set = _holiday_lookup(frame["date"])
     normalized = frame["date"].dt.normalize()
@@ -96,28 +108,42 @@ def add_calendar_features(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_lag_and_rolling_features(frame: pd.DataFrame) -> pd.DataFrame:
-    """Add lag and rolling-mean features computed per group using past data only.
+    """Add lag and rolling features per group using strictly past observations.
 
-    Rolling means are shifted by one day so that the value for a given date only
-    uses strictly prior observations.
+    Lag features use the prior observation within each (borough,
+    complaint_group) series; rolling statistics are shifted by one day so that
+    the value for a given date depends only on strictly prior observations.
     """
     frame = frame.copy()
     frame = frame.sort_values(["borough", "complaint_group", "date"]).reset_index(drop=True)
     grouped = frame.groupby(["borough", "complaint_group"], sort=False)["request_volume"]
+    shifted = grouped.shift(1)
 
-    frame["request_lag_1"] = grouped.shift(1)
+    frame["request_lag_1"] = shifted
     frame["request_lag_7"] = grouped.shift(7)
-    frame["rolling_mean_7"] = grouped.shift(1).rolling(window=7, min_periods=7).mean()
-    frame["rolling_mean_14"] = grouped.shift(1).rolling(window=14, min_periods=14).mean()
+    frame["rolling_mean_7"] = shifted.rolling(window=7, min_periods=7).mean()
+    frame["rolling_mean_14"] = shifted.rolling(window=14, min_periods=14).mean()
+    frame["rolling_std_7"] = shifted.rolling(window=7, min_periods=7).std()
+    frame["rolling_std_14"] = shifted.rolling(window=14, min_periods=14).std()
     return frame
 
 
 def add_target(frame: pd.DataFrame) -> pd.DataFrame:
-    """Add the next-day request volume target per group (observed-style)."""
+    """Add the observed next-day request volume target per group.
+
+    The target for a given date is the observed request volume on the next
+    calendar day for the same (borough, complaint_group) cell. It is only
+    defined when the next row in the sorted series is exactly one day later, so
+    that calendar gaps do not produce a misaligned target.
+    """
     frame = frame.copy()
     frame = frame.sort_values(["borough", "complaint_group", "date"]).reset_index(drop=True)
-    grouped = frame.groupby(["borough", "complaint_group"], sort=False)["request_volume"]
-    frame[config.TARGET_COLUMN] = grouped.shift(-1)
+    grouped = frame.groupby(["borough", "complaint_group"], sort=False)
+    next_volume = grouped["request_volume"].shift(-1)
+    next_date = grouped["date"].shift(-1)
+
+    one_day = (next_date - frame["date"]).dt.days == 1
+    frame[config.TARGET_COLUMN] = next_volume.where(one_day)
     return frame
 
 

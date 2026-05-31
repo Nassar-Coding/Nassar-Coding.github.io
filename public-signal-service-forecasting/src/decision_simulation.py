@@ -2,11 +2,12 @@
 
 Each day a fixed crew budget is allocated across borough x complaint_group cells
 in proportion to forecasted next-day demand. The simulation compares a baseline
-policy (internal-only forecast), an augmented policy (public-signal forecast),
-and an oracle policy (true next-day demand, benchmark only).
+policy (internal-historical forecast), a calendar-augmented policy, and an
+oracle policy (true next-day demand, benchmark only).
 
 This is a transparent, stylized simulation. It does not represent real agency
-dispatch, real crew logistics, or any real operational system.
+dispatch, real crew logistics, or any real operational system, and it is not a
+claim of real staffing optimization.
 """
 from __future__ import annotations
 
@@ -149,21 +150,29 @@ def run_simulation() -> dict:
 
     daily_groups = [group for _, group in test_df.groupby("date")]
 
-    baseline = _evaluate_policy(daily_groups, "forecast_internal_only")
-    augmented = _evaluate_policy(daily_groups, "forecast_augmented")
+    baseline = _evaluate_policy(daily_groups, "forecast_internal_historical")
+    augmented = _evaluate_policy(daily_groups, "forecast_calendar_augmented")
     oracle = _evaluate_policy(daily_groups, "forecast_oracle")
 
     baseline_unmet = baseline["total_weighted_unmet_demand"]
     augmented_unmet = augmented["total_weighted_unmet_demand"]
+    oracle_unmet = oracle["total_weighted_unmet_demand"]
     improvement_pct = (
         (baseline_unmet - augmented_unmet) / baseline_unmet * 100.0
         if baseline_unmet
         else 0.0
     )
+    # Gap to oracle: how much of the baseline-to-oracle headroom the augmented
+    # policy closes (100% would mean the augmented policy matches the oracle).
+    headroom = baseline_unmet - oracle_unmet
+    gap_closed_pct = (
+        (baseline_unmet - augmented_unmet) / headroom * 100.0 if headroom else 0.0
+    )
 
     report = {
         "description": (
-            "Stylized staffing-allocation simulation. Not a real dispatch system."
+            "Stylized staffing-allocation simulation. Not a real dispatch system "
+            "and not a claim of real staffing optimization."
         ),
         "assumptions": {
             "requests_per_crew": config.REQUESTS_PER_CREW,
@@ -175,29 +184,34 @@ def run_simulation() -> dict:
         },
         "test_days": len(daily_groups),
         "policies": {
-            "baseline_internal_only": baseline,
-            "augmented_public_signal": augmented,
+            "baseline_internal_historical": baseline,
+            "calendar_augmented": augmented,
             "oracle_true_demand": oracle,
         },
         "augmented_improvement_over_baseline": {
             "weighted_unmet_demand_reduction_pct": round(improvement_pct, 3),
             "augmented_better": augmented_unmet < baseline_unmet,
+            "gap_to_oracle_closed_pct": round(gap_closed_pct, 3),
+            "baseline_weighted_unmet": baseline_unmet,
+            "augmented_weighted_unmet": augmented_unmet,
+            "oracle_weighted_unmet": oracle_unmet,
         },
     }
     save_json(config.DECISION_SIMULATION_REPORT_FILE, report)
     _plot_decision_quality(baseline, augmented, oracle)
 
     LOGGER.info(
-        "Decision simulation complete. Augmented vs baseline weighted-unmet "
-        "reduction: %.2f%%",
+        "Decision simulation complete. Calendar-augmented vs baseline "
+        "weighted-unmet reduction: %.2f%% (gap to oracle closed: %.1f%%)",
         improvement_pct,
+        gap_closed_pct,
     )
     return report
 
 
 def _plot_decision_quality(baseline: dict, augmented: dict, oracle: dict) -> None:
     """Bar chart comparing weighted unmet demand across the three policies."""
-    labels = ["Baseline\n(internal)", "Augmented\n(public signal)", "Oracle\n(true demand)"]
+    labels = ["Baseline\n(internal)", "Calendar\naugmented", "Oracle\n(true demand)"]
     values = [
         baseline["total_weighted_unmet_demand"],
         augmented["total_weighted_unmet_demand"],

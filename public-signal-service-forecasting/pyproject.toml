@@ -28,7 +28,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.5"]
-download = ["requests>=2.31"]
 
 [tool.setuptools]
 packages = ["src"]
@@ -36,6 +35,10 @@ packages = ["src"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# The local aggregation helper targets older local Python interpreters
+# (3.9+) and uses datetime.timezone.utc rather than the 3.11 datetime.UTC
+# alias, so it is excluded from the project lint rules.
+extend-exclude = ["scripts/"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W", "UP", "B"]

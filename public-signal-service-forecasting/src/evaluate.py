@@ -48,7 +48,7 @@ def _evaluate_best_on_test(metrics_payload: dict) -> dict:
         test_df.groupby("complaint_group")["abs_error"].mean().round(4).to_dict()
     )
 
-    return {
+    report = {
         "best_model": bundle["model_name"],
         "best_feature_set": feature_set,
         "test_metrics": overall,
@@ -57,6 +57,7 @@ def _evaluate_best_on_test(metrics_payload: dict) -> dict:
         "test_rows": int(len(test_df)),
         "internal_vs_augmented": metrics_payload.get("internal_vs_augmented", {}),
     }
+    return report, test_df
 
 
 def _plot_forecast_error_by_model(comparison: list[dict]) -> None:
@@ -76,7 +77,7 @@ def _plot_forecast_error_by_model(comparison: list[dict]) -> None:
 
 
 def _plot_internal_vs_augmented(summary: dict) -> None:
-    """Grouped bar chart comparing internal-only vs augmented test MAE per model."""
+    """Grouped bar chart: internal-historical vs calendar-augmented test MAE."""
     models = list(summary.keys())
     internal = [summary[m]["internal_test_mae"] for m in models]
     augmented = [summary[m]["augmented_test_mae"] for m in models]
@@ -84,15 +85,41 @@ def _plot_internal_vs_augmented(summary: dict) -> None:
     x = np.arange(len(models))
     width = 0.38
     fig, ax = plt.subplots(figsize=(9, 5))
-    ax.bar(x - width / 2, internal, width, label="Internal-only", color="#9aa7b5")
-    ax.bar(x + width / 2, augmented, width, label="Public-signal augmented", color="#2f7d4f")
+    ax.bar(x - width / 2, internal, width, label="Internal historical", color="#9aa7b5")
+    ax.bar(x + width / 2, augmented, width, label="Calendar augmented", color="#2f7d4f")
     ax.set_xticks(x)
     ax.set_xticklabels(models, rotation=20, ha="right")
     ax.set_ylabel("Test MAE (requests)")
-    ax.set_title("Internal-only vs public-signal augmented forecast error")
+    ax.set_title("Internal historical vs calendar-augmented forecast error")
     ax.legend()
     fig.tight_layout()
     fig.savefig(config.FIG_INTERNAL_VS_AUGMENTED, dpi=120)
+    plt.close(fig)
+
+
+def _plot_actual_vs_predicted(test_df) -> None:
+    """Plot observed vs predicted daily city-wide totals over the test period."""
+    daily = (
+        test_df.groupby("date")
+        .agg(actual=(config.TARGET_COLUMN, "sum"), predicted=("prediction", "sum"))
+        .reset_index()
+    )
+    fig, ax = plt.subplots(figsize=(11, 5))
+    ax.plot(daily["date"], daily["actual"], label="Observed next-day total", color="#34557a")
+    ax.plot(
+        daily["date"],
+        daily["predicted"],
+        label="Predicted next-day total",
+        color="#c0623a",
+        alpha=0.8,
+    )
+    ax.set_ylabel("City-wide next-day requests")
+    ax.set_xlabel("Date (test period)")
+    ax.set_title("Observed vs predicted next-day request volume (best model)")
+    ax.legend()
+    fig.autofmt_xdate()
+    fig.tight_layout()
+    fig.savefig(config.FIG_ACTUAL_VS_PREDICTED, dpi=120)
     plt.close(fig)
 
 
@@ -100,7 +127,7 @@ def evaluate() -> dict:
     """Run evaluation, write the evaluation report, and render figures."""
     ensure_directories()
     metrics_payload = _ensure_artifacts()
-    report = _evaluate_best_on_test(metrics_payload)
+    report, test_df = _evaluate_best_on_test(metrics_payload)
     save_json(config.EVALUATION_REPORT_FILE, report)
 
     comparison = metrics_payload.get("comparison", [])
@@ -110,6 +137,7 @@ def evaluate() -> dict:
     summary = metrics_payload.get("internal_vs_augmented", {})
     if summary:
         _plot_internal_vs_augmented(summary)
+    _plot_actual_vs_predicted(test_df)
 
     LOGGER.info(
         "Evaluation complete. Best model %s [%s] test MAE: %.3f",

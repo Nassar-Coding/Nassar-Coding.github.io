@@ -25,8 +25,8 @@ def test_both_feature_sets_are_evaluated(monkeypatch, small_frame, fast_models) 
 
     metrics = load_json(config.METRICS_FILE)
     feature_sets = {row["feature_set"] for row in metrics["comparison"]}
-    assert "internal_only" in feature_sets
-    assert "augmented" in feature_sets
+    assert "internal_historical" in feature_sets
+    assert "calendar_augmented" in feature_sets
     assert "naive_seasonal" in feature_sets
 
 

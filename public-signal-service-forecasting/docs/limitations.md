@@ -1,49 +1,53 @@
 # Limitations
 
-This baseline is intentionally scoped. The limitations below should be read
-alongside every reported result.
+This real-data baseline is intentionally scoped. The limitations below should be
+read alongside every reported result.
 
-## Data limitations
+## NYC 311 reporting bias
 
-- The default data mode is a deterministic synthetic fallback. Results obtained
-  in this mode describe the modelled generating process, not real demand.
-- Synthetic weather and event signals are stylized proxies, not measurements.
-- The scope is a single city at daily granularity over five boroughs and seven
-  complaint groups. Other cities, finer time scales, or other service types are
-  out of scope.
-- No personal or fine-grained data is used, which bounds the achievable
-  resolution of any analysis.
+311 records reflect reporting behaviour, not true incidence. Reporting
+propensity varies across communities, complaint types, channels, and time.
+Forecasts of 311 volume are forecasts of reporting, not of underlying need, and
+must not be read as measures of true demand.
 
-## Modeling limitations
+## Missing or inconsistent fields
 
-- Only classical models are used (naive baseline, Ridge, random forest, gradient
-  boosting). No deep learning, probabilistic, or hierarchical forecasting is
-  included.
-- Hyperparameters are fixed at reasonable defaults rather than tuned through an
-  extensive search.
-- Point forecasts are produced without calibrated uncertainty intervals.
-- The single chronological split provides one held-out evaluation rather than a
-  rolling-origin or cross-validated estimate of generalization.
+Raw records with unparseable dates or invalid/unspecified boroughs are dropped
+during aggregation and counted in the aggregation metadata. Borough and
+complaint_type values can be inconsistent across time; the pipeline normalises
+boroughs and maps complaint types deterministically but cannot correct
+underlying data-entry inconsistencies.
 
-## Decision simulation limitations
+## Complaint-type mapping limitations
 
-- Allocation is a simple proportional heuristic, not an optimized policy.
-- Crew travel, shift constraints, backlog carryover, intra-day stochastic
-  arrivals, and substitution effects are ignored.
-- Complaint-group weights are illustrative, not calibrated.
-- The simulation is stylized and does not represent real dispatch or quantify
-  real operational value.
+The complaint_type to complaint_group mapping is a deterministic, order-
+sensitive approximation. It groups heterogeneous complaint types, and a residual
+"Other" group absorbs unmatched types. Different reasonable mappings would shift
+group-level counts.
 
-## External validity limitations
+## Borough-level aggregation limitations
 
-- Findings do not generalize beyond the modelled setting and assumptions.
-- The relative value of public signals depends on the data-generating process and
-  may differ substantially with real data, other regions, or other horizons.
+Aggregating to the borough x complaint_group x day level discards finer
+geography (for example community district or ZIP), intra-day timing, and
+request-level attributes. Conclusions are limited to this granularity.
 
-## Causal inference limitations
+## Forecast-versus-decision gap
 
-- The project is correlational and predictive, not causal.
-- It does not identify or estimate the causal effect of weather, events, or any
-  signal on service demand.
-- Improvements in forecast accuracy or decision metrics must not be interpreted as
-  causal evidence.
+Improvements in average forecast accuracy do not translate one-to-one into
+operational value. The decision simulation is a stylized heuristic and ignores
+crew travel, shift constraints, backlog carryover, intra-day arrivals, and
+substitution. Decision-quality results describe the simulation, not real
+operations.
+
+## No causal inference
+
+The project is correlational and predictive, not causal. It does not identify or
+estimate the causal effect of calendar factors, weather, events, or any variable
+on service demand. Improvements in forecast or decision metrics must not be
+interpreted as causal evidence.
+
+## External validity beyond the study window
+
+Findings are specific to New York City, daily granularity, five boroughs, the
+mapped complaint groups, and calendar years 2022-2024. They do not necessarily
+generalize to other cities, periods, granularities, or service types.

@@ -17,19 +17,22 @@ LOGGER = get_logger(__name__)
 _DEFAULTS: dict[str, Any] = {
     "borough": "Manhattan",
     "complaint_group": "Noise",
-    "temp_c": 12.0,
-    "precipitation_mm": 0.0,
-    "wind_speed_kmh": 14.0,
-    "severe_weather": 0,
-    "event_intensity": 0.25,
     "is_weekend": 0,
     "is_holiday": 0,
     "day_of_week": 2,
     "month": 6,
-    "request_lag_1": 50.0,
-    "request_lag_7": 50.0,
-    "rolling_mean_7": 50.0,
-    "rolling_mean_14": 50.0,
+    "quarter": 2,
+    "year": 2024,
+    "day_of_year": 152,
+    "week_of_year": 22,
+    "is_month_start": 0,
+    "is_month_end": 0,
+    "request_lag_1": 100.0,
+    "request_lag_7": 100.0,
+    "rolling_mean_7": 100.0,
+    "rolling_mean_14": 100.0,
+    "rolling_std_7": 10.0,
+    "rolling_std_14": 10.0,
 }
 
 
@@ -60,26 +63,45 @@ def predict_next_day_volume(record: dict[str, Any]) -> float:
     return prediction
 
 
+def predict_with_details(record: dict[str, Any]) -> dict[str, Any]:
+    """Predict and also return the model name and feature set used."""
+    bundle = load_model_bundle()
+    prediction = predict_next_day_volume(record)
+    return {
+        "predicted_next_day_request_volume": prediction,
+        "model_used": bundle.get("model_name"),
+        "feature_set_used": bundle.get("feature_set"),
+    }
+
+
 def main() -> None:
     example = {
         "borough": "Brooklyn",
         "complaint_group": "Noise",
-        "temp_c": 24.0,
-        "precipitation_mm": 0.0,
-        "wind_speed_kmh": 10.0,
-        "severe_weather": 0,
-        "event_intensity": 0.6,
         "is_weekend": 1,
         "is_holiday": 0,
         "day_of_week": 5,
         "month": 7,
-        "request_lag_1": 95.0,
-        "request_lag_7": 88.0,
-        "rolling_mean_7": 90.0,
-        "rolling_mean_14": 87.0,
+        "quarter": 3,
+        "year": 2024,
+        "day_of_year": 200,
+        "week_of_year": 29,
+        "is_month_start": 0,
+        "is_month_end": 0,
+        "request_lag_1": 120.0,
+        "request_lag_7": 110.0,
+        "rolling_mean_7": 115.0,
+        "rolling_mean_14": 112.0,
+        "rolling_std_7": 12.0,
+        "rolling_std_14": 13.0,
     }
-    prediction = predict_next_day_volume(example)
-    LOGGER.info("Predicted next-day request volume: %.2f", prediction)
+    details = predict_with_details(example)
+    LOGGER.info(
+        "Predicted next-day request volume: %.2f (model=%s, feature_set=%s)",
+        details["predicted_next_day_request_volume"],
+        details["model_used"],
+        details["feature_set_used"],
+    )
 
 
 if __name__ == "__main__":

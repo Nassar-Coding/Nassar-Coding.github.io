@@ -1,5 +1,13 @@
 name: CI
 
+# In-project workflow copy for standalone-repository portability. When this
+# project is the repository root, GitHub discovers this workflow directly. In
+# the monorepo layout the active workflow is the repository-root copy.
+#
+# CI uses the committed small real-schema sample (USE_SAMPLE_DATA=1) so the
+# pipeline runs quickly and reproducibly without the full real dataset. Research
+# mode uses the full real NYC 311 2022-2024 data locally.
+
 on:
   push:
   pull_request:
@@ -7,9 +15,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: public-signal-service-forecasting
+    env:
+      USE_SAMPLE_DATA: "1"
 
     steps:
       - name: Check out repository
@@ -31,7 +38,7 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Build processed dataset
+      - name: Build processed dataset (sample real-schema mode)
         run: python -m src.build_dataset
 
       - name: Train models
@@ -51,6 +58,6 @@ jobs:
         with:
           name: forecasting-artifacts
           path: |
-            public-signal-service-forecasting/reports/
-            public-signal-service-forecasting/figures/
+            reports/
+            figures/
           if-no-files-found: warn

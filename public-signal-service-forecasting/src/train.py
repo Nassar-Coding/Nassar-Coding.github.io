@@ -1,6 +1,6 @@
 """Train and compare forecasting models across feature sets.
 
-Two feature sets (internal-only and public-signal augmented) are each evaluated
+Two feature sets (internal-historical and calendar-augmented) are each evaluated
 with a naive seasonal baseline and three regularised/ensemble regressors using a
 strictly chronological train/validation/test split. The best model by validation
 MAE is refit on train+validation and persisted for inference.
@@ -220,13 +220,13 @@ def _refit_best(
 
 
 def _internal_vs_augmented_summary(rows: list[dict]) -> dict:
-    """Summarise test MAE for internal-only vs augmented per model."""
+    """Summarise test MAE for internal-historical vs calendar-augmented per model."""
     summary: dict[str, dict] = {}
     by_key = {(row["model"], row["feature_set"]): row for row in rows}
     model_names = {row["model"] for row in rows if row["feature_set"] in config.FEATURE_SETS}
     for model_name in sorted(model_names):
-        internal = by_key.get((model_name, "internal_only"))
-        augmented = by_key.get((model_name, "augmented"))
+        internal = by_key.get((model_name, "internal_historical"))
+        augmented = by_key.get((model_name, "calendar_augmented"))
         if internal is None or augmented is None:
             continue
         internal_mae = internal["test_mae"]

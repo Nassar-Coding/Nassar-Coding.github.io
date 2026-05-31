@@ -67,9 +67,10 @@ def test_run_simulation_writes_report(monkeypatch, small_frame, fast_models) -> 
 
     report = decision_simulation.run_simulation()
     assert config.DECISION_SIMULATION_REPORT_FILE.exists()
-    assert "baseline_internal_only" in report["policies"]
-    assert "augmented_public_signal" in report["policies"]
+    assert "baseline_internal_historical" in report["policies"]
+    assert "calendar_augmented" in report["policies"]
     assert "oracle_true_demand" in report["policies"]
+    assert "gap_to_oracle_closed_pct" in report["augmented_improvement_over_baseline"]
 
     saved = load_json(config.DECISION_SIMULATION_REPORT_FILE)
     assert saved["test_days"] > 0

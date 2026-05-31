@@ -1,28 +1,30 @@
 # Responsible AI
 
-This project is a local-only research baseline. The notes below define its
-boundaries and the conditions that would have to be met before any real use.
+This project is a local-only research baseline built on real public NYC 311
+data. The notes below define its boundaries and the conditions that would have
+to be met before any real use.
 
-## Local-only scope
+## Public-data scope
 
-The repository runs entirely on a local machine. It uses no external APIs
-requiring keys, no cloud services, no databases, no authentication, and no
-geocoding. It is not deployed, not integrated with any city or agency system,
-and not production-hardened.
+The pipeline uses real public NYC 311 Service Requests aggregated to daily
+counts by borough and complaint group for 2022-2024. It uses no external APIs
+requiring keys, no cloud services, no databases, and no authentication. The
+active data mode is recorded in `data/metadata/data_source_report.json`. CI and
+tests use a small committed real-schema sample for speed, clearly labelled
+`sample_real_schema`.
 
-## Public and synthetic data boundaries
+## No personal-level data or decision-making
 
-The pipeline uses public-style data and, by default, a clearly labelled
-deterministic synthetic fallback. The active data mode is always recorded in
-`data/metadata/data_source_report.json`. Synthetic results characterize the
-modelled data-generating process, not real-world demand, and must not be
-presented as evidence about real operations.
+All quantities are aggregate daily counts by borough and complaint group. No
+personal data, individual-level records, or personally identifiable information
+are used or produced. The project does not make or support decisions about
+individuals.
 
-## No personal data
+## Aggregation
 
-No personal data, individual-level records, or personally identifiable
-information are used or produced. All quantities are aggregate daily counts and
-synthetic or public-style signals.
+Working at the borough x complaint_group x day level is a deliberate choice that
+avoids fine-grained geography and any re-identification risk, at the cost of
+spatial resolution.
 
 ## No production dispatch use
 
@@ -35,20 +37,21 @@ simplified decision metric.
 
 Any future application in a real setting would require human oversight,
 domain-expert review, and accountable decision-makers. The models here are
-decision-support baselines at most, never autonomous decision-makers, and they do
-not replace human judgement.
+decision-support baselines at most, never autonomous decision-makers.
 
-## Risk of over-interpreting synthetic results
+## Limitations of 311 reporting bias
 
-Because the default mode is synthetic, there is a risk of over-interpreting the
-numbers. Reported improvements reflect the assumed generating process and the
-specific modelling choices. They are not estimates of real-world effect sizes and
-do not establish causality.
+NYC 311 records reflect who chooses to report and how requests are categorised,
+not true underlying incidence. Reporting propensity varies across communities,
+complaint types, and time, so counts can encode social and behavioural biases.
+Forecasts of 311 volume are forecasts of reporting, not of need, and must not be
+interpreted as measures of true demand or used in ways that could compound
+existing inequities.
 
-## Requirements before real deployment
+## Requirements before any real deployment
 
-At minimum, real use would require: a fully documented real-data ingestion and
-validation pipeline; bias, fairness, and equity analysis across boroughs and
+At minimum, real use would require: a fully documented and monitored real-data
+ingestion pipeline; bias, fairness, and equity analysis across boroughs and
 complaint groups; robustness and drift monitoring on live data; formal
 uncertainty quantification; security and privacy review; stakeholder and
 community consultation; and independent validation. None of these are claimed to

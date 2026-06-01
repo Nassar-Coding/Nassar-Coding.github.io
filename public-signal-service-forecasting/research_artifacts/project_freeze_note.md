@@ -1,9 +1,9 @@
-# Candidate C Freeze Note
+# Project Freeze Note
 
-This note freezes Candidate C after the weather-augmentation sprint. All values
+This note freezes the project (Public Signal Service Forecasting) after the weather-augmentation pass. All values
 are read from committed artifacts under `reports/` and `data/metadata/`.
 
-## 1. What final Candidate C includes
+## 1. What the final project includes
 
 - Real NYC 311 Service Requests (2022-2024): 9,851,452 raw records aggregated to
   43,240 date x borough x complaint-group rows; 5 boroughs; 8 complaint groups;
@@ -17,15 +17,15 @@ are read from committed artifacts under `reports/` and `data/metadata/`.
 - Validation: single chronological split plus 5-fold rolling-origin; borough and
   complaint-group robustness; decision sensitivity across three crew budgets.
 - A stylized staffing-allocation simulation with an oracle bound.
-- A short-paper draft (`candidate_c_short_paper.md`) and the full research
+- A short-paper draft (`short_paper_draft.md`) and the full research
   artifact package.
 
 ## 2. What was intentionally excluded
 
-Per the sprint's hard cap: no transit data, no event-calendar data, no
-cross-city replication, no DSNY/DOT operational-policy modeling, and no complex
-cost-benefit modeling. Candidate A is not started, not scoped, and not present
-in this repository.
+Per the project's hard scope cap: no transit data, no event-calendar data, no
+cross-city replication, no agency operational-policy modeling, and no complex
+cost-benefit modeling. No separate or follow-on research direction is started,
+scoped, or present in this repository.
 
 ## 3. Was weather successfully added
 
@@ -68,22 +68,23 @@ observed TMAX/TMIN. No weather was fabricated.
 
 ## 6. Continue or freeze
 
-**Freeze Candidate C** as a completed real-data research baseline and
+**Freeze the project** as a completed real-data research baseline and
 workshop/short-paper artifact. Weather was added and modestly improved both
 forecasts and the decision metric; the improvement does not change the ceiling
 from workshop to full paper.
 
-## 7. Exact condition under which Candidate C may be reopened
+## 7. Exact condition under which the project may be reopened
 
 Reopen only if all of the following are added: (a) a non-stylized decision model
 grounded in documented agency operations with an empirical service-level realism
 check; (b) formal forecast-difference testing (for example Diebold-Mariano) with
 uncertainty intervals; and (c) at least one additional genuinely external signal
-beyond weather, or cross-city replication. Absent these, Candidate C stays
+beyond weather, or cross-city replication. Absent these, the project stays
 frozen.
 
-## 8. Candidate A statement
+## 8. Scope statement
 
-Candidate A is not started in this repository or in this pass. No Candidate A
-files were created, and no Candidate A scoping was performed. This pass is
-Candidate C only.
+This repository contains only the Public Signal Service Forecasting project (real
+NYC 311 demand forecasting with public-signal augmentation). No separate or
+follow-on research direction is started, scoped, or present here; this pass is
+limited to freezing the present project.

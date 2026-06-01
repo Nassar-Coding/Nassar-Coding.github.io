@@ -170,7 +170,7 @@ respectively, closing 27.06%, 22.66%, and 21.05% of the oracle gap). The
 practical-significance summary records the forecasting evidence as strong and
 the decision evidence as directionally consistent but budget-dependent, and
 therefore not strong enough for full-paper drafting. The final phase decision is
-recorded in `candidate_c_final_decision.md`.
+recorded in `final_research_decision.md`.
 
 ## 12. What the project can claim
 

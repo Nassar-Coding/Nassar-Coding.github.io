@@ -1,4 +1,4 @@
-"""Practical-significance summary for the Candidate C closure pass.
+"""Practical-significance summary for the public-signal forecasting project.
 
 This module reads the robustness artifacts (rolling-origin validation, segmented
 performance by complaint group and borough, and decision sensitivity) and

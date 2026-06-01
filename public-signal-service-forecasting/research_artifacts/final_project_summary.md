@@ -1,4 +1,4 @@
-# Final Candidate C Summary
+# Final Project Summary
 
 ## Project title
 
@@ -72,7 +72,7 @@ for a full paper.
 ## Final recommendation
 
 Use as extended abstract/workshop artifact, then pause. See
-`candidate_c_final_decision.md`.
+`final_research_decision.md`.
 
 ## One-paragraph public explanation
 

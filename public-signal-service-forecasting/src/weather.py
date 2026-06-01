@@ -1,4 +1,4 @@
-"""Real NOAA weather ingestion for the Candidate C weather-augmentation layer.
+"""Real NOAA weather ingestion for the public-signal weather-augmentation layer.
 
 This module reads a real NOAA NCEI Daily Summaries (GHCN-Daily) export for the
 NYC Central Park station (USW00094728) covering 2022-2024, selects the weather

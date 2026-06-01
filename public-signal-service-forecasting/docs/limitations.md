@@ -31,6 +31,16 @@ Aggregating to the borough x complaint_group x day level discards finer
 geography (for example community district or ZIP), intra-day timing, and
 request-level attributes. Conclusions are limited to this granularity.
 
+## Weather single-station proxy limitations
+
+The weather layer is a single NOAA station (Central Park, USW00094728) used as a
+city-level proxy and joined to every borough by date. Within-city spatial weather
+variation is therefore not captured, and any borough-level weather effect is
+approximated by the same daily city value. One derived quantity (average
+temperature) is the mean of observed daily maximum and minimum because the source
+average-temperature column was empty; this is documented in the weather source
+report. No weather is fabricated.
+
 ## Forecast-versus-decision gap
 
 Improvements in average forecast accuracy do not translate one-to-one into

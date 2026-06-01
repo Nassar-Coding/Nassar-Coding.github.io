@@ -12,33 +12,38 @@ documents are read from the committed artifacts under `reports/` and
 
 - [`research_artifacts/research_memo.md`](research_artifacts/research_memo.md) - research memo (question, method, results, limitations, next steps).
 - [`research_artifacts/extended_abstract.md`](research_artifacts/extended_abstract.md) - workshop-style extended abstract.
+- [`research_artifacts/short_paper_draft.md`](research_artifacts/short_paper_draft.md) - 4-6 page short-paper draft (real NYC 311 + real NOAA weather).
 - [`research_artifacts/results_brief.md`](research_artifacts/results_brief.md) - concise tabular results brief.
 - [`research_artifacts/figure_interpretation_guide.md`](research_artifacts/figure_interpretation_guide.md) - how to read each figure.
 - [`research_artifacts/claims_audit.md`](research_artifacts/claims_audit.md) - claim-by-claim audit tied to artifacts.
+- [`research_artifacts/public_claims_one_pager.md`](research_artifacts/public_claims_one_pager.md) - safe and unsafe public claims at a glance.
 - [`research_artifacts/reviewer_risk_register.md`](research_artifacts/reviewer_risk_register.md) - anticipated reviewer concerns and mitigations.
 - [`research_artifacts/public_project_summary.md`](research_artifacts/public_project_summary.md) - public-facing project summary.
-- [`research_artifacts/candidate_c_final_decision.md`](research_artifacts/candidate_c_final_decision.md) - final phase decision.
-- [`research_artifacts/final_candidate_c_summary.md`](research_artifacts/final_candidate_c_summary.md) - concise executive summary.
-- [`research_artifacts/candidate_c_short_paper.md`](research_artifacts/candidate_c_short_paper.md) - 4-6 page short-paper draft (real NYC 311 + real NOAA weather).
-- [`research_artifacts/candidate_c_freeze_note.md`](research_artifacts/candidate_c_freeze_note.md) - final freeze note and reopen conditions.
+- [`research_artifacts/final_research_decision.md`](research_artifacts/final_research_decision.md) - final research decision.
+- [`research_artifacts/final_project_summary.md`](research_artifacts/final_project_summary.md) - concise executive summary.
+- [`research_artifacts/project_freeze_note.md`](research_artifacts/project_freeze_note.md) - final freeze note and reopen conditions.
+- [`research_artifacts/paper_conversion_file_checklist.md`](research_artifacts/paper_conversion_file_checklist.md) - files needed to convert to a short/workshop paper.
+- [`research_artifacts/final_release_audit.md`](research_artifacts/final_release_audit.md) - final public-release audit.
 
 This is a research baseline package, not a finished paper, and it makes no
 causal, production-readiness, or real-staffing-optimization claims.
 
-## Candidate C Final Status
+## Project Final Status
 
-This project is a real-data NYC 311 research baseline. A closure-pass robustness
-package (rolling-origin validation, borough and complaint-group robustness, and
-decision-budget sensitivity) shows that calendar augmentation improves next-day
-forecast accuracy consistently across folds, boroughs, and complaint groups, and
-improves a stylized staffing-allocation metric in direction across crew budgets
-(with budget-dependent magnitude).
+This project (Public Signal Service Forecasting; research line: Forecasting
+Service Demand with Public Signals) is a real-data NYC 311 research baseline
+augmented with real NOAA weather. A robustness package (rolling-origin
+validation, borough and complaint-group robustness, and decision-budget
+sensitivity) shows that public-signal augmentation improves next-day forecast
+accuracy consistently across folds, boroughs, and complaint groups, and improves
+a stylized staffing-allocation metric in direction across crew budgets (with
+budget-dependent magnitude).
 
 - It is suitable for public presentation and for an extended-abstract / workshop
   artifact.
-- It is not a full paper. The evidence supports an extended abstract, not
-  full-paper drafting, per
-  [`research_artifacts/candidate_c_final_decision.md`](research_artifacts/candidate_c_final_decision.md).
+- It is not a full paper. The evidence supports an extended abstract / short
+  paper, not full-paper drafting, per
+  [`research_artifacts/final_research_decision.md`](research_artifacts/final_research_decision.md).
 - It does not claim causal impact, production readiness, real dispatch impact, or
   real staffing optimization, and it makes no external-validity claim beyond NYC
   2022-2024.

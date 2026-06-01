@@ -1,12 +1,12 @@
-# Candidate C: Final Decision
+# Final Research Decision
 
-This document closes the Candidate C phase. All values are read from committed
+This document records the final research decision for the project (Public Signal Service Forecasting). All values are read from committed
 artifacts under `reports/` and `data/metadata/` and reflect the real NYC 311
 dataset (not the small CI sample).
 
-## 1. What was Candidate C?
+## 1. What is this project?
 
-Candidate C is a real-data research baseline asking whether calendar-augmented
+Public Signal Service Forecasting is a real-data research baseline asking whether calendar-augmented
 forecasting improves next-day NYC 311 service-request volume prediction, and
 whether any forecast improvement translates into measurable improvement in a
 stylized staffing-allocation simulation. The unit of analysis is
@@ -128,7 +128,7 @@ reports an attenuated, budget-dependent decision effect. This is a suitable basi
 for an extended abstract or workshop artifact in operations management,
 information systems, or applied analytics venues.
 
-## 13. Should Candidate C continue, pause, or be archived?
+## 13. Should the project continue, pause, or be archived?
 
 Use as an extended-abstract/workshop artifact, then pause. The baseline is sound
 and the forecasting result is defensible, but the marginal research value of
@@ -155,5 +155,5 @@ been done.
 
 ## 15. Final recommendation
 
-Use as extended abstract/workshop artifact, then pause/freeze. Candidate A is not
-started.
+Use as an extended-abstract / workshop artifact, then freeze the project. No
+separate or follow-on research direction is started in this repository.

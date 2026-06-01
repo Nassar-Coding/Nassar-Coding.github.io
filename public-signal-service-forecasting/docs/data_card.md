@@ -91,12 +91,29 @@ Lag and rolling features are computed strictly within each (borough,
 complaint_group) series using only past observations; rolling statistics are
 shifted by one day so no same-day or future information leaks into a feature.
 
+## Weather data source
+
+A real weather layer is joined onto the daily panel by date. The source is NOAA
+NCEI Daily Summaries (GHCN-Daily), station USW00094728 (NY City Central Park),
+for 2022-2024 (1,096 days). Variables used: `precipitation_mm`, `temp_max_c`,
+`temp_min_c`, `temp_avg_c`, `snowfall_mm`, `snow_depth_mm`, and `wind_speed_ms`,
+in metric units as exported by NCEI. The source `TAVG` column was empty for this
+station, so `temp_avg_c` is derived as the mean of observed daily maximum and
+minimum temperature; this single derivation is recorded in
+`data/metadata/weather_source_report.json`. Five missing wind-speed days are
+filled by time interpolation of neighbouring real observations. No synthetic
+weather is generated, and missing source variables are recorded rather than
+fabricated. A single Central Park station is used as a city-level proxy; this is
+a documented spatial-resolution limitation (within-city weather variation is not
+captured). Ingestion is implemented in `src/weather.py`.
+
 ## No synthetic data
 
-This project uses real observed NYC 311 data in research mode. It does not use
-synthetic data, does not generate synthetic fallback data, and does not simulate
-service-request demand. If valid real data is unavailable, the build fails with
-a specific error rather than fabricating data.
+This project uses real observed NYC 311 data and real NOAA weather in research
+mode. It does not use synthetic data, does not generate synthetic fallback data,
+does not simulate service-request demand, and does not fabricate weather. If
+valid real data is unavailable, the build fails with a specific error rather than
+fabricating data.
 
 ## CI / sample-data distinction
 

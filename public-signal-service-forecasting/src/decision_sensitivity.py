@@ -29,23 +29,24 @@ from .utils import ensure_directories, get_logger, save_json
 LOGGER = get_logger(__name__)
 
 
-def _prepare_test_forecasts() -> list[pd.DataFrame]:
+def _prepare_test_forecasts() -> tuple[list[pd.DataFrame], list[str]]:
     """Train policy forecasters and attach per-policy forecasts to test days."""
     frame = load_processed_dataset()
     train_df, val_df, test_df = chronological_split(frame)
     models = _train_policy_models(train_df, val_df)
     test_df = test_df.copy()
+    feature_sets = list(models)
     for feature_set, pipeline in models.items():
         x_test, _ = features.build_feature_matrix(test_df, feature_set)
         test_df[f"forecast_{feature_set}"] = np.clip(pipeline.predict(x_test), 0.0, None)
     test_df["forecast_oracle"] = test_df[config.TARGET_COLUMN]
-    return [group for _, group in test_df.groupby("date")]
+    return [group for _, group in test_df.groupby("date")], feature_sets
 
 
 def run_decision_sensitivity() -> dict:
     """Run the crew-budget sensitivity sweep and persist artifacts."""
     ensure_directories()
-    daily_groups = _prepare_test_forecasts()
+    daily_groups, feature_sets = _prepare_test_forecasts()
     requests_per_crew = config.REQUESTS_PER_CREW
 
     rows: list[dict] = []
@@ -55,11 +56,18 @@ def run_decision_sensitivity() -> dict:
         "settings": {},
     }
 
+    # One policy per available forecast feature set, plus oracle. The headline
+    # augmented policy is calendar+weather when available, else calendar.
     policy_columns = {
-        "baseline_internal_historical": "forecast_internal_historical",
-        "calendar_augmented": "forecast_calendar_augmented",
-        "oracle_true_demand": "forecast_oracle",
+        f"policy_{fs}": f"forecast_{fs}" for fs in feature_sets
     }
+    policy_columns["oracle_true_demand"] = "forecast_oracle"
+    baseline_policy = "policy_internal_historical"
+    headline_policy = (
+        "policy_calendar_weather_augmented"
+        if "calendar_weather_augmented" in feature_sets
+        else "policy_calendar_augmented"
+    )
 
     for setting_name, total_crews in config.DECISION_CREW_SETTINGS.items():
         results = {
@@ -68,8 +76,8 @@ def run_decision_sensitivity() -> dict:
             )
             for policy, column in policy_columns.items()
         }
-        baseline_w = results["baseline_internal_historical"]["total_weighted_unmet_demand"]
-        augmented_w = results["calendar_augmented"]["total_weighted_unmet_demand"]
+        baseline_w = results[baseline_policy]["total_weighted_unmet_demand"]
+        augmented_w = results[headline_policy]["total_weighted_unmet_demand"]
         oracle_w = results["oracle_true_demand"]["total_weighted_unmet_demand"]
         reduction_pct = (baseline_w - augmented_w) / baseline_w * 100.0 if baseline_w else 0.0
         headroom = baseline_w - oracle_w
@@ -89,6 +97,7 @@ def run_decision_sensitivity() -> dict:
         summary["settings"][setting_name] = {
             "total_crews": total_crews,
             "daily_capacity": total_crews * requests_per_crew,
+            "headline_augmented_policy": headline_policy,
             "baseline_weighted_unmet": baseline_w,
             "augmented_weighted_unmet": augmented_w,
             "oracle_weighted_unmet": oracle_w,

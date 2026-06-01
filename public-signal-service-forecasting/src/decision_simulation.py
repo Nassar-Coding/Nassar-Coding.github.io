@@ -34,7 +34,7 @@ def _train_policy_models(
 
     combined = pd.concat([train_df, val_df], ignore_index=True)
     models: dict[str, object] = {}
-    for feature_set in config.FEATURE_SETS:
+    for feature_set in config.available_feature_sets(list(combined.columns)):
         estimator = RandomForestRegressor(
             n_estimators=200,
             max_depth=14,
@@ -153,9 +153,23 @@ def run_simulation() -> dict:
 
     daily_groups = [group for _, group in test_df.groupby("date")]
 
-    baseline = _evaluate_policy(daily_groups, "forecast_internal_historical")
-    augmented = _evaluate_policy(daily_groups, "forecast_calendar_augmented")
+    # Evaluate one policy per available forecast feature set, plus the oracle.
+    policies: dict[str, dict] = {}
+    for feature_set in models:
+        policies[feature_set] = _evaluate_policy(daily_groups, f"forecast_{feature_set}")
     oracle = _evaluate_policy(daily_groups, "forecast_oracle")
+    policies["oracle_true_demand"] = oracle
+
+    # The headline comparison anchors on the internal-historical baseline versus
+    # the strongest available augmented policy (calendar+weather if present,
+    # else calendar).
+    baseline = policies["internal_historical"]
+    headline_set = (
+        "calendar_weather_augmented"
+        if "calendar_weather_augmented" in models
+        else "calendar_augmented"
+    )
+    augmented = policies[headline_set]
 
     baseline_unmet = baseline["total_weighted_unmet_demand"]
     augmented_unmet = augmented["total_weighted_unmet_demand"]
@@ -165,8 +179,6 @@ def run_simulation() -> dict:
         if baseline_unmet
         else 0.0
     )
-    # Gap to oracle: how much of the baseline-to-oracle headroom the augmented
-    # policy closes (100% would mean the augmented policy matches the oracle).
     headroom = baseline_unmet - oracle_unmet
     gap_closed_pct = (
         (baseline_unmet - augmented_unmet) / headroom * 100.0 if headroom else 0.0
@@ -186,12 +198,10 @@ def run_simulation() -> dict:
             "allocation_rule": "proportional_to_forecast_largest_remainder",
         },
         "test_days": len(daily_groups),
-        "policies": {
-            "baseline_internal_historical": baseline,
-            "calendar_augmented": augmented,
-            "oracle_true_demand": oracle,
-        },
+        "headline_augmented_policy": headline_set,
+        "policies": policies,
         "augmented_improvement_over_baseline": {
+            "headline_augmented_policy": headline_set,
             "weighted_unmet_demand_reduction_pct": round(improvement_pct, 3),
             "augmented_better": augmented_unmet < baseline_unmet,
             "gap_to_oracle_closed_pct": round(gap_closed_pct, 3),

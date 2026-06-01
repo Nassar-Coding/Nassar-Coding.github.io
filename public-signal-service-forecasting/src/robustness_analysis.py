@@ -37,9 +37,9 @@ _MODEL_NAME = "random_forest"
 def _fit_predict_both_feature_sets(
     train_df: pd.DataFrame, test_df: pd.DataFrame
 ) -> pd.DataFrame:
-    """Return the test frame with predictions for both feature sets."""
+    """Return the test frame with predictions for each available feature set."""
     test_df = test_df.copy()
-    for feature_set in config.FEATURE_SETS:
+    for feature_set in config.available_feature_sets(list(train_df.columns)):
         x_train, y_train = features.build_feature_matrix(train_df, feature_set)
         x_test, _ = features.build_feature_matrix(test_df, feature_set)
         pipeline = make_pipeline(feature_set, _build_models()[_MODEL_NAME])
@@ -48,14 +48,23 @@ def _fit_predict_both_feature_sets(
     return test_df
 
 
+def _augmented_set_name(columns: list[str]) -> str:
+    """Strongest available augmented feature set for segment comparison."""
+    available = config.available_feature_sets(columns)
+    if "calendar_weather_augmented" in available:
+        return "calendar_weather_augmented"
+    return "calendar_augmented"
+
+
 def _segment_table(test_df: pd.DataFrame, segment_column: str) -> pd.DataFrame:
-    """Build a per-segment MAE comparison for both feature sets."""
+    """Build a per-segment MAE comparison: internal vs strongest augmented set."""
     y_col = config.TARGET_COLUMN
+    augmented_col = f"pred_{_augmented_set_name(list(test_df.columns))}"
     rows: list[dict] = []
     for segment, group in test_df.groupby(segment_column):
         actual = group[y_col].to_numpy(dtype=float)
         internal = compute_metrics(actual, group["pred_internal_historical"].to_numpy())
-        augmented = compute_metrics(actual, group["pred_calendar_augmented"].to_numpy())
+        augmented = compute_metrics(actual, group[augmented_col].to_numpy())
         internal_mae = internal["mae"]
         augmented_mae = augmented["mae"]
         improvement = (

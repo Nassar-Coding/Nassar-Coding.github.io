@@ -65,7 +65,7 @@ def _plot_forecast_error_by_model(comparison: list[dict]) -> None:
     labels = [f"{row['model']}\n[{row['feature_set']}]" for row in comparison]
     values = [row["test_mae"] for row in comparison]
 
-    fig, ax = plt.subplots(figsize=(11, 5))
+    fig, ax = plt.subplots(figsize=(12, 5))
     ax.bar(range(len(values)), values, color="#34557a")
     ax.set_xticks(range(len(values)))
     ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
@@ -73,6 +73,31 @@ def _plot_forecast_error_by_model(comparison: list[dict]) -> None:
     ax.set_title("Forecast error by model and feature set (lower is better)")
     fig.tight_layout()
     fig.savefig(config.FIG_FORECAST_ERROR, dpi=120)
+    fig.savefig(config.FIG_MODEL_COMPARISON_MAE, dpi=120)
+    plt.close(fig)
+
+
+def _plot_feature_set_comparison(comparison: list[dict]) -> None:
+    """Best (lowest) test MAE per feature set, regardless of model."""
+    best: dict[str, float] = {}
+    for row in comparison:
+        fs = row["feature_set"]
+        if fs not in config.FEATURE_SETS:
+            continue
+        best[fs] = min(best.get(fs, float("inf")), row["test_mae"])
+    if not best:
+        return
+    order = [fs for fs in config.FEATURE_SETS if fs in best]
+    values = [best[fs] for fs in order]
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.bar(order, values, color="#2f7d4f")
+    ax.set_ylabel("Best test MAE across models (requests)")
+    ax.set_title("Forecast error by feature set (lower is better)")
+    ax.set_xticklabels(order, rotation=20, ha="right")
+    for i, v in enumerate(values):
+        ax.text(i, v, f"{v:.1f}", ha="center", va="bottom", fontsize=8)
+    fig.tight_layout()
+    fig.savefig(config.FIG_FEATURE_SET_COMPARISON_MAE, dpi=120)
     plt.close(fig)
 
 
@@ -134,6 +159,7 @@ def evaluate() -> dict:
     ml_rows = [row for row in comparison if row["feature_set"] in config.FEATURE_SETS]
     if ml_rows:
         _plot_forecast_error_by_model(ml_rows)
+        _plot_feature_set_comparison(ml_rows)
     summary = metrics_payload.get("internal_vs_augmented", {})
     if summary:
         _plot_internal_vs_augmented(summary)

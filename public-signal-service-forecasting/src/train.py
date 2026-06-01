@@ -112,7 +112,9 @@ def train_and_compare() -> dict:
         _comparison_row("naive_seasonal", "naive_seasonal", naive_val, naive_test)
     )
 
-    for feature_set in config.FEATURE_SETS:
+    feature_sets = config.available_feature_sets(list(frame.columns))
+    LOGGER.info("Evaluating feature sets: %s", list(feature_sets))
+    for feature_set in feature_sets:
         x_train, y_train = features.build_feature_matrix(train_df, feature_set)
         x_val, y_val = features.build_feature_matrix(val_df, feature_set)
         x_test, y_test = features.build_feature_matrix(test_df, feature_set)

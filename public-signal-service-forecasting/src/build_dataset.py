@@ -170,6 +170,30 @@ def _regularise_panel(frame: pd.DataFrame) -> pd.DataFrame:
     return regular[_DAILY_COUNT_COLUMNS]
 
 
+def _join_weather(frame: pd.DataFrame) -> list[str]:
+    """Join real daily weather onto the frame in place; return weather columns.
+
+    Builds the weather table from the real NOAA export if present. If no real
+    weather export exists, no weather is joined and an empty list is returned
+    (calendar-only mode). No synthetic weather is ever generated.
+    """
+    from . import weather
+
+    if not weather.weather_available():
+        LOGGER.info("No real weather export found; building without weather features.")
+        return []
+
+    weather.build_weather_table()
+    weather_df = pd.read_csv(config.WEATHER_DAILY_FILE, parse_dates=["date"])
+    weather_columns = [c for c in config.WEATHER_FEATURES if c in weather_df.columns]
+    frame["date"] = pd.to_datetime(frame["date"])
+    merged = frame.merge(weather_df[["date", *weather_columns]], on="date", how="left")
+    for column in weather_columns:
+        frame[column] = merged[column].to_numpy()
+    LOGGER.info("Joined real weather features: %s", weather_columns)
+    return weather_columns
+
+
 def build_processed_dataset() -> pd.DataFrame:
     """Construct, validate, and persist the processed modelling dataset."""
     ensure_directories()
@@ -180,6 +204,8 @@ def build_processed_dataset() -> pd.DataFrame:
     frame = features.add_lag_and_rolling_features(frame)
     frame = features.add_target(frame)
 
+    weather_columns = _join_weather(frame)
+
     required_non_null = [
         "request_lag_1",
         "request_lag_7",
@@ -188,12 +214,13 @@ def build_processed_dataset() -> pd.DataFrame:
         "rolling_std_7",
         "rolling_std_14",
         config.TARGET_COLUMN,
+        *weather_columns,
     ]
     before = len(frame)
     frame = frame.dropna(subset=required_non_null).reset_index(drop=True)
     LOGGER.info("Dropped %s warmup/edge rows during feature construction.", before - len(frame))
 
-    frame = frame[config.PROCESSED_COLUMNS].copy()
+    frame = frame[[*config.PROCESSED_COLUMNS, *weather_columns]].copy()
     for column in ("request_volume", config.TARGET_COLUMN, "request_lag_1", "request_lag_7"):
         frame[column] = frame[column].astype(float)
 

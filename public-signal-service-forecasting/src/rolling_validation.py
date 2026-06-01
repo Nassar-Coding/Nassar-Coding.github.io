@@ -56,11 +56,13 @@ def _fold_date_bounds(unique_dates: np.ndarray) -> list[tuple[int, int, int]]:
     return bounds
 
 
-def _configurations() -> list[tuple[str, str]]:
+def _configurations(feature_sets: list[str] | None = None) -> list[tuple[str, str]]:
     """Return (model_name, feature_set) configurations to evaluate per fold."""
+    if feature_sets is None:
+        feature_sets = list(config.available_feature_sets())
     configs: list[tuple[str, str]] = [("naive_seasonal", "naive_seasonal")]
     for model_name in _build_models():
-        for feature_set in config.FEATURE_SETS:
+        for feature_set in feature_sets:
             configs.append((model_name, feature_set))
     return configs
 
@@ -69,6 +71,7 @@ def run_rolling_validation() -> dict:
     """Run rolling-origin validation and persist reports and a figure."""
     ensure_directories()
     frame = load_processed_dataset()
+    feature_sets = list(config.available_feature_sets(list(frame.columns)))
     unique_dates = np.sort(frame["date"].unique())
     bounds = _fold_date_bounds(unique_dates)
 
@@ -87,7 +90,7 @@ def run_rolling_validation() -> dict:
         )
         y_test = test_df[config.TARGET_COLUMN].to_numpy(dtype=float)
 
-        for model_name, feature_set in _configurations():
+        for model_name, feature_set in _configurations(feature_sets):
             if model_name == "naive_seasonal":
                 pred = _naive_predictions(test_df)
             else:
@@ -123,7 +126,7 @@ def run_rolling_validation() -> dict:
     LOGGER.info(
         "Rolling-origin validation complete: %s folds, %s configurations.",
         N_FOLDS,
-        len(_configurations()),
+        len(_configurations(feature_sets)),
     )
     return summary
 

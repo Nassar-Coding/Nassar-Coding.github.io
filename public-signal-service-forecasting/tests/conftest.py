@@ -20,8 +20,9 @@ from sklearn.linear_model import Ridge
 
 from src import build_dataset, config
 
-# Location of the committed real-schema sample in the actual repository.
+# Location of the committed real-schema samples in the actual repository.
 _REPO_SAMPLE = config.SAMPLE_DAILY_COUNTS_FILE
+_REPO_WEATHER_SAMPLE = config.SAMPLE_WEATHER_FILE
 
 _DIR_ATTRS: dict[str, tuple[str, ...]] = {
     "RAW_DIR": ("data", "raw"),
@@ -36,6 +37,10 @@ _FILE_ATTRS: dict[str, tuple[str, ...]] = {
     "DAILY_COUNTS_META_FILE": ("data", "raw", "nyc_311_daily_counts_2022_2024.meta.json"),
     "MANUAL_RAW_FILE": ("data", "raw", "nyc_311_2022_2024.csv"),
     "SAMPLE_DAILY_COUNTS_FILE": ("data", "raw", "nyc_311_daily_counts_sample.csv"),
+    "WEATHER_RAW_FILE": ("data", "raw", "nyc_central_park_weather_2022_2024.csv"),
+    "SAMPLE_WEATHER_FILE": ("data", "raw", "nyc_central_park_weather_sample.csv"),
+    "WEATHER_DAILY_FILE": ("data", "processed", "weather_daily_2022_2024.csv"),
+    "WEATHER_SOURCE_REPORT": ("data", "metadata", "weather_source_report.json"),
     "PROCESSED_DATA_FILE": ("data", "processed", "service_forecasting_dataset.csv"),
     "DATA_SOURCE_REPORT": ("data", "metadata", "data_source_report.json"),
     "BEST_MODEL_FILE": ("models", "best_forecast_model.joblib"),
@@ -77,10 +82,13 @@ def isolated_artifacts(tmp_path_factory: pytest.TempPathFactory) -> Iterator[Pat
     for attr, parts in _FILE_ATTRS.items():
         monkeypatch.setattr(config, attr, base.joinpath(*parts))
 
-    # Seed the committed real-schema sample into the isolated raw directory and
-    # force sample mode so the build uses real rows offline.
+    # Seed the committed real-schema samples into the isolated raw directory and
+    # force sample mode so the build uses real rows offline. The weather sample
+    # is seeded too, so tests exercise the weather-augmented code path.
     if _REPO_SAMPLE.exists():
         shutil.copyfile(_REPO_SAMPLE, config.SAMPLE_DAILY_COUNTS_FILE)
+    if _REPO_WEATHER_SAMPLE.exists():
+        shutil.copyfile(_REPO_WEATHER_SAMPLE, config.SAMPLE_WEATHER_FILE)
     monkeypatch.setenv("USE_SAMPLE_DATA", "1")
 
     try:

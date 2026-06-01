@@ -21,10 +21,17 @@ prevents misalignment across any gaps.
 - **Calendar augmented:** all internal-historical features plus `is_weekend`,
   `is_holiday`, `day_of_week`, `month`, `quarter`, `year`, `day_of_year`,
   `week_of_year`, `is_month_start`, `is_month_end`.
+- **Weather augmented:** all internal-historical features plus real NOAA daily
+  weather (`precipitation_mm`, `temp_max_c`, `temp_min_c`, `temp_avg_c`,
+  `snowfall_mm`, `snow_depth_mm`, `wind_speed_ms`).
+- **Calendar + weather augmented:** internal-historical plus both calendar and
+  real weather features.
 
-Because no real external weather, transit, or event data is included in this
-version, the comparison is framed honestly as internal-historical versus
-calendar-augmented features, not as external-signal augmentation.
+The weather layer is a genuinely external public signal: real NOAA NCEI Daily
+Summaries (GHCN-Daily) for the NYC Central Park station (USW00094728), used as a
+single-station city-level proxy. No transit or event data is included, and no
+synthetic weather is generated. Calendar is the dominant signal; real weather
+adds a smaller but consistent further gain on top of calendar.
 
 Categorical features (`borough`, `complaint_group`) are one-hot encoded inside a
 scikit-learn pipeline; numeric features pass through. The encoder and estimator
@@ -37,7 +44,7 @@ are bundled in one pipeline so the saved model scores raw feature records.
 - Random forest regressor
 - Gradient boosting regressor
 
-Each non-naive model is trained on both feature sets.
+Each non-naive model is trained on every available feature set.
 
 ## Metrics
 

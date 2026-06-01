@@ -39,6 +39,13 @@ MANUAL_RAW_FILE: Path = RAW_DIR / "nyc_311_2022_2024.csv"
 # the real schema and observed-count logic but is not research data.
 SAMPLE_DAILY_COUNTS_FILE: Path = RAW_DIR / "nyc_311_daily_counts_sample.csv"
 
+# Real NOAA weather export (NCEI Daily Summaries, station USW00094728), and a
+# small committed real-schema weather sample for CI/tests only.
+WEATHER_RAW_FILE: Path = RAW_DIR / "nyc_central_park_weather_2022_2024.csv"
+SAMPLE_WEATHER_FILE: Path = RAW_DIR / "nyc_central_park_weather_sample.csv"
+WEATHER_DAILY_FILE: Path = PROCESSED_DIR / "weather_daily_2022_2024.csv"
+WEATHER_SOURCE_REPORT: Path = METADATA_DIR / "weather_source_report.json"
+
 # ---------------------------------------------------------------------------
 # Artifact file names
 # ---------------------------------------------------------------------------
@@ -69,6 +76,9 @@ FIG_ROLLING_VALIDATION: Path = FIGURES_DIR / "rolling_validation_mae.png"
 FIG_COMPLAINT_GROUP_MAE: Path = FIGURES_DIR / "complaint_group_mae.png"
 FIG_BOROUGH_MAE: Path = FIGURES_DIR / "borough_mae.png"
 FIG_DECISION_SENSITIVITY: Path = FIGURES_DIR / "decision_sensitivity.png"
+FIG_MODEL_COMPARISON_MAE: Path = FIGURES_DIR / "model_comparison_mae.png"
+FIG_FEATURE_SET_COMPARISON_MAE: Path = FIGURES_DIR / "feature_set_comparison_mae.png"
+FIG_WEATHER_FEATURE_SUMMARY: Path = FIGURES_DIR / "weather_feature_summary.png"
 
 # Decision sensitivity crew-budget settings (scarce / moderate / generous).
 # Calibrated relative to mean daily demand (~8,977 next-day requests across
@@ -288,13 +298,59 @@ CALENDAR_FEATURES: list[str] = [
     "is_month_end",
 ]
 
-# Feature set name -> ordered list of feature columns.
+# Real weather features (NOAA NCEI Daily Summaries, station USW00094728).
+WEATHER_FEATURES: list[str] = [
+    "precipitation_mm",
+    "temp_max_c",
+    "temp_min_c",
+    "temp_avg_c",
+    "snowfall_mm",
+    "snow_depth_mm",
+    "wind_speed_ms",
+]
+
+# Feature set name -> ordered list of feature columns. The two weather feature
+# sets are only usable when real weather columns are present in the processed
+# dataset; downstream code selects available feature sets via
+# ``available_feature_sets``.
 FEATURE_SETS: dict[str, list[str]] = {
     "internal_historical": CATEGORICAL_FEATURES + INTERNAL_HISTORICAL_FEATURES,
     "calendar_augmented": CATEGORICAL_FEATURES
     + INTERNAL_HISTORICAL_FEATURES
     + CALENDAR_FEATURES,
+    "weather_augmented": CATEGORICAL_FEATURES
+    + INTERNAL_HISTORICAL_FEATURES
+    + WEATHER_FEATURES,
+    "calendar_weather_augmented": CATEGORICAL_FEATURES
+    + INTERNAL_HISTORICAL_FEATURES
+    + CALENDAR_FEATURES
+    + WEATHER_FEATURES,
 }
+
+
+def available_feature_sets(columns: list[str] | None = None) -> dict[str, list[str]]:
+    """Return the feature sets whose columns are all present.
+
+    When ``columns`` is None, weather-bearing feature sets are included only if a
+    real weather table exists on disk. When ``columns`` is provided (the columns
+    of a processed dataset), a feature set is included only if every one of its
+    columns is present. This keeps the pipeline correct in both calendar-only and
+    weather-augmented modes without changing call sites.
+    """
+    if columns is None:
+        weather_ready = WEATHER_DAILY_FILE.exists()
+        return {
+            name: cols
+            for name, cols in FEATURE_SETS.items()
+            if weather_ready or not any(c in WEATHER_FEATURES for c in cols)
+        }
+    column_set = set(columns)
+    return {
+        name: cols
+        for name, cols in FEATURE_SETS.items()
+        if column_set.issuperset(cols)
+    }
+
 
 TARGET_COLUMN: str = "request_volume_next_day"
 

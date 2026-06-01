@@ -34,32 +34,42 @@ baseline. All values are read from the committed artifacts under `reports/` and
 
 ## Model comparison (test partition)
 
-| Model | Feature set | Test MAE | Test RMSE | Test MAPE (%) | Test R2 |
-|-------|-------------|----------|-----------|---------------|---------|
-| naive_seasonal | naive_seasonal | 71.848 | 197.743 | 34.689 | 0.563 |
-| ridge | internal_historical | 69.219 | 187.753 | 36.073 | 0.606 |
-| random_forest | internal_historical | 65.282 | 184.787 | 34.259 | 0.618 |
-| gradient_boosting | internal_historical | 67.493 | 187.734 | 38.378 | 0.606 |
-| ridge | calendar_augmented | 68.758 | 187.757 | 35.729 | 0.606 |
-| random_forest | calendar_augmented | 58.082 | 181.135 | 29.026 | 0.633 |
-| gradient_boosting | calendar_augmented | 61.710 | 183.886 | 34.152 | 0.622 |
+Test MAE is shown for all four feature sets per non-naive model
+(`reports/model_comparison.csv`).
+
+| Model | Feature set | Test MAE |
+|-------|-------------|----------|
+| naive_seasonal | naive_seasonal | 71.848 |
+| ridge | internal_historical | 69.219 |
+| ridge | calendar_augmented | 68.758 |
+| ridge | weather_augmented | 69.283 |
+| ridge | calendar_weather_augmented | 68.915 |
+| random_forest | internal_historical | 65.282 |
+| random_forest | calendar_augmented | 58.082 |
+| random_forest | weather_augmented | 64.104 |
+| random_forest | calendar_weather_augmented | 56.224 |
+| gradient_boosting | internal_historical | 67.493 |
+| gradient_boosting | calendar_augmented | 61.710 |
+| gradient_boosting | weather_augmented | 67.553 |
+| gradient_boosting | calendar_weather_augmented | 61.878 |
 
 ## Best model
 
 | Property | Value |
 |----------|-------|
 | Model | random_forest |
-| Feature set | calendar_augmented |
+| Feature set | calendar_weather_augmented |
 | Selection metric | validation MAE |
-| Test MAE | 57.263 |
-| Test RMSE | 182.210 |
-| Test MAPE (%) | 28.055 |
-| Test R2 | 0.629 |
+| Test MAE | 55.325 |
+| Test RMSE | 177.476 |
+| Test MAPE (%) | 27.469 |
+| Test R2 | 0.648 |
 
 Note: the best-model test metrics are computed in the evaluation step after
 refitting on train+validation, so they differ slightly from the
-calendar_augmented random_forest row in the comparison table (which is fit on
-train only).
+calendar_weather_augmented random_forest row in the comparison table (which is fit
+on train only). The selected model is 23.0% better than the naive baseline (test
+MAE 71.848).
 
 ### Best-model test MAE by borough
 
@@ -95,31 +105,59 @@ train only).
 Calendar augmentation improves every model; the gain is largest for the tree
 ensembles.
 
+## Weather augmentation
+
+A real NOAA NCEI Daily Summaries (GHCN-Daily) layer was added in this closure
+pass, station USW00094728 (NYC Central Park), 2022-2024, 1,096 days, with
+variables precipitation_mm, temp_max_c, temp_min_c, temp_avg_c (derived from
+TMAX/TMIN because the source TAVG was empty), snowfall_mm, snow_depth_mm, and
+wind_speed_ms (five missing days time-interpolated). No synthetic weather; a single
+Central Park station is a documented city-level proxy
+(`data/metadata/weather_source_report.json`).
+
+Calendar is the dominant signal; weather adds a smaller but consistent gain on top
+of it. On single-split test MAE for the random forest, weather-only (64.104) beats
+internal-historical (65.282), and calendar + weather (56.224) beats calendar-only
+(58.082). Ridge does not benefit from weather (weather 69.283, calendar + weather
+68.915 against internal 69.219). In five-fold rolling-origin validation, the
+random forest mean fold test MAE is internal_historical 57.03 (std 8.05),
+weather_augmented 56.22 (std 7.56), calendar_augmented 48.69 (std 9.59), and
+calendar_weather_augmented 47.50 (std 8.75); naive is 61.70 (std 9.67). In the
+decision simulation, weighted unmet demand is 643,324 (internal), 634,614
+(calendar), 641,382 (weather), 631,191 (calendar + weather), and 597,332 (oracle);
+the calendar + weather policy reduces weighted unmet demand by 1.886% and closes
+26.381% of the oracle gap.
+
 ## Decision simulation (163 test days)
 
 Assumptions: 135 crews, 50 requests per crew per day, proportional
 largest-remainder allocation, weighted unmet demand with higher weight on Public
 Safety (2.0), Water (1.5), and Traffic (1.5).
 
-| Policy | Weighted unmet | Total unmet | Avg shortfall | High-demand coverage | Allocation efficiency |
-|--------|----------------|-------------|---------------|----------------------|-----------------------|
-| Baseline (internal historical) | 643,324.5 | 551,381 | 84.568 | 0.0861 | 0.9547 |
-| Calendar augmented | 634,613.5 | 543,322 | 83.332 | 0.0739 | 0.9620 |
-| Oracle (true demand) | 597,332.0 | 506,347 | 77.661 | 0.0110 | 0.9956 |
+| Policy | Weighted unmet |
+|--------|----------------|
+| Baseline (internal historical) | 643,324 |
+| Calendar augmented | 634,614 |
+| Weather augmented | 641,382 |
+| Calendar + weather augmented | 631,191 |
+| Oracle (true demand) | 597,332 |
+
+The headline comparison is calendar + weather augmented versus internal-historical
+baseline.
 
 | Decision metric | Value |
 |-----------------|-------|
-| Weighted-unmet reduction (augmented vs baseline) | 1.354% |
-| Gap to oracle closed | 18.94% |
-| Augmented better than baseline | true |
+| Weighted-unmet reduction (calendar + weather vs baseline) | 1.886% |
+| Gap to oracle closed | 26.381% |
+| Calendar + weather better than baseline | true |
 
 ## Monitoring status
 
 | Property | Value |
 |----------|-------|
-| Best-model test MAE | 57.2632 |
+| Best-model test MAE | 55.325 |
 | Naive baseline test MAE | 71.848 |
-| Improvement over baseline | 20.3% |
+| Improvement over baseline | 23.0% |
 | Improvement threshold | 5.0% |
 | Status | healthy |
 
@@ -136,30 +174,33 @@ Calendar-augmentation MAE improvement, by model, across folds
 | gradient_boosting | 9.94% | 5 / 5 |
 | ridge | 0.94% | 5 / 5 |
 
-Random-forest mean fold test MAE: internal_historical 57.03 (std 8.05) vs
-calendar_augmented 48.69 (std 9.59).
+Random-forest mean fold test MAE: internal_historical 57.03 (std 8.05),
+weather_augmented 56.22 (std 7.56), calendar_augmented 48.69 (std 9.59), and
+calendar_weather_augmented 47.50 (std 8.75).
 
 ### Robustness by borough (best model, held-out test)
 
-Calendar augmentation improved MAE for all 5 boroughs (4.7% to 15.8%); largest
+Augmentation improved MAE for all 5 boroughs (about 8.8% to 18.8%); largest
 absolute error in the Bronx, smallest in Staten Island
 (`reports/borough_performance.csv`).
 
 ### Robustness by complaint group (best model, held-out test)
 
-Calendar augmentation improved MAE for all 8 complaint groups (5.8% to 25.7%);
+Augmentation improved MAE for all 8 complaint groups (about 8.9% to 25.8%);
 largest absolute error in Noise and Housing
 (`reports/complaint_group_performance.csv`).
 
 ### Decision sensitivity by crew budget
 
+Calendar + weather augmented versus internal-historical:
+
 | Setting | Crews | Weighted-unmet reduction | Gap to oracle closed |
 |---------|-------|--------------------------|----------------------|
-| Scarce | 100 | 0.21% | 14.50% |
-| Moderate | 160 | 3.19% | 16.75% |
-| Generous | 220 | 12.05% | 17.46% |
+| Scarce | 100 | 0.38% | 27.06% |
+| Moderate | 160 | 4.32% | 22.66% |
+| Generous | 220 | 14.53% | 21.05% |
 
-The calendar-augmented policy is better in all three budgets, but the effect size
+The calendar + weather policy is better in all three budgets, but the effect size
 is budget-dependent (`reports/decision_sensitivity_summary.json`).
 
 ### Practical-significance summary
@@ -173,10 +214,12 @@ drafting.
 
 - Calendar augmentation reduces next-day forecast error for every model and most
   for the best (random forest) model, under a leakage-controlled chronological
-  protocol on real NYC 311 data.
+  protocol on real NYC 311 data; real NOAA weather adds a smaller but consistent
+  further gain on top of calendar, and calendar + weather is the best feature set.
 - The forecast improvement transfers to the stylized decision metric in the same
-  direction but with much smaller magnitude (about 11% accuracy gain to about
-  1.35% weighted-unmet reduction), closing roughly a fifth of the oracle gap.
+  direction but with much smaller magnitude (about 23% accuracy gain over naive to
+  about 1.89% weighted-unmet reduction for calendar + weather), closing about a
+  quarter of the oracle gap at the baseline budget.
 - Error and the achievable decision benefit are dominated by high-volume cells
   and a deliberately scarce capacity budget.
 

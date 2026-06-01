@@ -37,6 +37,16 @@ The data is real NYC 311 Service Requests from NYC Open Data (Socrata dataset
 borough; 0 dropped for unparseable date or out-of-window date). No synthetic data
 was used and no synthetic fallback exists in the pipeline.
 
+A real weather layer was added in this closure pass. The source is NOAA NCEI
+Daily Summaries (GHCN-Daily), station USW00094728 (NYC Central Park), for
+2022-2024 (1,096 days). The variables used are precipitation_mm, temp_max_c,
+temp_min_c, temp_avg_c, snowfall_mm, snow_depth_mm, and wind_speed_ms. Because the
+source TAVG column was empty for this station, temp_avg_c is derived as the mean
+of observed daily maximum and minimum temperature; five missing wind-speed days
+are filled by time interpolation of neighbouring real observations. No synthetic
+weather is generated. A single Central Park station is used as a city-level proxy,
+which is a documented spatial-resolution limitation.
+
 ## 5. Unit of analysis
 
 The unit of analysis is the cell defined by date x borough x complaint_group.
@@ -57,7 +67,7 @@ gaps in the panel.
 
 ## 7. Feature sets
 
-Two feature sets are compared under identical models and an identical validation
+Four feature sets are compared under identical models and an identical validation
 protocol:
 
 - Internal historical: borough, complaint_group, request_lag_1, request_lag_7,
@@ -65,18 +75,23 @@ protocol:
 - Calendar augmented: all internal-historical features plus is_weekend,
   is_holiday, day_of_week, month, quarter, year, day_of_year, week_of_year,
   is_month_start, is_month_end.
+- Weather augmented: all internal-historical features plus the real NOAA daily
+  weather variables (precipitation_mm, temp_max_c, temp_min_c, temp_avg_c,
+  snowfall_mm, snow_depth_mm, wind_speed_ms).
+- Calendar + weather augmented: all internal-historical features plus both the
+  calendar and the weather variables.
 
-No external weather, transit, or event data is used in this version, so the
-comparison is framed as internal-historical versus calendar-augmented, not as
-external-signal augmentation. Lag and rolling features are computed per cell using
-only past observations, with rolling statistics shifted by one day to avoid
-same-day or future leakage.
+No transit or event data is used in this version. The weather signal is the real
+NOAA Central Park daily series described in the data section; it is a genuinely
+external public signal rather than a derived calendar feature. Lag and rolling
+features are computed per cell using only past observations, with rolling
+statistics shifted by one day to avoid same-day or future leakage.
 
 ## 8. Model comparison
 
 Four model families are evaluated: a naive seasonal baseline (trailing 7-day
 rolling mean), Ridge regression, a random forest regressor, and a gradient
-boosting regressor. Each non-naive model is trained on both feature sets. The
+boosting regressor. Each non-naive model is trained on all four feature sets. The
 validation protocol is a strictly chronological split by date: earliest 70% of
 dates for training (30,240 rows), next 15% for validation (6,480 rows), and
 latest 15% for test (6,520 rows). The primary selection metric is mean absolute
@@ -85,16 +100,20 @@ combined train+validation partitions before final test evaluation.
 
 ## 9. Main empirical result
 
-The selected model is a random forest on the calendar-augmented feature set. On
-the held-out test partition it achieves MAE 57.26, RMSE 182.21, MAPE 28.05%, and
-R-squared 0.629. The naive seasonal baseline has test MAE 71.85, so the selected
-model improves on it by 20.3%.
+The selected model is a random forest on the calendar + weather augmented feature
+set. On the held-out test partition it achieves MAE 55.33, RMSE 177.48, MAPE
+27.47%, and R-squared 0.648. The naive seasonal baseline has test MAE 71.85, so
+the selected model improves on it by 23.0%.
 
 Calendar augmentation improves every model relative to its internal-historical
-counterpart on test MAE: random forest 65.28 to 58.08 (11.03% improvement),
-gradient boosting 67.49 to 61.71 (8.57%), and Ridge 69.22 to 68.76 (0.67%). The
-gain is largest for the tree ensembles, which can exploit calendar structure
-interactively.
+counterpart on single-split test MAE: random forest 65.28 to 58.08, gradient
+boosting 67.49 to 61.71, and Ridge 69.22 to 68.76. The gain is largest for the
+tree ensembles, which can exploit calendar structure interactively. Calendar is
+the dominant signal; real weather adds a smaller but consistent gain on top of
+it. For the random forest, weather-only (64.10) beats internal-historical
+(65.28), and calendar + weather (56.22) beats calendar-only (58.08); Ridge does
+not benefit from weather (weather 69.28, calendar + weather 68.92 against internal
+69.22).
 
 Error is concentrated in the highest-volume cells: test MAE is largest for the
 Noise (174.2) and Housing (114.7) complaint groups and for the Bronx (114.5),
@@ -110,40 +129,44 @@ largest-remainder rule. The configuration is 135 crews, each handling 50 request
 per day (capacity calibrated to roughly three quarters of mean daily demand).
 Unmet demand in a cell is the positive part of actual demand minus allocated
 capacity; weighted unmet demand assigns higher weight to Public Safety, Water,
-and Traffic. Three policies are compared over 163 test days: a baseline driven by
-the internal-historical forecast, a calendar-augmented policy, and an oracle
-policy driven by true next-day demand (an upper-bound benchmark only).
+and Traffic. Policies driven by each forecast feature set are compared over 163
+test days against a baseline driven by the internal-historical forecast and an
+oracle policy driven by true next-day demand (an upper-bound benchmark only). The
+headline comparison is the calendar + weather augmented policy versus the
+internal-historical baseline.
 
 ## 11. Decision simulation result
 
-Total weighted unmet demand is 643,324.5 under the baseline policy, 634,613.5
-under the calendar-augmented policy, and 597,332.0 under the oracle. The
-calendar-augmented policy reduces weighted unmet demand by 1.35% relative to the
-baseline and closes 18.94% of the baseline-to-oracle gap. Total (unweighted)
-unmet demand and average service shortfall move in the same direction
-(551,381 to 543,322; 84.57 to 83.33 per cell-day), and allocation efficiency
-rises slightly (0.955 to 0.962). The high-demand coverage rate remains low under
-all non-oracle policies, indicating that the scarce budget cannot cover peak
-cells regardless of forecast.
+Total weighted unmet demand is 643,324 under the internal-historical baseline,
+634,614 under the calendar-augmented policy, 641,382 under the weather-augmented
+policy, 631,191 under the calendar + weather augmented policy, and 597,332 under
+the oracle. The calendar + weather augmented policy reduces weighted unmet demand
+by 1.886% relative to the baseline and closes 26.381% of the baseline-to-oracle
+gap. The high-demand coverage rate remains low under all non-oracle policies,
+indicating that the scarce budget cannot cover peak cells regardless of forecast.
 
 The key qualitative finding is that the direction is consistent - better
 forecasts yield better allocation outcomes here - but the decision-quality gain
-(about 1.35%) is much smaller than the forecast-accuracy gain (about 11% for the
-best model). This is exactly the forecast-versus-decision distinction the project
-is designed to expose.
+(about 1.89% for the calendar + weather policy) is much smaller than the
+forecast-accuracy gain (about 23% over the naive baseline). This is exactly the
+forecast-versus-decision distinction the project is designed to expose.
 
 ## 11b. Robustness package
 
 A closure-pass robustness package tests whether the forecasting result is stable
 beyond the single split. Five-fold expanding-window rolling-origin validation
 shows calendar augmentation lowering MAE in every fold for every model (random
-forest mean improvement 15.13%, gradient boosting 9.94%, Ridge 0.94%; each 5 of
-5 folds). Segmented evaluation on the held-out test partition shows the
-improvement holds for all five boroughs (about 4.7% to 15.8%) and all eight
-complaint groups (about 5.8% to 25.7%). Decision sensitivity across scarce
-(100 crews), moderate (160), and generous (220) budgets shows the
-calendar-augmented policy is better in all three, but the weighted-unmet
-reduction is budget-dependent (0.21%, 3.19%, 12.05% respectively). The
+forest mean improvement 15.1%, gradient boosting 9.9%, Ridge 0.9%; each 5 of
+5 folds). In mean fold test MAE, the random forest improves from internal
+(57.03, std 8.05) through weather (56.22, std 7.56) and calendar (48.69, std 9.59)
+to calendar + weather (47.50, std 8.75); naive is 61.70 (std 9.67). Segmented
+evaluation on the held-out test partition shows the improvement holds for all
+five boroughs (about 8.8% to 18.8%) and all eight complaint groups (about 8.9%
+to 25.8%); error concentrates in Noise, Housing, and the Bronx. Decision
+sensitivity across scarce (100 crews), moderate (160), and generous (220) budgets
+shows the calendar + weather policy is better than internal-historical in all
+three, but the weighted-unmet reduction is budget-dependent (0.38%, 4.32%, 14.53%
+respectively, closing 27.06%, 22.66%, and 21.05% of the oracle gap). The
 practical-significance summary records the forecasting evidence as strong and
 the decision evidence as directionally consistent but budget-dependent, and
 therefore not strong enough for full-paper drafting. The final phase decision is
@@ -152,13 +175,18 @@ recorded in `candidate_c_final_decision.md`.
 ## 12. What the project can claim
 
 - It uses real, observed NYC 311 data for 2022-2024 with a documented,
-  reproducible aggregation and no synthetic data.
+  reproducible aggregation and no synthetic data, plus a real NOAA Central Park
+  daily weather layer with no synthetic weather.
 - Under a leakage-controlled chronological protocol, calendar augmentation
   reduces next-day forecast error for every model evaluated, and most for the
-  best (random forest) model.
+  best (random forest) model; real weather adds a smaller but consistent further
+  gain on top of calendar.
 - A transparent, stylized allocation simulation shows that this forecast
   improvement produces a small but consistent improvement in a weighted
-  unmet-demand decision metric, closing about a fifth of the gap to an oracle.
+  unmet-demand decision metric: the calendar + weather policy closes about a
+  quarter of the gap to an oracle at the baseline budget.
+
+This memo reflects the weather-augmentation closure pass.
 
 ## 13. What the project cannot claim
 
@@ -185,8 +213,9 @@ recorded in `candidate_c_final_decision.md`.
 
 ## 15. Next research steps
 
-- Add genuinely external, no-key public signals (for example weather) with full
-  documentation, and re-run the same internal-versus-augmented comparison.
+- Extend the external-signal layer beyond a single weather station (for example
+  multi-station or gridded weather) and add further no-key public signals, with
+  full documentation.
 - Replace the single split with rolling-origin evaluation and add formal tests
   for forecast-accuracy differences (for example Diebold-Mariano) and for
   decision-quality differences across policies.

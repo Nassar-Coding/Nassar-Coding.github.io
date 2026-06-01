@@ -2,20 +2,22 @@
 
 This guide explains each figure in `figures/`. All figures are generated from the
 committed real-data artifacts by `python -m src.evaluate` and
-`python -m src.decision_simulation`. Four figures are present and none are
-missing.
+`python -m src.decision_simulation`.
 
 ## 1. forecast_error_by_model.png
 
 - What it shows: a bar chart of test MAE for every model and feature-set
   combination (naive seasonal baseline, and Ridge / random forest / gradient
-  boosting on each of the internal-historical and calendar-augmented sets).
+  boosting on each of the four feature sets: internal-historical,
+  calendar-augmented, weather-augmented, and calendar + weather augmented), now
+  13 bars.
 - How to read it: shorter bars are better (lower test MAE). Compare each model's
-  internal-historical bar with its calendar-augmented bar to see the effect of
-  calendar features; compare all bars with the naive baseline.
-- Key takeaway: the calendar-augmented random forest has the lowest test MAE in
-  the comparison table (58.08), and calendar augmentation lowers the bar for every
-  model.
+  internal-historical bar with its calendar-, weather-, and calendar + weather
+  bars to see the effect of each augmentation; compare all bars with the naive
+  baseline.
+- Key takeaway: the calendar + weather random forest has the lowest test MAE in
+  the comparison table (56.22); calendar is the dominant signal, and real weather
+  adds a smaller but consistent further gain on top of it.
 - Do not overclaim: bars are point estimates from a single chronological test
   split, not confidence intervals; small differences should not be read as
   statistically distinguishable.
@@ -49,13 +51,15 @@ missing.
 
 ## 4. decision_quality_comparison.png
 
-- What it shows: a bar chart of total weighted unmet demand for the three policies
-  (baseline internal-historical, calendar-augmented, and oracle true-demand).
+- What it shows: a bar chart of total weighted unmet demand for the policies
+  driven by each feature set (baseline internal-historical, calendar-augmented,
+  weather-augmented, calendar + weather augmented) and the oracle true-demand
+  benchmark.
 - How to read it: lower bars are better. The distance from the baseline bar to the
-  oracle bar is the maximum achievable improvement; the calendar-augmented bar
-  sits between them.
-- Key takeaway: the calendar-augmented policy reduces weighted unmet demand by
-  1.35% over the baseline and closes 18.94% of the baseline-to-oracle gap.
+  oracle bar is the maximum achievable improvement; the feature-set policy bars
+  sit between them.
+- Key takeaway: the calendar + weather policy reduces weighted unmet demand by
+  1.886% over the baseline and closes 26.381% of the baseline-to-oracle gap.
 - Do not overclaim: the simulation is stylized and is not real dispatch; the
   oracle is an unattainable benchmark; the absolute values depend on the assumed
   crew budget and complaint-group weights.
@@ -69,8 +73,10 @@ missing.
   calendar-augmented line within and across folds.
 - Key takeaway: the calendar-augmented lines sit below their internal-historical
   counterparts in every fold for every model (random forest mean improvement
-  15.13%, gradient boosting 9.94%, Ridge 0.94%), showing the forecasting effect is
-  stable, not a one-split artifact.
+  15.1%, gradient boosting 9.9%, Ridge 0.9%), showing the forecasting effect is
+  stable, not a one-split artifact; in mean fold test MAE the random forest
+  improves from internal (57.03) through weather (56.22) and calendar (48.69) to
+  calendar + weather (47.50).
 - Do not overclaim: fold-to-fold MAE varies with the test window; the lines show
   consistency of the gap, not a formal significance test.
 
@@ -80,8 +86,8 @@ missing.
   model (random forest), by complaint group.
 - How to read it: within each group, the lower (green) bar is the
   calendar-augmented MAE. Groups are ordered by augmented MAE.
-- Key takeaway: calendar augmentation improves all eight groups (about 5.8% to
-  25.7%); absolute error is largest for Noise and Housing.
+- Key takeaway: augmentation improves all eight groups (about 8.9% to 25.8%);
+  absolute error is largest for Noise and Housing.
 - Do not overclaim: absolute error scales with group volume; smaller bars for
   low-volume groups do not mean those groups are modelled better in relative
   terms.
@@ -92,23 +98,66 @@ missing.
   model, by borough.
 - How to read it: within each borough, the lower (green) bar is the
   calendar-augmented MAE.
-- Key takeaway: calendar augmentation improves all five boroughs (about 4.7% to
-  15.8%); absolute error is largest for the Bronx and smallest for Staten Island.
+- Key takeaway: augmentation improves all five boroughs (about 8.8% to 18.8%);
+  absolute error is largest for the Bronx and smallest for Staten Island.
 - Do not overclaim: borough differences in absolute error reflect volume, not
   necessarily model quality.
 
 ## 8. decision_sensitivity.png
 
-- What it shows: total weighted unmet demand for the three policies (baseline
-  internal-historical, calendar-augmented, oracle) under scarce, moderate, and
-  generous crew budgets.
-- How to read it: within each budget group, compare the three bars; lower is
-  better. Compare across budget groups to see how the gaps change with capacity.
-- Key takeaway: the calendar-augmented policy beats the baseline in all three
-  budgets, but the margin grows with capacity (0.21% scarce, 3.19% moderate,
-  12.05% generous), so the decision benefit is budget-dependent.
+- What it shows: total weighted unmet demand for the policies (baseline
+  internal-historical, augmented, oracle) under scarce, moderate, and generous
+  crew budgets.
+- How to read it: within each budget group, compare the bars; lower is better.
+  Compare across budget groups to see how the gaps change with capacity.
+- Key takeaway: the calendar + weather policy beats the baseline in all three
+  budgets, but the margin grows with capacity (0.38% scarce, 4.32% moderate,
+  14.53% generous), so the decision benefit is budget-dependent.
 - Do not overclaim: the simulation is stylized; the budget levels are
   illustrative; absolute values depend on the allocation rule and weights.
+
+## 9. feature_set_comparison_mae.png
+
+- What it shows: a bar chart of the best test MAE achieved per feature set across
+  models, for the four feature sets: internal-historical, calendar-augmented,
+  weather-augmented, and calendar + weather augmented.
+- How to read it: shorter bars are better (lower test MAE). The progression from
+  internal-historical through weather and calendar to calendar + weather shows the
+  marginal contribution of each augmentation.
+- Key takeaway: calendar + weather has the lowest best test MAE (56.22); calendar
+  is the dominant signal, weather-only (64.10) edges past internal-historical
+  (65.28), and adding weather on top of calendar lowers MAE further (58.08 to
+  56.22).
+- Do not overclaim: these are point estimates from a single chronological test
+  split, not confidence intervals; the weather increment over calendar is small.
+
+## 10. model_comparison_mae.png
+
+- What it shows: an alias view of forecast error by model and feature set - test
+  MAE for the naive baseline and every model x feature-set combination across the
+  four feature sets, now 13 bars.
+- How to read it: shorter bars are better. Group bars by model to compare the four
+  feature sets within each model, or scan across models within a feature set.
+- Key takeaway: tree ensembles benefit most from augmentation; the calendar +
+  weather random forest is the lowest bar (56.22), while Ridge changes little
+  across feature sets.
+- Do not overclaim: single-split point estimates; small bar differences are not
+  necessarily distinguishable, and Ridge does not benefit from weather.
+
+## 11. weather_feature_summary.png
+
+- What it shows: panels of the real NOAA NCEI Daily Summaries (GHCN-Daily) daily
+  series for station USW00094728 (NYC Central Park), 2022-2024 - precipitation,
+  maximum/minimum/average temperature, snowfall, snow depth, and wind speed.
+- How to read it: each panel is one weather variable over the study window; the
+  series show the seasonal and day-to-day variation of the external signal fed
+  into the weather feature sets.
+- Key takeaway: the weather layer is real observed data (no synthetic weather);
+  temp_avg_c is derived from observed max/min because the source TAVG was empty,
+  and five missing wind days are time-interpolated.
+- Do not overclaim: this is a single-station city-level proxy, not spatially
+  resolved weather; the panels are descriptive and do not imply any causal effect
+  of weather on demand.
 
 ## Optional additional figures (not currently generated)
 

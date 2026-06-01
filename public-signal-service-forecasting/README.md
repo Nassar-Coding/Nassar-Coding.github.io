@@ -19,6 +19,8 @@ documents are read from the committed artifacts under `reports/` and
 - [`research_artifacts/public_project_summary.md`](research_artifacts/public_project_summary.md) - public-facing project summary.
 - [`research_artifacts/candidate_c_final_decision.md`](research_artifacts/candidate_c_final_decision.md) - final phase decision.
 - [`research_artifacts/final_candidate_c_summary.md`](research_artifacts/final_candidate_c_summary.md) - concise executive summary.
+- [`research_artifacts/candidate_c_short_paper.md`](research_artifacts/candidate_c_short_paper.md) - 4-6 page short-paper draft (real NYC 311 + real NOAA weather).
+- [`research_artifacts/candidate_c_freeze_note.md`](research_artifacts/candidate_c_freeze_note.md) - final freeze note and reopen conditions.
 
 This is a research baseline package, not a finished paper, and it makes no
 causal, production-readiness, or real-staffing-optimization claims.
@@ -156,7 +158,7 @@ Alternatively, place a record-level export at
 `data/raw/nyc_311_2022_2024.csv` (same required columns); `build_dataset` will
 aggregate it in-process using the same deterministic complaint mapping.
 
-## 11. Feature sets: internal historical vs calendar-augmented
+## 11. Feature sets: internal historical, calendar, and real weather
 
 - **Internal historical:** `borough`, `complaint_group`, `request_lag_1`,
   `request_lag_7`, `rolling_mean_7`, `rolling_mean_14`, `rolling_std_7`,
@@ -164,10 +166,16 @@ aggregate it in-process using the same deterministic complaint mapping.
 - **Calendar augmented:** all internal-historical features plus `is_weekend`,
   `is_holiday`, `day_of_week`, `month`, `quarter`, `year`, `day_of_year`,
   `week_of_year`, `is_month_start`, `is_month_end`.
+- **Weather augmented:** all internal-historical features plus real NOAA daily
+  weather (`precipitation_mm`, `temp_max_c`, `temp_min_c`, `temp_avg_c`,
+  `snowfall_mm`, `snow_depth_mm`, `wind_speed_ms`).
+- **Calendar + weather augmented:** internal-historical plus both calendar and
+  real weather features.
 
-No real weather, transit, or event data is included in this version, so the
-comparison is framed honestly as internal-historical versus calendar-augmented,
-not external-signal augmentation.
+The weather layer is real NOAA NCEI Daily Summaries (GHCN-Daily) for the NYC
+Central Park station (USW00094728), 2022-2024, used as a single-station
+city-level proxy (a documented limitation). No transit or event data is included
+in this version. No synthetic weather is generated.
 
 ## 12. Model candidates
 
@@ -176,7 +184,7 @@ not external-signal augmentation.
 - Random forest regressor
 - Gradient boosting regressor
 
-Each non-naive model is trained on both feature sets.
+Each non-naive model is trained on every available feature set.
 
 ## 13. Chronological validation design
 

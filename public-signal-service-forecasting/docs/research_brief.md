@@ -37,9 +37,12 @@ chronological validation protocol:
 
 Each feature set is trained with a naive seasonal baseline, Ridge regression, a
 random forest, and gradient boosting. The primary selection metric is MAE on a
-held-out, chronologically later test set. Because no real external weather,
-transit, or event data is included in this version, the comparison is framed as
-internal-historical versus calendar-augmented, not external-signal augmentation.
+held-out, chronologically later test set. The comparison spans four feature sets:
+internal-historical, calendar-augmented, weather-augmented (real NOAA daily
+weather for the NYC Central Park station, a genuinely external public signal used
+as a single-station city-level proxy), and calendar + weather augmented. No
+transit or event data is included in this version, and no synthetic weather is
+generated.
 
 ## Decision-link logic
 

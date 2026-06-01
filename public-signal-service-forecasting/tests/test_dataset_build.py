@@ -8,7 +8,11 @@ from src.build_dataset import build_processed_dataset
 
 
 def test_processed_dataset_has_required_columns(processed_frame) -> None:
-    assert list(processed_frame.columns) == config.PROCESSED_COLUMNS
+    # The base processed columns must always be present and in order; weather
+    # columns may be appended when a real weather export is available.
+    assert list(processed_frame.columns)[: len(config.PROCESSED_COLUMNS)] == config.PROCESSED_COLUMNS
+    extra = [c for c in processed_frame.columns if c not in config.PROCESSED_COLUMNS]
+    assert set(extra).issubset(set(config.WEATHER_FEATURES))
 
 
 def test_processed_dataset_is_non_empty(processed_frame) -> None:

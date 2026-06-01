@@ -75,11 +75,12 @@ def test_decision_sensitivity_creates_report(processed_frame) -> None:
     assert config.FIG_DECISION_SENSITIVITY.exists()
 
     report = pd.read_csv(config.DECISION_SENSITIVITY_REPORT_FILE)
-    # Three settings x three policies.
     assert set(report["setting"].unique()) == set(config.DECISION_CREW_SETTINGS)
-    assert {"baseline_internal_historical", "calendar_augmented", "oracle_true_demand"}.issubset(
-        set(report["policy"].unique())
-    )
+    # One policy per available feature set, plus the oracle.
+    policies = set(report["policy"].unique())
+    assert "policy_internal_historical" in policies
+    assert "policy_calendar_augmented" in policies
+    assert "oracle_true_demand" in policies
 
 
 def test_practical_significance_summary_created(processed_frame) -> None:

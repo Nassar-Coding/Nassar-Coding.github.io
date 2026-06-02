@@ -52,6 +52,23 @@ The reproducible robustness artifacts are produced by
 `python -m src.rolling_validation`, `python -m src.robustness_analysis`,
 `python -m src.decision_sensitivity`, and `python -m src.practical_significance`.
 
+## Paper Package
+
+The `paper/` folder is a draft arXiv-style / workshop-style paper package
+assembled from the committed evidence artifacts. It is a draft, not a finished or
+full paper.
+
+- [`paper/main.md`](paper/main.md) - main paper body.
+- [`paper/references.bib`](paper/references.bib) - bibliography (one verified
+  entry, two data sources, one TODO to verify before submission).
+- [`paper/number_audit.md`](paper/number_audit.md) - every numeric claim traced
+  to a committed artifact.
+- [`paper/submission_readiness_checklist.md`](paper/submission_readiness_checklist.md) - status and remaining manual work.
+
+See [`paper/README.md`](paper/README.md) for the full folder guide. The package
+makes no causal, production-readiness, real-dispatch, or full-paper-readiness
+claims.
+
 ## 1. Summary
 
 This repository is a local, reproducible machine-learning baseline that tests

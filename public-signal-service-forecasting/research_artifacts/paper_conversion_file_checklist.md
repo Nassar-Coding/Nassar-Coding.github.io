@@ -8,24 +8,33 @@ Public project name: Public Signal Service Forecasting.
 Paper-style title: From Forecast Accuracy to Operational Value: Public Signal
 Augmentation for NYC 311 Service Demand.
 
-## 1. Core paper files to create
+## 1. Core paper files (CREATED in `paper/`)
 
-These do not exist yet and would be created in a `paper/` directory:
+The `paper/` directory has been created. Status:
 
-- `paper/main.tex` or `paper/main.md` - the paper body.
-- `paper/references.bib` - bibliography with real literature.
-- `paper/figures/` - publication-ready copies of the figures (from `figures/`).
-- `paper/tables/` - result tables (from `reports/model_comparison.csv` and the
-  summary JSONs).
-- `paper/appendix.md` or `paper/appendix.tex` - feature definitions, robustness
-  detail, weather provenance.
-- `paper/reproducibility_statement.md` - environment, commands, data access.
-- `paper/data_availability_statement.md` - NYC 311 and NOAA sources and licenses.
-- `paper/ethics_statement.md` - aggregate-only data, reporting bias, no personal
-  data, no deployment.
-- `paper/limitations.md` - condensed from `docs/limitations.md`.
-- `paper/cover_note.md` - short cover note if the target workshop requires one.
-- `paper/venue_formatting_notes.md` - venue template and length notes.
+- [x] `paper/main.md` - the paper body.
+- [x] `paper/references.bib` - bibliography (Cui 2018 verified; NYC 311 and NOAA
+  data sources; one TODO reference to verify or remove).
+- [x] `paper/figures/` - 10 publication-named copies of the committed figures
+  (+ README).
+- [x] `paper/tables/` - 8 result tables built from `reports/` and
+  `data/metadata/`.
+- [x] `paper/appendix.md` - feature definitions, robustness detail, weather
+  provenance.
+- [x] `paper/reproducibility_statement.md` - environment, commands, data access.
+- [x] `paper/data_availability_statement.md` - NYC 311 and NOAA sources.
+- [x] `paper/ethics_statement.md` - aggregate-only data, reporting bias, no
+  deployment.
+- [x] `paper/limitations.md` - limitations and full-paper blockers.
+- [x] `paper/number_audit.md`, `paper/figure_captions.md`,
+  `paper/table_captions.md`, `paper/venue_notes.md`,
+  `paper/submission_readiness_checklist.md`, `paper/README.md`.
+
+Remaining manual work (not auto-generatable): final reference verification
+(resolve the TODO reference; confirm data-source accessed dates), a full
+related-work section, the final PDF build, venue-specific formatting, and a final
+human edit. A workshop cover note and venue formatting notes can be added at
+formatting time.
 
 ## 2. Existing repository files that already support the paper
 

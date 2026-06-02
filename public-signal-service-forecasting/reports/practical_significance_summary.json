@@ -1,0 +1,24 @@
+{
+  "calendar_augmentation_improves_mae_across_rolling_folds": true,
+  "rolling_folds": 5,
+  "rolling_mean_improvement_pct_by_model": {
+    "ridge": 0.9353,
+    "random_forest": 15.1289,
+    "gradient_boosting": 9.9379
+  },
+  "improvement_stable_across_boroughs": true,
+  "boroughs_augmented_better": "5/5",
+  "improvement_stable_across_complaint_groups": true,
+  "complaint_groups_augmented_better": "8/8",
+  "decision_improvement_direction_stable_across_budgets": true,
+  "decision_reduction_pct_by_setting": {
+    "scarce": 0.3829,
+    "moderate": 4.3174,
+    "generous": 14.5258
+  },
+  "decision_effect_varies_with_budget": true,
+  "forecasting_evidence_strong": true,
+  "decision_evidence_strong": false,
+  "strong_enough_for_full_paper_drafting": false,
+  "assessment": "The forecasting claim is well supported: calendar augmentation lowers MAE for every model in every rolling fold and for every borough and complaint group. The decision claim is directionally consistent across scarce, moderate, and generous crew budgets but its magnitude is budget-dependent (small under scarcity, larger under generous capacity), and it rests on a single stylized proportional-allocation heuristic. This evidence supports an extended-abstract/workshop artifact and a strong research baseline, but not full-paper drafting, which would require an external-signal comparison, formal forecast-difference tests, and a richer, non-stylized decision model."
+}

@@ -1,0 +1,57 @@
+{
+  "data_mode": "real_weather_noaa",
+  "source_name": "NOAA NCEI Daily Summaries (GHCN-Daily)",
+  "station_id": "USW00094728",
+  "station_name": "NY CITY CENTRAL PARK, NY US",
+  "spatial_resolution": "single city station (Central Park) used as a city-level proxy",
+  "study_start_date": "2022-01-01",
+  "study_end_date": "2024-12-31",
+  "ingested_at": "2026-06-01T17:23:23.105801+00:00",
+  "input_source_file": "data/raw/nyc_central_park_weather_2022_2024.csv",
+  "rows": 1096,
+  "date_range": [
+    "2022-01-01",
+    "2024-12-31"
+  ],
+  "variables_used": [
+    "precipitation_mm",
+    "temp_max_c",
+    "temp_min_c",
+    "temp_avg_c",
+    "snowfall_mm",
+    "snow_depth_mm",
+    "wind_speed_ms"
+  ],
+  "noaa_columns_present": [
+    "PRCP",
+    "TMAX",
+    "TMIN",
+    "SNOW",
+    "SNWD",
+    "AWND"
+  ],
+  "noaa_columns_missing_or_empty": [
+    "TAVG"
+  ],
+  "temp_avg_derived_from_tmax_tmin": true,
+  "short_gaps_time_interpolated_per_column": {
+    "precipitation_mm": 0,
+    "temp_max_c": 0,
+    "temp_min_c": 0,
+    "temp_avg_c": 0,
+    "snowfall_mm": 0,
+    "snow_depth_mm": 0,
+    "wind_speed_ms": 5
+  },
+  "units": {
+    "precipitation_mm": "mm",
+    "temp_max_c": "degrees Celsius",
+    "temp_min_c": "degrees Celsius",
+    "temp_avg_c": "degrees Celsius",
+    "snowfall_mm": "mm",
+    "snow_depth_mm": "mm",
+    "wind_speed_ms": "metres per second"
+  },
+  "no_synthetic_weather": true,
+  "notes": "Real observed NOAA station data. No synthetic or modelled weather is generated. Missing source variables are recorded, not fabricated. A single Central Park station is used as a city-level proxy; this is a documented spatial-resolution limitation."
+}

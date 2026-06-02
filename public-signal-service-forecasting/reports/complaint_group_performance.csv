@@ -1,0 +1,9 @@
+complaint_group,n_test_rows,mean_actual_next_day,internal_historical_mae,calendar_augmented_mae,mae_improvement_pct,augmented_better,internal_historical_rmse,calendar_augmented_rmse
+Noise,815,466.355,194.882,168.272,13.6544,True,459.3331,449.3134
+Housing,815,414.31,121.7621,106.8389,12.256,True,209.8192,186.8634
+Other,815,251.47,54.7938,44.4741,18.8338,True,90.1322,83.2864
+Traffic,815,436.574,44.9995,40.9896,8.911,True,65.8074,61.5576
+Sanitation,815,117.409,24.9569,22.0778,11.5362,True,34.4353,31.2733
+Public Safety,815,101.827,24.4488,21.4955,12.0795,True,38.5085,33.3046
+Water,815,74.476,25.1114,20.5853,18.0242,True,44.9338,41.0076
+Street Condition,815,102.958,24.0836,17.8645,25.8229,True,33.0593,26.2192

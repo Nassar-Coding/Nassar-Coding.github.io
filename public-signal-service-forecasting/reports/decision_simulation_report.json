@@ -1,0 +1,68 @@
+{
+  "description": "Stylized staffing-allocation simulation. Not a real dispatch system and not a claim of real staffing optimization.",
+  "assumptions": {
+    "requests_per_crew": 50,
+    "total_crews": 135,
+    "min_crews_per_cell": 0,
+    "high_demand_quantile": 0.75,
+    "complaint_group_weights": {
+      "Noise": 1.0,
+      "Sanitation": 1.0,
+      "Street Condition": 1.0,
+      "Water": 1.5,
+      "Housing": 1.0,
+      "Traffic": 1.5,
+      "Public Safety": 2.0,
+      "Other": 1.0
+    },
+    "allocation_rule": "proportional_to_forecast_largest_remainder"
+  },
+  "test_days": 163,
+  "headline_augmented_policy": "calendar_weather_augmented",
+  "policies": {
+    "internal_historical": {
+      "total_weighted_unmet_demand": 643324.5,
+      "total_unmet_demand": 551381.0,
+      "average_service_shortfall": 84.5676,
+      "high_demand_coverage_rate": 0.0861,
+      "allocation_efficiency": 0.9547
+    },
+    "calendar_augmented": {
+      "total_weighted_unmet_demand": 634613.5,
+      "total_unmet_demand": 543322.0,
+      "average_service_shortfall": 83.3316,
+      "high_demand_coverage_rate": 0.0739,
+      "allocation_efficiency": 0.962
+    },
+    "weather_augmented": {
+      "total_weighted_unmet_demand": 641382.5,
+      "total_unmet_demand": 549893.0,
+      "average_service_shortfall": 84.3394,
+      "high_demand_coverage_rate": 0.083,
+      "allocation_efficiency": 0.956
+    },
+    "calendar_weather_augmented": {
+      "total_weighted_unmet_demand": 631191.0,
+      "total_unmet_demand": 540580.0,
+      "average_service_shortfall": 82.911,
+      "high_demand_coverage_rate": 0.0653,
+      "allocation_efficiency": 0.9645
+    },
+    "oracle_true_demand": {
+      "total_weighted_unmet_demand": 597332.0,
+      "total_unmet_demand": 506347.0,
+      "average_service_shortfall": 77.6606,
+      "high_demand_coverage_rate": 0.011,
+      "allocation_efficiency": 0.9956
+    }
+  },
+  "augmented_improvement_over_baseline": {
+    "headline_augmented_policy": "calendar_weather_augmented",
+    "weighted_unmet_demand_reduction_pct": 1.886,
+    "augmented_better": true,
+    "gap_to_oracle_closed_pct": 26.381,
+    "baseline_weighted_unmet": 643324.5,
+    "augmented_weighted_unmet": 631191.0,
+    "oracle_weighted_unmet": 597332.0
+  }
+}

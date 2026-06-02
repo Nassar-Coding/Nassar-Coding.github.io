@@ -1,0 +1,6 @@
+borough,n_test_rows,mean_actual_next_day,internal_historical_mae,calendar_augmented_mae,mae_improvement_pct,augmented_better,internal_historical_rmse,calendar_augmented_rmse
+Bronx,1304,283.023,120.1938,109.5671,8.8413,True,368.9716,361.8111
+Brooklyn,1304,363.699,76.9909,64.1745,16.6467,True,130.4451,115.7185
+Manhattan,1304,255.515,58.1776,48.078,17.36,True,101.3286,88.1028
+Queens,1304,284.544,53.7708,43.6746,18.7763,True,83.7173,71.7071
+Staten Island,1304,41.581,12.7657,11.1294,12.8176,True,18.6218,16.9446

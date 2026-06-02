@@ -1,0 +1,125 @@
+{
+  "data_mode": "real_nyc_311",
+  "source_name": "NYC 311 Service Requests (NYC Open Data)",
+  "source_url": "https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9",
+  "study_start_date": "2022-01-01",
+  "study_end_date": "2024-12-31",
+  "download_timestamp": "2026-06-01T17:23:24.155426+00:00",
+  "input_source_file": "data/raw/nyc_311_daily_counts_2022_2024.csv",
+  "raw_row_count": 9851452,
+  "aggregated_daily_count_rows": 43840,
+  "processed_row_count": 43240,
+  "date_range_observed": [
+    "2022-01-15",
+    "2024-12-30"
+  ],
+  "boroughs_included": [
+    "Bronx",
+    "Brooklyn",
+    "Manhattan",
+    "Queens",
+    "Staten Island"
+  ],
+  "complaint_groups_included": [
+    "Housing",
+    "Noise",
+    "Other",
+    "Public Safety",
+    "Sanitation",
+    "Street Condition",
+    "Traffic",
+    "Water"
+  ],
+  "fields_used": [
+    "created_date",
+    "borough",
+    "complaint_type",
+    "unique_key"
+  ],
+  "fields_dropped": [
+    "all other NYC 311 columns are not used in this baseline"
+  ],
+  "known_data_quality_issues": [
+    "311 reflects reporting behaviour, not true incidence (reporting bias).",
+    "Complaint-type to complaint_group mapping is a deterministic approximation.",
+    "Rows with invalid/unspecified borough are dropped during aggregation.",
+    "Absent (date, borough, group) rows are treated as zero observed requests."
+  ],
+  "no_synthetic_data": true,
+  "synthetic_fallback_used": false,
+  "aggregation_metadata": {
+    "data_mode": "real_nyc_311",
+    "source_name": "NYC 311 Service Requests (NYC Open Data)",
+    "study_start_date": "2022-01-01",
+    "study_end_date": "2024-12-31",
+    "aggregated_at": "2026-05-31T12:47:53.898324+00:00",
+    "input_files_count": 36,
+    "input_files": [
+      "apr_2022.csv",
+      "apr_2023.csv",
+      "apr_2024.csv",
+      "aug_2022.csv",
+      "aug_2023.csv",
+      "aug_2024.csv",
+      "dec_2022.csv",
+      "dec_2023.csv",
+      "dec_2024.csv",
+      "feb_2022.csv",
+      "feb_2023.csv",
+      "feb_2024.csv",
+      "jan_2022.csv",
+      "jan_2023.csv",
+      "jan_2024.csv",
+      "jul_2022.csv",
+      "Jul_2023.csv",
+      "jul_2024.csv",
+      "jun_2022.csv",
+      "jun_2023.csv",
+      "jun_2024.csv",
+      "mar_2022.csv",
+      "mar_2023.csv",
+      "mar_2024.csv",
+      "may_2022.csv",
+      "may_2023.csv",
+      "may_2024.csv",
+      "nov_2022.csv",
+      "nov_2023.csv",
+      "nov_2024.csv",
+      "oct_2022.csv",
+      "oct_2023.csv",
+      "oct_2024.csv",
+      "sep_2022.csv",
+      "sep_2023.csv",
+      "sep_2024.csv"
+    ],
+    "raw_rows_read": 9851452,
+    "rows_dropped_unparseable_date": 0,
+    "rows_dropped_out_of_window": 0,
+    "rows_dropped_invalid_borough": 12464,
+    "rows_mapped_to_other_group": 1230975,
+    "aggregated_row_count": 43830,
+    "total_requests_after_filtering": 9838988,
+    "date_range_observed": [
+      "2022-01-01",
+      "2024-12-31"
+    ],
+    "boroughs_included": [
+      "Bronx",
+      "Brooklyn",
+      "Manhattan",
+      "Queens",
+      "Staten Island"
+    ],
+    "complaint_groups_included": [
+      "Housing",
+      "Noise",
+      "Other",
+      "Public Safety",
+      "Sanitation",
+      "Street Condition",
+      "Traffic",
+      "Water"
+    ],
+    "no_synthetic_data": true
+  }
+}

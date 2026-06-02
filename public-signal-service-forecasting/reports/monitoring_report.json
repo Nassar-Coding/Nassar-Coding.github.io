@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-06-01T17:26:19.647216+00:00",
+  "best_model": "random_forest",
+  "best_feature_set": "calendar_weather_augmented",
+  "best_model_test_mae": 55.3247,
+  "naive_baseline_test_mae": 71.848,
+  "improvement_over_baseline_pct": 22.998,
+  "improvement_threshold_pct": 5.0,
+  "status": "healthy",
+  "notes": "Local monitoring stub. Compares best-model test MAE to the naive seasonal baseline. No live data or production system is involved."
+}

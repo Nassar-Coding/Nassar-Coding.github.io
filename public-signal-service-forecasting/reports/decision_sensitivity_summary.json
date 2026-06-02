@@ -1,0 +1,41 @@
+{
+  "requests_per_crew": 50,
+  "test_days": 163,
+  "settings": {
+    "scarce": {
+      "total_crews": 100,
+      "daily_capacity": 5000,
+      "headline_augmented_policy": "policy_calendar_weather_augmented",
+      "baseline_weighted_unmet": 941817.0,
+      "augmented_weighted_unmet": 938210.5,
+      "oracle_weighted_unmet": 928490.5,
+      "weighted_unmet_reduction_pct": 0.3829,
+      "gap_to_oracle_closed_pct": 27.0626,
+      "augmented_better": true
+    },
+    "moderate": {
+      "total_crews": 160,
+      "daily_capacity": 8000,
+      "headline_augmented_policy": "policy_calendar_weather_augmented",
+      "baseline_weighted_unmet": 454072.5,
+      "augmented_weighted_unmet": 434468.5,
+      "oracle_weighted_unmet": 367552.5,
+      "weighted_unmet_reduction_pct": 4.3174,
+      "gap_to_oracle_closed_pct": 22.6583,
+      "augmented_better": true
+    },
+    "generous": {
+      "total_crews": 220,
+      "daily_capacity": 11000,
+      "headline_augmented_policy": "policy_calendar_weather_augmented",
+      "baseline_weighted_unmet": 164197.0,
+      "augmented_weighted_unmet": 140346.0,
+      "oracle_weighted_unmet": 50865.0,
+      "weighted_unmet_reduction_pct": 14.5258,
+      "gap_to_oracle_closed_pct": 21.0452,
+      "augmented_better": true
+    }
+  },
+  "augmented_better_in_all_settings": true,
+  "mean_weighted_unmet_reduction_pct": 6.4087
+}

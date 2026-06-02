@@ -1,0 +1,48 @@
+{
+  "best_model": "random_forest",
+  "best_feature_set": "calendar_weather_augmented",
+  "test_metrics": {
+    "mae": 55.32472083269734,
+    "rmse": 177.47628914326563,
+    "mape": 27.469403810657045,
+    "r2": 0.647799390974249
+  },
+  "mae_by_borough": {
+    "Bronx": 109.5671,
+    "Brooklyn": 64.1745,
+    "Manhattan": 48.078,
+    "Queens": 43.6746,
+    "Staten Island": 11.1294
+  },
+  "mae_by_complaint_group": {
+    "Housing": 106.8389,
+    "Noise": 168.272,
+    "Other": 44.4741,
+    "Public Safety": 21.4955,
+    "Sanitation": 22.0778,
+    "Street Condition": 17.8645,
+    "Traffic": 40.9896,
+    "Water": 20.5853
+  },
+  "test_rows": 6520,
+  "internal_vs_augmented": {
+    "gradient_boosting": {
+      "internal_test_mae": 67.49294459491972,
+      "augmented_test_mae": 61.709984228236976,
+      "mae_improvement_pct": 8.568244283000263,
+      "augmented_better": true
+    },
+    "random_forest": {
+      "internal_test_mae": 65.28227012754172,
+      "augmented_test_mae": 58.0816173951746,
+      "mae_improvement_pct": 11.030028089248791,
+      "augmented_better": true
+    },
+    "ridge": {
+      "internal_test_mae": 69.21907461685605,
+      "augmented_test_mae": 68.7575991210879,
+      "mae_improvement_pct": 0.6666883345703729,
+      "augmented_better": true
+    }
+  }
+}

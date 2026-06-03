@@ -1,16 +1,14 @@
 % References for: From Forecast Accuracy to Operational Value:
 % Public Signal Augmentation for NYC 311 Service Demand
 %
-% Verification policy: entries below are either fully verified from a source
-% note, or marked TODO where exact bibliographic metadata has not been verified.
-% Do not cite a TODO entry as if complete; resolve the TODO before submission.
+% Verification policy: entries below are fully verified from source notes,
+% official publisher pages, or public dataset pages. Data-source access dates
+% should match the actual final date you verified/downloaded the data.
 
 % ---------------------------------------------------------------------------
 % Verified literature
 % ---------------------------------------------------------------------------
 
-% Verified from an ingested source note (author list, venue, volume, issue,
-% pages, and DOI all present).
 @article{cui2018operational,
   author  = {Cui, Ruomeng and Gallino, Santiago and Moreno, Antonio and Zhang, Dennis J.},
   title   = {The Operational Value of Social Media Information},
@@ -22,13 +20,17 @@
   doi     = {10.1111/poms.12707}
 }
 
-% ---------------------------------------------------------------------------
-% Data sources (public datasets)
-% ---------------------------------------------------------------------------
+@article{samorani2022overbooked,
+  author  = {Samorani, Michele and Harris, Shannon L. and Blount, Linda Goler and Lu, Haibing and Santoro, Michael A.},
+  title   = {Overbooked and Overlooked: Machine Learning and Racial Bias in Medical Appointment Scheduling},
+  journal = {Manufacturing \& Service Operations Management},
+  year    = {2022},
+  volume  = {24},
+  number  = {6},
+  pages   = {2825--2842},
+  doi     = {10.1287/msom.2021.0999}
+}
 
-% NYC Open Data dataset id and URL verified from data/metadata/data_source_report.json.
-% Access year/accessed date is the study/processing window; confirm exact
-% "accessed" date for the final submission.
 % ---------------------------------------------------------------------------
 % Data sources (public datasets)
 % ---------------------------------------------------------------------------
@@ -44,24 +46,9 @@
 
 @misc{noaaghcnd,
   author       = {{National Oceanic and Atmospheric Administration, National Centers for Environmental Information}},
-  title        = {{Daily Summaries: Global Historical Climatology Network -- Daily (GHCN-Daily)}},
-  howpublished = {NOAA NCEI Climate Data Online / Daily Summaries; station USW00094728, NY City Central Park},
-  url          = {https://www.ncei.noaa.gov/access/search/data-search/daily-summaries},
+  title        = {{Global Historical Climatology Network Daily (GHCNd)}},
+  howpublished = {NOAA NCEI Daily Summaries; station USW00094728, NY City Central Park},
+  url          = {https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily},
   note         = {Real daily weather observations; study window 2022--2024; station USW00094728. Accessed 2026-06-03.},
   year         = {2026}
-}
-
-% ---------------------------------------------------------------------------
-% Related work named in project background
-% ---------------------------------------------------------------------------
-
-@article{samorani2022overbooked,
-  author  = {Samorani, Michele and Harris, Shannon L. and Blount, Linda Goler and Lu, Haibing and Santoro, Michael A.},
-  title   = {Overbooked and Overlooked: Machine Learning and Racial Bias in Medical Appointment Scheduling},
-  journal = {Manufacturing \& Service Operations Management},
-  year    = {2022},
-  volume  = {24},
-  number  = {6},
-  pages   = {2825--2842},
-  doi     = {10.1287/msom.2021.0999}
 }

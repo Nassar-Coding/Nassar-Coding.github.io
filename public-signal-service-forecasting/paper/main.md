@@ -65,11 +65,10 @@ public weather rather than social media, and adds an explicit forecast-to-decisi
 layer rather than stopping at forecast accuracy.
 
 Prediction-driven prioritization in public-service and scheduling settings has
-also been studied from an equity and efficiency angle [@samorani2022TODO]. We do
+also been studied from an equity and efficiency angle [@samorani2022overbooked]. We do
 not make equity or causal claims; we cite this line only to situate the general
 concern that the objective on top of a predictive model, not the model alone,
-shapes outcomes. (TODO: verify and complete this reference, or remove it, before
-submission.)
+shapes outcomes.
 
 ## 3. Data
 

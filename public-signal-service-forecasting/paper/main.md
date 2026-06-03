@@ -2,7 +2,7 @@
 
 *Public Signal Service Forecasting; research line: Forecasting Service Demand
 with Public Signals. This is an arXiv-style / workshop-style research artifact,
-not a finished full paper. All empirical values are read from committed
+not a finished full paper. All empirical values are read from committedFF
 repository artifacts under `reports/` and `data/metadata/`.*
 
 ## Abstract

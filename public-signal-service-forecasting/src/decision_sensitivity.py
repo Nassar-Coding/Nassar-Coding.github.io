@@ -135,10 +135,12 @@ def _plot(summary: dict) -> None:
 
     x = np.arange(len(settings))
     width = 0.27
+    headline = summary["settings"][settings[0]].get("headline_augmented_policy", "")
+    aug_label = "Calendar + weather" if "calendar_weather" in headline else "Calendar"
     fig, ax = plt.subplots(figsize=(9, 5))
     ax.bar(x - width, baseline, width, label="Baseline (internal)", color="#9aa7b5")
-    ax.bar(x, augmented, width, label="Calendar augmented", color="#2f7d4f")
-    ax.bar(x + width, oracle, width, label="Oracle (true demand)", color="#b5942f")
+    ax.bar(x, augmented, width, label=aug_label, color="#2f7d4f")
+    ax.bar(x + width, oracle, width, label="Oracle (observed demand)", color="#b5942f")
     ax.set_xticks(x)
     ax.set_xticklabels([f"{s}\n({summary['settings'][s]['total_crews']} crews)" for s in settings])
     ax.set_ylabel("Total weighted unmet demand (lower is better)")

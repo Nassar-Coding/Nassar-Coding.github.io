@@ -96,7 +96,7 @@ STUDY_START_DATE: str = "2022-01-01"
 STUDY_END_DATE: str = "2024-12-31"
 
 DATA_SOURCE_NAME: str = "NYC 311 Service Requests (NYC Open Data)"
-DATA_SOURCE_URL: str = "https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9"
+DATA_SOURCE_URL: str = "https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2020-to-Present/erm2-nwe9"
 
 # ---------------------------------------------------------------------------
 # Data mode handling

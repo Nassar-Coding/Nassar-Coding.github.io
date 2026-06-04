@@ -66,15 +66,24 @@ def _markup(text: str) -> str:
     return "".join(out)
 
 
-def _col_widths(header, rows):
-    weights = []
-    for j in range(len(header)):
-        w = len(header[j])
-        for row in rows:
-            w = max(w, len(row[j]))
-        weights.append(max(w, 4))
-    total = sum(weights)
-    return [CONTENT_W * w / total for w in weights]
+def _col_widths(header, rows, font_size):
+    """Proportional column widths with a per-column floor wide enough for the
+    longest unbreakable word, so short headers (e.g. 'Crews') and identifier
+    tokens (e.g. 'calendar_weather_augmented') do not break mid-word."""
+    ncol = len(header)
+    char_w = font_size * 0.55
+    pad = 8.0
+    longest_word = [0.0] * ncol
+    total_len = [0.0] * ncol
+    for j in range(ncol):
+        cells = [header[j]] + [r[j] for r in rows]
+        longest_word[j] = max(max((len(w) for w in c.split()), default=1) for c in cells)
+        total_len[j] = max(len(c) for c in cells)
+    floor = [lw * char_w + pad for lw in longest_word]
+    tw = sum(total_len) or 1.0
+    width = [max(CONTENT_W * total_len[j] / tw, floor[j]) for j in range(ncol)]
+    scale = CONTENT_W / sum(width)
+    return [w * scale for w in width]
 
 
 class PdfRenderer:
@@ -119,7 +128,7 @@ class PdfRenderer:
         data = [[Paragraph(escape(h), cellh) for h in header]]
         for row in rows:
             data.append([Paragraph(escape(v), cell) for v in row])
-        t = Table(data, colWidths=_col_widths(header, rows), repeatRows=1)
+        t = Table(data, colWidths=_col_widths(header, rows, font_size), repeatRows=1)
         t.setStyle(TableStyle([
             ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
             ("BACKGROUND", (0, 0), (-1, 0), colors.Color(0.9, 0.9, 0.9)),
@@ -137,8 +146,13 @@ class PdfRenderer:
         self.story.append(PageBreak())
 
     def references(self, refs) -> None:
+        import re
         for r in refs:
-            self.story.append(Paragraph(escape(r), STYLES["ref"]))
+            text = escape(r)
+            # Make DOIs / URLs clickable in the PDF.
+            text = re.sub(r"(https?://\S+)",
+                          r'<a href="\1" color="#0030c0">\1</a>', text)
+            self.story.append(Paragraph(text, STYLES["ref"]))
 
 
 def _footer(canvas, doc):
@@ -155,7 +169,9 @@ def build() -> None:
     doc = BaseDocTemplate(
         str(OUT), pagesize=letter,
         leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN,
-        title="From Forecast Accuracy to Operational Value", author="[Author Name]",
+        title=("From Forecast Accuracy to Operational Value: "
+               "Public Signal Augmentation for NYC 311 Service Demand"),
+        author="", subject="", creator="", keywords="",
     )
     frame = Frame(MARGIN, MARGIN, CONTENT_W, PAGE_H - 2 * MARGIN, id="main")
     doc.addPageTemplates([PageTemplate(id="main", frames=[frame], onPage=_footer)])

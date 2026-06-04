@@ -176,7 +176,17 @@ class DocxRenderer:
             p.paragraph_format.space_after = Pt(6)
             _set_run_font(p.add_run(r))
 
+    def _set_metadata(self) -> None:
+        cp = self.doc.core_properties
+        cp.title = ("From Forecast Accuracy to Operational Value: "
+                    "Public Signal Augmentation for NYC 311 Service Demand")
+        cp.author = ""
+        cp.last_modified_by = ""
+        cp.comments = ""
+        cp.category = ""
+
     def save(self) -> None:
+        self._set_metadata()
         OUT.parent.mkdir(parents=True, exist_ok=True)
         self.doc.save(str(OUT))
 

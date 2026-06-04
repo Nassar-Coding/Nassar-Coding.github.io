@@ -211,7 +211,8 @@ def run_simulation() -> dict:
         },
     }
     save_json(config.DECISION_SIMULATION_REPORT_FILE, report)
-    _plot_decision_quality(baseline, augmented, oracle)
+    aug_label = "Calendar + weather" if "calendar_weather" in headline_set else "Calendar"
+    _plot_decision_quality(baseline, augmented, oracle, aug_label)
 
     LOGGER.info(
         "Decision simulation complete. Calendar-augmented vs baseline "
@@ -222,9 +223,10 @@ def run_simulation() -> dict:
     return report
 
 
-def _plot_decision_quality(baseline: dict, augmented: dict, oracle: dict) -> None:
+def _plot_decision_quality(baseline: dict, augmented: dict, oracle: dict,
+                           aug_label: str = "Calendar + weather") -> None:
     """Bar chart comparing weighted unmet demand across the three policies."""
-    labels = ["Baseline\n(internal)", "Calendar\naugmented", "Oracle\n(true demand)"]
+    labels = ["Baseline\n(internal)", aug_label.replace(" + ", "\n+ "), "Oracle\n(observed demand)"]
     values = [
         baseline["total_weighted_unmet_demand"],
         augmented["total_weighted_unmet_demand"],

@@ -51,10 +51,10 @@ FIGS = {
 }
 
 REFS = [
-    "City of New York. (2026). 311 Service Requests from 2010 to Present [data set]. "
+    "City of New York. (2026). 311 Service Requests from 2020 to Present [data set]. "
     "NYC Open Data, Socrata dataset erm2-nwe9. Retrieved 2026-06-03 from "
     "https://data.cityofnewyork.us/Social-Services/"
-    "311-Service-Requests-from-2010-to-Present/erm2-nwe9",
+    "311-Service-Requests-from-2020-to-Present/erm2-nwe9",
     "Cui, R., Gallino, S., Moreno, A., & Zhang, D. J. (2018). The Operational Value of Social "
     "Media Information. Production and Operations Management, 27(10), 1749-1769. "
     "https://doi.org/10.1111/poms.12707",
@@ -92,15 +92,17 @@ def emit(r) -> None:
         "observations) and real NOAA Central Park daily weather, we compare four feature sets - "
         "internal history, calendar, weather, and calendar + weather - across four model families "
         "under a strictly chronological protocol with five-fold rolling-origin validation. "
-        "Calendar features deliver the largest accuracy gain; real weather adds a smaller but "
-        "consistent further gain. The best model, a random forest on the calendar + weather "
+        "Calendar features deliver the largest accuracy gain across models; adding real weather "
+        "further improves the selected random-forest model. The best model, a random forest on the "
+        "calendar + weather "
         "feature set, attains a held-out test mean absolute error (MAE) of 55.325 versus 71.848 "
         "for a naive seasonal baseline, a 23.0% reduction. A stylized proportional staffing "
         "simulation shows the augmented policy reduces weighted unmet demand at every crew budget "
         "tested and closes 26.381% of the gap to an oracle at the baseline budget, but the "
         "magnitude of the decision benefit is budget-dependent. The central finding is that the "
-        "forecast gains are real and robust, while the decision gains are smaller and conditional "
-        "on capacity. This study provides a reproducible evaluation of public-signal augmentation "
+        "forecast gains are consistent across the evaluated splits, folds, boroughs, and complaint "
+        "groups, while the decision gains are smaller and conditional on capacity. This study "
+        "provides a reproducible evaluation of public-signal augmentation "
         "for municipal service-demand forecasting; no synthetic data or synthetic weather is used.")
 
     # 1. Introduction
@@ -153,7 +155,7 @@ def emit(r) -> None:
         "anywhere. Table 1 summarizes both.")
     r.body(
         "**NYC 311 Service Requests** (NYC Open Data, Socrata dataset erm2-nwe9, "
-        "“311 Service Requests from 2010 to Present”; City of New York, accessed 2026), "
+        "“311 Service Requests from 2020 to Present”; City of New York, accessed 2026), "
         "restricted to 2022-2024. From 9,851,452 raw records the preprocessing procedure yields a "
         "43,240-row date × borough × complaint-group panel spanning observed dates "
         "2022-01-15 to 2024-12-30 (after lag and rolling warmup). Records are mapped to eight "
@@ -199,7 +201,7 @@ def emit(r) -> None:
         "regression, a random forest, and gradient boosting. Categorical features (borough, "
         "complaint group) are one-hot encoded; numeric features pass through. Lag and rolling "
         "features use only past observations, with rolling statistics shifted by one day to avoid "
-        "same-day or future leakage.")
+        "same-day or future leakage. Model hyperparameters are listed in Appendix I.")
     r.body(
         "Validation uses a strictly chronological split by date: the earliest 70% of dates for "
         "training (30,240 rows), the next 15% for validation (6,480 rows), and the latest 15% for "
@@ -214,14 +216,16 @@ def emit(r) -> None:
         "rule. Each crew handles a fixed number of requests; unmet demand in a cell is the positive "
         "part of actual demand minus allocated capacity; weighted unmet demand assigns higher "
         "weight to Public Safety, Water, and Traffic. Policies driven by each feature set are "
-        "compared against an oracle that allocates on true next-day demand (an upper bound only). "
-        "Full assumptions are in Appendix D.")
+        "compared against an oracle that allocates on the observed (realized) next-day request "
+        "volume, which provides an upper bound only. Full assumptions are in Appendix D.")
 
     # 5. Forecasting Results
     r.h1("5. Forecasting Results")
     r.body(
-        "Calendar augmentation improves test MAE for every model, and real weather adds a smaller "
-        "consistent gain on top of it. For the random forest, MAE falls from 65.282 (internal "
+        "Calendar augmentation improves test MAE for every model. Adding real weather on top of "
+        "calendar features further lowers error for the random forest, the selected model family; "
+        "for Ridge and gradient boosting it does not improve on calendar alone (Table A3). For the "
+        "random forest, MAE falls from 65.282 (internal "
         "history) to 58.082 (calendar); weather alone improves the internal-history model (64.104 "
         "versus 65.282), and calendar + weather is best, at 56.224 for the single-split model fit "
         "on the training set only. Ridge does not benefit from weather (internal 69.219, weather "
@@ -312,12 +316,14 @@ def emit(r) -> None:
     # 9. Conclusion
     r.h1("9. Conclusion")
     r.body(
-        "On real NYC 311 data augmented with real NOAA weather, public-signal augmentation "
-        "consistently improves next-day service-demand forecasts - calendar most, weather a smaller "
-        "consistent increment - across rolling folds, boroughs, and complaint groups. The "
+        "On real NYC 311 data augmented with real NOAA weather, public-signal augmentation improves "
+        "next-day service-demand forecasts—calendar features most, across rolling folds, boroughs, "
+        "and complaint groups, with real weather adding a further gain for the selected "
+        "random-forest model. The "
         "improvement transfers in direction to a stylized staffing allocation but with attenuated, "
-        "budget-dependent magnitude. The forecast gains are real and robust; the decision gains are "
-        "smaller and conditional on capacity. This provides a reproducible evaluation framework for "
+        "budget-dependent magnitude. The forecast gains are consistent across the evaluated splits, "
+        "folds, and segments; the decision gains are smaller and conditional on capacity. This "
+        "provides a reproducible evaluation framework for "
         "forecast-to-decision analysis in municipal service operations.")
 
     # End-matter statements
@@ -327,17 +333,17 @@ def emit(r) -> None:
         "Python 3.11 with fixed random seeds. The full procedure—weather ingestion, dataset "
         "construction, model training and evaluation, the decision simulation, rolling-origin "
         "validation, per-segment robustness analysis, and the crew-budget sensitivity analysis—is "
-        "deterministic and reproducible from the two public data sources, together with the derived "
-        "summary outputs and accompanying documentation.")
+        "deterministic and reproducible from the two public data sources described in the "
+        "references.")
     r.h1("Data Availability Statement")
     r.body(
         "NYC 311 Service Requests are publicly available through NYC Open Data (Socrata dataset "
         "erm2-nwe9), and NOAA NCEI Daily Summaries (GHCN-Daily) for station USW00094728 are "
         "publicly available through NOAA NCEI; full identifiers and retrieval dates are given in the "
         "references. The study window is 2022-2024. The aggregated daily counts and the derived "
-        "weather series used in the analysis are available with the accompanying materials, and the "
-        "full modelling dataset is reproducible from the public sources. No synthetic data are "
-        "used.")
+        "weather series used in the analysis are obtained from these public sources following the "
+        "procedure described above, and the full modelling dataset is reproducible from them. No "
+        "synthetic data are used.")
     r.h1("Ethics Statement")
     r.body(
         "The study uses only public data at an aggregate date × borough × complaint-group level; no "
@@ -369,9 +375,25 @@ def emit(r) -> None:
     ])
     r.h2("B. Complaint-group mapping")
     r.body(
-        "Raw complaint types are mapped by a deterministic, order-sensitive substring rule into "
-        "eight groups (Housing, Noise, Sanitation, Street Condition, Water, Traffic, Public Safety, "
-        "and a residual Other).")
+        "Raw complaint types are upper-cased and matched against an ordered list of substring "
+        "rules; the first matching group wins, and any record matching none is assigned the "
+        "residual Other group. The order places Housing before Water so that, for example, "
+        "“HEAT/HOT WATER” is classified as Housing rather than Water. The matched substrings per "
+        "group are as follows.")
+    r.body(
+        "**Noise:** NOISE, LOUD. "
+        "**Housing:** HEAT/HOT WATER, HEAT, HOT WATER, PLUMBING, PAINT, PLASTER, APPLIANCE, DOOR, "
+        "WINDOW, ELECTRIC, FLOORING, STAIRS, ELEVATOR, MOLD, GENERAL CONSTRUCTION, HOUSING, "
+        "APARTMENT, UNSANITARY CONDITION, OUTSIDE BUILDING. "
+        "**Sanitation:** SANITATION, DIRTY, MISSED COLLECTION, LITTER, GARBAGE, RECYCLING, WASTE, "
+        "DUMPING, GRAFFITI, RODENT, OVERFLOWING. "
+        "**Street Condition:** STREET CONDITION, STREET LIGHT, POTHOLE, SIDEWALK, CURB, ROAD, "
+        "STREET SIGN, TRAFFIC SIGNAL, HIGHWAY. "
+        "**Water:** WATER, SEWER, HYDRANT, LEAK, FLOOD, DRAINAGE, CATCH BASIN. "
+        "**Traffic:** ILLEGAL PARKING, BLOCKED DRIVEWAY, TRAFFIC, PARKING, ABANDONED VEHICLE, "
+        "DERELICT VEHICLE, DRIVEWAY. "
+        "**Public Safety:** ILLEGAL FIREWORKS, DRUG, WEAPON, ASSAULT, SAFETY, EMERGENCY, "
+        "ENCAMPMENT, HOMELESS, ANIMAL ABUSE, DISORDERLY, URINATING, PANHANDLING.")
     r.h2("C. Chronological split and rolling-origin setup")
     r.body(
         "Chronological 70/15/15 split by date (30,240 / 6,480 / 6,520 rows). Five expanding-window "
@@ -388,10 +410,17 @@ def emit(r) -> None:
     ])
     r.h2("D. Decision-simulation assumptions")
     r.body(
-        "Stylized proportional allocation via a largest-remainder rule; baseline-budget "
-        "configuration 135 crews × 50 requests per crew over 163 test days; weighted unmet "
-        "demand up-weights Public Safety, Water, and Traffic; an oracle allocates on true next-day "
-        "demand. The simulation uses no observed dispatch decisions.")
+        "Each day, a fixed crew budget is allocated across the 40 (borough × complaint-group) cells "
+        "in proportion to each cell's forecast, rounded by a largest-remainder rule with a minimum "
+        "of zero crews per cell. Each crew serves 50 requests per day, so a cell's allocated "
+        "capacity is 50 times its crew count. Unmet demand in a cell is max(0, actual next-day "
+        "requests − allocated capacity). Weighted unmet demand multiplies each cell's unmet demand "
+        "by a complaint-group weight—Public Safety 2.0, Water 1.5, Traffic 1.5, and 1.0 for Noise, "
+        "Sanitation, Street Condition, Housing, and Other—and is summed over cells and test days. "
+        "The baseline-budget configuration uses 135 crews over 163 test days. The oracle allocates "
+        "using the observed (realized) next-day request volume and provides an upper bound on "
+        "achievable performance; it is not a forecast. The simulation uses no observed dispatch "
+        "decisions.")
     r.h2("E. Crew-budget sensitivity")
     r.body(
         "Three budgets - scarce (100 crews, 5,000 daily capacity), moderate (160 / 8,000), and "
@@ -470,11 +499,19 @@ def emit(r) -> None:
         "The full analysis is reproducible from the public data sources following the protocol "
         "described in Sections 3-7; see the Reproducibility Statement.")
 
+    r.h2("I. Model configurations")
+    r.body(
+        "All models are scikit-learn estimators trained with random seed 42. The naive seasonal "
+        "baseline predicts the trailing 7-day mean. Ridge regression uses alpha = 1.0. The random "
+        "forest uses 200 trees, maximum depth 14, and a minimum of two samples per leaf. Gradient "
+        "boosting uses 200 stages, maximum depth 3, and learning rate 0.05. All other "
+        "hyperparameters take their scikit-learn defaults; no additional hyperparameter tuning was "
+        "performed, and model selection chooses among feature sets by validation MAE.")
+
     r.h2("Appendix Figures")
     for label in ("A2", "A3", "A4", "A5", "A6"):
         _fig(r, label)
 
-    # References
-    r.page_break()
+    # References (continue after the appendix figures to avoid a near-empty page)
     r.h1("References")
     r.references(REFS)

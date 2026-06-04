@@ -56,14 +56,18 @@ STYLES = {
 
 
 def _markup(text: str) -> str:
-    """Convert **bold** spans to <b> markup, em-dash spaced hyphens, escape XML."""
+    """Convert **bold** spans to <b> markup, em-dash spaced hyphens, escape XML,
+    and make any inline URL clickable."""
+    import re
     text = text.replace(" - ", "—")
     out = []
     for i, part in enumerate(text.split("**")):
         if not part:
             continue
         out.append((f"<b>{escape(part)}</b>") if i % 2 == 1 else escape(part))
-    return "".join(out)
+    joined = "".join(out)
+    return re.sub(r"(https?://[^\s)]+)",
+                  r'<a href="\1" color="#0030c0">\1</a>', joined)
 
 
 def _col_widths(header, rows, font_size):
@@ -148,10 +152,9 @@ class PdfRenderer:
     def references(self, refs) -> None:
         import re
         for r in refs:
-            text = escape(r)
-            # Make DOIs / URLs clickable in the PDF.
+            # Make DOIs / URLs clickable; reportlab breaks long URLs at the margin.
             text = re.sub(r"(https?://\S+)",
-                          r'<a href="\1" color="#0030c0">\1</a>', text)
+                          r'<a href="\1" color="#0030c0">\1</a>', escape(r))
             self.story.append(Paragraph(text, STYLES["ref"]))
 
 

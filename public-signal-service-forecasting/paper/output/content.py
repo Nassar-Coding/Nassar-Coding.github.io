@@ -51,6 +51,8 @@ FIGS = {
 }
 
 REFS = [
+    "Bertsimas, D., & Kallus, N. (2020). From Predictive to Prescriptive Analytics. Management "
+    "Science, 66(3), 1025-1044. https://doi.org/10.1287/mnsc.2018.3253",
     "City of New York. (2026). 311 Service Requests from 2020 to Present [data set]. "
     "NYC Open Data, Socrata dataset erm2-nwe9. Retrieved 2026-06-03 from "
     "https://data.cityofnewyork.us/Social-Services/"
@@ -58,6 +60,14 @@ REFS = [
     "Cui, R., Gallino, S., Moreno, A., & Zhang, D. J. (2018). The Operational Value of Social "
     "Media Information. Production and Operations Management, 27(10), 1749-1769. "
     "https://doi.org/10.1111/poms.12707",
+    "Elmachtoub, A. N., & Grigas, P. (2022). Smart “Predict, then Optimize”. Management Science, "
+    "68(1), 9-26. https://doi.org/10.1287/mnsc.2020.3922",
+    "Green, L. V., Kolesar, P. J., & Whitt, W. (2007). Coping with Time-Varying Demand When "
+    "Setting Staffing Requirements for a Service System. Production and Operations Management, "
+    "16(1), 13-39. https://doi.org/10.1111/j.1937-5956.2007.tb00164.x",
+    "Kontokosta, C. E., & Hong, B. (2021). Bias in smart city governance: How socio-spatial "
+    "disparities in 311 complaint behavior impact the fairness of data-driven decisions. "
+    "Sustainable Cities and Society, 64, 102503. https://doi.org/10.1016/j.scs.2020.102503",
     "National Oceanic and Atmospheric Administration, National Centers for Environmental "
     "Information. (2026). Global Historical Climatology Network Daily (GHCNd) [data set]. "
     "NOAA NCEI Daily Summaries; station USW00094728, NY City Central Park. Retrieved "
@@ -67,6 +77,9 @@ REFS = [
     "and Overlooked: Machine Learning and Racial Bias in Medical Appointment Scheduling. "
     "Manufacturing & Service Operations Management, 24(6), 2825-2842. "
     "https://doi.org/10.1287/msom.2021.0999",
+    "Steinker, S., Hoberg, K., & Thonemann, U. W. (2017). The Value of Weather Information for "
+    "E-Commerce Operations. Production and Operations Management, 26(10), 1854-1874. "
+    "https://doi.org/10.1111/poms.12721",
 ]
 
 
@@ -97,11 +110,12 @@ def emit(r) -> None:
         "calendar + weather "
         "feature set, attains a held-out test mean absolute error (MAE) of 55.325 versus 71.848 "
         "for a naive seasonal baseline, a 23.0% reduction. A stylized proportional staffing "
-        "simulation shows the augmented policy reduces weighted unmet demand at every crew budget "
-        "tested and closes 26.381% of the gap to an oracle at the baseline budget, but the "
+        "simulation shows the augmented policy reduces weighted unmet demand at all three tested "
+        "crew budgets and closes 26.381% of the gap to an oracle at the baseline budget, but the "
         "magnitude of the decision benefit is budget-dependent. The central finding is that the "
-        "calendar-augmentation gains are consistent across the evaluated splits, folds, boroughs, "
-        "and complaint groups, while the decision gains are smaller and conditional on capacity. "
+        "calendar-augmentation gains are observed consistently across the evaluated splits, folds, "
+        "boroughs, and complaint groups, while the decision gains are smaller and conditional on "
+        "capacity. "
         "This study "
         "provides a reproducible evaluation of public-signal augmentation "
         "for municipal service-demand forecasting; no synthetic data or synthetic weather is used.")
@@ -143,11 +157,29 @@ def emit(r) -> None:
         "operations, uses public weather rather than social media, and adds an explicit "
         "forecast-to-decision layer rather than stopping at forecast accuracy.")
     r.body(
+        "A second line argues that predictive accuracy and decision quality are distinct "
+        "objectives. Elmachtoub and Grigas (2022) develop a “predict, then optimize” framework in "
+        "which models are trained with respect to the downstream optimization objective rather than "
+        "prediction error alone, and Bertsimas and Kallus (2020) show how predictive models can be "
+        "turned into prescriptions for decision problems. Our forecast-to-decision simulation is "
+        "motivated by the same distinction, although we keep the allocation deliberately stylized "
+        "and evaluate the decision objective rather than re-training the forecaster for it.")
+    r.body(
+        "Within operations, public weather data has been shown to improve demand forecasts: "
+        "Steinker, Hoberg, and Thonemann (2017) quantify the value of weather information for "
+        "e-commerce order forecasting, which parallels our use of NOAA weather as a public signal. "
+        "Planning capacity against time-varying demand is a long-standing service-operations "
+        "problem; Green, Kolesar, and Whitt (2007) study staffing requirements when demand varies "
+        "over time, motivating our crew-budget sensitivity analysis.")
+    r.body(
         "Prediction-driven prioritization in service and scheduling settings has been studied from "
         "an equity and efficiency angle (Samorani et al., 2022). We make no equity or causal claim; "
         "we cite this line only to situate the general point that the objective placed on top of a "
-        "predictive model, not the model alone, shapes outcomes - which motivates our separate "
-        "evaluation of the decision layer.")
+        "predictive model, not the model alone, shapes outcomes—which motivates our separate "
+        "evaluation of the decision layer. Relatedly, our use of 311 data inherits a documented "
+        "reporting bias: Kontokosta and Hong (2021) show that socio-spatial disparities in 311 "
+        "complaint behaviour can make data-driven decisions unfair, which is why we frame the "
+        "forecasting target as reported request volume rather than underlying need.")
 
     # 3. Data
     r.h1("3. Data")
@@ -293,8 +325,8 @@ def emit(r) -> None:
         "(47.497). Segmented analysis (random forest, internal history versus calendar; Appendix G) "
         "shows the improvement holds for all five boroughs (about 8.8% to 18.8%) and all eight "
         "complaint groups (about 8.9% to 25.8%); absolute error concentrates in the highest-volume "
-        "segments (Noise, Housing; the Bronx). The forecast improvement is therefore consistent "
-        "across folds and segments, and is not driven by any single split.")
+        "segments (Noise, Housing; the Bronx). The calendar improvement is therefore observed "
+        "consistently across folds and segments, and is not driven by any single split.")
     _fig(r, "4")
 
     # 8. Limitations
@@ -322,8 +354,9 @@ def emit(r) -> None:
         "and complaint groups, with real weather adding a further gain for the selected "
         "random-forest model. The "
         "improvement transfers in direction to a stylized staffing allocation but with attenuated, "
-        "budget-dependent magnitude. The forecast gains are consistent across the evaluated splits, "
-        "folds, and segments; the decision gains are smaller and conditional on capacity. This "
+        "budget-dependent magnitude. The calendar-augmentation gains are observed consistently "
+        "across the evaluated splits, folds, and segments; the decision gains are smaller and "
+        "conditional on capacity. This "
         "provides a reproducible evaluation framework for "
         "forecast-to-decision analysis in municipal service operations.")
 
@@ -345,6 +378,12 @@ def emit(r) -> None:
         "weather series used in the analysis are obtained from these public sources following the "
         "procedure described above, and the full modelling dataset is reproducible from them. No "
         "synthetic data are used.")
+    r.h1("Code and Materials Availability")
+    r.body(
+        "The analysis code, the derived summary outputs, and the figures reproduced here are "
+        "available in the project repository at "
+        "https://github.com/Nassar-Coding/Nassar-Coding.github.io (the "
+        "public-signal-service-forecasting directory).")
     r.h1("Ethics Statement")
     r.body(
         "The study uses only public data at an aggregate date × borough × complaint-group level; no "

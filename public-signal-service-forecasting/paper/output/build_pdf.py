@@ -171,7 +171,7 @@ def build() -> None:
         leftMargin=MARGIN, rightMargin=MARGIN, topMargin=MARGIN, bottomMargin=MARGIN,
         title=("From Forecast Accuracy to Operational Value: "
                "Public Signal Augmentation for NYC 311 Service Demand"),
-        author="", subject="", creator="", keywords="",
+        author=C.AUTHOR, subject="", creator="", keywords="",
     )
     frame = Frame(MARGIN, MARGIN, CONTENT_W, PAGE_H - 2 * MARGIN, id="main")
     doc.addPageTemplates([PageTemplate(id="main", frames=[frame], onPage=_footer)])

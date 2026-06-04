@@ -180,8 +180,8 @@ class DocxRenderer:
         cp = self.doc.core_properties
         cp.title = ("From Forecast Accuracy to Operational Value: "
                     "Public Signal Augmentation for NYC 311 Service Demand")
-        cp.author = ""
-        cp.last_modified_by = ""
+        cp.author = C.AUTHOR
+        cp.last_modified_by = C.AUTHOR
         cp.comments = ""
         cp.category = ""
 

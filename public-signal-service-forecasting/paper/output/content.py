@@ -12,10 +12,10 @@ TITLE = (
     "Public Signal Augmentation for NYC 311 Service Demand"
 )
 
-# Author metadata (bracketed placeholders to be completed before submission).
-AUTHOR = "[Author Name]"
-AFFILIATION = "[Affiliation]"
-EMAIL = "[Email]"
+# Author metadata.
+AUTHOR = "Nassar Naif Alsharif"
+AFFILIATION = "Independent researcher"
+EMAIL = "NassarAlsharif0@gmail.com"
 
 # label -> (filename, caption). Numbering follows order of first appearance:
 # main-body figures 1-4, appendix figures A1-A6.
@@ -100,8 +100,9 @@ def emit(r) -> None:
         "simulation shows the augmented policy reduces weighted unmet demand at every crew budget "
         "tested and closes 26.381% of the gap to an oracle at the baseline budget, but the "
         "magnitude of the decision benefit is budget-dependent. The central finding is that the "
-        "forecast gains are consistent across the evaluated splits, folds, boroughs, and complaint "
-        "groups, while the decision gains are smaller and conditional on capacity. This study "
+        "calendar-augmentation gains are consistent across the evaluated splits, folds, boroughs, "
+        "and complaint groups, while the decision gains are smaller and conditional on capacity. "
+        "This study "
         "provides a reproducible evaluation of public-signal augmentation "
         "for municipal service-demand forecasting; no synthetic data or synthetic weather is used.")
 
@@ -419,8 +420,8 @@ def emit(r) -> None:
         "Sanitation, Street Condition, Housing, and Other—and is summed over cells and test days. "
         "The baseline-budget configuration uses 135 crews over 163 test days. The oracle allocates "
         "using the observed (realized) next-day request volume and provides an upper bound on "
-        "achievable performance; it is not a forecast. The simulation uses no observed dispatch "
-        "decisions.")
+        "achievable performance within this stylized simulation; it is not a forecast. The "
+        "simulation uses no observed dispatch decisions.")
     r.h2("E. Crew-budget sensitivity")
     r.body(
         "Three budgets - scarce (100 crews, 5,000 daily capacity), moderate (160 / 8,000), and "

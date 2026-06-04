@@ -34,12 +34,6 @@ AUTHOR = "[Author Name]"
 AFFILIATION = "[Affiliation]"
 EMAIL = "[Email]"
 
-# A single, non-repetitive scope note (no self-demoting framing).
-SCOPE_NOTE = (
-    "This study is predictive and correlational. It makes no causal, "
-    "production-deployment, or real-dispatch claims."
-)
-
 # Figures are addressed by an explicit label so the numbering follows order of
 # first appearance: main-body figures 1-4, appendix figures A1-A6.
 FIGS = {
@@ -133,10 +127,6 @@ def add_title(doc: Document) -> None:
     ep = doc.add_paragraph()
     ep.alignment = WD_ALIGN_PARAGRAPH.CENTER
     _set_run_font(ep.add_run(EMAIL), size=Pt(11))
-
-    sp = doc.add_paragraph()
-    sp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    _set_run_font(sp.add_run(SCOPE_NOTE), size=Pt(10), italic=True)
 
 
 def add_heading(doc: Document, text: str, level: int) -> None:
@@ -258,8 +248,8 @@ def build() -> None:
         "tested and closes 26.381% of the gap to an oracle at the baseline budget, but the "
         "magnitude of the decision benefit is budget-dependent. The central finding is that the "
         "forecast gains are real and robust, while the decision gains are smaller and conditional "
-        "on capacity. This work provides a reproducible baseline; no synthetic data or synthetic "
-        "weather is used.")
+        "on capacity. This study provides a reproducible evaluation of public-signal augmentation "
+        "for municipal service-demand forecasting; no synthetic data or synthetic weather is used.")
 
     # 1. Introduction
     add_heading(doc, "1. Introduction", 1)
@@ -281,8 +271,8 @@ def build() -> None:
         "with real NOAA weather, with a leakage-controlled chronological protocol. (ii) A "
         "controlled four-way feature-set comparison isolating the marginal value of calendar "
         "features and of real weather. (iii) A transparent forecast-to-decision simulation that "
-        "measures whether forecast gains transfer to a stylized allocation, with the result "
-        "reported as it is: directionally positive but budget-dependent. The study is predictive "
+        "measures whether forecast gains transfer to a stylized allocation, showing directionally "
+        "positive but budget-dependent decision benefits. The study is predictive "
         "and correlational; Section 8 states the scope of the analysis and the natural directions "
         "for extending it.")
 

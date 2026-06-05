@@ -1,9 +1,9 @@
-"""Single source of truth for the submission document content.
+"""Single source of record for the submission document content.
 
-Both the Word builder (build_docx.py) and the PDF builder (build_pdf.py) call
-``emit(renderer)`` so the two deliverables are guaranteed to carry identical
-text, tables, figures, and references. No empirical value is defined anywhere
-else; all numbers here come verbatim from the verified results.
+This module holds the full text, tables, figures, and references of the paper
+via ``emit(renderer)``; the final PDF and Word documents were produced from it,
+so the two deliverables carry identical content. No empirical value is defined
+anywhere else; all numbers here come verbatim from the verified results.
 """
 from __future__ import annotations
 

@@ -17,8 +17,8 @@ The final paper and the materials used to produce it are in `paper/`:
 
 - `paper/output/public_signal_service_forecasting_final_submission.pdf` — final PDF.
 - `paper/output/public_signal_service_forecasting_final_submission.docx` — final Word document.
-- `paper/output/content.py`, `build_pdf.py`, `build_docx.py` — the single shared
-  content source and the two generators that render the PDF and Word documents.
+- `paper/output/content.py` — the shared content source of record from which the
+  PDF and Word documents were produced.
 - `paper/references.bib` — the bibliography (all entries cited in the paper).
 - `paper/number_audit.md` — every numeric claim traced to a committed output.
 - `paper/figures/` — the figures used in the paper.

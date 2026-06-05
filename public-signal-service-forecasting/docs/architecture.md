@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the components, pipelines, and artifact flow of the
+This document describes the components, pipelines, and output flow of the
 Public Signal Service Forecasting baseline. The system is local-only and runs
 end to end without external services once the real input data is present.
 
@@ -73,7 +73,7 @@ flowchart TD
     I --> J[decision_simulation_report.json and figure]
 ```
 
-## Artifact flow
+## Output flow
 
 ```mermaid
 flowchart LR
@@ -101,7 +101,7 @@ The canonical end-to-end order is:
 5. `python -m src.decision_simulation`
 6. `python -m src.monitor`
 
-Each downstream module will build any missing upstream artifact automatically,
+Each downstream module will build any missing upstream output automatically,
 so individual commands can also be run in isolation. There is no synthetic
 fallback: if no valid real input is present, the build fails with a specific
 error.

@@ -78,7 +78,7 @@ values are produced at run time and reported there rather than asserted here.
 
 - A reproducible real-data research baseline for whether calendar/temporal
   features improve next-day service-request forecasts.
-- A scoping artifact and starting point for further experimentation.
+- A scoping reference and starting point for further experimentation.
 - Local, offline experimentation and education.
 
 ## Out-of-scope use

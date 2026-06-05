@@ -1,8 +1,8 @@
 """Public Signal Service Forecasting dashboard.
 
-A real public-data research baseline for NYC 311 service-request forecasting and
-staffing decision simulation. The dashboard reads artifacts produced by the
-pipeline and renders them, degrading gracefully when an artifact is missing.
+A real public-data study of NYC 311 service-request forecasting and a stylized
+staffing-allocation simulation. The dashboard reads the outputs produced by the
+pipeline and renders them, degrading gracefully when an output is missing.
 
 Run with:
 
@@ -311,7 +311,7 @@ def _section_responsible_ai() -> None:
 
 
 def _section_artifacts() -> None:
-    st.header("12. System Artifacts")
+    st.header("12. Generated Outputs")
     artifacts = {
         "Processed dataset": config.PROCESSED_DATA_FILE,
         "Data source report": config.DATA_SOURCE_REPORT,
@@ -324,7 +324,7 @@ def _section_artifacts() -> None:
     }
     rows = [
         {
-            "artifact": name,
+            "output": name,
             "path": _relative(path),
             "present": path.exists(),
         }

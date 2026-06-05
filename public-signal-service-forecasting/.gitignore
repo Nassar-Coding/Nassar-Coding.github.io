@@ -34,9 +34,9 @@ data/metadata/*
 !data/raw/nyc_central_park_weather_2022_2024.csv
 !data/raw/nyc_central_park_weather_sample.csv
 
-# Generated model and report artifacts.
+# Generated model and report outputs.
 # Model binaries stay ignored (large, regenerable). Small report and figure
-# evidence artifacts are committed for reproducibility and paper conversion.
+# evidence outputs are committed for reproducibility.
 models/*
 !models/.gitkeep
 

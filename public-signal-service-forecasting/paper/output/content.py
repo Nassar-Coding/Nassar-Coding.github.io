@@ -95,7 +95,7 @@ def emit(r) -> None:
     # Abstract
     r.h1("Abstract")
     r.body(
-        "Day-ahead forecasts of municipal service-request volume are a natural input to "
+        "Day-ahead forecasts of municipal service-request volume can be used as an input to "
         "staffing and dispatch planning, yet a reduction in average forecast error does not "
         "automatically translate into better operational decisions. We ask, on real data, two "
         "questions: do public external signals improve next-day forecasts of NYC 311 "
@@ -105,8 +105,9 @@ def emit(r) -> None:
         "observations) and real NOAA Central Park daily weather, we compare four feature sets - "
         "internal history, calendar, weather, and calendar + weather - across four model families "
         "under a strictly chronological protocol with five-fold rolling-origin validation. "
-        "Calendar features deliver the largest accuracy gain across models; adding real weather "
-        "further improves the selected random-forest model. The best model, a random forest on the "
+        "Among the evaluated feature sets and model families, calendar features deliver the largest "
+        "accuracy gain; adding real weather further lowers test MAE in the selected random-forest "
+        "configuration. The best model, a random forest on the "
         "calendar + weather "
         "feature set, attains a held-out test mean absolute error (MAE) of 55.325 versus 71.848 "
         "for a naive seasonal baseline, a 23.0% reduction. A stylized proportional staffing "
@@ -124,8 +125,8 @@ def emit(r) -> None:
     r.h1("1. Introduction")
     r.body(
         "Municipal service operations plan finite crews against demand that varies by day of week, "
-        "season, and location. Short-horizon (next-day) volume forecasts are a standard planning "
-        "input. Two questions follow. First, a predictive question: does augmenting an "
+        "season, and location. Short-horizon (next-day) volume forecasts are commonly used as a "
+        "planning input. Two questions follow. First, a predictive question: does augmenting an "
         "internal-history forecasting model with public external signals reduce next-day forecast "
         "error? Second, a decision question: does any such forecast improvement actually improve "
         "the quality of a capacity allocation built on top of the forecast?")
@@ -267,7 +268,9 @@ def emit(r) -> None:
         "table is in Appendix G).")
     r.table_caption(
         "Table 2 (selected rows). Held-out test MAE by model and feature set; lower is better. "
-        "Full 13-row table in Appendix G.")
+        "Values are single-split, train-only fits; the random forest on calendar + weather is "
+        "shown here at 56.224, whereas the selected model refit on train + validation attains "
+        "55.325 (Section 5). Full 13-row table in Appendix G.")
     r.table(["Model", "Feature set", "Test MAE"], [
         ["naive_seasonal", "naive_seasonal", "71.848"],
         ["random_forest", "internal_historical", "65.282"],
@@ -318,8 +321,9 @@ def emit(r) -> None:
     # 7. Robustness Checks
     r.h1("7. Robustness Checks")
     r.body(
-        "Five-fold expanding-window rolling-origin validation (Figure 4; full table in Appendix C) "
-        "shows calendar augmentation lowering MAE in every fold for every model: mean improvement "
+        "Five-fold expanding-window rolling-origin validation (Figure 4; per-fold values for every "
+        "configuration in Table A2) shows calendar augmentation lowering MAE in every fold for every "
+        "model: mean improvement "
         "15.13% for the random forest, 9.94% for gradient boosting, and 0.94% for Ridge, each in "
         "all 5 of 5 folds. The calendar + weather random forest has the lowest mean fold MAE "
         "(47.497). Segmented analysis (random forest, internal history versus calendar; Appendix G) "
@@ -357,7 +361,7 @@ def emit(r) -> None:
         "budget-dependent magnitude. The calendar-augmentation gains are observed consistently "
         "across the evaluated splits, folds, and segments; the decision gains are smaller and "
         "conditional on capacity. This "
-        "provides a reproducible evaluation framework for "
+        "provides an evaluation framework for "
         "forecast-to-decision analysis in municipal service operations.")
 
     # End-matter statements
@@ -367,8 +371,9 @@ def emit(r) -> None:
         "Python 3.11 with fixed random seeds. The full procedure—weather ingestion, dataset "
         "construction, model training and evaluation, the decision simulation, rolling-origin "
         "validation, per-segment robustness analysis, and the crew-budget sensitivity analysis—is "
-        "deterministic and reproducible from the two public data sources described in the "
-        "references.")
+        "deterministic given fixed inputs. Both public data sources are updated over time, so exact "
+        "reproduction uses the archived analysis code in the project repository together with the "
+        "study-window exports retrieved on the dates given in the references.")
     r.h1("Data Availability Statement")
     r.body(
         "NYC 311 Service Requests are publicly available through NYC Open Data (Socrata dataset "
@@ -382,13 +387,14 @@ def emit(r) -> None:
     r.body(
         "The analysis code, the derived summary outputs, and the figures reproduced here are "
         "available in the project repository at "
-        "https://github.com/Nassar-Coding/Nassar-Coding.github.io (the "
-        "public-signal-service-forecasting directory).")
+        "https://github.com/Nassar-Coding/Nassar-Coding.github.io/tree/research/real-nyc-311-upgrade/"
+        "public-signal-service-forecasting.")
     r.h1("Ethics Statement")
     r.body(
-        "The study uses only public data at an aggregate date × borough × complaint-group level; no "
-        "individual-level or personal data are used or produced, the analysis makes no "
-        "individual-level decisions, and it is not deployed. Because NYC 311 reflects reporting "
+        "The study uses public data only. Raw NYC 311 service-request records are aggregated to a "
+        "date × borough × complaint-group panel before modelling; no individual-level or personal "
+        "data are used or produced, the analysis makes no individual-level decisions, and it is not "
+        "deployed. Because NYC 311 reflects reporting "
         "behaviour rather than true incidence, and reporting propensity varies across communities "
         "and over time, forecasts of 311 volume describe reported demand rather than underlying "
         "need and should be interpreted accordingly.")
@@ -438,16 +444,31 @@ def emit(r) -> None:
     r.body(
         "Chronological 70/15/15 split by date (30,240 / 6,480 / 6,520 rows). Five expanding-window "
         "rolling-origin folds; each fold trains on all dates up to a cut point and tests on the next "
-        "block, with no future information in training. Table A2 reports the mean fold MAE that "
-        "underlies Figure 4.")
-    r.table_caption("Table A2. Rolling-origin validation: random-forest mean fold test MAE by feature set.")
-    r.table(["Configuration", "Mean MAE", "Std"], [
-        ["naive_seasonal", "61.701", "9.673"],
-        ["random_forest internal_historical", "57.027", "8.046"],
-        ["random_forest weather_augmented", "56.222", "7.561"],
-        ["random_forest calendar_augmented", "48.690", "9.590"],
-        ["random_forest calendar_weather_augmented", "47.497", "8.746"],
-    ])
+        "block, with no future information in training. Table A2 reports the test MAE for every "
+        "configuration in each of the five folds (the per-fold values underlying Figure 4). For "
+        "every non-naive model, the calendar configuration beats the corresponding internal-history "
+        "configuration in all five folds, and the calendar + weather random forest has the lowest "
+        "mean fold MAE (47.497).")
+    r.table_caption(
+        "Table A2. Rolling-origin validation: per-fold test MAE by configuration across the five "
+        "expanding-window folds (lower is better).")
+    r.table(
+        ["Configuration", "Fold 1", "Fold 2", "Fold 3", "Fold 4", "Fold 5"],
+        [
+            ["Naive seasonal", "60.288", "56.718", "50.045", "62.295", "79.159"],
+            ["Ridge: internal", "60.562", "56.902", "50.422", "62.074", "74.525"],
+            ["Ridge: calendar", "59.684", "56.606", "49.771", "61.462", "74.207"],
+            ["Ridge: weather", "60.789", "56.599", "50.601", "62.153", "74.430"],
+            ["Ridge: calendar + weather", "59.907", "56.272", "50.040", "61.544", "74.155"],
+            ["Random forest: internal", "55.503", "55.969", "46.827", "55.219", "71.618"],
+            ["Random forest: calendar", "44.208", "51.115", "38.658", "43.331", "66.140"],
+            ["Random forest: weather", "55.508", "53.913", "46.651", "55.138", "69.904"],
+            ["Random forest: calendar + weather", "44.622", "47.752", "37.853", "43.485", "63.775"],
+            ["Gradient boosting: internal", "58.187", "56.993", "48.495", "59.239", "74.526"],
+            ["Gradient boosting: calendar", "51.759", "52.778", "43.117", "52.035", "68.566"],
+            ["Gradient boosting: weather", "58.388", "56.610", "48.445", "59.644", "73.655"],
+            ["Gradient boosting: calendar + weather", "51.860", "52.494", "43.694", "52.463", "67.972"],
+        ], font_size=9)
     r.h2("D. Decision-simulation assumptions")
     r.body(
         "Each day, a fixed crew budget is allocated across the 40 (borough × complaint-group) cells "
@@ -552,6 +573,7 @@ def emit(r) -> None:
     for label in ("A2", "A3", "A4", "A5", "A6"):
         _fig(r, label)
 
-    # References (continue after the appendix figures to avoid a near-empty page)
+    # References on a clean page.
+    r.page_break()
     r.h1("References")
     r.references(REFS)

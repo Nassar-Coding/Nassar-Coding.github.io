@@ -6,7 +6,7 @@ type: software
 authors:
   - given-names: "Nassar Naif"
     family-names: "Alsharif"
-repository-code: "https://github.com/Nassar-Coding/Nassar-Coding.github.io"
+repository-code: "https://github.com/Nassar-Coding/Nassar-Coding.github.io/tree/research/real-nyc-311-upgrade/public-signal-service-forecasting"
 version: "v1.0-final-submission"
 date-released: "2026-06-04"
 license: MIT

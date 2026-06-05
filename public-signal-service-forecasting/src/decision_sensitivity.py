@@ -61,7 +61,7 @@ def run_decision_sensitivity() -> dict:
     policy_columns = {
         f"policy_{fs}": f"forecast_{fs}" for fs in feature_sets
     }
-    policy_columns["oracle_true_demand"] = "forecast_oracle"
+    policy_columns["oracle_observed_demand"] = "forecast_oracle"
     baseline_policy = "policy_internal_historical"
     headline_policy = (
         "policy_calendar_weather_augmented"
@@ -78,7 +78,7 @@ def run_decision_sensitivity() -> dict:
         }
         baseline_w = results[baseline_policy]["total_weighted_unmet_demand"]
         augmented_w = results[headline_policy]["total_weighted_unmet_demand"]
-        oracle_w = results["oracle_true_demand"]["total_weighted_unmet_demand"]
+        oracle_w = results["oracle_observed_demand"]["total_weighted_unmet_demand"]
         reduction_pct = (baseline_w - augmented_w) / baseline_w * 100.0 if baseline_w else 0.0
         headroom = baseline_w - oracle_w
         gap_closed_pct = (baseline_w - augmented_w) / headroom * 100.0 if headroom else 0.0

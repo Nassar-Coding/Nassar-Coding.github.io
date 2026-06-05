@@ -158,7 +158,7 @@ def run_simulation() -> dict:
     for feature_set in models:
         policies[feature_set] = _evaluate_policy(daily_groups, f"forecast_{feature_set}")
     oracle = _evaluate_policy(daily_groups, "forecast_oracle")
-    policies["oracle_true_demand"] = oracle
+    policies["oracle_observed_demand"] = oracle
 
     # The headline comparison anchors on the internal-historical baseline versus
     # the strongest available augmented policy (calendar+weather if present,

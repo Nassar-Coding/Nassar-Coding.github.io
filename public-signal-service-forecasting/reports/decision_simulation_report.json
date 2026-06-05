@@ -48,7 +48,7 @@
       "high_demand_coverage_rate": 0.0653,
       "allocation_efficiency": 0.9645
     },
-    "oracle_true_demand": {
+    "oracle_observed_demand": {
       "total_weighted_unmet_demand": 597332.0,
       "total_unmet_demand": 506347.0,
       "average_service_shortfall": 77.6606,

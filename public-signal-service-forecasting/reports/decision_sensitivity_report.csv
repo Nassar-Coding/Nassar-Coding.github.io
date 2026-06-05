@@ -3,14 +3,14 @@ scarce,100,5000,policy_internal_historical,941817.0,802528.0,123.0871,0.0256,0.9
 scarce,100,5000,policy_calendar_augmented,939884.0,800589.0,122.7897,0.0208,0.9831
 scarce,100,5000,policy_weather_augmented,941021.5,801746.0,122.9672,0.0208,0.9816
 scarce,100,5000,policy_calendar_weather_augmented,938210.5,799637.0,122.6437,0.0183,0.9842
-scarce,100,5000,oracle_true_demand,928490.5,787482.0,120.7794,0.0,0.9991
+scarce,100,5000,oracle_observed_demand,928490.5,787482.0,120.7794,0.0,0.9991
 moderate,160,8000,policy_internal_historical,454072.5,393620.0,60.3712,0.1819,0.9265
 moderate,160,8000,policy_calendar_augmented,439579.0,379792.0,58.2503,0.1728,0.9371
 moderate,160,8000,policy_weather_augmented,450346.0,390732.0,59.9282,0.1722,0.9287
 moderate,160,8000,policy_calendar_weather_augmented,434468.5,375615.0,57.6097,0.1673,0.9403
-moderate,160,8000,oracle_true_demand,367552.5,311894.0,47.8365,0.0513,0.9892
+moderate,160,8000,oracle_observed_demand,367552.5,311894.0,47.8365,0.0513,0.9892
 generous,220,11000,policy_internal_historical,164197.0,151552.0,23.2442,0.6575,0.8088
 generous,220,11000,policy_calendar_augmented,144407.5,132769.0,20.3633,0.6905,0.8193
 generous,220,11000,policy_weather_augmented,158545.0,146514.0,22.4715,0.6575,0.8116
 generous,220,11000,policy_calendar_weather_augmented,140346.0,128861.0,19.764,0.6941,0.8215
-generous,220,11000,oracle_true_demand,50865.0,42418.0,6.5058,0.8431,0.8697
+generous,220,11000,oracle_observed_demand,50865.0,42418.0,6.5058,0.8431,0.8697

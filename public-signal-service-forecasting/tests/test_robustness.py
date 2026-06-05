@@ -80,7 +80,7 @@ def test_decision_sensitivity_creates_report(processed_frame) -> None:
     policies = set(report["policy"].unique())
     assert "policy_internal_historical" in policies
     assert "policy_calendar_augmented" in policies
-    assert "oracle_true_demand" in policies
+    assert "oracle_observed_demand" in policies
 
 
 def test_practical_significance_summary_created(processed_frame) -> None:
@@ -96,12 +96,12 @@ def test_practical_significance_summary_created(processed_frame) -> None:
         "improvement_stable_across_boroughs",
         "improvement_stable_across_complaint_groups",
         "decision_improvement_direction_stable_across_budgets",
-        "strong_enough_for_full_paper_drafting",
+        "forecasting_evidence_strong",
     ):
         assert key in summary
 
     saved = load_json(config.PRACTICAL_SIGNIFICANCE_FILE)
-    assert isinstance(saved["strong_enough_for_full_paper_drafting"], bool)
+    assert isinstance(saved["forecasting_evidence_strong"], bool)
 
 
 def test_robustness_uses_real_schema_not_synthetic(processed_frame) -> None:

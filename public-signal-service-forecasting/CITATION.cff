@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper below."
+title: "From Forecast Accuracy to Operational Value: Public Signal Augmentation for NYC 311 Service Demand"
+abstract: "A predictive, correlational study of next-day NYC 311 reported request-volume forecasting using public calendar and NOAA weather signals, with a stylized forecast-to-decision staffing-allocation simulation."
+type: software
+authors:
+  - given-names: "Nassar Naif"
+    family-names: "Alsharif"
+repository-code: "https://github.com/Nassar-Coding/Nassar-Coding.github.io"
+version: "v1.0-final-submission"
+date-released: "2026-06-04"
+license: MIT
+preferred-citation:
+  type: article
+  title: "From Forecast Accuracy to Operational Value: Public Signal Augmentation for NYC 311 Service Demand"
+  authors:
+    - given-names: "Nassar Naif"
+      family-names: "Alsharif"
+  year: 2026

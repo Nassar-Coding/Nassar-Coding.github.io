@@ -1,44 +1,32 @@
-# Paper Package
+# Paper
 
-This folder is a draft arXiv-style / workshop-style paper package for the project
-Public Signal Service Forecasting (research line: Forecasting Service Demand with
-Public Signals). It assembles the paper body, supporting statements, tables, and
-figures from the committed repository evidence artifacts. It is a draft package,
-not a finished or full paper.
+This folder contains the final paper artifacts and the source files used to
+produce them for **"From Forecast Accuracy to Operational Value: Public Signal
+Augmentation for NYC 311 Service Demand."**
 
-## How to read this folder
+## Final documents
 
-- `main.md` - the main paper body (Title, Abstract, Introduction, Related Work,
-  Data, Methods, Forecasting Results, Forecast-to-Decision Simulation, Robustness
-  Checks, Limitations, Reproducibility, Conclusion). Start here.
-- `references.bib` - bibliography; one verified entry (Cui et al. 2018), two data
-  sources, and one TODO reference to verify or remove before submission.
-- `tables/` - eight tables built from committed reports and metadata.
-- `figures/` - ten figures copied from the committed repository figures, with a
-  README mapping each to its source.
-- `figure_captions.md`, `table_captions.md` - captions, key takeaways, and
-  overclaims to avoid.
+- `output/public_signal_service_forecasting_final_submission.pdf` — final PDF.
+- `output/public_signal_service_forecasting_final_submission.docx` — final Word document.
 
-## Support statements
+## Source files
 
-- `reproducibility_statement.md` - environment, commands, CI/sample-mode note.
-- `data_availability_statement.md` - sources, what is committed/ignored.
-- `ethics_statement.md` - public/aggregate data, reporting bias, no deployment.
-- `limitations.md` - limitations and full-paper blockers.
-- `number_audit.md` - every numeric claim traced to a committed artifact.
-- `venue_notes.md` - arXiv/workshop suitability and what is not claimed.
-- `submission_readiness_checklist.md` - status and remaining manual work.
+- `output/content.py` — the single shared content source (text, tables, figures,
+  references). Both generators render from this file so the PDF and Word
+  documents are identical in content.
+- `output/build_pdf.py` — renders the PDF (ReportLab).
+- `output/build_docx.py` — renders the Word document (python-docx).
+- `references.bib` — bibliography; every entry is cited in the paper.
+- `number_audit.md` — every numeric claim traced to a committed output.
+- `figures/` — the figures used in the paper.
 
-## What remains before arXiv/workshop upload
+## Rebuild
 
-Verify or remove the TODO reference, confirm data-source accessed dates, write a
-full related-work section if the venue requires it, do a final human edit, and
-format to the target venue template and build a PDF. See
-`submission_readiness_checklist.md`.
+```bash
+cd paper/output
+python build_pdf.py
+python build_docx.py
+```
 
-## Claims boundary
-
-This package makes no causal, production-readiness, deployment, real-dispatch, or
-real-staffing-optimization claims, and no full-paper or publication-readiness
-claim. It uses only real NYC 311 and real NOAA weather data; no synthetic data and
-no synthetic weather.
+All reported values come from the committed outputs under `../../reports/` and
+`../../data/metadata/`; the generators do not recompute any empirical result.

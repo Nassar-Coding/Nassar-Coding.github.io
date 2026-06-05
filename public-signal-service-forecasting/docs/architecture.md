@@ -64,9 +64,9 @@ flowchart TD
     B --> C[train internal-historical and calendar-augmented forecasters]
     C --> D[forecast test days]
     D --> E[allocate fixed crew budget per day]
-    E --> F[baseline policy: internal-historical forecast]
-    E --> G[calendar-augmented policy]
-    E --> H[oracle policy: true demand benchmark]
+    E --> F[internal-history policy]
+    E --> G[calendar + weather policy]
+    E --> H[observed-demand oracle benchmark]
     F --> I[decision-quality metrics]
     G --> I
     H --> I

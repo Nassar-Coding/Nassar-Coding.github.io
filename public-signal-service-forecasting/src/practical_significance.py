@@ -5,8 +5,7 @@ performance by complaint group and borough, and decision sensitivity) and
 distills simple, defensible practical-significance statements. It does not invent
 statistical tests that the design cannot support; it reports consistency and
 stability of the calendar-augmentation effect across folds, segments, and crew
-budgets, and whether that evidence is strong enough to consider full-paper
-drafting.
+budgets.
 
 Output:
 - reports/practical_significance_summary.json
@@ -58,8 +57,8 @@ def build_summary() -> dict:
 
     decision_all_settings = bool(sensitivity["augmented_better_in_all_settings"])
 
-    # Strong-evidence criteria (all must hold to consider full-paper drafting on
-    # the forecasting claim; the decision claim is reported separately).
+    # Consistency criteria for the forecasting claim (the decision claim is
+    # reported separately).
     forecasting_consistent = (
         rolling_all_models_all_folds
         and groups_better == groups_total
@@ -91,27 +90,20 @@ def build_summary() -> dict:
         "forecasting_evidence_strong": forecasting_consistent,
         "decision_evidence_strong": decision_consistent_direction
         and not decision_effect_varies_with_budget,
-        "strong_enough_for_full_paper_drafting": False,
         "assessment": (
-            "The forecasting claim is well supported: calendar augmentation lowers "
+            "The forecasting result is consistent: calendar augmentation lowers "
             "MAE for every model in every rolling fold and for every borough and "
-            "complaint group. The decision claim is directionally consistent across "
-            "scarce, moderate, and generous crew budgets but its magnitude is "
-            "budget-dependent (small under scarcity, larger under generous capacity), "
-            "and it rests on a single stylized proportional-allocation heuristic. "
-            "This evidence supports an extended-abstract/workshop artifact and a "
-            "strong research baseline, but not full-paper drafting, which would "
-            "require an external-signal comparison, formal forecast-difference tests, "
-            "and a richer, non-stylized decision model."
+            "complaint group. The decision result is directionally consistent across "
+            "scarce, moderate, and generous crew budgets, with budget-dependent "
+            "magnitude (small under scarcity, larger under generous capacity), and "
+            "rests on a single stylized proportional-allocation heuristic."
         ),
     }
     save_json(config.PRACTICAL_SIGNIFICANCE_FILE, summary)
     LOGGER.info(
-        "Practical significance: forecasting_strong=%s, decision_strong=%s, "
-        "full_paper_ready=%s",
+        "Practical significance: forecasting_strong=%s, decision_strong=%s",
         summary["forecasting_evidence_strong"],
         summary["decision_evidence_strong"],
-        summary["strong_enough_for_full_paper_drafting"],
     )
     return summary
 

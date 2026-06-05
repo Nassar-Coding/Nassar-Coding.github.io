@@ -27,11 +27,16 @@ complaint_group cells in proportion to forecasted next-day demand:
 
 ## Policies
 
-- **Baseline (internal historical):** allocate using the internal-historical
-  forecast.
-- **Calendar augmented:** allocate using the calendar-augmented forecast.
-- **Oracle (true demand):** allocate using true next-day demand. This is an
-  upper-bound benchmark only and is not achievable in practice.
+One policy is evaluated per feature set; the headline comparison is the
+internal-history policy versus the calendar + weather policy, against an
+observed-demand oracle benchmark.
+
+- **Internal history:** allocate using the internal-history forecast.
+- **Calendar + weather:** allocate using the calendar + weather forecast (the
+  headline augmented policy).
+- **Observed-demand oracle:** allocate using the observed realized next-day
+  request volume. This is an upper-bound benchmark only, is not a forecast, and
+  is not achievable in practice.
 
 ## Assumptions
 

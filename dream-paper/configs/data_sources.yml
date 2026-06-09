@@ -38,9 +38,9 @@ socrata_311:
     extra_group_fields: []
     license_note: "Public Domain Dedication and License (PDDL) per DataSF"
   - city: austin
-    name: "Austin 311 Public Data (Unified)"
+    name: "Austin 311 Public Data"
     domain: data.austintexas.gov
-    dataset_id: i26j-ai4z
+    dataset_id: xwdj-i9he
     date_field: sr_created_date
     category_field: sr_type_desc
     extra_group_fields: []

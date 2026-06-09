@@ -6,11 +6,12 @@
 name: acquire-311-data
 
 on:
-  workflow_dispatch: {}
-  push:
-    branches: [claude/new-session-56q4pt]
-    paths:
-      - ".github/workflows/acquire-311-data.yml"
+  workflow_dispatch:
+    inputs:
+      cities:
+        description: "Space-separated city keys to fetch (empty = all)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -22,7 +23,7 @@ concurrency:
 jobs:
   acquire:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,7 +41,9 @@ jobs:
         run: |
           python src/acquisition/fetch_311.py \
             --config configs/data_sources.yml \
-            --out data/raw/311 || echo "ACQUIRE_PARTIAL=1" >> "$GITHUB_ENV"
+            --out data/raw/311 \
+            ${{ inputs.cities != '' && format('--cities {0}', inputs.cities) || '' }} \
+            || echo "ACQUIRE_PARTIAL=1" >> "$GITHUB_ENV"
 
       - name: Commit acquired data back to branch
         run: |
@@ -51,7 +54,9 @@ jobs:
             echo "No data changes to commit."
           else
             git commit -m "data: acquire 311 daily aggregates via official Socrata APIs [actions]"
-            git pull --rebase origin "${{ github.ref_name }}"
+            # -X theirs keeps THIS run's freshly acquired files if a parallel
+            # run already pushed versions of the same paths
+            git pull --rebase -X theirs origin "${{ github.ref_name }}"
             git push origin "HEAD:${{ github.ref_name }}"
           fi
 

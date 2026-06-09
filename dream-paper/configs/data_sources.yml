@@ -1,0 +1,64 @@
+# Registry of all external data sources.
+# Every entry here is an official, publicly documented open-data endpoint.
+# 311 sources are queried with server-side daily aggregation (SODA API);
+# raw record-level data are NOT redistributed, only daily counts per
+# (day, native category), which is the exact input layer of the benchmark.
+
+study_window:
+  start: "2019-01-01"   # inclusive; Chicago's current 311 system went live 2018-12-18
+  end: "2026-01-01"     # exclusive
+
+socrata_311:
+  - city: nyc
+    name: "NYC 311 Service Requests from 2010 to Present"
+    domain: data.cityofnewyork.us
+    dataset_id: erm2-nwe9
+    date_field: created_date
+    category_field: complaint_type
+    extra_group_fields: []
+    license_note: "NYC Open Data Terms of Use; free to use without restriction"
+  - city: chicago
+    name: "Chicago 311 Service Requests (current system, 2018-12-18 onward)"
+    domain: data.cityofchicago.org
+    dataset_id: v6vf-nfxy
+    date_field: created_date
+    category_field: sr_type
+    # 'duplicate' lets us exclude duplicate-flagged requests in preprocessing
+    # without discarding information at acquisition time.
+    extra_group_fields: [duplicate]
+    license_note: "Chicago Data Portal Terms of Use"
+  - city: sf
+    name: "San Francisco 311 Cases"
+    domain: data.sfgov.org
+    dataset_id: vw6y-z8j6
+    date_field: requested_datetime
+    category_field: service_name
+    extra_group_fields: []
+    license_note: "Public Domain Dedication and License (PDDL) per DataSF"
+  - city: austin
+    name: "Austin 311 Public Data (Unified)"
+    domain: data.austintexas.gov
+    dataset_id: i26j-ai4z
+    date_field: sr_created_date
+    category_field: sr_type_desc
+    extra_group_fields: []
+    license_note: "City of Austin Open Data Portal terms"
+
+ghcn_daily:
+  # Official NOAA GHCN-Daily mirror in the AWS Open Data Program,
+  # maintained by NOAA NCEI: https://registry.opendata.aws/noaa-ghcn/
+  base_url: "https://noaa-ghcn-pds.s3.amazonaws.com"
+  elements: [PRCP, TMAX, TMIN, SNOW, SNWD, AWND]
+  stations:
+    - city: nyc
+      station_id: USW00094728
+      station_name: "NY CITY CENTRAL PARK, NY US"
+    - city: chicago
+      station_id: USW00094846
+      station_name: "CHICAGO OHARE INTERNATIONAL AIRPORT, IL US"
+    - city: sf
+      station_id: USW00023272
+      station_name: "SAN FRANCISCO DOWNTOWN, CA US"
+    - city: austin
+      station_id: USW00013904
+      station_name: "AUSTIN CAMP MABRY, TX US"

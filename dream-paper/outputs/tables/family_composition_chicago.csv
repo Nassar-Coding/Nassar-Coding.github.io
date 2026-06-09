@@ -1,0 +1,108 @@
+city,family,category,n
+chicago,housing_building,Building Violation,107110
+chicago,housing_building,Water Lead Test Kit Request,65635
+chicago,housing_building,Buildings - Plumbing Violation,40969
+chicago,housing_building,Vacant/Abandoned Building Complaint,32257
+chicago,housing_building,Clean Vacant Lot Request,28802
+chicago,housing_building,No Building Permit and Construction Violation,27646
+chicago,housing_building,Water Lead Test Visit Request,9070
+chicago,housing_building,Street Light Pole Door Missing Complaint,4872
+chicago,housing_building,Shared Housing/Vacation Rental Complaint,2358
+chicago,housing_building,Sidewalk Café/Outdoor Dining Complaint,1804
+chicago,housing_building,Lead Inspection Request,1676
+chicago,other,Stray Animal Complaint,61065
+chicago,other,Report an Injured Animal,50921
+chicago,other,Vicious Animal Complaint,37396
+chicago,other,Nuisance Animal Complaint,31417
+chicago,other,Business Complaints,26573
+chicago,other,Pet Wellness Check Request,17964
+chicago,other,Cab Feedback,17506
+chicago,other,Restaurant Complaint,15803
+chicago,other,Coyote Interaction Complaint,9778
+chicago,other,Consumer Fraud Complaint,8002
+chicago,other,Wire Basket Request,6539
+chicago,other,Bee/Wasp Removal,4798
+chicago,other,Consumer Retail Business Complaint,4550
+chicago,other,Dead Bird,4295
+chicago,other,Bicycle Request/Complaint,3800
+chicago,other,Porch Inspection Request,3093
+chicago,other,Cable TV Complaint,2258
+chicago,other,Home Buyer Program Info Request,1899
+chicago,other,Clean and Green Program Request,1764
+chicago,other,Liquor Establishment Complaint,1752
+chicago,other,Animal In Trap Complaint,1643
+chicago,other,Paid Sick Leave Violation,1444
+chicago,other,No Air Conditioning,1424
+chicago,other,Wage Complaint,1372
+chicago,other,Pushcart Food Vendor Complaint,1285
+chicago,other,Ridesharing Complaint,1136
+chicago,other,Tobacco - General Complaint,1042
+chicago,other,Tobacco - Sale to Minors Complaint,755
+chicago,other,Bungalow/Vintage Home Information Request,618
+chicago,other,No Solicitation Complaint,367
+chicago,other,Outdated Merchandise Complaint,348
+chicago,other,Renters and Foreclosure Complaint,250
+chicago,other,Smokeless Tobacco at Sports Event Complaint,28
+chicago,other,Petcoke Dust Complaint,3
+chicago,parks_trees,Tree Trim Request (NO LONGER BEING ACCEPTED),206525
+chicago,parks_trees,Weed Removal Request,108205
+chicago,parks_trees,Tree Removal Inspection,96345
+chicago,parks_trees,Tree Planting Request,70906
+chicago,public_safety,Tree Emergency,121023
+chicago,public_safety,Commercial Fire Safety Inspection Request,1557
+chicago,sanitation,Graffiti Removal Request,556086
+chicago,sanitation,Rodent Baiting/Rat Complaint,295754
+chicago,sanitation,Garbage Cart Maintenance,282964
+chicago,sanitation,Tree Debris Clean-Up Request,158578
+chicago,sanitation,Blue Recycling Cart,110707
+chicago,sanitation,Sanitation Code Violation,85738
+chicago,sanitation,Yard Waste Pick-Up Request,74032
+chicago,sanitation,Dead Animal Pick-Up Request,71998
+chicago,sanitation,Fly Dumping Complaint,69538
+chicago,sanitation,Missed Garbage Pick-Up Complaint,48780
+chicago,sanitation,Recycling Pick Up,37613
+chicago,sanitation,Recycling Inspection Request,1979
+chicago,sanitation,Inaccurate Fuel Pump Complaint,498
+chicago,sanitation,Inaccurate Retail Scales Complaint,33
+chicago,streets_transport,Abandoned Vehicle Complaint,269189
+chicago,streets_transport,Pothole in Street Complaint,215010
+chicago,streets_transport,Street Light Out Complaint,197946
+chicago,streets_transport,Traffic Signal Out Complaint,117430
+chicago,streets_transport,Sign Repair Request - All Other Signs,102160
+chicago,streets_transport,Inspect Public Way Request,44344
+chicago,streets_transport,Alley Pothole Complaint,40597
+chicago,streets_transport,Alley Light Out Complaint,39369
+chicago,streets_transport,Sidewalk Inspection Request,35930
+chicago,streets_transport,Ice and Snow Removal Request,33391
+chicago,streets_transport,Finance Parking Code Enforcement Review,31514
+chicago,streets_transport,Street Cleaning Request,30011
+chicago,streets_transport,Sign Repair Request - Stop Sign,28542
+chicago,streets_transport,Snow – Uncleared Sidewalk Complaint,27128
+chicago,streets_transport,Street Light Pole Damage Complaint,26856
+chicago,streets_transport,City Vehicle Sticker Violation,20680
+chicago,streets_transport,Snow - Object/Dibs Removal Request,14038
+chicago,streets_transport,Sign Repair Request - One Way Sign,13399
+chicago,streets_transport,Shared Cost Sidewalk Program Request,13262
+chicago,streets_transport,E-Scooter Parking Complaint,12569
+chicago,streets_transport,Vehicle Parked in Bike Lane Complaint,9257
+chicago,streets_transport,Divvy Bike Parking Complaint,7475
+chicago,streets_transport,Street Light On During Day Complaint,5589
+chicago,streets_transport,Sign Repair Request - Do Not Enter Sign,4098
+chicago,streets_transport,Viaduct Light Out Complaint,2024
+chicago,streets_transport,Public Vehicle/Valet Complaint,1684
+chicago,streets_transport,Protected Bike Lane - Debris Removal,744
+chicago,streets_transport,Snow Removal - Protected Bike Lane or Bridge Sidewalk,722
+chicago,streets_transport,E-Scooter,345
+chicago,streets_transport,Pavement Cave-In Inspection Request,275
+chicago,streets_transport,Licensed Pharmaceutical Representative Complaint,47
+chicago,streets_transport,Submerged Divvy or Lime Device in the Lake/River,33
+chicago,water_sewer,Water in Basement Complaint,56251
+chicago,water_sewer,Sewer Cleaning Inspection Request,52303
+chicago,water_sewer,Check for Leak,45813
+chicago,water_sewer,Water On Street Complaint,42433
+chicago,water_sewer,Sewer Cave-In Inspection Request,28255
+chicago,water_sewer,Open Fire Hydrant Complaint,24462
+chicago,water_sewer,No Water Complaint,21046
+chicago,water_sewer,Low Water Pressure Complaint,11223
+chicago,water_sewer,Alley Sewer Inspection Request,7614
+chicago,water_sewer,Water Quality Concern,4506

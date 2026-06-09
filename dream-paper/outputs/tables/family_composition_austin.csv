@@ -1,0 +1,347 @@
+city,family,category,n
+austin,housing_building,DSD - Outdoor Commercial Venue Music Complaint,7867
+austin,housing_building,Park Maintenance - Grounds Plumbing Issues,3529
+austin,housing_building,ATD - Construction Items in Right of Way,3132
+austin,housing_building,TPW - Construction Concerns in Right of Way,2801
+austin,housing_building,Construction Items in ROW,2306
+austin,housing_building,Park Maintenance - Grounds Electrical Issues,2086
+austin,housing_building,ATD - Construction Concerns in Right of Way,1885
+austin,housing_building,Park Maintenance - Building Plumbing Issues,1475
+austin,housing_building,Park Maintenance - Building Issues,847
+austin,housing_building,AE - Electric Vehicle Station Issues,626
+austin,housing_building,Park Maintenance - Building A/C & Heating Issues,333
+austin,housing_building,Construction/Permitting- ROW,260
+austin,housing_building,Park Maintenance - Building Electrical Issues,241
+austin,housing_building,Austin Code - Construction Rest Break Complaint,161
+austin,housing_building,Park Maintenance - Building Electric Issues,48
+austin,housing_building,ACD - Construction Rest Break Complaint,36
+austin,housing_building,HSEM - Heat Advisory,26
+austin,housing_building,DSD - Construction Rest Break Complaint,14
+austin,housing_building,Park Maintenance - Building A/C &amp; Heating Issues,13
+austin,housing_building,HSEM Heat Advisory,4
+austin,housing_building,Zz_ATD - Construction Items in Right of Way,4
+austin,noise,APD - Non Emergency Noise/Alarm,70197
+austin,other,Loose Dog,27062
+austin,other,311 CC - Other,25843
+austin,other,Animal Protection - Loose Dog,24018
+austin,other,Animal Protection - Injured/Sick Animal,21068
+austin,other,ARR - Bulk,18537
+austin,other,Injured / Sick Animal,18490
+austin,other,Animal Control - Assistance Request,17251
+austin,other,DSD - Follow-Up,16348
+austin,other,ARR - General,13187
+austin,other,Pet Resource Center - Assistance Request,12849
+austin,other,Animal Protection - Assistance Request,10197
+austin,other,Loud Commercial Music,8612
+austin,other,ARR - Brush,7763
+austin,other,Found Animal - Pick Up,6594
+austin,other,Animal - Proper Care,6355
+austin,other,ATD - Concerns in Right of Way,6328
+austin,other,Animal Protection - Animal Proper Care,5960
+austin,other,Austin Code - Coronavirus,5810
+austin,other,Animal Protection - Animal Bite,5788
+austin,other,Animal Protection - Found Animal Assistance,5384
+austin,other,Austin Code - Short Term Rental Complaint SR,5183
+austin,other,ARR Brush and Bulk,4390
+austin,other,Animal Bite,4314
+austin,other,Community Connections - Coronavirus,3895
+austin,other,DSD - Environmental Complaint,3760
+austin,other,Wildlife Exposure,3510
+austin,other,Animal Protection - Wildlife Exposure,3342
+austin,other,Found Animal Report - Keep,3196
+austin,other,ATD - Speed Management,2845
+austin,other,Pet Resource Center - Found Pet Report,2781
+austin,other,ARR - On Call Bulk,2686
+austin,other,ATD - Dig Tess Request,2479
+austin,other,TPW - Dig Tess Request,2256
+austin,other,Concerns in the ROW,2233
+austin,other,Loose Animal Not Dog,2041
+austin,other,DSD - Short Term Rental Complaint,2034
+austin,other,Animal Protection - Vicious Dog Complaint,2008
+austin,other,Creek & Pond Vegetation Control,1641
+austin,other,Coyote Complaints,1638
+austin,other,Animal Protection - Loose Animal Not Dog,1474
+austin,other,TPW - Speed Management,1447
+austin,other,Animal Protection - Coyote Complaints,1418
+austin,other,School Zone Flasher - Timing/Maintenance,1325
+austin,other,ARR - Property Damage Report,1239
+austin,other,Speed Management,1227
+austin,other,Bicycle Issues,1205
+austin,other,TARA - Telecommunication Complaint,1192
+austin,other,ACD - Short Term Rental Complaint,1188
+austin,other,PARD - Aquatic Maintenance,1144
+austin,other,Zz_Loud Commercial Music,1069
+austin,other,ATD - Bicycle &amp; Pedestrian Issues,904
+austin,other,ATD - Booting Complaint,873
+austin,other,ATD - School Zone Beacon - Maintenance,804
+austin,other,DSD - Case Updates/Code Connect Messages,727
+austin,other,WPD - Environmental Spills,707
+austin,other,PWD - Mowing Medians,685
+austin,other,Mowing Medians,655
+austin,other,Animal Protection - Dog Restraint Issues,633
+austin,other,ATD - Special Event,548
+austin,other,TPW - Activate/Deactivate Work Zone,502
+austin,other,TPW - Mowing Medians,484
+austin,other,TPW - Bicycle Issues,456
+austin,other,ARR - On Call Brush,447
+austin,other,SBO - Utility Cut Repair,433
+austin,other,ACD - Case Updates/Code Connect Messages,432
+austin,other,TPW - Utility Cut Repair,413
+austin,other,Guardrail New/Repair,412
+austin,other,TPW - Special Event,412
+austin,other,ARR - Pet Search,332
+austin,other,WPD - Erosion,288
+austin,other,ATD - Pay-by-Phone App,273
+austin,other,APH - Community Connections Coronavirus,259
+austin,other,TPW - Booting Complaint,245
+austin,other,TPW - Pedestrian Crossing New/Modify,235
+austin,other,Neighborhood Home Programs,228
+austin,other,SBO - Guardrail New/Repair,214
+austin,other,AE - Key Accounts,209
+austin,other,TPW - Guardrail New/Repair,208
+austin,other,DSD - Billboard Complaint,179
+austin,other,HPD - Neighborhood Home Programs,176
+austin,other,HD - Neighborhood Home Programs,160
+austin,other,School Zone - New/Review/Changes,147
+austin,other,TPW - School Zone Beacon - Maintenance,147
+austin,other,PW - School Issues - Crossing Guards,145
+austin,other,TPW - Pay-by-Phone App,137
+austin,other,PARD - Aquatic Inquiries/Issues,124
+austin,other,PARD - Aquatic Program Inquiries,123
+austin,other,PW - School Zone - New/Review/Changes,99
+austin,other,APH - Health Equity Line,82
+austin,other,ACD - Billboard Complaint,80
+austin,other,TPW - School Issues - Crossing Guards,67
+austin,other,TPW - Bicycle and Pedestrian Issues,64
+austin,other,ERM - Harmful Algae,60
+austin,other,Austin Code - Short Term Rental (STR) Appointment,57
+austin,other,ZZ Creek &amp; Pond Vegetation Control,57
+austin,other,ZZ - Pet Resource Center - Assistance Request,56
+austin,other,ZZZ ARR Brush and Bulk,53
+austin,other,School Issues - Crossing Guards,49
+austin,other,ZZ - Pet Resource Center - Found Pet Report,49
+austin,other,Aquatics Hotline Inquiry,44
+austin,other,ATD - Bicycle & Pedestrian Issues,41
+austin,other,ZZ ARR - On Call Brush,41
+austin,other,CPIO - Community Engagement Project Feedback,38
+austin,other,Fence/Wall Repair,30
+austin,other,ZZ ARR - On Call Bulk,27
+austin,other,ZZ Creek & Pond Vegetation Control,26
+austin,other,Vendor Permit - ROW,25
+austin,other,Filming Permit - ROW,23
+austin,other,EV PIE Station Issues,22
+austin,other,WPD - Harmful Algae,18
+austin,other,Corridor Program - Corridor Feedback,16
+austin,other,Newspaper Rack- ROW,15
+austin,other,ZZ Mowing Medians,15
+austin,other,Zz_ATD - Concerns in Right of Way,14
+austin,other,Valet Permit - ROW,9
+austin,other,ZZ_TPW - Pedestrian Crossing New/Modify,7
+austin,other,ZZ Corridor Program - Corridor Feedback,6
+austin,other,ZZZ - DO NOT USE - ERM - Harmful Algae,5
+austin,other,ZZ Community Connections - Coronavirus,2
+austin,other,ACD - Coronavirus,1
+austin,parks_trees,Park Maintenance - Grounds,37444
+austin,parks_trees,Tree Issue ROW,13396
+austin,parks_trees,PWD - Tree Issue Right of Way,5068
+austin,parks_trees,TPW - Tree Issue Right of Way,4359
+austin,parks_trees,DSD - Tree and Environmental Complaint,2615
+austin,parks_trees,Mowing City Parks,596
+austin,parks_trees,Park Maintenance - Pool Issues,569
+austin,parks_trees,ZZ - Tree Issue ROW,278
+austin,parks_trees,PARD - Commercial Use of Parkland,270
+austin,parks_trees,Park Maintenance - Cemeteries,188
+austin,parks_trees,ZZ Park Maintenance - Pool Issues,95
+austin,parks_trees,ZZ Mowing City Parks,31
+austin,public_safety,APD - Non Emergency Collision,32924
+austin,public_safety,Sign - Traffic Sign Emergency,2185
+austin,public_safety,ZZ - AFD - Fireworks Complaint,2049
+austin,public_safety,Dangerous/Vicious Dog Investigation,1906
+austin,public_safety,ATD - Traffic Sign Emergency,1588
+austin,public_safety,AFD - Fireworks Complaint,1522
+austin,public_safety,ARR - Household Hazardous Waste,1397
+austin,public_safety,ZZ AFD - Fireworks Complaint,1346
+austin,public_safety,TPW - Traffic Sign Emergency,1084
+austin,public_safety,FSD - Telecommunication/Gas Utility Complaint,694
+austin,public_safety,Animal Protection - Dangerous Dog Complaint,261
+austin,public_safety,AFD - Wildfire Concern / Presentation,159
+austin,public_safety,AFD - Wildfire Education,159
+austin,public_safety,APD - Non Emergency Hands Free Violation,45
+austin,public_safety,Telecommunication/Gas Utility Complaint,3
+austin,public_safety,Emergency Vehicle Preemption Device,2
+austin,public_safety,ZZAFD - Fireworks Complaint,2
+austin,sanitation,ARR - Garbage,79958
+austin,sanitation,ARR - Compost,49879
+austin,sanitation,ARR - Storm Debris Collection,49751
+austin,sanitation,ARR - Recycling,42620
+austin,sanitation,ARR - Dead Animal Collection,22863
+austin,sanitation,ARR Missed Yard Trimmings/Compost,21053
+austin,sanitation,ARR Missed Recycling,17101
+austin,sanitation,ARR Dead Animal Collection,11994
+austin,sanitation,APH - Graffiti Abatement - Public Property,8139
+austin,sanitation,Public Health - Graffiti Abatement,5268
+austin,sanitation,DSD - Alarm Administration,3551
+austin,sanitation,ARR - Spillage Trash/Fluids,1425
+austin,sanitation,ARR - Collection Truck Spillage,1151
+austin,sanitation,Zz_ARR - Storm Debris Collection,736
+austin,sanitation,ZZ - ARR - Storm Debris Collection,364
+austin,sanitation,WPD - Lady Bird Lake Debris Issues,331
+austin,sanitation,DSD - Graffiti Abatement - Private Property,171
+austin,sanitation,ZZZ ARR Missed Recycling,51
+austin,sanitation,ZZZ ARR Missed Yard Trimmings/Compost,39
+austin,sanitation,Town Lake Debris Issues,38
+austin,sanitation,ZZZ ARR Dead Animal Collection,34
+austin,sanitation,ZZ ARR - Storm Debris Collection,20
+austin,sanitation,ZZ CRM - Configuration Test Waheed,16
+austin,sanitation,ZZ DSD - Graffiti Abatement - Private Property,16
+austin,sanitation,zzDSD - Alarm Administration,10
+austin,sanitation,ZZ CRM - Configuration Test Francois,2
+austin,streets_transport,Austin Code - Request Code Officer,81975
+austin,streets_transport,DSD - Request Code Officer,47058
+austin,streets_transport,ATD - Parking Violation Enforcement,42161
+austin,streets_transport,APD - Vehicle Abatement Report,36208
+austin,streets_transport,Traffic Signal - Maintenance,36141
+austin,streets_transport,ATD - Shared Micromobility,25935
+austin,streets_transport,TPW - Parking Violation Enforcement,22197
+austin,streets_transport,AE Street Light Issue - Address,20677
+austin,streets_transport,ACD - Request Code Officer,14453
+austin,streets_transport,TPW - Traffic Signal - Maintenance,14119
+austin,streets_transport,Pothole Repair,12645
+austin,streets_transport,Street Light Issue- Address,12321
+austin,streets_transport,Parking Violation Enforcement,12317
+austin,streets_transport,Animal Services - Contact Request,11459
+austin,streets_transport,ATD - Traffic Signal - Maintenance,9418
+austin,streets_transport,ATD - Traffic Sign Maintenance,8932
+austin,streets_transport,Debris in Street,8507
+austin,streets_transport,Shared Micromobility,7763
+austin,streets_transport,ATD - Lane/Road Closure Notification,7023
+austin,streets_transport,Sign - Traffic Sign Maintenance,5765
+austin,streets_transport,ATD - Parking Sign Maintenance,5439
+austin,streets_transport,Sidewalk Repair,5038
+austin,streets_transport,SBO - Pothole Repair,4784
+austin,streets_transport,ARR - Street Sweeping,4462
+austin,streets_transport,Lane/Road Closure Notification,4075
+austin,streets_transport,Obstruction in ROW,4024
+austin,streets_transport,APH - Environmental Health Services - City,3710
+austin,streets_transport,TPW - Debris in Street,3710
+austin,streets_transport,SBO - Debris in Street,3662
+austin,streets_transport,Sign - New,3560
+austin,streets_transport,TPW - Pothole Repair,3449
+austin,streets_transport,SBO - Obstruction in Right of Way,3331
+austin,streets_transport,Traffic Signal - Dig Tess Request,2929
+austin,streets_transport,TPW - Traffic Sign Maintenance,2928
+austin,streets_transport,TPW - Obstruction in Right of Way,2905
+austin,streets_transport,Parking Machine Issue,2809
+austin,streets_transport,TPW - Parking Sign Maintenance,2781
+austin,streets_transport,ATD - Traffic Sign New,2752
+austin,streets_transport,TPW - Lane/Road Closure Notification,2747
+austin,streets_transport,APD - Vehicle Abatement Callback Request,2722
+austin,streets_transport,Pavement Failure,2649
+austin,streets_transport,Public Health - Environmental Services - City,2460
+austin,streets_transport,ATD - Road Markings/Striping - Maintenance,2232
+austin,streets_transport,AE Street Light Issue - No Address,2116
+austin,streets_transport,SBO - Sidewalk Repair,1980
+austin,streets_transport,ATD - Street Name Sign Maintenance,1965
+austin,streets_transport,TPW - Shared Micromobility,1909
+austin,streets_transport,ATD - Parking Machine Issue,1892
+austin,streets_transport,TPW - Sidewalk Repair,1767
+austin,streets_transport,TPW - Parking Machine Issue,1713
+austin,streets_transport,TPW - Traffic Sign New,1708
+austin,streets_transport,Traffic Signal - New/Change,1700
+austin,streets_transport,Traffic Engineering - General,1558
+austin,streets_transport,Road Markings/Striping - Maintenance,1483
+austin,streets_transport,TPW - Road Markings/Striping - Maintenance,1481
+austin,streets_transport,TPW - Pavement Failure,1463
+austin,streets_transport,ARR - Special Services,1365
+austin,streets_transport,ATD - Traffic Signal Maintenance,1321
+austin,streets_transport,Austin Code - Signs/Billboards,1271
+austin,streets_transport,SBO - Pavement Failure,1217
+austin,streets_transport,TPW - Traffic Signal - Modification,1174
+austin,streets_transport,ARR Street Sweeping,1163
+austin,streets_transport,Alley & Unpaved Street Maintenance,1096
+austin,streets_transport,ATD - Road Markings/Striping - New,1064
+austin,streets_transport,View Obstruction at Intersection,1026
+austin,streets_transport,Animal In Vehicle,1021
+austin,streets_transport,Sign - Parking Sign Maintenance,924
+austin,streets_transport,TPW - Street Resurfacing,879
+austin,streets_transport,TPW - Street and Bridge Miscellaneous,873
+austin,streets_transport,TPW - Street Name Sign Maintenance,859
+austin,streets_transport,SBO - Street and Bridge Miscellaneous,818
+austin,streets_transport,ATD - View Obstruction and Fencing at Intersection,774
+austin,streets_transport,SBO - New Sidewalk/Curb Ramp/Route,770
+austin,streets_transport,Animal Protection - Animal In Vehicle,752
+austin,streets_transport,Street Resurfacing,735
+austin,streets_transport,ATD - Traffic Signal - Modification,727
+austin,streets_transport,311 CRIS - City Vehicle Report,702
+austin,streets_transport,ATD - Traffic Signal - New/Modification,686
+austin,streets_transport,Sidewalk/Curb Ramp/Route - NEW,670
+austin,streets_transport,Sign - Street Name,667
+austin,streets_transport,TPW - Road Markings/Striping - New,661
+austin,streets_transport,SBO - Street Resurfacing,585
+austin,streets_transport,Road Markings/Striping - New,580
+austin,streets_transport,TPW - View Obstruction and Fencing at Intersection,565
+austin,streets_transport,TPW - Traffic Signal - New,554
+austin,streets_transport,Street Light Issue- Multiple poles/multiple streets,543
+austin,streets_transport,Curb/Gutter Repair,530
+austin,streets_transport,Street Lights New,515
+austin,streets_transport,WPD - Ditch/Driveway Pipe Services,438
+austin,streets_transport,TPW - Curb/Gutter Repair,425
+austin,streets_transport,ATD - Traffic Signal - New,416
+austin,streets_transport,TPW - Alley & Unpaved Street Maintenance,370
+austin,streets_transport,SBO - Alley & Unpaved Street Maintenance,369
+austin,streets_transport,SBO - Curb/Gutter Repair,348
+austin,streets_transport,ATD - School Zone Sign Maintenance,343
+austin,streets_transport,CPIO - Community Voices,290
+austin,streets_transport,APH - Environmental Health Services - County,266
+austin,streets_transport,TPW - New Sidewalk/Curb Ramp/ADA Route,256
+austin,streets_transport,Speed Limit - Changes/Signs,254
+austin,streets_transport,SBO - Alley &amp; Unpaved Street Maintenance,214
+austin,streets_transport,Roadway Spillage,190
+austin,streets_transport,Corridor Program Office - Corridor Feedback,188
+austin,streets_transport,Traffic Calming,186
+austin,streets_transport,Ditch/Driveway Pipe Services,182
+austin,streets_transport,Sign - School Zone Sign Maintenance,179
+austin,streets_transport,Public Health - Environmental Services - County,141
+austin,streets_transport,Bridge Repair,130
+austin,streets_transport,TPW - Alley &amp; Unpaved Street Maintenance,130
+austin,streets_transport,TPW - Roadway Spillage,119
+austin,streets_transport,TPW - New Sidewalk/Curb Ramp/Route,106
+austin,streets_transport,TPW - Bridge Repair,105
+austin,streets_transport,TPW - School Zone Sign Maintenance,104
+austin,streets_transport,SBO - Roadway Spillage,102
+austin,streets_transport,Animal Protection - Animal Roadside Sales,90
+austin,streets_transport,Zz_Traffic Engineering - General,82
+austin,streets_transport,Animal Roadside Sales,81
+austin,streets_transport,SBO - Bridge Repair,78
+austin,streets_transport,Residential Parking Permit Enforcement,49
+austin,streets_transport,Parking Permit- ROW,30
+austin,streets_transport,DSD - Private Hauler License Violation,26
+austin,streets_transport,ZZ ATD - Parking Machine Issue,14
+austin,streets_transport,ACD - Private Hauler License Violation,5
+austin,streets_transport,PW - Street & Bridge General,5
+austin,streets_transport,Zzz_Speed Limit - Changes/Signs,5
+austin,streets_transport,ATD - Traffic Engineering - General,4
+austin,streets_transport,ZZZ ARR Street Sweeping,3
+austin,water_sewer,AW - Water Conservation Violation,10628
+austin,water_sewer,WPD - Channels/Creek/Drainage Issues,7643
+austin,water_sewer,AW - Water Waste Report,3978
+austin,water_sewer,Channels/Creeks/Drainage Easement,2298
+austin,water_sewer,AW - Water Related Issues,2206
+austin,water_sewer,WPD - Storm Drain Services,1869
+austin,water_sewer,WPD - Standing Water,1480
+austin,water_sewer,WPD - Lost Item in Storm Drainage System,1296
+austin,water_sewer,WPD - Drainage Pond Maintenance,1228
+austin,water_sewer,WPD - Flooding Current,963
+austin,water_sewer,Lost Item in Storm Drainage System,895
+austin,water_sewer,Flooding  Current (Non-Emergency),841
+austin,water_sewer,Flooding Current (Non-Emergency),694
+austin,water_sewer,Flooding - Past,529
+austin,water_sewer,Animal Trapped in Storm Drain,482
+austin,water_sewer,WPD - Flooding Past,472
+austin,water_sewer,AW - Water Theft Report,427
+austin,water_sewer,Standing Water,416
+austin,water_sewer,Animal Protection - Animal Trapped in Storm Drain,410
+austin,water_sewer,WPD - Watershed Grow Zone Issues,379
+austin,water_sewer,Storm Drain Pipe Services,207
+austin,water_sewer,ZZZ - Storm Drain Pipe Services,3
+austin,water_sewer,AW - Emergency Water Issues,2

@@ -69,7 +69,6 @@ nyc,other,Mobile Food Vendor,24363
 nyc,other,Special Projects Inspection Team (SPIT),23186
 nyc,other,Drinking,21989
 nyc,other,Boilers,19208
-nyc,other,Illegal Posting,17045
 nyc,other,Smoking,15718
 nyc,other,Food Poisoning,15566
 nyc,other,Unsanitary Animal Pvt Property,13123
@@ -197,6 +196,7 @@ nyc,sanitation,Missed Collection (All Materials),82824
 nyc,sanitation,Dirty Conditions,68224
 nyc,sanitation,Sanitation Condition,62768
 nyc,sanitation,Dead Animal,43599
+nyc,sanitation,Illegal Posting,17045
 nyc,sanitation,Litter Basket Request,15362
 nyc,sanitation,Dumpster Complaint,7776
 nyc,sanitation,Litter Basket Complaint,6195

@@ -1,0 +1,137 @@
+city,family,category,n
+sf,housing_building,Residential Building Request,11712
+sf,housing_building,General Request - BUILDING INSPECTION,7468
+sf,housing_building,Residential Building,6364
+sf,noise,Noise Report,37785
+sf,noise,Noise,18133
+sf,other,General Request - PUBLIC WORKS,105723
+sf,other,General Request,62711
+sf,other,General Request - MTA,54573
+sf,other,Muni Employee Feedback,31919
+sf,other,Damaged Property,30299
+sf,other,RPD General,15128
+sf,other,General Request - DPH,14702
+sf,other,Damage Property,11421
+sf,other,Child Request,8738
+sf,other,General Request - PUC,7469
+sf,other,Shared Spaces Violation,6368
+sf,other,General Request - RENT BOARD,5119
+sf,other,Shared Spaces Request,4192
+sf,other,MUNI Feedback,4015
+sf,other,311 External Request,3806
+sf,other,SFHA Requests,3752
+sf,other,General Request - ANIMAL CARE CONTROL,2869
+sf,other,General Request - SFPD,2035
+sf,other,General Request - PLANNING,1652
+sf,other,General Request - HSH,1406
+sf,other,General Request - MONS,935
+sf,other,General Request - RPD,690
+sf,other,DPW Volunteer Programs,515
+sf,other,General Request - MOD,499
+sf,other,General Request - BOARD OF SUPERVISORS,493
+sf,other,General Request - COUNTY CLERK,361
+sf,other,General Request - PORT AUTHORITY,307
+sf,other,Citations Questions Comments,252
+sf,other,General Request - DTIS,240
+sf,other,General Request - MOH,205
+sf,other,311 Complaints,180
+sf,other,General Request - DISTRICT ATTORNEY,178
+sf,other,General Request - MOCD,163
+sf,other,General Request - CITY HALL,158
+sf,other,General Request - OCC,155
+sf,other,General Request - ENTERTAINMENT COMMISSION,146
+sf,other,General Request - ECONOMICS AND WORKFORCE DEVELOPMENT,145
+sf,other,General Request - SHORT TERM RENTALS,128
+sf,other,RPP Application Status,120
+sf,other,Citations Payment Status,119
+sf,other,Volunteer Programs,111
+sf,other,General Request - SMALL BUSINESS,110
+sf,other,Citations Protest Status,108
+sf,other,General Request - CITY ATTORNEY,104
+sf,other,General Request - HUMAN RESOURCES,102
+sf,other,General Request -,101
+sf,other,General Request - CONTROLLER,99
+sf,other,General Request - LABOR STANDARDS ENFORCEMENT,97
+sf,other,OOC Feedback,95
+sf,other,General Request - ELECTIONS,93
+sf,other,General Request - ART COMMISSION,86
+sf,other,Taxi Complaint,84
+sf,other,Information Provided,81
+sf,other,General Request - ASSESSOR RECORDER,75
+sf,other,RPP Questions Comments,72
+sf,other,General Request - HUMAN RIGHTS COMMISSION,68
+sf,other,General Request - ENVIRONMENT,60
+sf,other,General Request - LIBRARY PUBLIC,52
+sf,other,General Request - CENTRAL SHOPS,45
+sf,other,General Request - SHERIFF,37
+sf,other,General Request - REAL ESTATE DEPARTMENT,31
+sf,other,General Request - TT COLLECTOR,28
+sf,other,General Request - CHILDREN YOUTH FAMILIES,27
+sf,other,General Request - MEDICAL EXAMINER,26
+sf,other,General Request - ETHICS COMMISSION,20
+sf,other,General Request - AIRPORT SFO,19
+sf,other,General Request - TIDA,19
+sf,other,General Request - FILM COMMISSION,16
+sf,other,General Request - STATUS OF WOMEN,8
+sf,other,General Request - PUBLIC DEFENDER,7
+sf,other,General Request - BOARD OF APPEALS,4
+sf,other,Escalation Callback,3
+sf,other,General Request - ADULT PROBATION,3
+sf,other,General Request - JUVENILE PROBATION,3
+sf,other,Outbound Email,3
+sf,other,Followup,2
+sf,other,General Request - WAR MEMORIAL,2
+sf,other,Taxi Compliment,2
+sf,other,Well-Being Check,2
+sf,other,Aggressive/Threatening,1
+sf,other,Behavioral Third Party,1
+sf,other,General Request - MOCJ,1
+sf,other,General Request - RISK MANAGEMENT,1
+sf,other,Outbound Call,1
+sf,other,Records Request,1
+sf,other,TTX General,1
+sf,other,Tent Count,1
+sf,other,Waitlist Request,1
+sf,other,v15,1
+sf,parks_trees,Tree Maintenance,80947
+sf,parks_trees,Rec and Park Requests,40539
+sf,public_safety,General Request - FIRE DEPARTMENT,490
+sf,sanitation,Graffiti,337617
+sf,sanitation,Encampments,158952
+sf,sanitation,Graffiti Public,121575
+sf,sanitation,Encampment,74770
+sf,sanitation,Illegal Postings,72942
+sf,sanitation,Litter Receptacles,38960
+sf,sanitation,Graffiti Private,35497
+sf,sanitation,Litter Receptacle Maintenance,15040
+sf,sanitation,Homeless Concerns,365
+sf,sanitation,General Request - CITYADMINISTRATOR GSA,112
+sf,sanitation,General Request - CONTRACT ADMINISTRATION,24
+sf,streets_transport,Street and Sidewalk Cleaning,1933456
+sf,streets_transport,Parking Enforcement,602068
+sf,streets_transport,Abandoned Vehicle,62042
+sf,streets_transport,Sign Repair,45024
+sf,streets_transport,Sidewalk or Curb,36495
+sf,streets_transport,Muni Service Feedback,32534
+sf,streets_transport,Street Defects,30342
+sf,streets_transport,Sidewalk and Curb,23450
+sf,streets_transport,Streetlights,23047
+sf,streets_transport,Blocked Street and Sidewalk,20832
+sf,streets_transport,Blocked Street or SideWalk,14201
+sf,streets_transport,Street Defect,12668
+sf,streets_transport,MTA Parking Traffic Signs Normal Priority,11256
+sf,streets_transport,MTA Parking Traffic Signs High Priority,5817
+sf,streets_transport,General Request - 311CUSTOMERSERVICECENTER,3362
+sf,streets_transport,Temporary Sign Request,2779
+sf,streets_transport,Temporary Sign Applications,547
+sf,streets_transport,Autonomous Vehicle Complaints,438
+sf,streets_transport,General Request - HUMAN SERVICES AGENCY,328
+sf,streets_transport,General Request - AGING ADULT SERVICES,40
+sf,streets_transport,General Request - LANGUAGE SERVICES,15
+sf,streets_transport,General Request - CHILDSUPPORTSERVICES,14
+sf,streets_transport,Service Request Copy,3
+sf,water_sewer,Sewer Issues,47683
+sf,water_sewer,Sewer,18406
+sf,water_sewer,Catch Basin Maintenance,2161
+sf,water_sewer,Water Quality,345
+sf,water_sewer,Waste of Water,230

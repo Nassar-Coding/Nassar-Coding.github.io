@@ -47,12 +47,14 @@ families:
     priority_weight: 2.0
     patterns: [street, pothole, sidewalk, curb, traffic, signal, sign, light,
                road, highway, bridge, transportation, parking, vehicle, bike,
-               scooter, pavement, alley, snow, ice, driveway, obstruction]
+               scooter, pavement, alley, snow, ice, driveway, obstruction,
+               micromobility, public way]
   - name: sanitation
     priority_weight: 2.0
     patterns: [sanitation, garbage, trash, litter, refuse, recycl, dump, debris,
                dirty, sweep, rodent, rat, pest, mosquito, insect, dead animal,
-               graffiti, encampment, homeless, collection, bulky item]
+               graffiti, encampment, homeless, collection, bulky item, compost,
+               yard waste, illegal posting]
   - name: parks_trees
     priority_weight: 1.0
     patterns: [tree, branch, park, forestry, weed, grass, plant]

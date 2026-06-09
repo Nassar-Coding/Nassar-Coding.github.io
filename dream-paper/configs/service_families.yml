@@ -42,17 +42,17 @@ families:
   - name: public_safety
     priority_weight: 3.0
     patterns: [safety, police, fire, hazard, dangerous, emergency, gas,
-               carbon monoxide, panhandl, weapon, explosive, structural]
+               carbon monoxide, panhandl, weapon, explosive, structural, drug]
   - name: streets_transport
     priority_weight: 2.0
     patterns: [street, pothole, sidewalk, curb, traffic, signal, sign, light,
                road, highway, bridge, transportation, parking, vehicle, bike,
-               scooter, pavement, alley, snow, ice]
+               scooter, pavement, alley, snow, ice, driveway, obstruction]
   - name: sanitation
     priority_weight: 2.0
     patterns: [sanitation, garbage, trash, litter, refuse, recycl, dump, debris,
                dirty, sweep, rodent, rat, pest, mosquito, insect, dead animal,
-               graffiti, encampment, homeless]
+               graffiti, encampment, homeless, collection, bulky item]
   - name: parks_trees
     priority_weight: 1.0
     patterns: [tree, branch, park, forestry, weed, grass, plant]

@@ -1,0 +1,272 @@
+city,family,category,n
+nyc,housing_building,HEAT/HOT WATER,1439229
+nyc,housing_building,UNSANITARY CONDITION,605801
+nyc,housing_building,PLUMBING,343419
+nyc,housing_building,PAINT/PLASTER,320056
+nyc,housing_building,DOOR/WINDOW,238744
+nyc,housing_building,General Construction/Plumbing,218083
+nyc,housing_building,ELECTRIC,154876
+nyc,housing_building,FLOORING/STAIRS,140363
+nyc,housing_building,APPLIANCE,118164
+nyc,housing_building,Building/Use,111910
+nyc,housing_building,Elevator,103758
+nyc,housing_building,Lead,77209
+nyc,housing_building,Indoor Air Quality,39846
+nyc,housing_building,Outdoor Dining,30072
+nyc,housing_building,Plumbing,19075
+nyc,housing_building,Electrical,12358
+nyc,housing_building,ELEVATOR,9888
+nyc,housing_building,Asbestos,8254
+nyc,housing_building,COVID-19 Non-essential Construction,7322
+nyc,housing_building,Construction Lead Dust,5798
+nyc,housing_building,OUTSIDE BUILDING,5481
+nyc,housing_building,Non-Residential Heat,5388
+nyc,housing_building,Vacant Lot,3962
+nyc,housing_building,Indoor Sewage,3696
+nyc,housing_building,Paint/Plaster,2187
+nyc,housing_building,Construction Safety Enforcement,2127
+nyc,housing_building,Mold,1883
+nyc,housing_building,Heat/Hot Water,1814
+nyc,housing_building,Unsanitary Condition,1263
+nyc,housing_building,Door/Window,1258
+nyc,housing_building,Scaffold Safety,1023
+nyc,housing_building,Flooring/Stairs,695
+nyc,housing_building,Appliance,559
+nyc,housing_building,Electric,289
+nyc,housing_building,Building Drinking Water Tank,216
+nyc,housing_building,Window Guard,126
+nyc,housing_building,Peeling Paint,124
+nyc,housing_building,Unstable Building,85
+nyc,housing_building,Building Condition,61
+nyc,housing_building,Building Marshals office,16
+nyc,housing_building,Building Marshal's Office,7
+nyc,housing_building,Outside Building,2
+nyc,housing_building,ASBESTOS,1
+nyc,housing_building,MOLD,1
+nyc,noise,Noise - Residential,2287530
+nyc,noise,Noise - Street/Sidewalk,1027860
+nyc,noise,Noise - Vehicle,374275
+nyc,noise,Noise - Commercial,359091
+nyc,noise,Noise,301386
+nyc,noise,Noise - Helicopter,170859
+nyc,noise,Noise - Park,51984
+nyc,noise,Noise - House of Worship,9957
+nyc,noise,Collection Truck Noise,492
+nyc,other,GENERAL,166982
+nyc,other,Consumer Complaint,138005
+nyc,other,Maintenance or Facility,121806
+nyc,other,Vendor Enforcement,69051
+nyc,other,NonCompliance with Phased Reopening,66317
+nyc,other,Food Establishment,64226
+nyc,other,Air Quality,58415
+nyc,other,Residential Disposal Complaint,51712
+nyc,other,Animal-Abuse,49322
+nyc,other,Taxi Complaint,38841
+nyc,other,Lost Property,35667
+nyc,other,Electronics Waste Appointment,32874
+nyc,other,Real Time Enforcement,28547
+nyc,other,Mobile Food Vendor,24363
+nyc,other,Special Projects Inspection Team (SPIT),23186
+nyc,other,Drinking,21989
+nyc,other,Boilers,19208
+nyc,other,Illegal Posting,17045
+nyc,other,Smoking,15718
+nyc,other,Food Poisoning,15566
+nyc,other,Unsanitary Animal Pvt Property,13123
+nyc,other,Other Enforcement,11849
+nyc,other,Commercial Disposal Complaint,10702
+nyc,other,Smoking or Vaping,10031
+nyc,other,Day Care,8940
+nyc,other,Unleashed Dog,8415
+nyc,other,School Maintenance,8117
+nyc,other,Lot Condition,7837
+nyc,other,Vaccine Mandate Non-Compliance,7399
+nyc,other,Unsanitary Pigeon Condition,6896
+nyc,other,Urinating in Public,6663
+nyc,other,Bus Stop Shelter Complaint,6471
+nyc,other,Industrial Waste,4659
+nyc,other,Vending,4353
+nyc,other,Taxi Report,4058
+nyc,other,Mass Gathering Complaint,3652
+nyc,other,Investigations and Discipline (IAD),3518
+nyc,other,Wood Pile Remaining,3461
+nyc,other,Illegal Animal Kept as Pet,3198
+nyc,other,Storm,3005
+nyc,other,Derelict Bicycle,2930
+nyc,other,Harboring Bees/Wasps,2672
+nyc,other,Home Delivered Meal - Missed Delivery,2593
+nyc,other,Uprooted Stump,2349
+nyc,other,Private or Charter School Reopening,2101
+nyc,other,Ferry Inquiry,1836
+nyc,other,Face Covering Violation,1799
+nyc,other,Green Taxi Complaint,1724
+nyc,other,Disorderly Youth,1665
+nyc,other,Ferry Complaint,1521
+nyc,other,Beach/Pool/Sauna Complaint,1152
+nyc,other,Cannabis Retailer,1111
+nyc,other,Tattooing,1097
+nyc,other,Bus Stop Shelter Placement,1047
+nyc,other,LinkNYC,971
+nyc,other,Pet Shop,877
+nyc,other,Poison Ivy,816
+nyc,other,Adopt-A-Basket,766
+nyc,other,AHV Inspection Unit,749
+nyc,other,General,635
+nyc,other,Posting Advertisement,581
+nyc,other,Illegal Animal Sold,558
+nyc,other,Unsanitary Animal Facility,540
+nyc,other,Animal Facility - No Permit,537
+nyc,other,Cranes and Derricks,535
+nyc,other,Taxi Compliment,513
+nyc,other,Found Property,475
+nyc,other,Public Payphone Complaint,417
+nyc,other,Incorrect Data,358
+nyc,other,Special Natural Area District (SNAD),289
+nyc,other,Institution Disposal Complaint,242
+nyc,other,Squeegee,231
+nyc,other,Private School Vaccine Mandate Non-Compliance,219
+nyc,other,Public Toilet,219
+nyc,other,Green Taxi Report,194
+nyc,other,Pet Sale,189
+nyc,other,Dept of Investigations,173
+nyc,other,Lifeguard,165
+nyc,other,X-Ray Machine/Equipment,162
+nyc,other,Bench,160
+nyc,other,Cooling Tower,128
+nyc,other,Tobacco or Non-Tobacco Sale,123
+nyc,other,Radioactive Material,96
+nyc,other,Dispatched Taxi Complaint,68
+nyc,other,Retailer Complaint,53
+nyc,other,Calorie Labeling,50
+nyc,other,Unspecified,42
+nyc,other,Boiler,41
+nyc,other,Transfer Station Complaint,39
+nyc,other,Wayfinding,33
+nyc,other,Tunnel Condition,27
+nyc,other,Miscellaneous Categories,21
+nyc,other,Internal Code,19
+nyc,other,SNW,18
+nyc,other,Tanning,15
+nyc,other,DSNY Internal,13
+nyc,other,Foam Ban Enforcement,13
+nyc,other,Home Delivered Meal Complaint,12
+nyc,other,Executive Inspections,9
+nyc,other,Leaning Bar,9
+nyc,other,ZTESTINT,7
+nyc,other,DSNY Spillage,4
+nyc,other,Employee Behavior,4
+nyc,other,Ferry Permit,4
+nyc,other,SRDE,4
+nyc,other,Dispatched Taxi Compliment,3
+nyc,other,Facades,3
+nyc,other,SRGOVG,3
+nyc,other,Trans Fat,3
+nyc,other,Electronics Waste,2
+nyc,other,Forensic Engineering,1
+nyc,other,Quality of Life,1
+nyc,other,Stalled Sites,1
+nyc,other,Sustainability Enforcement,1
+nyc,parks_trees,Damaged Tree,214620
+nyc,parks_trees,Overgrown Tree/Branches,115202
+nyc,parks_trees,New Tree Request,93700
+nyc,parks_trees,Dead/Dying Tree,58857
+nyc,parks_trees,Violation of Park Rules,27725
+nyc,parks_trees,Animal in a Park,27145
+nyc,parks_trees,Illegal Tree Damage,25982
+nyc,parks_trees,Plant,827
+nyc,public_safety,Non-Emergency Police Matter,190623
+nyc,public_safety,Illegal Fireworks,112922
+nyc,public_safety,Drug Activity,86992
+nyc,public_safety,SAFETY,64876
+nyc,public_safety,Panhandling,43665
+nyc,public_safety,Emergency Response Team (ERT),20056
+nyc,public_safety,Hazardous Materials,11985
+nyc,public_safety,BEST/Site Safety,2497
+nyc,public_safety,Safety,308
+nyc,public_safety,Oil or Gas Spill,29
+nyc,public_safety,Facade Insp Safety Pgm,2
+nyc,sanitation,Request Large Bulky Item Collection,632148
+nyc,sanitation,Dirty Condition,224713
+nyc,sanitation,Rodent,220299
+nyc,sanitation,Missed Collection,220190
+nyc,sanitation,Homeless Person Assistance,212987
+nyc,sanitation,Encampment,195042
+nyc,sanitation,Illegal Dumping,148578
+nyc,sanitation,Graffiti,87811
+nyc,sanitation,Missed Collection (All Materials),82824
+nyc,sanitation,Dirty Conditions,68224
+nyc,sanitation,Sanitation Condition,62768
+nyc,sanitation,Dead Animal,43599
+nyc,sanitation,Litter Basket Request,15362
+nyc,sanitation,Dumpster Complaint,7776
+nyc,sanitation,Litter Basket Complaint,6195
+nyc,sanitation,Overflowing Litter Baskets,4568
+nyc,sanitation,Litter Basket / Request,3950
+nyc,sanitation,Sweeping/Missed,2736
+nyc,sanitation,Mosquitoes,2359
+nyc,sanitation,Seasonal Collection,790
+nyc,sanitation,Recycling Enforcement,646
+nyc,sanitation,Sweeping/Inadequate,537
+nyc,sanitation,Recycling Basket Complaint,372
+nyc,sanitation,Homeless Encampment,193
+nyc,sanitation,Special Operations,181
+nyc,sanitation,Sweeping/Missed-Inadequate,60
+nyc,sanitation,Overflowing Recycling Baskets,21
+nyc,sanitation,Change Collection Schedule,1
+nyc,streets_transport,Illegal Parking,2478000
+nyc,streets_transport,Blocked Driveway,934597
+nyc,streets_transport,Street Condition,410510
+nyc,streets_transport,Abandoned Vehicle,348152
+nyc,streets_transport,Street Light Condition,277667
+nyc,streets_transport,Derelict Vehicles,267195
+nyc,streets_transport,Traffic Signal Condition,237750
+nyc,streets_transport,Sidewalk Condition,146557
+nyc,streets_transport,For Hire Vehicle Complaint,91237
+nyc,streets_transport,Obstruction,71122
+nyc,streets_transport,Traffic,43142
+nyc,streets_transport,Curb Condition,38881
+nyc,streets_transport,Street Sweeping Complaint,34184
+nyc,streets_transport,Broken Parking Meter,32991
+nyc,streets_transport,Street Sign - Damaged,29876
+nyc,streets_transport,Snow or Ice,28028
+nyc,streets_transport,Street Sign - Missing,23830
+nyc,streets_transport,Street Sign - Dangling,21328
+nyc,streets_transport,Highway Condition,20758
+nyc,streets_transport,Bike/Roller/Skate Chronic,15651
+nyc,streets_transport,Homeless Street Condition,15583
+nyc,streets_transport,Sanitation Worker or Vehicle Complaint,12895
+nyc,streets_transport,Snow,9415
+nyc,streets_transport,Abandoned Bike,8791
+nyc,streets_transport,Snow Removal,2745
+nyc,streets_transport,For Hire Vehicle Report,2274
+nyc,streets_transport,E-Scooter,1890
+nyc,streets_transport,Bridge Condition,1705
+nyc,streets_transport,Bike Rack Condition,999
+nyc,streets_transport,Bike Rack,758
+nyc,streets_transport,Highway Sign - Damaged,714
+nyc,streets_transport,DEP Street Condition,641
+nyc,streets_transport,Municipal Parking Facility,341
+nyc,streets_transport,Highway Sign - Missing,316
+nyc,streets_transport,Highway Sign - Dangling,185
+nyc,streets_transport,Borough Office,174
+nyc,streets_transport,Bike/Roller/Skate,132
+nyc,streets_transport,Taxi Licensee Complaint,57
+nyc,streets_transport,FHV Licensee Complaint,49
+nyc,streets_transport,DEP Highway Condition,31
+nyc,streets_transport,DEP Sidewalk Condition,15
+nyc,streets_transport,DOB Posted Notice or Order,5
+nyc,streets_transport,Unlicensed Dog,2
+nyc,streets_transport,DEP Bridge Condition,1
+nyc,water_sewer,Water System,366096
+nyc,water_sewer,WATER LEAK,220757
+nyc,water_sewer,Sewer,172464
+nyc,water_sewer,Root/Sewer/Sidewalk Condition,56305
+nyc,water_sewer,Water Conservation,21596
+nyc,water_sewer,Water Quality,9145
+nyc,water_sewer,Standing Water,7497
+nyc,water_sewer,Water Leak,3077
+nyc,water_sewer,Sewer Maintenance,2813
+nyc,water_sewer,Drinking Water,1782
+nyc,water_sewer,Water Maintenance,382
+nyc,water_sewer,Water Drainage,136
+nyc,water_sewer,Bottled Water,56

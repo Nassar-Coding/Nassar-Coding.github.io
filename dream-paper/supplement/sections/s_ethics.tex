@@ -1,0 +1,35 @@
+\paragraph{Data.} All inputs are public administrative aggregates (daily
+counts of service requests by category) and public weather observations.
+No individual-level, household-level, or address-level information is
+acquired, stored, or processed; the acquisition layer requests
+server-side aggregation precisely so that record-level attributes
+(including free-text descriptions and locations) never enter the
+pipeline.
+
+\paragraph{People inside the data.} Each request count summarizes
+residents' attempts to obtain public services. Two ethical asymmetries
+follow. First, reported volume under-represents communities with lower
+propensity or ability to report \citep{kontokosta2017equity,
+kontokosta2021bias}; optimizing service against reported volume can
+therefore divert resources from quiet need toward vocal demand. This
+study's city-level action space cannot reallocate across neighbourhoods,
+which contains but does not eliminate the concern: the family-level
+analogue (e.g., systematically deprioritizing housing complaints relative
+to noise) is measured and reported per policy. Second, the priority
+weights are normative inputs; we publish them as configuration, sweep
+them, and explicitly assign their real-world selection to accountable
+human decision-makers.
+
+\paragraph{Intended and unintended use.} The system evaluated here is a
+research benchmark. It is not a deployable dispatch tool, has no city
+involvement or endorsement, and the manuscript states this in every
+section where simulation results appear. Misuse risk (treating simulated
+capacity numbers as operational guidance) is mitigated by classifying all
+operational parameters as sensitivity-only and reporting ranges rather
+than recommendations.
+
+\paragraph{Human oversight.} The intended human-AI division of labour ---
+forecasts and allocation suggestions with uncertainty made visible,
+final allocation authority retained by planners --- is described in the
+discussion and is a design commitment of the broader research programme,
+not an evaluated capability of this study.

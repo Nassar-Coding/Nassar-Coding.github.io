@@ -1,0 +1,35 @@
+The greedy allocation used by all expected-value policies is exactly
+optimal for the per-day problem it solves.
+
+\begin{proposition}
+Let $D_1,\dots,D_S$ be non-negative random variables, $\omega_s > 0$,
+$\kappa > 0$, and consider
+\[
+  \max_{x \in \mathbb{Z}_{\ge 0}^S, \; \sum_s x_s = B}
+  \; \sum_{s=1}^S \omega_s\, \mathbb{E}\!\left[\min(D_s, \kappa x_s)\right].
+\]
+The greedy algorithm that assigns crews one at a time to the family with
+the largest marginal gain attains the optimum.
+\end{proposition}
+
+\begin{proof}
+For fixed $s$, define $g_s(x) = \omega_s \mathbb{E}[\min(D_s, \kappa x)]$
+on integers $x \ge 0$. For any realization $d \ge 0$ the map
+$c \mapsto \min(d, c)$ is concave in $c$; expectation preserves concavity,
+and restriction to the integer grid yields non-increasing increments
+$\Delta_s(x) = g_s(x+1) - g_s(x)$. The problem is therefore the
+maximization of a separable discrete-concave function over the simplex
+$\sum_s x_s = B$, for which the greedy/incremental algorithm is optimal:
+at every step the chosen increment is at least as large as any increment
+available later (by monotonicity of $\Delta_s$), so an exchange argument
+converts any optimal solution into the greedy one without loss of
+objective value.
+\end{proof}
+
+In the implementation $\mathbb{E}[\min(D_s, c)]$ is evaluated exactly for
+the discrete distribution defined by linear interpolation of the inverse
+CDF through the five forecast quantiles on a fixed 99-point grid
+(\texttt{src/optimization/allocation.py}); point forecasts use a
+degenerate distribution, and the oracle uses the realized value. The unit
+test \texttt{test\_greedy\_matches\_bruteforce\_on\_small\_instance}
+verifies greedy-vs-brute-force equality on random instances.

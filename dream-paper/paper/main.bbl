@@ -1,0 +1,143 @@
+\begin{thebibliography}{19}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bertsimas and Kallus(2020)]{bertsimas2020predictive}
+Dimitris Bertsimas and Nathan Kallus.
+\newblock From predictive to prescriptive analytics.
+\newblock \emph{Management Science}, 66\penalty0 (3):\penalty0 1025--1044,
+  2020.
+\newblock \doi{10.1287/mnsc.2018.3253}.
+
+\bibitem[Breiman(2001)]{breiman2001random}
+Leo Breiman.
+\newblock Random forests.
+\newblock \emph{Machine Learning}, 45\penalty0 (1):\penalty0 5--32, 2001.
+
+\bibitem[Cheng et~al.(2022)Cheng, Ganapati, Narasimhan, and
+  Yusuf]{cheng2022machine}
+Shaoming Cheng, Sukumar Ganapati, Giri Narasimhan, and Farzana~Beente Yusuf.
+\newblock A machine learning-based analysis of 311 requests in the {Miami-Dade}
+  county.
+\newblock \emph{Growth and Change}, 53\penalty0 (4):\penalty0 1627--1645, 2022.
+\newblock \doi{10.1111/grow.12578}.
+
+\bibitem[Cui et~al.(2018)Cui, Gallino, Moreno, and Zhang]{cui2018operational}
+Ruomeng Cui, Santiago Gallino, Antonio Moreno, and Dennis~J. Zhang.
+\newblock The operational value of social media information.
+\newblock \emph{Production and Operations Management}, 27\penalty0
+  (10):\penalty0 1749--1769, 2018.
+\newblock \doi{10.1111/poms.12707}.
+
+\bibitem[Diebold and Mariano(1995)]{diebold1995comparing}
+Francis~X. Diebold and Roberto~S. Mariano.
+\newblock Comparing predictive accuracy.
+\newblock \emph{Journal of Business \& Economic Statistics}, 13\penalty0
+  (3):\penalty0 253--263, 1995.
+
+\bibitem[Donti et~al.(2017)Donti, Amos, and Kolter]{donti2017task}
+Priya~L. Donti, Brandon Amos, and J.~Zico Kolter.
+\newblock Task-based end-to-end model learning in stochastic optimization.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, pages
+  5484--5494, 2017.
+
+\bibitem[Elmachtoub and Grigas(2022)]{elmachtoub2022smart}
+Adam~N. Elmachtoub and Paul Grigas.
+\newblock Smart ``predict, then optimize''.
+\newblock \emph{Management Science}, 68\penalty0 (1):\penalty0 9--26, 2022.
+\newblock \doi{10.1287/mnsc.2020.3922}.
+
+\bibitem[Green et~al.(2007)Green, Kolesar, and Whitt]{green2007coping}
+Linda~V. Green, Peter~J. Kolesar, and Ward Whitt.
+\newblock Coping with time-varying demand when setting staffing requirements
+  for a service system.
+\newblock \emph{Production and Operations Management}, 16\penalty0
+  (1):\penalty0 13--39, 2007.
+\newblock \doi{10.1111/j.1937-5956.2007.tb00164.x}.
+
+\bibitem[Hyndman and Athanasopoulos(2021)]{hyndman2021forecasting}
+Rob~J. Hyndman and George Athanasopoulos.
+\newblock \emph{Forecasting: Principles and Practice}.
+\newblock OTexts, Melbourne, 3rd edition, 2021.
+
+\bibitem[Ke et~al.(2017)Ke, Meng, Finley, Wang, Chen, Ma, Ye, and
+  Liu]{ke2017lightgbm}
+Guolin Ke, Qi~Meng, Thomas Finley, Taifeng Wang, Wei Chen, Weidong Ma, Qiwei
+  Ye, and Tie-Yan Liu.
+\newblock {LightGBM}: A highly efficient gradient boosting decision tree.
+\newblock In \emph{Advances in Neural Information Processing Systems 30}, pages
+  3146--3154, 2017.
+
+\bibitem[Koenker and Bassett(1978)]{koenker1978regression}
+Roger Koenker and Gilbert Bassett.
+\newblock Regression quantiles.
+\newblock \emph{Econometrica}, 46\penalty0 (1):\penalty0 33--50, 1978.
+
+\bibitem[Kontokosta and Hong(2021)]{kontokosta2021bias}
+Constantine~E. Kontokosta and Boyeong Hong.
+\newblock Bias in smart city governance: How socio-spatial disparities in 311
+  complaint behavior impact the fairness of data-driven decisions.
+\newblock \emph{Sustainable Cities and Society}, 64:\penalty0 102503, 2021.
+\newblock \doi{10.1016/j.scs.2020.102503}.
+
+\bibitem[Kontokosta et~al.(2017)Kontokosta, Hong, and
+  Korsberg]{kontokosta2017equity}
+Constantine~E. Kontokosta, Boyeong Hong, and Kristi Korsberg.
+\newblock Equity in 311 reporting: Understanding socio-spatial differentials in
+  the propensity to complain.
+\newblock \emph{arXiv preprint arXiv:1710.02452}, 2017.
+
+\bibitem[Mandi et~al.(2024)Mandi, Kotary, Berden, Mulamba, Bucarey, Guns, and
+  Fioretto]{mandi2024decision}
+Jayanta Mandi, James Kotary, Senne Berden, Maxime Mulamba, V{\'\i}ctor Bucarey,
+  Tias Guns, and Ferdinando Fioretto.
+\newblock Decision-focused learning: Foundations, state of the art, benchmark
+  and future opportunities.
+\newblock \emph{Journal of Artificial Intelligence Research}, 80:\penalty0
+  1623--1701, 2024.
+\newblock \doi{10.1613/jair.1.15320}.
+
+\bibitem[Salinas et~al.(2020)Salinas, Flunkert, Gasthaus, and
+  Januschowski]{salinas2020deepar}
+David Salinas, Valentin Flunkert, Jan Gasthaus, and Tim Januschowski.
+\newblock {DeepAR}: Probabilistic forecasting with autoregressive recurrent
+  networks.
+\newblock \emph{International Journal of Forecasting}, 36\penalty0
+  (3):\penalty0 1181--1191, 2020.
+\newblock \doi{10.1016/j.ijforecast.2019.07.001}.
+
+\bibitem[Samorani et~al.(2022)Samorani, Harris, Blount, Lu, and
+  Santoro]{samorani2022overbooked}
+Michele Samorani, Shannon~L. Harris, Linda~Goler Blount, Haibing Lu, and
+  Michael~A. Santoro.
+\newblock Overbooked and overlooked: Machine learning and racial bias in
+  medical appointment scheduling.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24\penalty0
+  (6):\penalty0 2825--2842, 2022.
+\newblock \doi{10.1287/msom.2021.0999}.
+
+\bibitem[Steinker et~al.(2017)Steinker, Hoberg, and
+  Thonemann]{steinker2017value}
+Sebastian Steinker, Kai Hoberg, and Ulrich~W. Thonemann.
+\newblock The value of weather information for e-commerce operations.
+\newblock \emph{Production and Operations Management}, 26\penalty0
+  (10):\penalty0 1854--1874, 2017.
+\newblock \doi{10.1111/poms.12721}.
+
+\bibitem[Wang et~al.(2019)Wang, Geng, Ma, Liu, and Yang]{wang2019crosscity}
+Leye Wang, Xu~Geng, Xiaojuan Ma, Feng Liu, and Qiang Yang.
+\newblock Cross-city transfer learning for deep spatio-temporal prediction.
+\newblock \emph{arXiv preprint arXiv:1802.00386}, 2019.
+\newblock Also presented at IJCAI 2019.
+
+\bibitem[Zheng et~al.(2014)Zheng, Capra, Wolfson, and Yang]{zheng2014urban}
+Yu~Zheng, Licia Capra, Ouri Wolfson, and Hai Yang.
+\newblock Urban computing: Concepts, methodologies, and applications.
+\newblock \emph{ACM Transactions on Intelligent Systems and Technology},
+  5\penalty0 (3):\penalty0 38:1--38:55, 2014.
+\newblock \doi{10.1145/2629592}.
+
+\end{thebibliography}

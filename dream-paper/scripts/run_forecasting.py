@@ -189,7 +189,7 @@ def run() -> None:
             test_pred_frames.append(sub)
 
     # ---------------- leave-one-city-out zero-shot transfer ----------------
-    for held in cities:
+    for held in (cities if len(cities) > 1 else []):
         df_tr = feats[feats.city != held]
         df_te = feats[feats.city == held]
         m_tr_, m_va_, m_te_ = split_masks(df_te["day"], *bounds[held])

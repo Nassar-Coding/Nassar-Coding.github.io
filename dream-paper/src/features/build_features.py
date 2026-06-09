@@ -33,7 +33,7 @@ from common.runtime import DATA_INTERIM, DATA_PROCESSED, us_federal_holidays, wr
 
 LAGS = [1, 2, 3, 7, 14, 28]
 ROLL_WINDOWS = [7, 28]
-WEATHER_VARS = ["PRCP", "TMAX", "TMIN", "SNOW", "SNWD", "AWND", "TAVG_DERIVED"]
+WEATHER_VARS = ["PRCP", "TMAX", "TMIN", "SNOW", "SNWD", "TAVG_DERIVED"]
 
 
 def add_internal_features(grp: pd.DataFrame) -> pd.DataFrame:

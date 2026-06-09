@@ -37,17 +37,24 @@ def save_table(df: pd.DataFrame, name: str, float_fmt: str = "%.3f") -> None:
         pass
 
 
+def cities_present() -> list:
+    panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
+    return sorted(panel["city"].unique())
+
+
 def fig_panel_overview() -> None:
     panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
+    cities = cities_present()
     daily = panel.groupby(["city", "day"])["n"].sum().reset_index()
-    fig, axes = plt.subplots(4, 1, figsize=(7.0, 7.5), sharex=True)
-    for ax, city in zip(axes, ["nyc", "chicago", "sf", "austin"]):
+    fig, axes = plt.subplots(len(cities), 1, figsize=(7.0, 1.9 * len(cities)),
+                             sharex=True, squeeze=False)
+    for ax, city in zip(axes[:, 0], cities):
         d = daily[daily.city == city]
         ax.plot(d["day"], d["n"], lw=0.4, color="tab:blue")
         ax.plot(d["day"], d["n"].rolling(28, center=True).mean(), lw=1.2,
                 color="tab:red")
         ax.set_ylabel(CITY_LABELS[city], fontsize=8)
-    axes[-1].set_xlabel("date")
+    axes[-1, 0].set_xlabel("date")
     fig.suptitle("Daily 311 request totals (blue) with 28-day centred mean (red)")
     fig.tight_layout()
     fig.savefig(F / "fig1_panel_overview.pdf"); fig.savefig(F / "fig1_panel_overview.png")
@@ -70,7 +77,7 @@ def fig_accuracy_gain() -> None:
     test = fm[(fm.split == "test") & (fm.scope == "local")]
     fig, ax = plt.subplots(figsize=(6.5, 3.2))
     width = 0.18
-    cities = ["nyc", "chicago", "sf", "austin"]
+    cities = cities_present()
     fsets = ["internal", "calendar", "weather", "calendar_weather"]
     colors = ["#888", "tab:orange", "tab:green", "tab:blue"]
     for j, fset in enumerate(fsets):
@@ -80,9 +87,9 @@ def fig_accuracy_gain() -> None:
             naive = test[(test.city == c) & (test.model == "naive_trailing7") &
                          (test.feature_set == "internal")]["mae"].iloc[0]
             vals.append(100 * (1 - sub["mae"].min() / naive))
-        ax.bar(np.arange(4) + (j - 1.5) * width, vals, width, label=fset,
-               color=colors[j])
-    ax.set_xticks(range(4), [CITY_LABELS[c] for c in cities])
+        ax.bar(np.arange(len(cities)) + (j - 1.5) * width, vals, width,
+               label=fset, color=colors[j])
+    ax.set_xticks(range(len(cities)), [CITY_LABELS[c] for c in cities])
     ax.set_ylabel("% test-MAE reduction vs naive")
     ax.legend(fontsize=7, ncol=4)
     fig.tight_layout()
@@ -119,8 +126,10 @@ def fig_accuracy_vs_decision() -> None:
     dm = pd.read_csv(M / "decision_metrics.csv")
     test = fm[(fm.split == "test")]
     dm = dm[dm.policy.isin(["greedy_ev_point"])]
-    fig, axes = plt.subplots(4, 3, figsize=(8.0, 9.0))
-    for i, city in enumerate(["nyc", "chicago", "sf", "austin"]):
+    cities = cities_present()
+    fig, axes = plt.subplots(len(cities), 3, figsize=(8.0, 2.3 * len(cities)),
+                             squeeze=False)
+    for i, city in enumerate(cities):
         for j, regime in enumerate(["scarce", "moderate", "generous"]):
             ax = axes[i, j]
             grp = dm[(dm.city == city) & (dm.regime == regime)]
@@ -144,7 +153,7 @@ def fig_accuracy_vs_decision() -> None:
                 ax.set_title(regime, fontsize=9)
             if j == 0:
                 ax.set_ylabel(f"{CITY_LABELS[city]}\noracle gap closed (%)", fontsize=7)
-            if i == 3:
+            if i == len(cities) - 1:
                 ax.set_xlabel("test MAE", fontsize=8)
     fig.suptitle("Forecast accuracy vs decision value across capacity regimes")
     fig.tight_layout()
@@ -178,8 +187,10 @@ def table_rank_agreement() -> pd.DataFrame:
 
 def fig_fold_stability() -> None:
     folds = pd.read_csv(M / "fold_metrics.csv")
-    fig, axes = plt.subplots(1, 4, figsize=(9.5, 2.6), sharey=False)
-    for ax, city in zip(axes, ["nyc", "chicago", "sf", "austin"]):
+    cities = cities_present()
+    fig, axes = plt.subplots(1, len(cities), figsize=(2.4 * len(cities), 2.6),
+                             sharey=False, squeeze=False)
+    for ax, city in zip(axes[0], cities):
         sub = folds[(folds.city == city) & (folds.model == "lgbm_point")]
         for fset, color in [("internal", "#888"), ("calendar", "tab:orange"),
                             ("calendar_weather", "tab:blue")]:
@@ -187,8 +198,8 @@ def fig_fold_stability() -> None:
             ax.plot(s["fold"], s["mae"], marker="o", ms=3, label=fset, color=color)
         ax.set_title(CITY_LABELS[city], fontsize=9)
         ax.set_xlabel("fold")
-    axes[0].set_ylabel("fold MAE (LightGBM)")
-    axes[0].legend(fontsize=6)
+    axes[0, 0].set_ylabel("fold MAE (LightGBM)")
+    axes[0, 0].legend(fontsize=6)
     fig.tight_layout()
     fig.savefig(F / "fig4_fold_stability.pdf"); fig.savefig(F / "fig4_fold_stability.png")
     plt.close(fig)

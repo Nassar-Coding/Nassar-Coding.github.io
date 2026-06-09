@@ -122,10 +122,14 @@ def build_weather(sources: dict) -> pd.DataFrame:
                 wide[col] = wide[col].fillna(0.0)
             else:
                 wide[col] = 0.0
-        for col in ("TMAX", "TMIN", "PRCP", "AWND"):
+        for col in ("TMAX", "TMIN", "PRCP"):
             if col not in wide.columns:
                 wide[col] = np.nan
-        wide[["TMAX", "TMIN", "AWND"]] = wide[["TMAX", "TMIN", "AWND"]].interpolate(limit=3)
+        # AWND is dropped: SF Downtown reports no wind and Central Park has
+        # multi-month gaps; keeping it would silently delete those days (D15)
+        if "AWND" in wide.columns:
+            wide = wide.drop(columns=["AWND"])
+        wide[["TMAX", "TMIN"]] = wide[["TMAX", "TMIN"]].interpolate(limit=7)
         wide["PRCP"] = wide["PRCP"].fillna(0.0)
         wide["TAVG_DERIVED"] = (wide["TMAX"] + wide["TMIN"]) / 2.0
         wide = wide.reset_index()
@@ -167,7 +171,7 @@ def main() -> int:
 
     for city, grp in weather.groupby("city"):
         notes[f"{city}_weather_missing_after_fill"] = {
-            c: int(grp[c].isna().sum()) for c in ("TMAX", "TMIN", "PRCP", "AWND")
+            c: int(grp[c].isna().sum()) for c in ("TMAX", "TMIN", "PRCP")
         }
     notes["panel_rows"] = len(panel)
     notes["panel_cities"] = sorted(panel["city"].unique())

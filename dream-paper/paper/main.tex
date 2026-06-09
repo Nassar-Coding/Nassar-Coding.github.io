@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[round]{natbib}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% Every numeric claim in this manuscript regenerates from
+% scripts/make_tables_figures.py; see reproducibility statement.
+
+\title{From Accuracy to Allocation: When Do Better Municipal Demand
+Forecasts Make Better Staffing Decisions? \\
+\large A Four-City Study of 311 Service-Request Operations}
+\author{Nassar Naif Alsharif\\
+\small Independent Researcher \quad \texttt{NassarAlsharif0@gmail.com}}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Related Work}
+\input{sections/related}
+
+\section{Problem Formulation}
+\input{sections/formulation}
+
+\section{Data}
+\input{sections/data}
+
+\section{Methods}
+\input{sections/methods}
+
+\section{Forecasting Results}
+\input{sections/results_forecast}
+
+\section{From Forecasts to Decisions}
+\input{sections/results_decision}
+
+\section{Robustness and Sensitivity}
+\input{sections/robustness}
+
+\section{Responsible Use of Reported-Demand Data}
+\input{sections/responsible}
+
+\section{Limitations}
+\input{sections/limitations}
+
+\section{Conclusion}
+\input{sections/conclusion}
+
+\paragraph{Reproducibility statement.}
+All data are public; the companion repository contains acquisition scripts
+with exact query URLs, SHA-256 manifests for every raw file, deterministic
+seeds, unit tests (including leakage and allocation-optimality checks), and
+a \texttt{Makefile} that regenerates every number, table, and figure in
+this paper from the versioned raw data with a single command.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

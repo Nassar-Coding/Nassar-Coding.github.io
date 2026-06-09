@@ -1,0 +1,61 @@
+\paragraph{Prediction task.}
+Let $y_{c,s,t}$ denote the number of 311 requests created in city $c$,
+harmonized service family $s \in \mathcal{S}$ ($|\mathcal{S}| = 8$), on
+calendar day $t$. At the end of day $t$ (the information cutoff), a
+forecaster produces a point forecast $\hat{y}_{c,s,t+1}$ and, for
+probabilistic models, quantile forecasts
+$\hat{q}^{\,\tau}_{c,s,t+1}$ at levels
+$\tau \in \{0.05, 0.25, 0.50, 0.75, 0.95\}$. Endogenous features use
+observations through day $t$ only; calendar features of day $t{+}1$ are
+deterministic; target-day weather uses the realized observation for
+$t{+}1$ as a stand-in for a day-ahead weather forecast (assumption A3,
+tested by a lagged-weather-only variant).
+
+\paragraph{Decision task.}
+Each evening the planner of city $c$ allocates a fixed budget of $B_c$
+interchangeable crews across families, $x_{c,s,t+1} \in \mathbb{Z}_{\ge 0}$,
+$\sum_s x_{c,s,t+1} = B_c$. A crew resolves up to $\kappa$ requests of its
+family the next day. Unserved workload becomes backlog:
+\begin{align}
+  w_{c,s,t+1} &= b_{c,s,t} + y_{c,s,t+1}, \qquad
+  \mathrm{served} = \min(w_{c,s,t+1},\, \kappa\, x_{c,s,t+1}), \nonumber \\
+  u_{c,s,t+1} &= w_{c,s,t+1} - \mathrm{served}, \qquad
+  b_{c,s,t+1} = (1-\alpha)\, u_{c,s,t+1},
+\end{align}
+with abandonment rate $\alpha$ ($\alpha = 0$ in the base case). The
+backlog $b_{c,s,t}$ is observable state at decision time. The decision
+loss over a horizon $\mathcal{T}$ is cumulative priority-weighted unserved
+workload,
+\begin{equation}
+  L_c \;=\; \sum_{t \in \mathcal{T}} \sum_{s \in \mathcal{S}}
+  \omega_s\, u_{c,s,t},
+  \label{eq:decision-loss}
+\end{equation}
+where $\omega_s \in \{1, 2, 3\}$ weights safety-critical families above
+amenity families (varied in sensitivity analysis). Capacity regimes set
+$\kappa B_c$ to 70\%, 90\%, and 110\% of the city's mean daily test-window
+demand (\emph{scarce}, \emph{moderate}, \emph{generous}).
+
+\paragraph{Policies.}
+All policies receive the same observable state (forecasts and current
+backlog) and the full budget:
+\emph{uniform} (equal split; forecast-free floor);
+\emph{proportional} (largest-remainder apportionment of
+$\hat{y}_{c,s,t+1} + b_{c,s,t}$);
+\emph{greedy expected-value} (exactly maximizes
+$\sum_s \omega_s\, \mathbb{E}[\min(D_s, \kappa x_s)]$ over integer
+allocations, where $D_s$ is the forecast demand-plus-backlog distribution
+--- degenerate for point forecasts, piecewise-linear from quantiles for
+probabilistic forecasts; greedy is optimal because
+$\mathbb{E}[\min(D, c)]$ is concave in $c$);
+and an \emph{oracle} that applies the greedy rule to realized demand,
+reported only as a hindsight bound.
+
+\paragraph{Evaluation questions.}
+For each city and regime we compare (a) forecast accuracy (MAE, RMSE,
+floored MAPE; pinball loss and interval coverage for quantiles) and
+(b) decision loss \eqref{eq:decision-loss}, asking whether the model
+orderings induced by (a) and (b) agree (Spearman rank correlation),
+whether uncertainty-aware allocation beats point-forecast allocation
+under scarcity, and whether selecting models on validation decision loss
+beats selecting on validation MAE.

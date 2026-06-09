@@ -70,6 +70,26 @@ def fetch_dataset_metadata(domain: str, dataset_id: str) -> dict:
     }
 
 
+def year_windows(window: dict):
+    """Split the study window into calendar-year chunks.
+
+    Smaller windows keep the server-side $group computation well inside the
+    portal's query-time limits; results are identical to one large query
+    because (day, category) groups never span calendar years.
+    """
+    start_y = int(window["start"][:4])
+    end_y = int(window["end"][:4])
+    chunks = []
+    for y in range(start_y, end_y + 1):
+        lo = f"{y}-01-01" if y > start_y else window["start"]
+        hi = f"{y + 1}-01-01"
+        if hi > window["end"]:
+            hi = window["end"]
+        if lo < hi:
+            chunks.append({"start": lo, "end": hi})
+    return chunks
+
+
 def build_query_url(source: dict, window: dict, offset: int) -> str:
     date_field = source["date_field"]
     category_field = source["category_field"]
@@ -122,16 +142,17 @@ def fetch_city(source: dict, window: dict, out_dir: Path) -> dict:
         )
 
     rows: list[dict] = []
-    for page in range(MAX_PAGES):
-        url = build_query_url(source, window, offset=page * PAGE_LIMIT)
-        manifest["query_urls"].append(url)
-        payload = json.loads(http_get(url))
-        rows.extend(payload)
-        print(f"  page {page}: {len(payload)} rows (total {len(rows)})", flush=True)
-        if len(payload) < PAGE_LIMIT:
-            break
-    else:
-        raise RuntimeError(f"{city}: exceeded MAX_PAGES={MAX_PAGES}; aborting rather than truncating silently")
+    for chunk in year_windows(window):
+        for page in range(MAX_PAGES):
+            url = build_query_url(source, chunk, offset=page * PAGE_LIMIT)
+            manifest["query_urls"].append(url)
+            payload = json.loads(http_get(url))
+            rows.extend(payload)
+            print(f"  {chunk['start'][:4]} page {page}: {len(payload)} rows (total {len(rows)})", flush=True)
+            if len(payload) < PAGE_LIMIT:
+                break
+        else:
+            raise RuntimeError(f"{city}: exceeded MAX_PAGES={MAX_PAGES}; aborting rather than truncating silently")
 
     extra = source.get("extra_group_fields") or []
     fieldnames = ["day", "category", *extra, "n"]

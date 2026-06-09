@@ -1,0 +1,37 @@
+\paragraph{311 service requests.}
+We use the official open-data portals of four U.S. cities, selected by
+pre-stated criteria (API uniformity, full 2019--2025 coverage, category
+granularity, and heterogeneity in size and climate; see the feasibility
+audit in the companion repository): New York (\texttt{erm2-nwe9}, NYC Open
+Data), Chicago (\texttt{v6vf-nfxy}, current 311 system, live since
+December 2018), San Francisco (\texttt{vw6y-z8j6}, DataSF, PDDL license),
+and Austin (\texttt{i26j-ai4z}). Acquisition uses server-side daily
+aggregation (counts per day~$\times$~native category) through the SODA
+API; every query URL, retrieval timestamp, and SHA-256 checksum is
+recorded in versioned manifests. Chicago rows flagged as duplicates by the
+source system are removed, as are documented non-service categories
+(e.g., Chicago's ``311 INFORMATION ONLY CALL'' log entries and
+aviation-routed aircraft-noise filings; San Francisco's administrative
+duplicate markers). The study window is 2019-01-01 through 2025-12-31.
+\input{sections/data_stats}
+
+\paragraph{Harmonized service families.}
+Each city's native taxonomy ($\sim$\,one to three hundred categories) is
+mapped to eight service families --- noise; housing/building;
+water/sewer; public safety; streets/transport; sanitation; parks/trees;
+other --- by an ordered, case-insensitive, versioned keyword rule set
+applied identically to all cities. Families are \emph{operationally
+analogous planning buckets}, not identical workloads: the supplement
+reports the full native-category composition of every family in every
+city, and no cross-city claim in this paper assumes compositional
+identity.
+
+\paragraph{Weather.}
+NOAA GHCN-Daily station observations (precipitation, max/min temperature,
+snowfall, snow depth, wind; derived mean temperature) from one first-order
+station per city (Central Park; O'Hare; San Francisco Downtown; Camp
+Mabry), retrieved from NOAA's AWS Open Data mirror with checksums.
+Quality-flagged values are dropped; short temperature/wind gaps
+($\le 3$ days) are interpolated; missing snow fields are treated as zero.
+A single station per city is a documented spatial simplification (A2).
+No synthetic demand or synthetic weather is used anywhere in the study.

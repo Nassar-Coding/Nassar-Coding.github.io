@@ -70,10 +70,12 @@ def main() -> int:
     panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
     weather = pd.read_parquet(DATA_INTERIM / "weather_daily.parquet")
 
-    feats = (panel.groupby(["city", "family"], group_keys=False)
-                  .apply(add_internal_features))
-    feats = pd.concat([feats.reset_index(drop=True),
-                       calendar_frame(feats.reset_index(drop=True)["day"])], axis=1)
+    # iterate groups explicitly: pandas 3 excludes grouping columns from
+    # frames passed to GroupBy.apply, which would drop city/family here
+    feats = pd.concat([add_internal_features(g)
+                       for _, g in panel.groupby(["city", "family"], sort=False)],
+                      ignore_index=True)
+    feats = pd.concat([feats, calendar_frame(feats["day"])], axis=1)
 
     # Weather for the target day t+1 ...
     w_target = weather.rename(columns={c: f"wx_t1_{c}" for c in WEATHER_VARS}).copy()

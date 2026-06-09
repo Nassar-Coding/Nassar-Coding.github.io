@@ -1,0 +1,24 @@
+The harmonization rule set (\texttt{configs/service\_families.yml}) is an
+ordered, case-insensitive substring matcher: the first matching family
+wins, and categories matching no rule fall to \emph{other}. Order
+resolves genuine ambiguities deterministically (e.g., ``noise''
+complaints about construction are noise, not housing/building, because
+the noise rule precedes). The full mapping from every native category to
+its family, with request counts, is exported per city to
+\texttt{outputs/tables/family\_composition\_\{city\}.csv} by the
+preprocessing stage and ships with the repository; the tables below
+summarize the dominant native categories per family in each city.
+
+Two properties matter for interpretation. First, the rules are
+\emph{versioned}: any change to the mapping is a visible diff, and the
+unit test suite pins representative mappings. Second, family
+compositions are \emph{not} identical across cities --- e.g., the noise
+family is dominated by residential-noise complaints in New York but is a
+much smaller share elsewhere; the sanitation family includes
+encampment-related categories in San Francisco that have no Chicago
+counterpart. All cross-city statements in the main text are therefore
+about families as \emph{planning buckets within each city}, and the
+cross-city axis compares the structure of the accuracy-to-decision
+mapping, never raw family volumes.
+
+\input{sections/s_harmonization_tables}

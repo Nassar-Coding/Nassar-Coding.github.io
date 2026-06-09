@@ -1,0 +1,38 @@
+\paragraph{One-command rebuild.} From the repository root:
+\begin{verbatim}
+pip install -r requirements.txt
+make test            # 12+ unit tests: harmonization determinism,
+                     # leakage controls, split chronology,
+                     # allocation optimality, simulator conservation
+make all             # panel -> features -> forecasts -> decisions
+                     # -> all tables and figures in outputs/
+\end{verbatim}
+
+\paragraph{Determinism.} A single global seed (\texttt{20260609}) controls
+every stochastic component (NumPy, scikit-learn, LightGBM); expected-value
+allocation uses a deterministic 99-point inverse-CDF grid rather than
+Monte Carlo, so decision results are bit-stable given forecasts.
+
+\paragraph{Data provenance.} Raw acquired layers are versioned in
+\texttt{data/raw/} together with JSON manifests recording: source
+authority, dataset id and page, license note, every query URL issued,
+retrieval timestamps (UTC), uncompressed and compressed SHA-256
+checksums, row counts, and --- for 311 sources --- the portal's own
+dataset metadata (\texttt{rowsUpdatedAt}, column inventory) at retrieval
+time. Re-running \texttt{make acquire-311 acquire-weather} re-derives
+the same layers from the sources (counts for recent periods may drift as
+portals backfill; the manifests pin what this paper used).
+
+\paragraph{Environment.} Python 3.11; exact package versions in
+\texttt{reproducibility/pip-freeze.txt}; no GPU required; total pipeline
+runtime and per-stage costs in Section~8 of this supplement.
+
+\paragraph{Acquisition environment note.} The research sandbox used for
+this project blocks direct access to the four city portals; the 311
+acquisition therefore ran through the repository's GitHub Actions
+workflow (\texttt{.github/workflows/acquire-311-data.yml}) on
+GitHub-hosted runners, executing the same committed script and pushing
+the raw aggregates and manifests back to the branch. The first attempt
+with full-window queries timed out against the NYC portal and was
+replaced by per-calendar-year chunking; both attempts are preserved in
+the repository's Actions history.

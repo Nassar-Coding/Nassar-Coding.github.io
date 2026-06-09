@@ -1,0 +1,36 @@
+\paragraph{Sources and licenses.}
+\begin{itemize}
+\item \textbf{New York}: \emph{311 Service Requests from 2010 to Present},
+NYC Open Data, dataset \texttt{erm2-nwe9}; NYC Open Data terms (free use
+without restriction).
+\item \textbf{Chicago}: \emph{311 Service Requests}, Chicago Data Portal,
+dataset \texttt{v6vf-nfxy}; covers the current 311 system live since
+2018-12-18 (the study window starts 2019-01-01 to avoid the system
+transition); source-flagged duplicates dropped.
+\item \textbf{San Francisco}: \emph{311 Cases}, DataSF, dataset
+\texttt{vw6y-z8j6}; Public Domain Dedication and License.
+\item \textbf{Austin}: \emph{Austin 311 Public Data}, City of Austin Open
+Data Portal, dataset \texttt{i26j-ai4z}.
+\item \textbf{Weather}: NOAA GHCN-Daily through the AWS Open Data Program
+mirror \texttt{noaa-ghcn-pds} (maintained by NOAA NCEI); stations
+USW00094728 (Central Park), USW00094846 (O'Hare), USW00023272 (San
+Francisco Downtown), USW00013904 (Camp Mabry). Native units (tenths of
+mm/$^\circ$C, tenths of m/s) converted only in preprocessing.
+\end{itemize}
+
+\paragraph{Acquisition queries.} Each 311 source is queried through the
+SODA API with server-side aggregation —
+\texttt{\$select=date\_trunc\_ymd(created\_date), category, count(*)},
+grouped and ordered, chunked by calendar year, paginated at 50{,}000
+rows — so the rawest stored layer is already free of record-level
+attributes. The complete list of issued query URLs for every city is in
+\texttt{data/raw/311/*\_manifest.json}.
+
+\paragraph{Known data characteristics.} Reported request volumes reflect
+intake-channel structure (phone/app/web), administrative practice, and
+reporting propensity, all of which differ across cities and over time;
+the Chicago information-only and aircraft-noise exclusions and the SF
+duplicate exclusion are documented with reasons in
+\texttt{configs/service\_families.yml}. A missing (day, family) pair
+within a city's observed range denotes zero requests created, and the
+panel densification step materializes those zeros explicitly.

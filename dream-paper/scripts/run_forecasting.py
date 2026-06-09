@@ -38,14 +38,23 @@ FEATURE_SETS = ["internal", "calendar", "weather", "calendar_weather"]
 SENSITIVITY_SETS = ["calendar_weather_lagged_only"]
 
 
+ALL_FAMILIES: list = []
+ALL_CITIES: list = []
+
+
 def design_matrix(df: pd.DataFrame, cols: list, add_city_dummies: bool) -> tuple[np.ndarray, list]:
+    """Build the numeric matrix with category lists pinned globally, so
+    train/test column layouts are identical even when a subset of cities or
+    families is present (pooled and leave-one-city-out settings)."""
     parts = [df[cols].to_numpy(dtype=float)]
     names = list(cols)
-    fam_d = pd.get_dummies(df["family"], prefix="fam")
+    fam_d = pd.get_dummies(pd.Categorical(df["family"], categories=ALL_FAMILIES),
+                           prefix="fam")
     parts.append(fam_d.to_numpy(dtype=float))
     names += list(fam_d.columns)
     if add_city_dummies:
-        city_d = pd.get_dummies(df["city"], prefix="city")
+        city_d = pd.get_dummies(pd.Categorical(df["city"], categories=ALL_CITIES),
+                                prefix="city")
         parts.append(city_d.to_numpy(dtype=float))
         names += list(city_d.columns)
     return np.hstack(parts), names
@@ -62,20 +71,14 @@ def run() -> None:
     registry = pd.read_json(DATA_PROCESSED / "feature_registry.json", typ="series")
     fsets = registry["feature_sets"]
     cities = sorted(feats["city"].unique())
+    ALL_FAMILIES.extend(sorted(feats["family"].unique()))
+    ALL_CITIES.extend(cities)
 
     # per-city split boundaries
     bounds = {c: chrono_split(feats.loc[feats.city == c, "day"]) for c in cities}
 
     metrics_rows, fold_rows, qrows = [], [], []
     test_pred_frames, val_pred_frames = [], []
-
-    def record_predictions(frame, df_idx, preds, scope, city, fset, model_name, split):
-        sub = feats.loc[df_idx, ["city", "family", "day", "target"]].copy()
-        sub["pred"] = preds
-        sub["scope"], sub["fset"], sub["model"], sub["split"] = scope, city, model_name, split
-        sub.rename(columns={"fset": "model_"}, inplace=True)  # placeholder fix below
-        sub["feature_set"] = fset
-        frame.append(sub.drop(columns=["model_"]) if "model_" in sub else sub)
 
     # ---------------- local (per-city) and global (pooled) point models ----
     for scope in ["local", "global"]:

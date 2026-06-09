@@ -1,0 +1,27 @@
+Hyperparameters are fixed across cities and feature sets so that no
+configuration receives a larger tuning budget than another; values were
+chosen a priori in the ranges standard for daily-count panels of this
+size and are not per-task optimized.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Model & Parameters & Notes \\
+\midrule
+Trailing mean & 7-day window & forecast-free baseline \\
+Seasonal naive & same weekday, $t-6$ & forecast-free baseline \\
+Ridge & $\alpha=1.0$, standardized inputs & \\
+Random forest & 300 trees, min leaf 5, 60\% features & \citet{breiman2001random} \\
+LightGBM point & L1 objective, 600 trees, lr 0.05, 63 leaves, & \citet{ke2017lightgbm} \\
+              & min child 30 & \\
+LightGBM quantile & as above, pinball objective per level & levels .05/.25/.50/.75/.95 \\
+              & non-crossing via cumulative max & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Categorical handling: one-hot family indicators everywhere; one-hot city
+indicators in pooled (global) models only. Predictions are clipped at
+zero. The selected configuration per (scope, city, feature set, model)
+is refit on train+validation before its single test evaluation, exactly
+as in the protocol of the main text.

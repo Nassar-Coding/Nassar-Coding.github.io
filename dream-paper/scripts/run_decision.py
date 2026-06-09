@@ -115,7 +115,7 @@ def run() -> None:
             vreal = pivot_matrix(vcity[(vcity.scope == "local") &
                                        (vcity.feature_set == "internal") &
                                        (vcity.model == "naive_trailing7")],
-                                 "target", vdays, sorted(vcity["family"].unique()))
+                                 "target", vdays, families)
             v_mean = vreal.sum(axis=1).mean()
             v_crews = max(int(round(frac * v_mean / KAPPA)), len(families))
             v_cfg = SimConfig(crews=v_crews, kappa=KAPPA, priority_weights=weights)

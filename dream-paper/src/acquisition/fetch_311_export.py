@@ -56,6 +56,9 @@ def stream_year(source: dict, chunk: dict, counts: Counter, manifest: dict) -> i
         try:
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             n_rows = 0
+            # accumulate into a per-attempt counter and merge only on success,
+            # so a stream that dies mid-year and is retried cannot double-count
+            attempt_counts: Counter = Counter()
             with urllib.request.urlopen(req, timeout=1800) as resp:
                 text = io.TextIOWrapper(resp, encoding="utf-8", newline="")
                 reader = csv.reader(text)
@@ -66,8 +69,9 @@ def stream_year(source: dict, chunk: dict, counts: Counter, manifest: dict) -> i
                     if len(row) < 2:
                         continue
                     day = row[0][:10]
-                    counts[(day, row[1])] += 1
+                    attempt_counts[(day, row[1])] += 1
                     n_rows += 1
+            counts.update(attempt_counts)
             return n_rows
         except Exception as err:  # noqa: BLE001
             last_err = err

@@ -4,13 +4,15 @@
 # raw record-level data are NOT redistributed, only daily counts per
 # (day, native category), which is the exact input layer of the benchmark.
 
+# NYC's erm2-nwe9 is scoped "2020 to Present" (records before 2020-01-01 are
+# not in the dataset), so 2020-01-01 is the uniform start for every city.
 study_window:
-  start: "2019-01-01"   # inclusive; Chicago's current 311 system went live 2018-12-18
+  start: "2020-01-01"   # inclusive
   end: "2026-01-01"     # exclusive
 
 socrata_311:
   - city: nyc
-    name: "NYC 311 Service Requests from 2010 to Present"
+    name: "NYC 311 Service Requests from 2020 to Present"
     domain: data.cityofnewyork.us
     dataset_id: erm2-nwe9
     date_field: created_date

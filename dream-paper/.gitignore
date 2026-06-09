@@ -1,0 +1,7 @@
+# Regenerable layers are not versioned; raw acquired data and manifests ARE.
+data/interim/
+data/processed/
+__pycache__/
+*.pyc
+.pytest_cache/
+outputs/logs/*.tmp

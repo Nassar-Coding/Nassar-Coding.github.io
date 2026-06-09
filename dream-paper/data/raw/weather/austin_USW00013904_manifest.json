@@ -1,0 +1,27 @@
+{
+  "city": "austin",
+  "station_id": "USW00013904",
+  "station_name": "AUSTIN CAMP MABRY, TX US",
+  "source": "NOAA GHCN-Daily via AWS Open Data Program (bucket noaa-ghcn-pds)",
+  "registry": "https://registry.opendata.aws/noaa-ghcn/",
+  "url": "https://noaa-ghcn-pds.s3.amazonaws.com/csv/by_station/USW00013904.csv",
+  "retrieved_at_utc": "2026-06-09T18:35:00.698855+00:00",
+  "study_window": {
+    "start": "2019-01-01",
+    "end": "2026-01-01"
+  },
+  "elements": [
+    "AWND",
+    "PRCP",
+    "SNOW",
+    "SNWD",
+    "TMAX",
+    "TMIN"
+  ],
+  "source_bytes": 8715760,
+  "sha256_source_file": "aac80931d9fd48e5ae8930f9d32c228a013d90b98e2bf992a25e9e5cacc77c57",
+  "rows_kept": 13302,
+  "output_file": "data/raw/weather/austin_USW00013904.csv.gz",
+  "sha256_uncompressed": "44aee5ef3015210b415b0ab40e703ee3caf6232f713481967e99925c9ded13de",
+  "units_note": "GHCN-Daily native units (tenths of mm / tenths of degC / mm / tenths of m/s); converted in preprocessing only"
+}

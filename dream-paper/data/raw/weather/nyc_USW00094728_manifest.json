@@ -1,0 +1,27 @@
+{
+  "city": "nyc",
+  "station_id": "USW00094728",
+  "station_name": "NY CITY CENTRAL PARK, NY US",
+  "source": "NOAA GHCN-Daily via AWS Open Data Program (bucket noaa-ghcn-pds)",
+  "registry": "https://registry.opendata.aws/noaa-ghcn/",
+  "url": "https://noaa-ghcn-pds.s3.amazonaws.com/csv/by_station/USW00094728.csv",
+  "retrieved_at_utc": "2026-06-09T18:34:56.884436+00:00",
+  "study_window": {
+    "start": "2019-01-01",
+    "end": "2026-01-01"
+  },
+  "elements": [
+    "AWND",
+    "PRCP",
+    "SNOW",
+    "SNWD",
+    "TMAX",
+    "TMIN"
+  ],
+  "source_bytes": 16003495,
+  "sha256_source_file": "7e75c1ba40312d0d04cc4fd41fa88bc14bc6ef21dde740735365896209ff3a0f",
+  "rows_kept": 13238,
+  "output_file": "data/raw/weather/nyc_USW00094728.csv.gz",
+  "sha256_uncompressed": "8c972167d0c28b41b6f354c676afe12c0693f60d16c2cbee3337229a63673df8",
+  "units_note": "GHCN-Daily native units (tenths of mm / tenths of degC / mm / tenths of m/s); converted in preprocessing only"
+}

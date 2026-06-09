@@ -1,0 +1,61 @@
+# Deterministic harmonization of native 311 categories into eight
+# operationally analogous service families.
+#
+# Rules are case-insensitive substring matches applied IN ORDER; the first
+# matching family wins; categories matching nothing fall to "other".
+# Families are analogous planning buckets, NOT identical workloads across
+# cities. Per-city native compositions are exported to
+# outputs/tables/family_composition_<city>.csv by the preprocessing step
+# and reported in the supplement.
+#
+# `exclusions` removes native categories that are not service requests
+# (informational/administrative artifacts), with the reason documented.
+
+exclusions:
+  chicago:
+    - pattern: "311 INFORMATION ONLY CALL"
+      reason: "informational call log entry, not a service request"
+    - pattern: "AIRCRAFT NOISE COMPLAINT"
+      reason: >
+        routed to the Chicago Department of Aviation rather than city service
+        crews; volume is dominated by automated bulk filings near O'Hare and
+        would distort the Noise family by an order of magnitude
+  sf:
+    - pattern: "CASE IS A DUPLICATE"
+      reason: "administrative duplicate marker"
+  nyc: []
+  austin: []
+
+families:
+  - name: noise
+    priority_weight: 1.0
+    patterns: [noise]
+  - name: housing_building
+    priority_weight: 2.0
+    patterns: [heat, hot water, plumbing, paint, plaster, electric, appliance,
+               elevator, mold, building, construction, scaffold, housing,
+               apartment, tenant, unsanitary condition, door, window, flooring,
+               stairs, asbestos, lead, vacant]
+  - name: water_sewer
+    priority_weight: 3.0
+    patterns: [water, sewer, sewage, drain, catch basin, hydrant, flood, leak]
+  - name: public_safety
+    priority_weight: 3.0
+    patterns: [safety, police, fire, hazard, dangerous, emergency, gas,
+               carbon monoxide, panhandl, weapon, explosive, structural]
+  - name: streets_transport
+    priority_weight: 2.0
+    patterns: [street, pothole, sidewalk, curb, traffic, signal, sign, light,
+               road, highway, bridge, transportation, parking, vehicle, bike,
+               scooter, pavement, alley, snow, ice]
+  - name: sanitation
+    priority_weight: 2.0
+    patterns: [sanitation, garbage, trash, litter, refuse, recycl, dump, debris,
+               dirty, sweep, rodent, rat, pest, mosquito, insect, dead animal,
+               graffiti, encampment, homeless]
+  - name: parks_trees
+    priority_weight: 1.0
+    patterns: [tree, branch, park, forestry, weed, grass, plant]
+  - name: other
+    priority_weight: 1.0
+    patterns: []   # catch-all

@@ -1,0 +1,13 @@
+[project]
+name = "dream-paper-311"
+version = "0.1.0"
+description = "Multi-city 311 demand forecasting and capacity-allocation benchmark"
+authors = [{ name = "Nassar Naif Alsharif", email = "NassarAlsharif0@gmail.com" }]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

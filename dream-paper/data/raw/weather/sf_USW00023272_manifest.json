@@ -1,0 +1,27 @@
+{
+  "city": "sf",
+  "station_id": "USW00023272",
+  "station_name": "SAN FRANCISCO DOWNTOWN, CA US",
+  "source": "NOAA GHCN-Daily via AWS Open Data Program (bucket noaa-ghcn-pds)",
+  "registry": "https://registry.opendata.aws/noaa-ghcn/",
+  "url": "https://noaa-ghcn-pds.s3.amazonaws.com/csv/by_station/USW00023272.csv",
+  "retrieved_at_utc": "2026-06-09T18:34:59.569639+00:00",
+  "study_window": {
+    "start": "2019-01-01",
+    "end": "2026-01-01"
+  },
+  "elements": [
+    "AWND",
+    "PRCP",
+    "SNOW",
+    "SNWD",
+    "TMAX",
+    "TMIN"
+  ],
+  "source_bytes": 6572813,
+  "sha256_source_file": "4e614f5f26097073d60ac29ee0ce0b0139e0a57de6eec5887764988916ba0d7c",
+  "rows_kept": 7296,
+  "output_file": "data/raw/weather/sf_USW00023272.csv.gz",
+  "sha256_uncompressed": "08d6214d66412551814267088d2a455de472c22446f1db9ca9c56601662fecc1",
+  "units_note": "GHCN-Daily native units (tenths of mm / tenths of degC / mm / tenths of m/s); converted in preprocessing only"
+}

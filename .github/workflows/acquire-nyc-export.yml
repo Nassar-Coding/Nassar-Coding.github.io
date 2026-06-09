@@ -1,0 +1,54 @@
+# Parallel fallback for the largest city: streams a column-projected CSV
+# export of NYC 311 (no server-side GROUP BY, which timed out in run 1)
+# and aggregates client-side to the identical raw layer.
+name: acquire-nyc-export
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [claude/new-session-56q4pt]
+    paths:
+      - ".github/workflows/acquire-nyc-export.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: acquire-nyc-export
+  cancel-in-progress: false
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Fetch NYC via streaming export + client-side aggregation
+        working-directory: dream-paper
+        run: |
+          python src/acquisition/fetch_311_export.py \
+            --config configs/data_sources.yml \
+            --out data/raw/311 --cities nyc
+
+      - name: Commit acquired data back to branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dream-paper/data/raw/311
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "data: acquire NYC 311 daily aggregates via export path [actions]"
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi

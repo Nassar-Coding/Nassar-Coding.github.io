@@ -173,6 +173,21 @@ def main() -> int:
         notes[f"{city}_weather_missing_after_fill"] = {
             c: int(grp[c].isna().sum()) for c in ("TMAX", "TMIN", "PRCP")
         }
+    # Authoritative per-city active-family manifest (redesign C10).
+    # A family is ACTIVE in a city iff the city's source taxonomy maps any
+    # request volume to it over the study window. Structural absence
+    # (e.g., Chicago noise) is recorded here and is NOT encoded as zeros:
+    # densify() only completes the grid over each city's active set.
+    all_families = [f["name"] for f in fam_cfg["families"]]
+    active = {}
+    for city, grp in panel.groupby("city"):
+        present = sorted(grp.loc[grp["n"] > 0, "family"].unique())
+        active[city] = {
+            "active_families": present,
+            "structurally_absent": sorted(set(all_families) - set(present)),
+        }
+    write_json(DATA_INTERIM / "active_families.json", active)
+
     notes["panel_rows"] = len(panel)
     notes["panel_cities"] = sorted(panel["city"].unique())
     notes["panel_date_range"] = [str(panel["day"].min().date()), str(panel["day"].max().date())]

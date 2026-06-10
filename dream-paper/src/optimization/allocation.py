@@ -1,31 +1,31 @@
-"""Stylized daily capacity-allocation simulation with backlog carryover.
+"""Simulated daily capacity allocation over abstract request-equivalent units.
 
-Setting (Phase 7 definition, docs/01_problem_definition.md):
-  - planner allocates B integer crews across families each evening;
-  - a crew resolves `kappa` requests of its family the next day;
-  - workload of family s on day t+1 = observable backlog b[s] + new demand;
-  - served = min(workload, kappa * crews); unserved is weighted by the
-    family priority weight and (1 - abandonment) of it carries to the
-    next day as backlog.
+Everything here is an explicit simulation (redesign C8): "units" are
+abstract capacity units, each resolving `kappa` request-equivalents per
+day (optionally family-specific under the heterogeneous-yield sensitivity);
+"carryover" is simulated unresolved request-equivalent carryover, not any
+observed municipal queue. No quantity models actual staffing, crews,
+shifts, productivity, or dispatch.
 
 Quantity classification (research constitution):
-  observed            : daily demand by family (administrative counts)
-  defensibly derived  : backlog dynamics (accounting identity given A4/A5)
-  sensitivity-only    : B (capacity regime), kappa, abandonment rate
-  assumed             : priority weights (varied in sensitivity analysis)
+  observed            : daily reported demand by active family
+  defensibly derived  : carryover accounting identity given the stated yield
+  sensitivity-only    : budgets (hypothetical service-pressure regimes),
+                        kappa, abandonment, objective weights, yield vector
 
 Policies:
-  uniform        : equal crews per family (simple operational heuristic)
-  proportional   : crews proportional to point forecast + backlog
-                   (largest-remainder rounding; Paper 1's policy, made
-                   backlog-aware)
-  greedy_ev      : greedy exact maximization of expected weighted served
-                   requests under the forecast distribution (point forecast
-                   => degenerate distribution; quantile forecast =>
-                   piecewise-linear CDF). Greedy is optimal because
-                   E[min(D, c)] is concave in capacity c.
-  oracle         : greedy_ev with the realized demand (hindsight bound;
-                   reported as a bound, never as an achievable policy)
+  uniform        : equal units per active family (forecast-free floor)
+  proportional   : largest-remainder apportionment of forecast + carryover
+  greedy_ev      : exact maximization of expected weighted served
+                   request-equivalents under the forecast distribution
+                   (degenerate for point forecasts; piecewise-linear from
+                   quantiles). Greedy is optimal because E[min(D, c)] is
+                   concave in capacity c.
+  hindsight_myopic_reference :
+                   greedy_ev with realized demand. Per-day myopic; NOT a
+                   horizon-optimal bound under carryover and may be
+                   exceeded (redesign C6). Reported only as a labeled,
+                   non-bounding reference; never used as a denominator.
 """
 
 from __future__ import annotations
@@ -38,14 +38,18 @@ import numpy as np
 
 @dataclass
 class SimConfig:
-    crews: int
-    kappa: float = 50.0
+    units: int                                  # abstract capacity units per day
+    kappa: object = 50.0                        # scalar or per-family vector
     abandonment: float = 0.0
-    priority_weights: dict = field(default_factory=dict)
+    weights: dict = field(default_factory=dict)  # objective weights per family
+
+    def kappa_vec(self, n_families: int) -> np.ndarray:
+        k = np.asarray(self.kappa, dtype=float)
+        return np.full(n_families, float(k)) if k.ndim == 0 else k
 
 
 def largest_remainder(shares: np.ndarray, total: int) -> np.ndarray:
-    """Apportion `total` integer crews proportionally to non-negative shares."""
+    """Apportion `total` integer units proportionally to non-negative shares."""
     shares = np.maximum(np.asarray(shares, dtype=float), 0.0)
     if shares.sum() <= 0:
         shares = np.ones_like(shares)
@@ -61,9 +65,9 @@ def largest_remainder(shares: np.ndarray, total: int) -> np.ndarray:
 class EmpiricalDemand:
     """Piecewise-linear demand distribution from quantile forecasts.
 
-    Represented by support points (levels q in QS, values v_q). Expected
-    served E[min(D, c)] is computed by sampling the inverse CDF on a fixed
-    grid (deterministic, no Monte Carlo noise).
+    Expected served E[min(D, c)] is evaluated exactly for the discrete
+    distribution defined by linear interpolation of the inverse CDF through
+    the forecast quantiles on a fixed grid (deterministic, no Monte Carlo).
     """
 
     GRID = np.linspace(0.01, 0.99, 99)
@@ -80,66 +84,68 @@ class EmpiricalDemand:
         obj.samples = np.full(99, max(float(value), 0.0))
         return obj
 
+    def implied_mean(self) -> float:
+        return float(self.samples.mean())
+
     def expected_min(self, c: float) -> float:
         return float(np.minimum(self.samples, c).mean())
 
 
-def greedy_allocate(dists: list, weights: np.ndarray, crews: int, kappa: float) -> np.ndarray:
-    """Exactly maximize sum_s w_s * E[min(D_s, kappa*x_s)] over integer x with sum x = crews.
+def greedy_allocate(dists: list, weights: np.ndarray, units: int,
+                    kappa: np.ndarray) -> np.ndarray:
+    """Exactly maximize sum_s w_s E[min(D_s, kappa_s x_s)] s.t. sum x = units.
 
-    Marginal gains of successive crews within a family are non-increasing
-    (concavity of E[min(D, c)] in c), so the greedy algorithm is optimal.
+    Marginal gains within a family are non-increasing (concavity), so the
+    greedy algorithm is optimal.
     """
     S = len(dists)
     alloc = np.zeros(S, dtype=int)
     cur_val = np.array([w * d.expected_min(0.0) for d, w in zip(dists, weights)])
     heap = []
     for s in range(S):
-        nxt = weights[s] * dists[s].expected_min(kappa)
+        nxt = weights[s] * dists[s].expected_min(kappa[s])
         heapq.heappush(heap, (-(nxt - cur_val[s]), s, nxt))
-    for _ in range(crews):
+    for _ in range(units):
         neg_gain, s, nxt = heapq.heappop(heap)
         alloc[s] += 1
         cur_val[s] = nxt
-        nxt2 = weights[s] * dists[s].expected_min(kappa * (alloc[s] + 1))
+        nxt2 = weights[s] * dists[s].expected_min(kappa[s] * (alloc[s] + 1))
         heapq.heappush(heap, (-(nxt2 - cur_val[s]), s, nxt2))
     return alloc
 
 
 def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> dict:
-    """Run the day-by-day simulation.
+    """Day-by-day simulation over the active family set.
 
-    demand    : array [T, S] of realized new demand per day and family
-    allocator : callable(day_index, backlog_vector) -> integer crews [S]
-    Returns cumulative and per-day metrics.
+    demand    : [T, S] realized reported demand per day and active family
+    allocator : callable(day_index, carryover_vector) -> integer units [S]
     """
     T, S = demand.shape
-    w = np.array([cfg.priority_weights.get(f, 1.0) for f in families])
-    backlog = np.zeros(S)
-    daily = []
+    w = np.array([cfg.weights.get(f, 1.0) for f in families])
+    kap = cfg.kappa_vec(S)
+    carryover = np.zeros(S)
+    daily_loss, served_by_family, demand_by_family = [], np.zeros(S), np.zeros(S)
     for t in range(T):
-        crews = allocator(t, backlog.copy())
-        assert crews.sum() == cfg.crews, "allocation must use the full budget"
-        workload = backlog + demand[t]
-        served = np.minimum(workload, cfg.kappa * crews)
+        alloc = allocator(t, carryover.copy())
+        assert alloc.sum() == cfg.units, "allocation must use the full budget"
+        workload = carryover + demand[t]
+        served = np.minimum(workload, kap * alloc)
         unserved = workload - served
-        daily.append({
-            "unmet_weighted": float((w * unserved).sum()),
-            "unmet_raw": float(unserved.sum()),
-            "served": float(served.sum()),
-            "backlog_end": float(unserved.sum() * (1 - cfg.abandonment)),
-            "unmet_by_family": (w * unserved).tolist(),
-        })
-        backlog = unserved * (1 - cfg.abandonment)
-    out = {
-        "total_unmet_weighted": float(sum(d["unmet_weighted"] for d in daily)),
-        "total_unmet_raw": float(sum(d["unmet_raw"] for d in daily)),
-        "total_served": float(sum(d["served"] for d in daily)),
-        "final_backlog": float(daily[-1]["backlog_end"]),
-        "unmet_weighted_by_family": np.array([d["unmet_by_family"] for d in daily]).sum(axis=0).tolist(),
-        "daily_unmet_weighted": [d["unmet_weighted"] for d in daily],
+        daily_loss.append(float((w * unserved).sum()))
+        served_by_family += served
+        demand_by_family += demand[t]
+        carryover = unserved * (1 - cfg.abandonment)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        served_frac = np.where(demand_by_family > 0,
+                               np.minimum(served_by_family / demand_by_family, 1.0),
+                               1.0)
+    return {
+        "total_loss": float(np.sum(daily_loss)),
+        "daily_loss": np.asarray(daily_loss),
+        "final_carryover": float(carryover.sum()),
+        "served_fraction_by_family": {f: round(float(v), 4)
+                                      for f, v in zip(families, served_frac)},
     }
-    return out
 
 
 def make_policy(kind: str, cfg: SimConfig, families: list,
@@ -148,28 +154,48 @@ def make_policy(kind: str, cfg: SimConfig, families: list,
                 realized: np.ndarray | None = None):
     """Build allocator callables. Forecast arrays are [T, S]; quantile_fc maps level -> [T, S]."""
     S = len(families)
-    w = np.array([cfg.priority_weights.get(f, 1.0) for f in families])
+    w = np.array([cfg.weights.get(f, 1.0) for f in families])
+    kap = cfg.kappa_vec(S)
 
     if kind == "uniform":
-        def alloc(t, backlog):  # noqa: ARG001
-            return largest_remainder(np.ones(S), cfg.crews)
+        def alloc(t, carryover):  # noqa: ARG001
+            return largest_remainder(np.ones(S), cfg.units)
     elif kind == "proportional":
-        def alloc(t, backlog):
-            return largest_remainder(np.maximum(point_fc[t], 0.0) + backlog, cfg.crews)
+        def alloc(t, carryover):
+            return largest_remainder(np.maximum(point_fc[t], 0.0) + carryover, cfg.units)
     elif kind == "greedy_ev_point":
-        def alloc(t, backlog):
-            dists = [EmpiricalDemand.degenerate(point_fc[t, s] + backlog[s]) for s in range(S)]
-            return greedy_allocate(dists, w, cfg.crews, cfg.kappa)
+        def alloc(t, carryover):
+            dists = [EmpiricalDemand.degenerate(point_fc[t, s] + carryover[s])
+                     for s in range(S)]
+            return greedy_allocate(dists, w, cfg.units, kap)
     elif kind == "greedy_ev_quantile":
         levels = sorted(quantile_fc)
-        def alloc(t, backlog):
-            dists = [EmpiricalDemand(levels, [quantile_fc[q][t, s] + backlog[s] for q in levels])
+        def alloc(t, carryover):
+            dists = [EmpiricalDemand(levels, [quantile_fc[q][t, s] + carryover[s]
+                                              for q in levels])
                      for s in range(S)]
-            return greedy_allocate(dists, w, cfg.crews, cfg.kappa)
-    elif kind == "oracle":
-        def alloc(t, backlog):
-            dists = [EmpiricalDemand.degenerate(realized[t, s] + backlog[s]) for s in range(S)]
-            return greedy_allocate(dists, w, cfg.crews, cfg.kappa)
+            return greedy_allocate(dists, w, cfg.units, kap)
+    elif kind == "hindsight_myopic_reference":
+        def alloc(t, carryover):
+            dists = [EmpiricalDemand.degenerate(realized[t, s] + carryover[s])
+                     for s in range(S)]
+            return greedy_allocate(dists, w, cfg.units, kap)
     else:
         raise ValueError(f"unknown policy kind: {kind}")
     return alloc
+
+
+def moving_block_bootstrap_ci(diff: np.ndarray, block: int = 28,
+                              n_boot: int = 2000, seed: int = 20260609):
+    """Percentile CI for the mean of a dependent daily series via circular
+    moving-block bootstrap. Returns (mean, lo95, hi95)."""
+    diff = np.asarray(diff, dtype=float)
+    T = len(diff)
+    rng = np.random.default_rng(seed)
+    n_blocks = int(np.ceil(T / block))
+    means = np.empty(n_boot)
+    for b in range(n_boot):
+        starts = rng.integers(0, T, n_blocks)
+        idx = (starts[:, None] + np.arange(block)[None, :]).ravel() % T
+        means[b] = diff[idx[:T]].mean()
+    return float(diff.mean()), float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))

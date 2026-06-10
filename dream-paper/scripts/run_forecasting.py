@@ -188,9 +188,16 @@ def run() -> None:
             sub["pred"] = sub["q50"]
             test_pred_frames.append(sub)
 
-    # ---------------- leave-one-city-out zero-shot transfer ----------------
+    # ------- leave-one-city-out zero-shot transfer (temporally censored) ----
+    # Redesign C4: for test-stage evaluation, source-city training rows are
+    # censored at the TARGET city's validation cutoff (the last pre-test day),
+    # so no source observation is contemporaneous with or later than any
+    # target test day. Targets are labeled n[t+1], so rows with day <= cutoff-1
+    # use only information through the cutoff.
     for held in (cities if len(cities) > 1 else []):
-        df_tr = feats[feats.city != held]
+        t_end, v_end = bounds[held]
+        censor = v_end - pd.Timedelta(days=1)
+        df_tr = feats[(feats.city != held) & (feats.day <= censor)]
         df_te = feats[feats.city == held]
         m_tr_, m_va_, m_te_ = split_masks(df_te["day"], *bounds[held])
         df_te_final = df_te[m_te_.to_numpy()]
@@ -203,9 +210,28 @@ def run() -> None:
         m.fit(X_tr, df_tr["target"])
         p = np.maximum(m.predict(X_te), 0.0)
         metrics_rows.append({**eval_block(df_te_final["target"], p, df_te_final["day"]),
-                             "scope": "loco_zero_shot", "city": held,
+                             "scope": "loco_zero_shot_censored", "city": held,
                              "feature_set": "calendar_weather", "model": "lgbm_point",
-                             "split": "test", "fit_seconds": None})
+                             "split": "test", "fit_seconds": None,
+                             "source_censor_date": str(censor.date())})
+
+    # ------- validation-only model selection artifact (redesign C3) ---------
+    # For each (scope, city, feature set): the model chosen by VALIDATION MAE,
+    # frozen here; headline tables report that model's single test evaluation.
+    mdf = pd.DataFrame(metrics_rows)
+    sel_rows = []
+    for (scope, city, fset), grp in mdf[mdf.split == "val"].groupby(
+            ["scope", "city", "feature_set"]):
+        best = grp.loc[grp["mae"].idxmin()]
+        test_row = mdf[(mdf.split == "test") & (mdf.scope == scope) &
+                       (mdf.city == city) & (mdf.feature_set == fset) &
+                       (mdf.model == best["model"])]
+        sel_rows.append({"scope": scope, "city": city, "feature_set": fset,
+                         "selected_model": best["model"],
+                         "val_mae": best["mae"],
+                         "test_mae": float(test_row["mae"].iloc[0])})
+    out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(sel_rows).to_csv(out_m / "validation_selection.csv", index=False)
 
     out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(metrics_rows).to_csv(out_m / "forecast_metrics.csv", index=False)

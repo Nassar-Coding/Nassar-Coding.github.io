@@ -1,0 +1,94 @@
+{
+  "kappa_base": 50.0,
+  "calibration_primary": "train_only",
+  "cities": {
+    "austin": {
+      "train_only": {
+        "mean_daily_demand": 592.76,
+        "boundary_date": "2023-08-04",
+        "budgets": {
+          "scarce": 8,
+          "moderate": 11,
+          "generous": 13
+        }
+      },
+      "train_plus_validation": {
+        "mean_daily_demand": 627.64,
+        "boundary_date": "2024-05-05",
+        "budgets": {
+          "scarce": 9,
+          "moderate": 11,
+          "generous": 14
+        }
+      },
+      "train_only_other_excluded": {
+        "mean_daily_demand": 451.72,
+        "budgets": {
+          "scarce": 7,
+          "moderate": 8,
+          "generous": 10
+        }
+      }
+    },
+    "chicago": {
+      "train_only": {
+        "mean_daily_demand": 2088.19,
+        "boundary_date": "2023-08-03",
+        "budgets": {
+          "scarce": 29,
+          "moderate": 38,
+          "generous": 46
+        }
+      },
+      "train_plus_validation": {
+        "mean_daily_demand": 2086.4,
+        "boundary_date": "2024-05-04",
+        "budgets": {
+          "scarce": 29,
+          "moderate": 38,
+          "generous": 46
+        }
+      }
+    },
+    "nyc": {
+      "train_only": {
+        "mean_daily_demand": 8516.37,
+        "boundary_date": "2023-08-03",
+        "budgets": {
+          "scarce": 119,
+          "moderate": 153,
+          "generous": 187
+        }
+      },
+      "train_plus_validation": {
+        "mean_daily_demand": 8609.91,
+        "boundary_date": "2024-05-04",
+        "budgets": {
+          "scarce": 121,
+          "moderate": 155,
+          "generous": 189
+        }
+      }
+    },
+    "sf": {
+      "train_only": {
+        "mean_daily_demand": 1841.6,
+        "boundary_date": "2023-07-29",
+        "budgets": {
+          "scarce": 26,
+          "moderate": 33,
+          "generous": 41
+        }
+      },
+      "train_plus_validation": {
+        "mean_daily_demand": 1887.59,
+        "boundary_date": "2024-05-06",
+        "budgets": {
+          "scarce": 26,
+          "moderate": 34,
+          "generous": 42
+        }
+      }
+    }
+  }
+}

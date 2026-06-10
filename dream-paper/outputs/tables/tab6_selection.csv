@@ -1,0 +1,13 @@
+city,regime,selected_by_val_mae,selected_by_val_decision,test_loss_mae_choice,test_loss_decision_choice,mean_daily_diff,ci95_lo,ci95_hi,verdict
+austin,scarce,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,16584105.0,16555517.0,-103.58,-161.948,-54.623,gain
+austin,moderate,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,10885778.0,10857743.0,-101.576,-167.055,-46.394,gain
+austin,generous,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,7097144.0,7076314.0,-75.471,-150.762,-11.469,gain
+chicago,scarce,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,38101878.0,38101878.0,0.0,0.0,0.0,tie_same_choice
+chicago,moderate,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,21402749.0,21402749.0,0.0,0.0,0.0,tie_same_choice
+chicago,generous,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,6920807.0,6920807.0,0.0,0.0,0.0,tie_same_choice
+nyc,scarce,local/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,154437576.0,154478855.0,149.562,-179.57,503.817,tie_ci_overlaps_zero
+nyc,moderate,local/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,91571785.0,91619037.0,171.203,-112.858,436.729,tie_ci_overlaps_zero
+nyc,generous,local/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,27875499.0,28014478.0,503.547,271.82,735.167,harm
+sf,scarce,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,30198717.0,30410631.0,770.596,548.26,986.891,harm
+sf,moderate,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,16916217.0,17128131.0,770.596,548.26,986.891,harm
+sf,generous,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,3935004.0,3993638.0,213.215,74.093,367.868,harm

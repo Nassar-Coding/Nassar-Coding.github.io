@@ -1,0 +1,26 @@
+\begin{tabular}{lllrr}
+\toprule
+city & feature\_set & selected\_model & val\_mae & test\_mae \\
+\midrule
+austin & calendar & lgbm\_point & 15.389 & 14.843 \\
+austin & calendar\_weather & lgbm\_point & 15.245 & 14.844 \\
+austin & calendar\_weather\_lagged\_only & lgbm\_point & 15.711 & 14.865 \\
+austin & internal & random\_forest & 16.494 & 16.529 \\
+austin & weather & lgbm\_point & 16.462 & 16.530 \\
+chicago & calendar & lgbm\_point & 48.527 & 50.945 \\
+chicago & calendar\_weather & lgbm\_point & 46.802 & 49.295 \\
+chicago & calendar\_weather\_lagged\_only & lgbm\_point & 47.997 & 50.388 \\
+chicago & internal & random\_forest & 54.803 & 60.374 \\
+chicago & weather & lgbm\_point & 52.580 & 58.665 \\
+nyc & calendar & lgbm\_point & 146.497 & 182.378 \\
+nyc & calendar\_weather & lgbm\_point & 131.660 & 165.417 \\
+nyc & calendar\_weather\_lagged\_only & lgbm\_point & 150.323 & 178.626 \\
+nyc & internal & lgbm\_point & 165.701 & 207.022 \\
+nyc & weather & lgbm\_point & 153.963 & 186.728 \\
+sf & calendar & lgbm\_point & 30.341 & 31.532 \\
+sf & calendar\_weather & lgbm\_point & 28.973 & 30.061 \\
+sf & calendar\_weather\_lagged\_only & lgbm\_point & 30.173 & 31.659 \\
+sf & internal & ridge & 31.435 & 35.183 \\
+sf & weather & ridge & 31.850 & 35.866 \\
+\bottomrule
+\end{tabular}

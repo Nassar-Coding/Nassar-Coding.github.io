@@ -48,8 +48,12 @@ allocations, where $D_s$ is the forecast demand-plus-backlog distribution
 --- degenerate for point forecasts, piecewise-linear from quantiles for
 probabilistic forecasts; greedy is optimal because
 $\mathbb{E}[\min(D, c)]$ is concave in $c$);
-and an \emph{oracle} that applies the greedy rule to realized demand,
-reported only as a hindsight bound.
+and a \emph{perfect-information myopic reference} that applies the greedy
+rule to realized demand. Because this reference optimizes each day in
+isolation, it is not a horizon-optimal bound under backlog dynamics and
+can occasionally be surpassed (we observe this once, in Austin's generous
+regime); it is reported as a hindsight reference point, never as an
+achievable or binding optimum.
 
 \paragraph{Evaluation questions.}
 For each city and regime we compare (a) forecast accuracy (MAE, RMSE,

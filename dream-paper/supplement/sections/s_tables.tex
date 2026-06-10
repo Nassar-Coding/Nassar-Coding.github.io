@@ -1,1 +1,22 @@
-\textbf{[PENDING-REAL-RESULTS: s_tables]}
+All tables regenerate from \texttt{scripts/make\_tables\_figures.py};
+CSV versions live in \texttt{outputs/tables/}. Test MAE by city, model,
+and feature set (local scope):
+
+{\small\input{../outputs/tables/tab2_forecast_mae_main}}
+
+Quantile-forecast evaluation (test window):
+
+{\small\input{../outputs/tables/tab5_quantile}}
+
+Rank agreement between accuracy and decision orderings:
+
+{\small\input{../outputs/tables/tab4_rank_agreement}}
+
+Accuracy-based versus decision-based model selection:
+
+{\small\input{../outputs/tables/tab6_selection}}
+
+The complete decision-evaluation grid (every policy $\times$ city
+$\times$ regime, with gap-closure shares) is
+\texttt{outputs/tables/tab3\_decision\_all.csv} (132 rows); the
+significance tests are \texttt{outputs/metrics/significance\_tests.csv}.

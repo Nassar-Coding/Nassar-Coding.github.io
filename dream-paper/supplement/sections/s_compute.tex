@@ -1,1 +1,11 @@
-\textbf{[PENDING-REAL-RESULTS: s_compute]}
+All experiments run on a single Linux container (no GPU). Measured
+wall-clock times: 311 acquisition 29--54 minutes per run on GitHub
+Actions runners (dominated by portal-side query latency); weather
+acquisition under 2 minutes; panel and feature construction under 1
+minute; the full forecasting benchmark (404 evaluations including
+rolling-origin folds, pooled models, quantile models, and zero-shot
+transfer) approximately 12 minutes; the decision evaluation (300
+simulations plus selection and sensitivity runs) approximately 3
+minutes; figure and table generation under 1 minute. Python 3.11;
+package versions pinned in \texttt{reproducibility/pip-freeze.txt};
+global seed 20260609.

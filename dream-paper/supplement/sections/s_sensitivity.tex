@@ -1,1 +1,18 @@
-\textbf{[PENDING-REAL-RESULTS: s_sensitivity]}
+Full numbers in \texttt{outputs/tables/tab7\_sensitivity.csv} and
+\texttt{outputs/metrics/decision\_sensitivity.csv}.
+\begin{itemize}
+\item \textbf{Priority weights equalized}: policy ordering changes ---
+the point-forecast greedy policy falls behind proportional allocation in
+New York, while quantile-greedy stays within 0.6--4.2\% of the
+perfect-information reference everywhere. Priorities are normative
+inputs; their influence on the ranking is therefore reported, not
+averaged away.
+\item \textbf{10\% daily backlog abandonment}: ordering of all policies
+unchanged in all four cities.
+\item \textbf{Lagged-weather variant (A3 removed)}: removes most of the
+target-day weather gain (New York 165.4 $\rightarrow$ 178.6 against a
+182.4 calendar-only reference); conclusions about weather are therefore
+stated as conditional on day-ahead forecast availability.
+\item \textbf{Capacity grid}: the 70/90/110\% regimes are the central
+sensitivity axis of the paper and all results are reported per regime.
+\end{itemize}

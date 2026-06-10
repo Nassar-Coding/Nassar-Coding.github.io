@@ -1,0 +1,13 @@
+city,regime,selected_by_mae,selected_by_decision,agree
+austin,scarce,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,False
+austin,moderate,global/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,True
+austin,generous,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,False
+chicago,scarce,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,True
+chicago,moderate,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,True
+chicago,generous,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,True
+nyc,scarce,local/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,False
+nyc,moderate,local/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,True
+nyc,generous,local/calendar_weather/lgbm_point,global/calendar_weather/lgbm_point,False
+sf,scarce,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,False
+sf,moderate,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,False
+sf,generous,global/calendar_weather/lgbm_point,local/calendar_weather/lgbm_point,False

@@ -1,1 +1,66 @@
-\textbf{[PENDING-REAL-RESULTS: results_decision]}
+Every policy receives the same observable state; capacity regimes scale
+total capacity to 70\%/90\%/110\% of mean daily test demand. Decision
+loss is cumulative priority-weighted unserved workload; we report each
+policy's position between the forecast-free uniform floor and the
+perfect-information myopic reference (``share of gap closed''). Four
+findings emerge.
+
+\paragraph{Under scarcity, the allocation rule matters more than the
+forecaster.}
+Proportional allocation driven by the \emph{best} forecaster closes only
+56.4\% (New York), 67.2\% (Chicago), 91.4\% (San Francisco), and 64.9\%
+(Austin) of the gap in the scarce regime --- while the expected-value
+greedy policy driven by the \emph{naive trailing-mean} forecast closes
+80.0--95.6\%. Upgrading the policy beats upgrading the forecast. The
+two levers are complementary: greedy with the best forecaster reaches
+93.7--98.7\% under scarcity.
+
+\paragraph{The decision value of forecast quality is regime-dependent
+(H2).}
+Holding the greedy policy fixed, replacing the naive forecast with the
+best forecast closes an additional 7.8 (New York), 13.7 (Chicago), 2.6
+(San Francisco), and 9.4 (Austin) percentage points of the gap under
+scarcity, but only 0.6, 8.5, 0.8, and 10.2 points under generous
+capacity. In three of four cities the marginal value of accuracy shrinks
+substantially as capacity grows; Austin, whose demand is smallest and
+spikiest, is the exception and is reported as such.
+
+\paragraph{Accuracy rankings and decision rankings broadly agree --- and
+still disagree exactly where it matters (H3).}
+Across the eleven point-forecast configurations, Spearman correlation
+between MAE ranking and decision-loss ranking is high in every
+city-regime pair ($\rho = 0.73$--$0.98$) but never 1. The divergence
+concentrates at the top: selecting the deployment model by validation
+decision loss instead of validation MAE changes the selected model in
+\textbf{7 of 12} city-regime pairs --- always flipping between the local
+and pooled variants of the same LightGBM configuration, whose MAE
+difference is small but whose allocation behaviour differs. A cheap,
+optimization-free form of decision-focused learning --- selecting among
+accuracy-trained models by downstream loss --- is therefore advisable
+whenever the deployment regime is known.
+
+\paragraph{Forecast uncertainty has operational value under scarcity
+(H4).}
+Replacing the point forecast with the quantile forecast inside the same
+greedy policy improves the scarce-regime gap closure in all four cities
+(New York 95.9 $\rightarrow$ 97.0, Chicago 93.7 $\rightarrow$ 96.9, San
+Francisco 98.2 $\rightarrow$ 99.8, Austin 98.7 $\rightarrow$ 99.3) ---
+despite the under-dispersion documented in Section~6. Under moderate and
+generous capacity the comparison is mixed ($\pm$0.3--1.0 points), as
+hypothesized: uncertainty matters most when capacity cannot cover the
+upper tail everywhere. The equal-weights sensitivity sharpens this
+picture: with no priority gradient to exploit, the point-forecast greedy
+policy falls behind even proportional allocation in New York, while the
+quantile policy stays within 0.6--4.2\% of the perfect-information
+reference in every city --- distributional information substitutes for
+the structure that priorities otherwise provide.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.95\linewidth]{fig3_accuracy_vs_decision.pdf}
+\caption{Forecast accuracy (test MAE, $x$) versus decision value (share
+of uniform-to-reference gap closed, $y$) for the eleven point-forecast
+configurations under the expected-value greedy policy. Lower MAE
+generally buys more decision value, but the slope and spread depend on
+city and capacity regime.}
+\label{fig:acc-dec}
+\end{figure}

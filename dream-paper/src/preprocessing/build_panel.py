@@ -114,8 +114,8 @@ def build_weather(sources: dict) -> pd.DataFrame:
         wide = df.pivot_table(index="day", columns="element", values="value", aggfunc="first")
         wide = wide.reindex(pd.date_range(wide.index.min(), wide.index.max(), freq="D"))
         wide.index.name = "day"
-        # SNOW/SNWD missing almost always means none recorded; temperatures and
-        # wind are interpolated over short gaps only (limit 3 days), and the
+        # SNOW/SNWD missing almost always means none recorded; temperatures
+        # are interpolated over short gaps only (limit 7 days), and the
         # remaining missingness is reported in the manifest.
         for col in ("SNOW", "SNWD"):
             if col in wide.columns:

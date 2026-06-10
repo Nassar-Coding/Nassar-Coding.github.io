@@ -1,1 +1,25 @@
-\textbf{[PENDING-REAL-RESULTS: abstract]}
+City agencies use short-horizon forecasts of 311 service-request volume
+to plan daily service capacity, but forecast accuracy is only a proxy:
+what matters is the allocation the forecast produces. We build a
+reproducible benchmark from 36.8 million acquired service-request records (30.2 million retained after documented exclusions) across
+four U.S. cities (New York, Chicago, San Francisco, Austin; 2020--2025),
+harmonized into eight documented service families and joined with NOAA
+station weather, and we evaluate forecasters jointly with the
+capacity-allocation decisions they drive in a stylized, backlog-aware
+daily staffing simulation under scarce, moderate, and generous capacity.
+Calendar augmentation reduces next-day error in every city
+(8.6--14.0\%, all $p \le 0.0005$); weather helps three cities and adds
+exactly nothing in the fourth, a retained negative result. Pooled
+cross-city training mostly hurts, and zero-shot transfer degrades error
+by up to 147\%. Downstream, the mapping from accuracy to decision value
+is strongly regime-dependent: under scarcity, upgrading the allocation
+policy (proportional $\rightarrow$ expected-value greedy) is worth more
+than upgrading the forecaster, accuracy gains translate into decision
+gains worth 2.6--13.7 percentage points of the achievable range, and quantile
+forecasts beat point forecasts inside the same policy in all four
+cities. Accuracy rankings and decision rankings correlate strongly
+($\rho = 0.73$--$0.98$) yet selecting models by validation decision loss
+instead of validation MAE changes the selected model in 7 of 12
+city-regime settings. All data are public, all results regenerate from
+one command, and the simulation makes no claim about any city's actual
+operations.

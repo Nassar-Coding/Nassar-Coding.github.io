@@ -1,1 +1,21 @@
-\textbf{[PENDING-REAL-RESULTS: s_negative]}
+Three pre-registered possibilities resolved against the more
+optimistic hypothesis and are retained as findings:
+\begin{itemize}
+\item \textbf{Weather adds nothing in Austin}: $+0.001$ test MAE on top
+of calendar features ($p = 0.995$). The signal that produces a 9.3\%
+gain in New York produces none in Austin.
+\item \textbf{Pooled training mostly hurts}: $+1.8\%$ (New York,
+$p=0.038$) and $+6.6\%$ (Chicago, $p=0.001$) test MAE versus local
+models; zero-shot transfer degrades MAE by $+44$--$147\%$ except in San
+Francisco ($+3.6\%$). With six years of local history, cross-city
+transfer is not beneficial in this benchmark.
+\item \textbf{Quantile intervals are under-dispersed}: 90\% intervals
+cover 76.8--81.2\%. The uncertainty-aware policy wins under scarcity
+despite this, but the calibration deficit is real and unrepaired in
+this paper.
+\end{itemize}
+We also record that the perfect-information myopic reference was
+exceeded once (Austin, generous regime, proportional policy, 104.6\% of
+gap closed), which is possible because the reference is per-day myopic
+rather than horizon-optimal; this motivated the precise naming used in
+the main text.

@@ -5,7 +5,7 @@ its downstream capacity-allocation value. Companion repository for the
 manuscript in `paper/` and supplement in `supplement/`.
 
 **Cities:** New York, Chicago, San Francisco, Austin (official open-data
-311 systems, 2019–2025). **Weather:** NOAA GHCN-Daily via the official AWS
+311 systems, 2020–2025). **Weather:** NOAA GHCN-Daily via the official AWS
 Open Data mirror. **No synthetic demand or weather data are used anywhere.**
 
 ## What is claimed — and not claimed

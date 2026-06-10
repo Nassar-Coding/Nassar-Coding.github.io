@@ -1,0 +1,17 @@
+city,comparison,mae_diff_daily_mean,p_value
+nyc,calendar vs internal,-24.644,0.0005
+nyc,cal_weather vs calendar,-16.962,0.0005
+nyc,cal_weather vs seasonal_naive,-117.022,0.0005
+nyc,global vs local (cal_weather),2.974,0.0375
+chicago,calendar vs internal,-8.291,0.0005
+chicago,cal_weather vs calendar,-1.649,0.0015
+chicago,cal_weather vs seasonal_naive,-34.942,0.0005
+chicago,global vs local (cal_weather),3.27,0.001
+sf,calendar vs internal,-3.514,0.0005
+sf,cal_weather vs calendar,-1.471,0.001
+sf,cal_weather vs seasonal_naive,-13.725,0.0005
+sf,global vs local (cal_weather),-0.587,0.3855
+austin,calendar vs internal,-1.876,0.0005
+austin,cal_weather vs calendar,0.001,0.995
+austin,cal_weather vs seasonal_naive,-6.769,0.0005
+austin,global vs local (cal_weather),0.358,0.144

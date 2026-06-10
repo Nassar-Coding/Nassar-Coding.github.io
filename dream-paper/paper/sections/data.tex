@@ -9,10 +9,15 @@ and Austin (\texttt{i26j-ai4z}). Acquisition uses server-side daily
 aggregation (counts per day~$\times$~native category) through the SODA
 API; every query URL, retrieval timestamp, and SHA-256 checksum is
 recorded in versioned manifests. Chicago rows flagged as duplicates by the
-source system are removed, as are documented non-service categories
-(e.g., Chicago's ``311 INFORMATION ONLY CALL'' log entries and
-aviation-routed aircraft-noise filings; San Francisco's administrative
-duplicate markers). The study window is 2019-01-01 through 2025-12-31.
+source system are removed (523{,}055 requests), as are documented
+non-service categories: Chicago's ``311 INFORMATION ONLY CALL'' log
+entries (4{,}184{,}158 records) and aviation-routed aircraft-noise filings
+(1{,}918{,}574 records), and San Francisco's administrative duplicate
+markers. The study window is 2020-01-01 through 2025-12-31, the full
+scope of NYC's current dataset. As an acquisition-integrity check, the
+NYC layer was produced by two independent methods --- server-side
+aggregation and client-side aggregation of a streamed export --- which
+agreed exactly (270{,}978 aggregated rows).
 \input{sections/data_stats}
 
 \paragraph{Harmonized service families.}
@@ -20,18 +25,35 @@ Each city's native taxonomy ($\sim$\,one to three hundred categories) is
 mapped to eight service families --- noise; housing/building;
 water/sewer; public safety; streets/transport; sanitation; parks/trees;
 other --- by an ordered, case-insensitive, versioned keyword rule set
-applied identically to all cities. Families are \emph{operationally
-analogous planning buckets}, not identical workloads: the supplement
-reports the full native-category composition of every family in every
-city, and no cross-city claim in this paper assumes compositional
-identity.
+applied identically to all cities. The rules were audited against each
+city's real category inventory and frozen before any model was trained;
+after the freeze, the unmapped ``other'' share is 6.2\% (New York),
+6.9\% (Chicago), 8.8\% (San Francisco), and 23.5\% (Austin, whose intake
+includes large animal-services and explicitly generic categories that fit
+no family and are deliberately retained in the served ``other'' bucket).
+Families are \emph{operationally analogous planning buckets}, not
+identical workloads: Chicago has no noise family at all (residential
+noise is not a Chicago 311 request type), the supplement reports the full
+native-category composition of every family in every city, and no
+cross-city claim in this paper assumes compositional identity.
 
 \paragraph{Weather.}
 NOAA GHCN-Daily station observations (precipitation, max/min temperature,
-snowfall, snow depth, wind; derived mean temperature) from one first-order
+snowfall, snow depth; derived mean temperature) from one first-order
 station per city (Central Park; O'Hare; San Francisco Downtown; Camp
 Mabry), retrieved from NOAA's AWS Open Data mirror with checksums.
-Quality-flagged values are dropped; short temperature/wind gaps
-($\le 3$ days) are interpolated; missing snow fields are treated as zero.
-A single station per city is a documented spatial simplification (A2).
+Quality-flagged values are dropped; short temperature gaps ($\le 7$
+days) are interpolated; missing snow fields are treated as zero. Wind
+speed was excluded for all cities because the San Francisco station does
+not report it and Central Park has a multi-month gap --- a documented
+deviation from the single-city study this work extends. A single station
+per city is a documented spatial simplification (A2).
 No synthetic demand or synthetic weather is used anywhere in the study.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.95\linewidth]{fig1_panel_overview.pdf}
+\caption{Daily citywide 311 request totals (blue) with 28-day centred
+mean (red), 2020--2025. Scale, seasonality, and disruption patterns
+differ visibly across the four systems.}
+\label{fig:panel}
+\end{figure}

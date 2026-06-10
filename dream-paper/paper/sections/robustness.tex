@@ -1,1 +1,22 @@
-\textbf{[PENDING-REAL-RESULTS: robustness]}
+\paragraph{Stability.} All H1 comparisons hold in each of five
+expanding-window rolling-origin folds per city, and all headline
+forecast differences carry day-block bootstrap $p$-values at or below
+0.0015 except the Austin weather null ($p=0.995$) and the San
+Francisco/Austin pooling effects (not significant).
+
+\paragraph{Decision-layer sensitivity.} Sweeps over the stylization
+parameters preserve the qualitative conclusions: with 10\% daily backlog
+abandonment, policy ordering is unchanged in all cities; with equalized
+priority weights, the uniform floor worsens dramatically (weighted
+losses scale differently) while the quantile-greedy policy stays within
+0.6--4.2\% of the perfect-information reference in every city. The
+capacity grid itself (70/90/110\%) is the primary sensitivity axis and
+is reported in full rather than averaged.
+
+\paragraph{What would change the conclusions.} The decision results are
+conditional on the stylization assumptions A4--A6 (interchangeable
+crews, fixed productivity, no intra-day dynamics); we claim regime
+\emph{patterns}, not city-specific magnitudes. The forecast results are
+unconditional on those assumptions. The weather findings are conditional
+on A3 (day-ahead forecast availability), bounded by the lagged-weather
+variant.

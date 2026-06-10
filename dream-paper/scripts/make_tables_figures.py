@@ -32,7 +32,7 @@ def save_table(df: pd.DataFrame, name: str, float_fmt: str = "%.3f") -> None:
     T.mkdir(parents=True, exist_ok=True)
     df.to_csv(T / f"{name}.csv", index=False)
     try:
-        df.to_latex(T / f"{name}.tex", index=False, float_format=float_fmt)
+        df.to_latex(T / f"{name}.tex", index=False, float_format=float_fmt, escape=True)
     except Exception:
         pass
 

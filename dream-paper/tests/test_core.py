@@ -102,42 +102,45 @@ class TestAllocation:
         dists = [EmpiricalDemand([0.05, 0.5, 0.95], sorted(rng.uniform(0, 100, 3)))
                  for _ in range(3)]
         w = np.array([1.0, 2.0, 3.0])
-        crews, kappa = 6, 10.0
-        best = greedy_allocate(dists, w, crews, kappa)
-        best_val = sum(w[s] * dists[s].expected_min(kappa * best[s]) for s in range(3))
+        units, kappa = 6, np.full(3, 10.0)
+        best = greedy_allocate(dists, w, units, kappa)
+        best_val = sum(w[s] * dists[s].expected_min(kappa[s] * best[s]) for s in range(3))
         # brute force all integer allocations
         vals = []
-        for a in range(crews + 1):
-            for b in range(crews + 1 - a):
-                c = crews - a - b
-                vals.append(sum(w[s] * d.expected_min(kappa * x)
+        for a in range(units + 1):
+            for b in range(units + 1 - a):
+                c = units - a - b
+                vals.append(sum(w[s] * d.expected_min(kappa[s] * x)
                                 for s, (d, x) in enumerate(zip(dists, (a, b, c)))))
         assert best_val == pytest.approx(max(vals), rel=1e-9)
 
     def test_simulator_conserves_workload(self):
         demand = np.array([[10.0, 30.0], [20.0, 0.0], [0.0, 50.0]])
-        cfg = SimConfig(crews=2, kappa=10.0, priority_weights={"a": 1.0, "b": 1.0})
+        cfg = SimConfig(units=2, kappa=10.0, weights={"a": 1.0, "b": 1.0})
         pol = make_policy("uniform", cfg, ["a", "b"])
         res = simulate(demand, pol, cfg, ["a", "b"])
-        # with zero abandonment, served + end backlog must equal total demand
-        assert res["total_served"] + res["final_backlog"] == pytest.approx(demand.sum())
+        # with zero abandonment, served + final carryover must equal total demand
+        assert res["total_served"] + res["final_carryover"] == pytest.approx(demand.sum())
         assert res["total_served"] <= demand.sum()
-        assert res["final_backlog"] >= demand.sum() - cfg.crews * cfg.kappa * len(demand) - 1e-9
+        assert res["final_carryover"] >= demand.sum() - cfg.units * 10.0 * len(demand) - 1e-9
 
-    def test_oracle_weakly_dominates_uniform(self):
+    def test_hindsight_reference_beats_uniform_here_but_is_not_a_bound(self):
         rng = np.random.default_rng(1)
         demand = rng.poisson(40, size=(30, 4)).astype(float)
         fams = list("abcd")
-        cfg = SimConfig(crews=3, kappa=30.0, priority_weights={f: 1.0 for f in fams})
+        cfg = SimConfig(units=3, kappa=30.0, weights={f: 1.0 for f in fams})
         uni = simulate(demand, make_policy("uniform", cfg, fams), cfg, fams)
-        ora = simulate(demand, make_policy("oracle", cfg, fams, realized=demand), cfg, fams)
-        assert ora["total_unmet_weighted"] <= uni["total_unmet_weighted"] + 1e-9
+        ref = simulate(demand, make_policy("hindsight_myopic_reference", cfg,
+                                           fams, realized=demand), cfg, fams)
+        # weak dominance holds on this instance; the reference remains
+        # myopic and is NOT asserted to be a horizon-optimal bound (C6)
+        assert ref["total_loss"] <= uni["total_loss"] + 1e-9
 
     def test_quantile_policy_uses_full_budget(self):
         fams = list("ab")
-        cfg = SimConfig(crews=5, kappa=10.0, priority_weights={f: 1.0 for f in fams})
+        cfg = SimConfig(units=5, kappa=10.0, weights={f: 1.0 for f in fams})
         qfc = {q: np.full((3, 2), v) for q, v in
                zip([0.05, 0.5, 0.95], [10.0, 30.0, 90.0])}
         pol = make_policy("greedy_ev_quantile", cfg, fams, quantile_fc=qfc)
-        crews = pol(0, np.zeros(2))
-        assert crews.sum() == 5
+        units = pol(0, np.zeros(2))
+        assert units.sum() == 5

@@ -1,8 +1,8 @@
-# Frozen decision-layer protocol (redesign C1-C9). Every claim-critical value
-# lives here; code reads this file and the guard suite fails if outputs
-# disagree with it. Capacity is ABSTRACT request-equivalent units under
-# HYPOTHETICAL service-pressure regimes; nothing here models any city's
-# actual staffing, productivity, or queues.
+# Frozen decision-layer protocol (redesign C1-C9; register U1-U10 resolved).
+# Every claim-critical value lives here; the guard suite fails if outputs
+# disagree with this file. Capacity is ABSTRACT request-equivalent units
+# under HYPOTHETICAL service-pressure regimes; nothing here models any
+# city's actual staffing, productivity, or queues.
 
 kappa_base: 50.0            # request-equivalents resolvable per capacity unit per day
 
@@ -15,7 +15,7 @@ capacity:
     generous: 1.10
 
 objective:
-  primary: equal_weights                 # 7.6: neutral objective is primary
+  primary: equal_weights                 # neutral objective is primary
   sensitivity_normative_weights:         # illustrative, not socially validated
     noise: 1.0
     housing_building: 2.0
@@ -26,36 +26,43 @@ objective:
     parks_trees: 1.0
     other: 1.0
 
-service_yield:
-  primary: homogeneous                   # 7.7: one request-equivalent base case
-  sensitivity_heterogeneous_multipliers: # illustrative only, not observed productivity
-    noise: 1.5
-    housing_building: 0.7
-    water_sewer: 0.8
-    public_safety: 0.9
-    streets_transport: 1.1
-    sanitation: 1.3
-    parks_trees: 1.2
-    other: 1.0
+service_yield:                           # U7: no unexplained fixed vector
+  primary: homogeneous                   # all multipliers = 1.0
+  one_family_multipliers: [0.70, 1.30]   # one-family-at-a-time perturbations,
+                                         # sensitivity-only, every active family
 
 carryover:
   primary_abandonment: 0.0
   sensitivity_abandonment: 0.10
 
-austin_other_sensitivity: true           # C10: repeat Austin with `other` excluded
+# U3: Austin `other` — treatment 1 is the PRIMARY analysis (retained, with
+# its served fraction and loss share reported separately); treatment 2 is
+# the labeled sensitivity below (excluded, budgets recomputed train-only
+# over the seven retained families).
+austin_other_sensitivity: true
 
-uncertainty_contrast:                    # C5: same fitted model, two representations
+uncertainty_contrast:                    # U5/C5: same fitted model, three representations
   model: lgbm_quantile
   point_arm: q50
   optional_arm: implied_mean
   distribution_arm: full_quantiles
+  # U8: quantile model is fit train-only for validation-stage outputs and
+  # refit on train+validation for the single test evaluation; it is NEVER
+  # a candidate in the point-model selection set.
 
-inference:
+selection:                               # U1/U8
+  candidate_set: point_models_only       # the 11 pre-specified configurations
+  headline_rule: validation_only         # test outcomes may not select headlines
+
+inference:                               # U2
   method: paired_moving_block_bootstrap
-  block_length_days: 28
+  block_length_days: 28                  # primary
+  block_length_sensitivity: [14, 56]     # pre-specified
   n_resamples: 2000
   seed: 20260609
 
-reference_policy:
-  name: hindsight_myopic_reference       # C6: labeled non-bounding; never a denominator
+reference_policy:                        # U6
+  name: hindsight_myopic_reference
   is_bound: false
+  scope: supplementary_diagnostic_only   # never a bound, denominator, or
+                                         # main-text performance target

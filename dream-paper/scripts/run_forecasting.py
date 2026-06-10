@@ -155,16 +155,29 @@ def run() -> None:
         X, names = design_matrix(df, cols, add_city_dummies=(unit == "__pooled__"))
         y = df["target"].to_numpy(dtype=float)
         if unit == "__pooled__":
-            tr = np.zeros(len(df), dtype=bool); te = tr.copy()
+            tr0 = np.zeros(len(df), dtype=bool); va = tr0.copy(); te = tr0.copy()
             for c in cities:
                 m_tr, m_va, m_te = split_masks(df["day"], *bounds[c])
                 in_c = (df["city"] == c).to_numpy()
-                tr |= ((m_tr | m_va).to_numpy() & in_c); te |= (m_te.to_numpy() & in_c)
+                tr0 |= (m_tr.to_numpy() & in_c); va |= (m_va.to_numpy() & in_c)
+                te |= (m_te.to_numpy() & in_c)
         else:
             m_tr, m_va, m_te = split_masks(df["day"], *bounds[unit])
-            tr, te = (m_tr | m_va).to_numpy(), m_te.to_numpy()
+            tr0, va, te = m_tr.to_numpy(), m_va.to_numpy(), m_te.to_numpy()
+        # U8: train-only fit produces all validation-stage quantile outputs ...
+        qm_val = LightGBMQuantile(seed=GLOBAL_SEED)
+        qm_val.fit(X[tr0], y[tr0], names)
+        qp_val = qm_val.predict_quantiles(X[va])
+        vsub = df.loc[va, ["city", "family", "day", "target"]].copy()
+        for q in qp_val:
+            vsub[f"q{int(q * 100):02d}"] = qp_val[q]
+        vsub["scope"] = "global" if unit == "__pooled__" else "local"
+        vsub["feature_set"] = "calendar_weather"; vsub["model"] = "lgbm_quantile"
+        vsub["pred"] = vsub["q50"]
+        val_pred_frames.append(vsub)
+        # ... and the train+validation refit is evaluated once on test
         qm = LightGBMQuantile(seed=GLOBAL_SEED)
-        qm.fit(X[tr], y[tr], names)
+        qm.fit(X[tr0 | va], y[tr0 | va], names)
         qp = qm.predict_quantiles(X[te])
         eval_units = cities if unit == "__pooled__" else [unit]
         for ec in eval_units:
@@ -189,11 +202,14 @@ def run() -> None:
             test_pred_frames.append(sub)
 
     # ------- leave-one-city-out zero-shot transfer (temporally censored) ----
-    # Redesign C4: for test-stage evaluation, source-city training rows are
-    # censored at the TARGET city's validation cutoff (the last pre-test day),
-    # so no source observation is contemporaneous with or later than any
-    # target test day. Targets are labeled n[t+1], so rows with day <= cutoff-1
-    # use only information through the cutoff.
+    # Redesign C4/U4: for test-stage evaluation, source-city training rows
+    # are censored at the TARGET city's validation cutoff (the last pre-test
+    # day), so no source observation is contemporaneous with or later than
+    # any target test day. Targets are labeled n[t+1], so rows with
+    # day <= cutoff-1 use only information through the cutoff. LOCO is not
+    # used for model selection, so no validation-stage LOCO run exists; any
+    # future validation-stage LOCO would require censoring at the target
+    # TRAINING cutoff instead.
     for held in (cities if len(cities) > 1 else []):
         t_end, v_end = bounds[held]
         censor = v_end - pd.Timedelta(days=1)
@@ -232,6 +248,11 @@ def run() -> None:
                          "test_mae": float(test_row["mae"].iloc[0])})
     out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(sel_rows).to_csv(out_m / "validation_selection.csv", index=False)
+    # run-id stamp opening this experiment generation (stale-artifact guard G11)
+    import json as _json
+    (out_m / "run_id.json").write_text(_json.dumps(
+        {"run_id": f"{GLOBAL_SEED}-{pd.Timestamp.utcnow().strftime('%Y%m%dT%H%M%S')}",
+         "forecast_run_completed": pd.Timestamp.utcnow().isoformat()}, indent=2))
 
     out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(metrics_rows).to_csv(out_m / "forecast_metrics.csv", index=False)

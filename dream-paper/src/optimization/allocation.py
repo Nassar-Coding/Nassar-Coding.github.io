@@ -125,6 +125,7 @@ def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> d
     kap = cfg.kappa_vec(S)
     carryover = np.zeros(S)
     daily_loss, served_by_family, demand_by_family = [], np.zeros(S), np.zeros(S)
+    loss_by_family = np.zeros(S)
     for t in range(T):
         alloc = allocator(t, carryover.copy())
         assert alloc.sum() == cfg.units, "allocation must use the full budget"
@@ -132,6 +133,7 @@ def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> d
         served = np.minimum(workload, kap * alloc)
         unserved = workload - served
         daily_loss.append(float((w * unserved).sum()))
+        loss_by_family += w * unserved
         served_by_family += served
         demand_by_family += demand[t]
         carryover = unserved * (1 - cfg.abandonment)
@@ -141,10 +143,14 @@ def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> d
                                1.0)
     return {
         "total_loss": float(np.sum(daily_loss)),
+        "total_served": float(served_by_family.sum()),
         "daily_loss": np.asarray(daily_loss),
         "final_carryover": float(carryover.sum()),
         "served_fraction_by_family": {f: round(float(v), 4)
                                       for f, v in zip(families, served_frac)},
+        "loss_share_by_family": {f: (round(float(v / loss_by_family.sum()), 4)
+                                     if loss_by_family.sum() > 0 else 0.0)
+                                 for f, v in zip(families, loss_by_family)},
     }
 
 

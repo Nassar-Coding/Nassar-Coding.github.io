@@ -41,9 +41,9 @@ evaluation over abstract request-equivalent capacity units.
 - Objective: EQUAL family weights (primary); one normative priority scenario
   (water/safety 3, housing/streets/sanitation 2, others 1) as sensitivity,
   explicitly not socially validated.
-- Service yield: homogeneous kappa (primary); one illustrative heterogeneous
-  yield scenario (config-specified multipliers) as sensitivity, explicitly
-  not observed productivity.
+- Service yield: homogeneous kappa (primary); one-family-at-a-time
+  multipliers 0.70 and 1.30 over every active family as sensitivity (U7),
+  explicitly not observed productivity.
 - Carryover: full carryover (primary); 10% abandonment sensitivity.
 - Austin: repeat decision analysis with `other` excluded (sensitivity).
 - Capacity calibration: training-only (primary); train+validation
@@ -86,3 +86,54 @@ All pre-redesign decision outputs, headline tables, figures, manuscript
 results sections, and compiled PDFs are regenerated; the pre-redesign state
 remains in git history (tag: `pre-redesign`) and is excluded from every
 manuscript-facing path. No old decision number may appear in the new paper.
+
+---
+
+# Register resolutions U1–U10 (FINAL, supersede any earlier defaults)
+
+| U | Resolution |
+|---|------------|
+| U1 | All 11 pre-specified point configurations retained for exhaustive/descriptive analysis; headline model-selection claims use validation-only frozen selections; test outcomes may not select headline configurations |
+| U2 | Paired moving-block bootstrap for ALL forecast and decision contrasts; block 28 d primary, 2,000 resamples, seed 20260609; pre-specified block-length sensitivity at 14 and 56 d; effect sizes + CIs are primary evidence |
+| U3 | Austin `other`: (1) PRIMARY analysis retains `other` and reports its served fraction and loss share separately; (2) sensitivity excludes `other` with Austin budgets recomputed train-only over the 7 retained families. If conclusions materially change, Austin decision claims are narrowed or moved to supplementary/exploratory status |
+| U4 | Censored LOCO kept; test-stage source data end at the target's validation cutoff. No validation-stage LOCO exists (LOCO is not used for selection); a future validation-stage LOCO would require censoring at the target TRAINING cutoff |
+| U5 | Median, quantile-derived implied-mean, and full-distribution policies from the same fitted quantile model; all other inputs identical |
+| U6 | `hindsight_myopic_reference` appears in supplementary diagnostic outputs only; never a bound, denominator, gap metric, achievable range, or main-text performance target |
+| U7 | No fixed heterogeneous-yield vector. Homogeneous base (×1.0) plus one-family-at-a-time ×0.70 and ×1.30 perturbations over every active family; report ordering changes and the worst-case perturbation; sensitivity-only |
+| U8 | Quantile model excluded from the point-model selection candidate set; 11 point configs used for validation-MAE and validation-decision-loss selection; quantile model evaluated separately with train-only fit for validation outputs and train+validation refit for the single test evaluation |
+| U9 | Provisional venue-neutral working title: "Next-Day Municipal Service-Demand Forecasting Across Four Cities: A Benchmark with a Controlled Simulated Capacity-Allocation Evaluation". Manuscript NOT rewritten until the three review gates pass |
+| U10 | Authoritative pre-redesign baseline: commit `a7635919d6133105534cc54ef1620841b36b9c14` ("Complete paper and supplement with real 4-city results; checklists; manifest"), branch `claude/new-session-56q4pt`, committed 2026-06-10 06:13:16 +0000, pushed to origin and recoverable from branch history; local tag `pre-redesign` exists; a remote tag is desirable later but not required |
+
+# Experiment register (complete; nothing else is run or claimed)
+
+| ID | Experiment | Stage inputs | Outputs |
+|----|-----------|--------------|---------|
+| E1 | Point-forecast grid: 4 cities × {internal, calendar, weather, calendar_weather, calendar_weather_lagged_only} × {naive_trailing7, seasonal_naive7, ridge, random_forest, lgbm_point}, local + pooled | train fit → val predictions; train+val refit → single test evaluation | forecast_metrics.csv; val/test prediction parquets |
+| E2 | Validation-only selection per (scope, city, feature set) | E1 val rows | validation_selection.csv (headline source) |
+| E3 | Rolling-origin stability: 5 expanding folds × 4 cities × 3 feature sets × 5 models | pre-test data only | fold_metrics.csv |
+| E4 | Censored zero-shot LOCO: lgbm_point, calendar_weather, source ≤ target validation cutoff | test windows | loco rows in forecast_metrics.csv |
+| E5 | Quantile model: train-only fit → val quantiles; train+val refit → test quantiles; pinball + coverage | E1 splits | quantile_metrics.csv; q-columns in prediction parquets |
+| E6 | Frozen budgets: train-only mean daily demand per city × {0.70, 0.90, 1.10} ÷ κ=50 (+ train+val and Austin-other-excluded variants) | training window only | frozen_budgets.json (written before any selection) |
+| E7 | Primary decision evaluation: per city × regime, equal weights, homogeneous yield: uniform; proportional and greedy_ev_point for each of the 11 configs; quantile median/implied-mean/full arms; hindsight_myopic_reference (diagnostic) | test window, frozen budgets | decision_metrics.csv |
+| E8 | Pre-named decision contrasts with block-bootstrap CIs at 28 (primary), 14, 56 d: full-vs-median, full-vs-implied-mean, valbest-vs-naive (greedy fixed), greedy-vs-proportional (valbest fixed) | E7 daily losses | decision_inference.csv |
+| E9 | Selection experiment: val-MAE vs val-decision-loss selection (frozen budgets, validation sims), both frozen, both evaluated on test; gains/harms/ties + CIs | val + test windows | decision_selection.csv |
+| E10 | Sensitivities per city × regime over {uniform, proportional+valbest, greedy+valbest, quantile full, hindsight ref}: normative weights; one-family-at-a-time yield ×0.70/×1.30 (all active families); abandonment 10%; train+val budgets; Austin other-excluded recalibrated | test window | decision_sensitivity.csv |
+| E11 | Forecast contrasts with block-bootstrap CIs at 28/14/56 d: calendar-vs-internal, +weather-vs-calendar, lgbm-vs-seasonal-naive, global-vs-local, lagged-vs-target-day weather (all lgbm fixed estimator) | test predictions | significance_tests.csv |
+| E12 | Artifact generation with provenance hashes and run-id stamping | E1–E11 | tables/, figures/, _provenance.json |
+
+# Guard-test register (tests/test_guards.py)
+
+| Guard | Enforcement |
+|-------|-------------|
+| G1 | Budget function invariant to test-window perturbation (synthetic); frozen_budgets.json declares train_only and regenerates from pre-test data |
+| G2 | validation_selection.csv equals argmin of validation rows; selection invariant to corrupted test metrics |
+| G3 | Every LOCO row carries the independently recomputed censor date (target validation cutoff − 1 day); no uncensored LOCO scope remains |
+| G4 | Median/implied-mean/full arms present and declared from the single lgbm_quantile model; engine-level same-distribution test |
+| G5 | Chicago noise in structurally_absent, absent from active set and from the panel (not encoded as zeros) |
+| G6 | Full budget allocated on uneven active-family sets (engine assertion + test) |
+| G7 | Forbidden tokens (oracle_gap, gap_closed, gap closed, achievable range, oracle gap) absent from all output tables |
+| G8 | Forbidden manuscript tokens (G7 set + staffing, crew, oracle, backlog) absent from paper sections and README; armed by docs/.manuscript_rewritten after the rewrite stage |
+| G9 | Per-city sensitivity scenario sets equal exactly the config-derived expectation (incl. U7 per-family yield grid); primary yield declared homogeneous with no fixed heterogeneous vector in config |
+| G10 | Dataset IDs agree between data_sources.yml and raw manifests; panel date range equals the configured study window |
+| G11 | Every manuscript-facing table/figure hash matches _provenance.json and carries the current run id; forecast and decision run stamps both present |
+| G12 | Simulation family sets equal the active-family manifest per city |

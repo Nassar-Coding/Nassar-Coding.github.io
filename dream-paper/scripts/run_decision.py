@@ -1,27 +1,35 @@
-"""Experiment 2 — forecast-to-decision evaluation with backlog and capacity regimes.
+"""Corrected decision-layer evaluation (redesign C1, C2, C5, C6, C7, C9, C10).
 
-For every city and capacity regime (scarce/moderate/generous = capacity
-covering 70% / 90% / 110% of mean daily test-window demand), simulate the
-daily allocation under each policy:
+Everything simulated here concerns ABSTRACT request-equivalent capacity
+units under HYPOTHETICAL service-pressure regimes; no quantity models any
+city's actual staffing, productivity, or queues.
 
-  uniform                         no forecast (operational heuristic floor)
-  proportional + each point model largest-remainder on forecast+backlog
-  greedy_ev_point + each model    expected-value greedy, degenerate dist
-  greedy_ev_quantile              expected-value greedy on lgbm_quantile dist
-  oracle                          hindsight bound (never an achievable policy)
+Protocol:
+  - Budgets are calibrated from the TRAINING window only and frozen in
+    outputs/metrics/frozen_budgets.json BEFORE any validation-stage
+    selection; the identical budgets are used for validation selection and
+    the single test evaluation (C1, C2). A train+validation calibration is
+    produced only as a labeled sensitivity.
+  - The uncertainty contrast uses ONE fitted quantile model: its median
+    arm, implied-mean arm, and full-distribution arm (C5).
+  - Metrics: raw simulated unmet demand, % reduction vs the uniform floor,
+    served fractions, final simulated carryover; paired moving-block
+    bootstrap CIs on daily loss differentials (C6). No gap-closure
+    normalization exists anywhere.
+  - Decision-based vs MAE-based validation selection is evaluated as a
+    falsifiable question with gains/harms/ties and CIs (C7).
+  - Family sets come from the authoritative active-family manifest (C10);
+    Austin's `other` is both excluded-with-recalibration and isolated as
+    two labeled sensitivities.
 
-Also runs (Phase 8) decision-based model selection: the model chosen by
-validation decision loss vs the model chosen by validation MAE, both then
-evaluated on the test window; and sensitivity sweeps over priority weights
-and abandonment.
-
-Outputs: outputs/metrics/decision_metrics.csv
-         outputs/metrics/decision_selection.csv
-         outputs/metrics/decision_sensitivity.csv
+Outputs: outputs/metrics/{frozen_budgets.json, decision_metrics.csv,
+decision_inference.csv, decision_selection.csv, decision_sensitivity.csv,
+run_id.json (updated)}.
 """
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -29,12 +37,12 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from common.runtime import DATA_PROCESSED, OUTPUTS, load_config, set_seed  # noqa: E402
-from optimization.allocation import SimConfig, make_policy, simulate  # noqa: E402
+from common.runtime import DATA_INTERIM, DATA_PROCESSED, OUTPUTS, load_config, set_seed, write_json  # noqa: E402
+from evaluation.protocol import chrono_split  # noqa: E402
+from optimization.allocation import (SimConfig, make_policy, simulate,  # noqa: E402
+                                     EmpiricalDemand, moving_block_bootstrap_ci)
 
-KAPPA = 50.0
-REGIMES = {"scarce": 0.7, "moderate": 0.9, "generous": 1.1}
-POINT_CONFIGS = [  # (scope, feature_set, model) point-forecast configs to evaluate
+POINT_CONFIGS = [  # fixed pre-specified grid (register U1); not a selection product
     ("local", "internal", "naive_trailing7"),
     ("local", "internal", "seasonal_naive7"),
     ("local", "internal", "ridge"),
@@ -47,6 +55,7 @@ POINT_CONFIGS = [  # (scope, feature_set, model) point-forecast configs to evalu
     ("local", "calendar_weather", "lgbm_point"),
     ("global", "calendar_weather", "lgbm_point"),
 ]
+QLEVELS = (5, 25, 50, 75, 95)
 
 
 def pivot_matrix(df: pd.DataFrame, value_col: str, days, families) -> np.ndarray:
@@ -57,115 +66,265 @@ def pivot_matrix(df: pd.DataFrame, value_col: str, days, families) -> np.ndarray
     return p.to_numpy(dtype=float)
 
 
+def compute_frozen_budgets(panel: pd.DataFrame, feats_days: dict, active: dict,
+                           dcfg: dict) -> dict:
+    """Budgets from pre-test calibration windows only (C1).
+
+    `feats_days` maps city -> the feature table's day series, whose 70/15/15
+    chronological split defines the training and validation boundaries used
+    everywhere else in the project.
+    """
+    kappa = dcfg["kappa_base"]
+    regimes = dcfg["capacity"]["regimes"]
+    out = {"kappa_base": kappa, "calibration_primary": "train_only",
+           "cities": {}}
+    for city, days in feats_days.items():
+        t_end, v_end = chrono_split(days)
+        fams = active[city]["active_families"]
+        sub = panel[(panel.city == city) & (panel.family.isin(fams))]
+        for tag, end in [("train_only", t_end), ("train_plus_validation", v_end)]:
+            window = sub[sub.day <= end]
+            mean_daily = float(window.groupby("day")["n"].sum().mean())
+            budgets = {r: max(int(round(f * mean_daily / kappa)), len(fams))
+                       for r, f in regimes.items()}
+            entry = out["cities"].setdefault(city, {})
+            entry[tag] = {"mean_daily_demand": round(mean_daily, 2),
+                          "boundary_date": str(pd.Timestamp(end).date()),
+                          "budgets": budgets}
+        # Austin excluded-other recalibration shares the same protocol
+        if city == "austin" and dcfg.get("austin_other_sensitivity"):
+            fams_x = [f for f in fams if f != "other"]
+            sub_x = panel[(panel.city == city) & (panel.family.isin(fams_x))]
+            window = sub_x[sub_x.day <= chrono_split(days)[0]]
+            mean_daily = float(window.groupby("day")["n"].sum().mean())
+            out["cities"][city]["train_only_other_excluded"] = {
+                "mean_daily_demand": round(mean_daily, 2),
+                "budgets": {r: max(int(round(f * mean_daily / kappa)), len(fams_x))
+                            for r, f in regimes.items()}}
+    return out
+
+
 def run() -> None:
     set_seed()
-    fam_cfg = load_config("service_families.yml")
-    weights = {f["name"]: f["priority_weight"] for f in fam_cfg["families"]}
-
+    dcfg = load_config("decision.yml")
+    kappa = dcfg["kappa_base"]
+    inf = dcfg["inference"]
+    active = json.loads((DATA_INTERIM / "active_families.json").read_text())
+    panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
+    feats = pd.read_parquet(DATA_PROCESSED / "features.parquet")
     preds = pd.read_parquet(DATA_PROCESSED / "test_predictions.parquet")
     vpreds = pd.read_parquet(DATA_PROCESSED / "val_predictions.parquet")
+    fmetrics = pd.read_csv(OUTPUTS / "metrics" / "forecast_metrics.csv")
     cities = sorted(preds["city"].unique())
 
-    rows, sel_rows, sens_rows = [], [], []
+    # ---- C1: freeze budgets from pre-test data BEFORE any selection -------
+    feats_days = {c: feats.loc[feats.city == c, "day"] for c in cities}
+    frozen = compute_frozen_budgets(panel, feats_days, active, dcfg)
+    write_json(OUTPUTS / "metrics" / "frozen_budgets.json", frozen)
+
+    eq_w = {}      # equal weights: empty dict -> weight 1.0 everywhere
+    norm_w = dcfg["objective"]["sensitivity_normative_weights"]
+    yield_mults = dcfg["service_yield"]["one_family_multipliers"]
+
+    rows, sens_rows, inf_rows, sel_rows = [], [], [], []
+
+    all_blocks = [inf["block_length_days"]] + list(inf.get("block_length_sensitivity", []))
+
+    def bootstrap(diff, block=None):
+        return moving_block_bootstrap_ci(diff, block=block or inf["block_length_days"],
+                                         n_boot=inf["n_resamples"], seed=inf["seed"])
+
     for city in cities:
+        fams = active[city]["active_families"]
         cp = preds[preds.city == city]
         days = sorted(cp["day"].unique())
-        families = sorted(cp["family"].unique())
         base = cp[(cp.scope == "local") & (cp.feature_set == "internal") &
                   (cp.model == "naive_trailing7")]
-        realized = pivot_matrix(base, "target", days, families)
-        mean_daily_total = realized.sum(axis=1).mean()
+        realized = pivot_matrix(base, "target", days, fams)
 
-        qrows_city = cp[(cp.model == "lgbm_quantile") & (cp.scope == "local")]
-        quantile_fc = {q / 100: pivot_matrix(qrows_city, f"q{q:02d}", days, families)
-                       for q in (5, 25, 50, 75, 95)}
+        qrows_t = cp[(cp.model == "lgbm_quantile") & (cp.scope == "local")]
+        qfc = {q / 100: pivot_matrix(qrows_t, f"q{q:02d}", days, fams) for q in QLEVELS}
+        q50 = qfc[0.50]
+        # implied mean of the piecewise-linear distribution, cellwise
+        levels = sorted(qfc)
+        T, S = q50.shape
+        qmean = np.empty_like(q50)
+        for t in range(T):
+            for s in range(S):
+                qmean[t, s] = EmpiricalDemand(levels, [qfc[q][t, s] for q in levels]).implied_mean()
 
-        for regime, frac in REGIMES.items():
-            crews = max(int(round(frac * mean_daily_total / KAPPA)), len(families))
-            cfg = SimConfig(crews=crews, kappa=KAPPA, priority_weights=weights)
+        point_fcs = {}
+        for scope, fset, model in POINT_CONFIGS:
+            sub = cp[(cp.scope == scope) & (cp.feature_set == fset) & (cp.model == model)]
+            if not sub.empty:
+                point_fcs[(scope, fset, model)] = pivot_matrix(sub, "pred", days, fams)
 
-            def run_policy(kind, label, point_fc=None, qfc=None):
-                pol = make_policy(kind, cfg, families, point_fc=point_fc,
-                                  quantile_fc=qfc, realized=realized)
-                res = simulate(realized, pol, cfg, families)
-                rows.append({"city": city, "regime": regime, "crews": crews,
+        # validation-MAE-selected config among the fixed grid (C3-consistent)
+        vmae = fmetrics[(fmetrics.split == "val") & (fmetrics.city == city)]
+        def val_mae_of(cfg3):
+            r = vmae[(vmae.scope == cfg3[0]) & (vmae.feature_set == cfg3[1]) &
+                     (vmae.model == cfg3[2])]
+            return float(r["mae"].iloc[0])
+        grid = [c for c in POINT_CONFIGS if c in point_fcs]
+        best_by_valmae = min(grid, key=val_mae_of)
+
+        # validation window matrices (for C7 selection sims)
+        vc = vpreds[vpreds.city == city]
+        vdays = sorted(vc["day"].unique())
+        vreal = pivot_matrix(vc[(vc.scope == "local") & (vc.feature_set == "internal") &
+                                (vc.model == "naive_trailing7")], "target", vdays, fams)
+        vpoint_fcs = {}
+        for cfg3 in grid:
+            sub = vc[(vc.scope == cfg3[0]) & (vc.feature_set == cfg3[1]) &
+                     (vc.model == cfg3[2])]
+            if not sub.empty:
+                vpoint_fcs[cfg3] = pivot_matrix(sub, "pred", vdays, fams)
+
+        for regime, units in frozen["cities"][city]["train_only"]["budgets"].items():
+            cfg = SimConfig(units=units, kappa=kappa, weights=eq_w)
+            daily = {}
+
+            def run_one(kind, label, **kw):
+                pol = make_policy(kind, cfg, fams, realized=realized, **kw)
+                res = simulate(realized, pol, cfg, fams)
+                daily[(kind, label)] = res["daily_loss"]
+                rows.append({"city": city, "regime": regime, "units": units,
                              "policy": kind, "config": label,
-                             "total_unmet_weighted": res["total_unmet_weighted"],
-                             "total_unmet_raw": res["total_unmet_raw"],
-                             "final_backlog": res["final_backlog"],
-                             "unmet_by_family": res["unmet_weighted_by_family"]})
-                return res["total_unmet_weighted"]
+                             "total_loss": res["total_loss"],
+                             "final_carryover": res["final_carryover"],
+                             "served_fraction_other":
+                                 res["served_fraction_by_family"].get("other"),
+                             "loss_share_other":
+                                 res["loss_share_by_family"].get("other"),
+                             "served_fraction_by_family": json.dumps(
+                                 res["served_fraction_by_family"])})
+                return res["total_loss"]
 
-            run_policy("uniform", "uniform")
-            run_policy("oracle", "oracle")
-            run_policy("greedy_ev_quantile", "local/calendar_weather/lgbm_quantile",
-                       qfc=quantile_fc)
-            for scope, fset, model in POINT_CONFIGS:
-                sub = cp[(cp.scope == scope) & (cp.feature_set == fset) & (cp.model == model)]
-                if sub.empty:
-                    continue
-                fc = pivot_matrix(sub, "pred", days, families)
-                label = f"{scope}/{fset}/{model}"
-                run_policy("proportional", label, point_fc=fc)
-                run_policy("greedy_ev_point", label, point_fc=fc)
+            uni_loss = run_one("uniform", "uniform")
+            run_one("hindsight_myopic_reference", "hindsight_myopic_reference")
+            for cfg3 in grid:
+                label = "/".join(cfg3)
+                run_one("proportional", label, point_fc=point_fcs[cfg3])
+                run_one("greedy_ev_point", label, point_fc=point_fcs[cfg3])
+            run_one("greedy_ev_point", "quantile/median_arm", point_fc=q50)
+            run_one("greedy_ev_point", "quantile/implied_mean_arm", point_fc=qmean)
+            run_one("greedy_ev_quantile", "quantile/full_arm", quantile_fc=qfc)
 
-            # ---- decision-based vs accuracy-based model selection (Phase 8)
-            vcity = vpreds[vpreds.city == city]
-            vdays = sorted(vcity["day"].unique())
-            vreal = pivot_matrix(vcity[(vcity.scope == "local") &
-                                       (vcity.feature_set == "internal") &
-                                       (vcity.model == "naive_trailing7")],
-                                 "target", vdays, families)
-            v_mean = vreal.sum(axis=1).mean()
-            v_crews = max(int(round(frac * v_mean / KAPPA)), len(families))
-            v_cfg = SimConfig(crews=v_crews, kappa=KAPPA, priority_weights=weights)
-            val_scores = {}
-            for scope, fset, model in POINT_CONFIGS:
-                sub = vcity[(vcity.scope == scope) & (vcity.feature_set == fset) &
-                            (vcity.model == model)]
-                if sub.empty:
-                    continue
-                vfc = pivot_matrix(sub, "pred", vdays, families)
-                pol = make_policy("greedy_ev_point", v_cfg, families, point_fc=vfc)
-                dec_loss = simulate(vreal, pol, v_cfg, families)["total_unmet_weighted"]
-                mae_val = float((sub["target"] - sub["pred"]).abs().mean())
-                val_scores[(scope, fset, model)] = (mae_val, dec_loss)
-            by_mae = min(val_scores, key=lambda k: val_scores[k][0])
-            by_dec = min(val_scores, key=lambda k: val_scores[k][1])
+            for r in rows:
+                if r["city"] == city and r["regime"] == regime and "pct_reduction_vs_uniform" not in r:
+                    r["pct_reduction_vs_uniform"] = round(
+                        100 * (1 - r["total_loss"] / uni_loss), 3)
+
+            # ---- pre-named inference contrasts (C6) ------------------------
+            best_label = "/".join(best_by_valmae)
+            contrasts = [
+                ("full_vs_median_arm",
+                 daily[("greedy_ev_quantile", "quantile/full_arm")],
+                 daily[("greedy_ev_point", "quantile/median_arm")]),
+                ("full_vs_implied_mean_arm",
+                 daily[("greedy_ev_quantile", "quantile/full_arm")],
+                 daily[("greedy_ev_point", "quantile/implied_mean_arm")]),
+                ("valbest_vs_naive_greedy",
+                 daily[("greedy_ev_point", best_label)],
+                 daily[("greedy_ev_point", "local/internal/naive_trailing7")]),
+                ("greedy_vs_proportional_valbest",
+                 daily[("greedy_ev_point", best_label)],
+                 daily[("proportional", best_label)]),
+            ]
+            for name, a, b in contrasts:
+                for blk in all_blocks:
+                    mean, lo, hi = bootstrap(a - b, block=blk)
+                    inf_rows.append({"city": city, "regime": regime, "contrast": name,
+                                     "mean_daily_loss_diff": round(mean, 3),
+                                     "ci95_lo": round(lo, 3), "ci95_hi": round(hi, 3),
+                                     "n_days": len(a), "block_length": blk,
+                                     "is_primary_block":
+                                         blk == inf["block_length_days"]})
+
+            # ---- C7: selection experiment under the SAME frozen budgets ----
+            v_cfg = SimConfig(units=units, kappa=kappa, weights=eq_w)
+            val_dec_loss = {}
+            for cfg3, vfc in vpoint_fcs.items():
+                pol = make_policy("greedy_ev_point", v_cfg, fams, point_fc=vfc)
+                val_dec_loss[cfg3] = simulate(vreal, pol, v_cfg, fams)["total_loss"]
+            by_dec = min(val_dec_loss, key=val_dec_loss.get)
+            by_mae = best_by_valmae
+            a = daily[("greedy_ev_point", "/".join(by_dec))]
+            b = daily[("greedy_ev_point", "/".join(by_mae))]
+            if by_dec == by_mae:
+                verdict, mean, lo, hi = "tie_same_choice", 0.0, 0.0, 0.0
+            else:
+                mean, lo, hi = bootstrap(a - b)
+                verdict = ("gain" if hi < 0 else "harm" if lo > 0 else "tie_ci_overlaps_zero")
             sel_rows.append({"city": city, "regime": regime,
-                             "selected_by_mae": "/".join(by_mae),
-                             "selected_by_decision": "/".join(by_dec),
-                             "agree": by_mae == by_dec})
+                             "selected_by_val_mae": "/".join(by_mae),
+                             "selected_by_val_decision": "/".join(by_dec),
+                             "test_loss_mae_choice": float(np.sum(b)),
+                             "test_loss_decision_choice": float(np.sum(a)),
+                             "mean_daily_diff": round(mean, 3),
+                             "ci95_lo": round(lo, 3), "ci95_hi": round(hi, 3),
+                             "verdict": verdict})
 
-        # ---- sensitivity: priority weights equalized; abandonment 10% -----
-        crews = max(int(round(0.9 * mean_daily_total / KAPPA)), len(families))
-        best_fc = pivot_matrix(cp[(cp.scope == "local") &
-                                  (cp.feature_set == "calendar_weather") &
-                                  (cp.model == "lgbm_point")], "pred", days, families)
-        for tag, w_override, aband in [("equal_weights", {f: 1.0 for f in families}, 0.0),
-                                       ("abandonment_10", weights, 0.10)]:
-            cfg = SimConfig(crews=crews, kappa=KAPPA, abandonment=aband,
-                            priority_weights=w_override)
+        # ---- sensitivity scenarios (C9 grid; key policies, all regimes) ----
+        def sens_run(scenario, sim_cfg, fams_s, realized_s, point_fc, qfc_s, units, regime):
             for kind, label, kw in [
                 ("uniform", "uniform", {}),
-                ("proportional", "lgbm_point", {"point_fc": best_fc}),
-                ("greedy_ev_point", "lgbm_point", {"point_fc": best_fc}),
-                ("greedy_ev_quantile", "lgbm_quantile", {"qfc": quantile_fc}),
-                ("oracle", "oracle", {}),
+                ("proportional", "valbest", {"point_fc": point_fc}),
+                ("greedy_ev_point", "valbest", {"point_fc": point_fc}),
+                ("greedy_ev_quantile", "quantile/full_arm", {"quantile_fc": qfc_s}),
+                ("hindsight_myopic_reference", "hindsight_myopic_reference", {}),
             ]:
-                pol = make_policy(kind, cfg, families,
-                                  point_fc=kw.get("point_fc"),
-                                  quantile_fc=kw.get("qfc"), realized=realized)
-                res = simulate(realized, pol, cfg, families)
-                sens_rows.append({"city": city, "sensitivity": tag, "policy": kind,
-                                  "config": label,
-                                  "total_unmet_weighted": res["total_unmet_weighted"]})
+                pol = make_policy(kind, sim_cfg, fams_s, realized=realized_s, **kw)
+                res = simulate(realized_s, pol, sim_cfg, fams_s)
+                sens_rows.append({"scenario": scenario, "city": city,
+                                  "regime": regime, "units": units,
+                                  "policy": kind, "config": label,
+                                  "total_loss": res["total_loss"],
+                                  "final_carryover": res["final_carryover"]})
 
-    out = OUTPUTS / "metrics"; out.mkdir(parents=True, exist_ok=True)
+        best_fc = point_fcs[best_by_valmae]
+        for regime, units in frozen["cities"][city]["train_only"]["budgets"].items():
+            sens_run("normative_weights",
+                     SimConfig(units=units, kappa=kappa, weights=norm_w),
+                     fams, realized, best_fc, qfc, units, regime)
+            for fam in fams:                       # U7: one family at a time
+                for mult in yield_mults:
+                    kvec = np.array([kappa * (mult if f == fam else 1.0)
+                                     for f in fams])
+                    sens_run(f"yield_{fam}_x{int(round(mult * 100)):03d}",
+                             SimConfig(units=units, kappa=kvec, weights=eq_w),
+                             fams, realized, best_fc, qfc, units, regime)
+            sens_run("abandonment_10",
+                     SimConfig(units=units, kappa=kappa, weights=eq_w,
+                               abandonment=dcfg["carryover"]["sensitivity_abandonment"]),
+                     fams, realized, best_fc, qfc, units, regime)
+        for regime, units in frozen["cities"][city]["train_plus_validation"]["budgets"].items():
+            sens_run("budgets_train_plus_validation",
+                     SimConfig(units=units, kappa=kappa, weights=eq_w),
+                     fams, realized, best_fc, qfc, units, regime)
+        if city == "austin" and dcfg.get("austin_other_sensitivity"):
+            fx = [f for f in fams if f != "other"]
+            ix = [fams.index(f) for f in fx]
+            realized_x = realized[:, ix]
+            best_fc_x = best_fc[:, ix]
+            qfc_x = {q: qfc[q][:, ix] for q in qfc}
+            for regime, units in frozen["cities"][city]["train_only_other_excluded"]["budgets"].items():
+                sens_run("austin_other_excluded_recalibrated",
+                         SimConfig(units=units, kappa=kappa, weights=eq_w),
+                         fx, realized_x, best_fc_x, qfc_x, units, regime)
+
+    out = OUTPUTS / "metrics"
     pd.DataFrame(rows).to_csv(out / "decision_metrics.csv", index=False)
+    pd.DataFrame(inf_rows).to_csv(out / "decision_inference.csv", index=False)
     pd.DataFrame(sel_rows).to_csv(out / "decision_selection.csv", index=False)
     pd.DataFrame(sens_rows).to_csv(out / "decision_sensitivity.csv", index=False)
-    print(f"decision rows: {len(rows)}; selection rows: {len(sel_rows)}; sensitivity: {len(sens_rows)}")
+    # run-id stamp for the stale-artifact guard (G11)
+    rid_path = out / "run_id.json"
+    rid = json.loads(rid_path.read_text()) if rid_path.exists() else {}
+    rid["decision_run_completed"] = pd.Timestamp.utcnow().isoformat()
+    write_json(rid_path, rid)
+    print(f"decision rows: {len(rows)}; inference: {len(inf_rows)}; "
+          f"selection: {len(sel_rows)}; sensitivity: {len(sens_rows)}")
 
 
 if __name__ == "__main__":

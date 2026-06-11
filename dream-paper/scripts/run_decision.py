@@ -18,9 +18,11 @@ Protocol:
     normalization exists anywhere.
   - Decision-based vs MAE-based validation selection is evaluated as a
     falsifiable question with gains/harms/ties and CIs (C7).
-  - Family sets come from the authoritative active-family manifest (C10);
-    Austin's `other` is both excluded-with-recalibration and isolated as
-    two labeled sensitivities.
+  - Family sets come from the authoritative active-family manifest (C10).
+    Austin's `other` (U3): the PRIMARY analysis retains it and reports its
+    served fraction and loss share separately; the labeled sensitivity
+    excludes it with budgets recomputed train-only over the 7 retained
+    families.
 
 Outputs: outputs/metrics/{frozen_budgets.json, decision_metrics.csv,
 decision_inference.csv, decision_selection.csv, decision_sensitivity.csv,

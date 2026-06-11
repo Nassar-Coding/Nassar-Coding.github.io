@@ -1,0 +1,10 @@
+{
+  "min_train_end": "2023-07-29",
+  "min_validation_end": "2024-05-04",
+  "rule": "pooled val-stage fit <= min_train_end; pooled test-stage fit <= min_validation_end",
+  "applies_to": "global pooled point models and pooled quantile model only",
+  "max_train_day_val_stage": "2023-07-29",
+  "max_train_day_test_stage": "2024-05-04",
+  "rows_censored_val_stage": 123,
+  "rows_censored_test_stage": 24
+}

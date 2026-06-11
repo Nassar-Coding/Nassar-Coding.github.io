@@ -22,7 +22,7 @@ austin,scarce,8,greedy_ev_point,local/calendar_weather/random_forest,16591515.0,
 austin,scarce,8,proportional,local/calendar_weather/lgbm_point,16383102.0,17.993,108390.0,0.552
 austin,scarce,8,greedy_ev_point,local/calendar_weather/lgbm_point,16555517.0,17.13,109927.0,1.0
 austin,scarce,8,proportional,global/calendar_weather/lgbm_point,16383102.0,17.993,108390.0,0.552
-austin,scarce,8,greedy_ev_point,global/calendar_weather/lgbm_point,16584105.0,16.987,110210.0,1.0
+austin,scarce,8,greedy_ev_point,global/calendar_weather/lgbm_point,16572872.0,17.043,110249.0,1.0
 austin,scarce,8,greedy_ev_point,quantile/median_arm,16570052.0,17.057,110006.0,1.0
 austin,scarce,8,greedy_ev_point,quantile/implied_mean_arm,16607397.0,16.87,110395.0,1.0
 austin,scarce,8,greedy_ev_quantile,quantile/full_arm,16410288.0,17.857,108684.0,0.999
@@ -49,7 +49,7 @@ austin,moderate,11,greedy_ev_point,local/calendar_weather/random_forest,10911662
 austin,moderate,11,proportional,local/calendar_weather/lgbm_point,10651410.0,37.762,66998.0,0.691
 austin,moderate,11,greedy_ev_point,local/calendar_weather/lgbm_point,10857743.0,36.556,68916.0,1.0
 austin,moderate,11,proportional,global/calendar_weather/lgbm_point,10651410.0,37.762,66998.0,0.691
-austin,moderate,11,greedy_ev_point,global/calendar_weather/lgbm_point,10885778.0,36.392,69241.0,1.0
+austin,moderate,11,greedy_ev_point,global/calendar_weather/lgbm_point,10869184.0,36.489,69174.0,1.0
 austin,moderate,11,greedy_ev_point,quantile/median_arm,10865973.0,36.508,68987.0,1.0
 austin,moderate,11,greedy_ev_point,quantile/implied_mean_arm,10920984.0,36.186,69568.0,1.0
 austin,moderate,11,greedy_ev_quantile,quantile/full_arm,10679297.0,37.599,67347.0,0.999
@@ -76,7 +76,7 @@ austin,generous,13,greedy_ev_point,local/calendar_weather/random_forest,7155003.
 austin,generous,13,proportional,local/calendar_weather/lgbm_point,6838453.0,60.009,39433.0,0.828
 austin,generous,13,greedy_ev_point,local/calendar_weather/lgbm_point,7076314.0,58.618,41616.0,1.0
 austin,generous,13,proportional,global/calendar_weather/lgbm_point,6838453.0,60.009,39433.0,0.828
-austin,generous,13,greedy_ev_point,global/calendar_weather/lgbm_point,7097144.0,58.496,41970.0,1.0
+austin,generous,13,greedy_ev_point,global/calendar_weather/lgbm_point,7085533.0,58.564,41928.0,1.0
 austin,generous,13,greedy_ev_point,quantile/median_arm,7097634.0,58.493,41766.0,1.0
 austin,generous,13,greedy_ev_point,quantile/implied_mean_arm,7145955.0,58.211,42381.0,1.0
 austin,generous,13,greedy_ev_quantile,quantile/full_arm,6856849.0,59.901,39747.0,0.999
@@ -103,7 +103,7 @@ chicago,scarce,29,greedy_ev_point,local/calendar_weather/random_forest,38802847.
 chicago,scarce,29,proportional,local/calendar_weather/lgbm_point,37162683.0,22.13,209768.0,0.648
 chicago,scarce,29,greedy_ev_point,local/calendar_weather/lgbm_point,38101878.0,20.162,215361.0,0.999
 chicago,scarce,29,proportional,global/calendar_weather/lgbm_point,37167651.0,22.119,209786.0,0.648
-chicago,scarce,29,greedy_ev_point,global/calendar_weather/lgbm_point,38235964.0,19.881,216137.0,0.999
+chicago,scarce,29,greedy_ev_point,global/calendar_weather/lgbm_point,38231078.0,19.891,216086.0,0.999
 chicago,scarce,29,greedy_ev_point,quantile/median_arm,38156350.0,20.047,215552.0,0.999
 chicago,scarce,29,greedy_ev_point,quantile/implied_mean_arm,38487311.0,19.354,217579.0,0.999
 chicago,scarce,29,greedy_ev_quantile,quantile/full_arm,37208413.0,22.034,210125.0,0.998
@@ -130,7 +130,7 @@ chicago,moderate,38,greedy_ev_point,local/calendar_weather/random_forest,2210885
 chicago,moderate,38,proportional,local/calendar_weather/lgbm_point,19965951.0,51.838,85586.0,0.862
 chicago,moderate,38,greedy_ev_point,local/calendar_weather/lgbm_point,21402749.0,48.373,96159.0,0.999
 chicago,moderate,38,proportional,global/calendar_weather/lgbm_point,19965951.0,51.838,85586.0,0.862
-chicago,moderate,38,greedy_ev_point,global/calendar_weather/lgbm_point,21395529.0,48.39,96385.0,0.999
+chicago,moderate,38,greedy_ev_point,global/calendar_weather/lgbm_point,21338568.0,48.527,96034.0,0.999
 chicago,moderate,38,greedy_ev_point,quantile/median_arm,21436989.0,48.29,96300.0,0.999
 chicago,moderate,38,greedy_ev_point,quantile/implied_mean_arm,21765124.0,47.498,98877.0,0.999
 chicago,moderate,38,greedy_ev_quantile,quantile/full_arm,20087932.0,51.544,86705.0,0.998
@@ -156,8 +156,8 @@ chicago,generous,46,proportional,local/calendar_weather/random_forest,5452451.0,
 chicago,generous,46,greedy_ev_point,local/calendar_weather/random_forest,7653496.0,79.55,1177.0,0.999
 chicago,generous,46,proportional,local/calendar_weather/lgbm_point,5451379.0,85.434,1002.0,0.998
 chicago,generous,46,greedy_ev_point,local/calendar_weather/lgbm_point,6920807.0,81.508,1121.0,0.999
-chicago,generous,46,proportional,global/calendar_weather/lgbm_point,5452361.0,85.431,1052.0,0.998
-chicago,generous,46,greedy_ev_point,global/calendar_weather/lgbm_point,6926677.0,81.492,1223.0,0.999
+chicago,generous,46,proportional,global/calendar_weather/lgbm_point,5452709.0,85.43,1063.0,0.998
+chicago,generous,46,greedy_ev_point,global/calendar_weather/lgbm_point,6931828.0,81.478,1273.0,0.999
 chicago,generous,46,greedy_ev_point,quantile/median_arm,6917110.0,81.518,1071.0,0.999
 chicago,generous,46,greedy_ev_point,quantile/implied_mean_arm,7230677.0,80.68,1071.0,0.999
 chicago,generous,46,greedy_ev_quantile,quantile/full_arm,5561653.0,85.139,991.0,0.998
@@ -184,7 +184,7 @@ nyc,scarce,119,greedy_ev_point,local/calendar_weather/random_forest,159107532.0,
 nyc,scarce,119,proportional,local/calendar_weather/lgbm_point,146024681.0,23.221,1103316.0,0.645
 nyc,scarce,119,greedy_ev_point,local/calendar_weather/lgbm_point,154437576.0,18.798,1162991.0,0.854
 nyc,scarce,119,proportional,global/calendar_weather/lgbm_point,146024681.0,23.221,1103316.0,0.644
-nyc,scarce,119,greedy_ev_point,global/calendar_weather/lgbm_point,154478855.0,18.776,1164347.0,0.847
+nyc,scarce,119,greedy_ev_point,global/calendar_weather/lgbm_point,154608416.0,18.708,1164057.0,0.85
 nyc,scarce,119,greedy_ev_point,quantile/median_arm,155038277.0,18.482,1168685.0,0.844
 nyc,scarce,119,greedy_ev_point,quantile/implied_mean_arm,156441739.0,17.744,1176583.0,0.84
 nyc,scarce,119,greedy_ev_quantile,quantile/full_arm,146938634.0,22.74,1109869.0,0.868
@@ -211,7 +211,7 @@ nyc,moderate,153,greedy_ev_point,local/calendar_weather/random_forest,97036513.0
 nyc,moderate,153,proportional,local/calendar_weather/lgbm_point,81040481.0,49.065,634116.0,0.813
 nyc,moderate,153,greedy_ev_point,local/calendar_weather/lgbm_point,91571785.0,42.446,714654.0,1.0
 nyc,moderate,153,proportional,global/calendar_weather/lgbm_point,81040481.0,49.065,634116.0,0.813
-nyc,moderate,153,greedy_ev_point,global/calendar_weather/lgbm_point,91619037.0,42.417,715513.0,1.0
+nyc,moderate,153,greedy_ev_point,global/calendar_weather/lgbm_point,91699414.0,42.366,715922.0,1.0
 nyc,moderate,153,greedy_ev_point,quantile/median_arm,92286377.0,41.997,721667.0,1.0
 nyc,moderate,153,greedy_ev_point,quantile/implied_mean_arm,93992212.0,40.925,732506.0,1.0
 nyc,moderate,153,greedy_ev_quantile,quantile/full_arm,82149267.0,48.368,643799.0,0.999
@@ -237,8 +237,8 @@ nyc,generous,187,proportional,local/calendar_weather/random_forest,17588160.0,86
 nyc,generous,187,greedy_ev_point,local/calendar_weather/random_forest,33048603.0,75.285,298816.0,0.999
 nyc,generous,187,proportional,local/calendar_weather/lgbm_point,17608997.0,86.831,170762.0,0.95
 nyc,generous,187,greedy_ev_point,local/calendar_weather/lgbm_point,27875499.0,79.153,260904.0,1.0
-nyc,generous,187,proportional,global/calendar_weather/lgbm_point,17589697.0,86.846,170691.0,0.95
-nyc,generous,187,greedy_ev_point,global/calendar_weather/lgbm_point,28014478.0,79.05,262105.0,1.0
+nyc,generous,187,proportional,global/calendar_weather/lgbm_point,17586393.0,86.848,170682.0,0.95
+nyc,generous,187,greedy_ev_point,global/calendar_weather/lgbm_point,28106701.0,78.981,263335.0,1.0
 nyc,generous,187,greedy_ev_point,quantile/median_arm,28593828.0,78.616,268417.0,1.0
 nyc,generous,187,greedy_ev_point,quantile/implied_mean_arm,30175303.0,77.434,279828.0,1.0
 nyc,generous,187,greedy_ev_quantile,quantile/full_arm,18748666.0,85.979,184280.0,0.999
@@ -264,8 +264,8 @@ sf,scarce,26,proportional,local/calendar_weather/random_forest,29492173.0,48.67,
 sf,scarce,26,greedy_ev_point,local/calendar_weather/random_forest,30494160.0,46.926,238474.0,1.0
 sf,scarce,26,proportional,local/calendar_weather/lgbm_point,29486121.0,48.68,231146.0,0.644
 sf,scarce,26,greedy_ev_point,local/calendar_weather/lgbm_point,30410631.0,47.071,237665.0,1.0
-sf,scarce,26,proportional,global/calendar_weather/lgbm_point,29495196.0,48.664,231179.0,0.643
-sf,scarce,26,greedy_ev_point,global/calendar_weather/lgbm_point,30198717.0,47.44,236568.0,1.0
+sf,scarce,26,proportional,global/calendar_weather/lgbm_point,29492447.0,48.669,231169.0,0.643
+sf,scarce,26,greedy_ev_point,global/calendar_weather/lgbm_point,30255010.0,47.342,236773.0,1.0
 sf,scarce,26,greedy_ev_point,quantile/median_arm,30337378.0,47.199,237083.0,1.0
 sf,scarce,26,greedy_ev_point,quantile/implied_mean_arm,30375874.0,47.132,237480.0,1.0
 sf,scarce,26,greedy_ev_quantile,quantile/full_arm,29644860.0,48.404,231937.0,1.0
@@ -291,8 +291,8 @@ sf,moderate,33,proportional,local/calendar_weather/random_forest,16214879.0,69.6
 sf,moderate,33,greedy_ev_point,local/calendar_weather/random_forest,17211660.0,67.741,142224.0,1.0
 sf,moderate,33,proportional,local/calendar_weather/lgbm_point,16214833.0,69.61,134937.0,0.775
 sf,moderate,33,greedy_ev_point,local/calendar_weather/lgbm_point,17128131.0,67.898,141415.0,1.0
-sf,moderate,33,proportional,global/calendar_weather/lgbm_point,16222514.0,69.595,134965.0,0.773
-sf,moderate,33,greedy_ev_point,global/calendar_weather/lgbm_point,16916217.0,68.295,140318.0,1.0
+sf,moderate,33,proportional,global/calendar_weather/lgbm_point,16214879.0,69.61,134937.0,0.773
+sf,moderate,33,greedy_ev_point,global/calendar_weather/lgbm_point,16972510.0,68.19,140523.0,1.0
 sf,moderate,33,greedy_ev_point,quantile/median_arm,17054878.0,68.035,140833.0,1.0
 sf,moderate,33,greedy_ev_point,quantile/implied_mean_arm,17093374.0,67.963,141230.0,1.0
 sf,moderate,33,greedy_ev_quantile,quantile/full_arm,16362360.0,69.333,135687.0,1.0
@@ -318,8 +318,8 @@ sf,generous,41,proportional,local/calendar_weather/random_forest,3736455.0,92.46
 sf,generous,41,greedy_ev_point,local/calendar_weather/random_forest,4079046.0,91.769,40846.0,1.0
 sf,generous,41,proportional,local/calendar_weather/lgbm_point,3741460.0,92.451,36448.0,0.95
 sf,generous,41,greedy_ev_point,local/calendar_weather/lgbm_point,3993638.0,91.942,40027.0,1.0
-sf,generous,41,proportional,global/calendar_weather/lgbm_point,3726169.0,92.481,36364.0,0.948
-sf,generous,41,greedy_ev_point,global/calendar_weather/lgbm_point,3935004.0,92.06,39591.0,1.0
+sf,generous,41,proportional,global/calendar_weather/lgbm_point,3722991.0,92.488,36344.0,0.948
+sf,generous,41,greedy_ev_point,global/calendar_weather/lgbm_point,3952067.0,92.026,39596.0,1.0
 sf,generous,41,greedy_ev_point,quantile/median_arm,3959824.0,92.01,39594.0,1.0
 sf,generous,41,greedy_ev_point,quantile/implied_mean_arm,3959463.0,92.011,39813.0,1.0
 sf,generous,41,greedy_ev_quantile,quantile/full_arm,3693238.0,92.548,36318.0,0.999

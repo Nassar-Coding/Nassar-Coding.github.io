@@ -42,7 +42,7 @@ austin,calendar,lgbm_point,2,12.505197849578769,2080
 austin,calendar,naive_trailing7,3,43.53166208791208,2080
 austin,calendar,seasonal_naive7,3,42.76586538461538,2080
 austin,calendar,ridge,3,31.905959985243037,2080
-austin,calendar,random_forest,3,37.76745213738397,2080
+austin,calendar,random_forest,3,37.76745213738396,2080
 austin,calendar,lgbm_point,3,37.38100562641998,2080
 austin,calendar,naive_trailing7,4,30.232074175824177,2080
 austin,calendar,seasonal_naive7,4,20.733653846153846,2080
@@ -57,7 +57,7 @@ austin,calendar_weather,lgbm_point,0,14.145999942642199,2080
 austin,calendar_weather,naive_trailing7,1,14.210576923076923,2080
 austin,calendar_weather,seasonal_naive7,1,13.230288461538462,2080
 austin,calendar_weather,ridge,1,11.527179787512338,2080
-austin,calendar_weather,random_forest,1,9.9324774424246,2080
+austin,calendar_weather,random_forest,1,9.932477442424599,2080
 austin,calendar_weather,lgbm_point,1,9.468774743539688,2080
 austin,calendar_weather,naive_trailing7,2,21.612225274725276,2080
 austin,calendar_weather,seasonal_naive7,2,14.939903846153847,2080
@@ -82,12 +82,12 @@ chicago,internal,lgbm_point,0,63.66080498009533,1813
 chicago,internal,naive_trailing7,1,103.65471594043022,1813
 chicago,internal,seasonal_naive7,1,82.39437396580254,1813
 chicago,internal,ridge,1,66.8774035761004,1813
-chicago,internal,random_forest,1,62.29536631545478,1813
+chicago,internal,random_forest,1,62.29536631545477,1813
 chicago,internal,lgbm_point,1,58.7907781263047,1813
 chicago,internal,naive_trailing7,2,93.82318178236547,1813
 chicago,internal,seasonal_naive7,2,68.82294539437396,1813
 chicago,internal,ridge,2,60.1035509645965,1813
-chicago,internal,random_forest,2,53.02733492619835,1813
+chicago,internal,random_forest,2,53.02733492619834,1813
 chicago,internal,lgbm_point,2,55.34378608619069,1813
 chicago,internal,naive_trailing7,3,98.81806004254983,1813
 chicago,internal,seasonal_naive7,3,71.49531163816879,1813
@@ -107,7 +107,7 @@ chicago,calendar,lgbm_point,0,58.57112119317387,1813
 chicago,calendar,naive_trailing7,1,103.65471594043022,1813
 chicago,calendar,seasonal_naive7,1,82.39437396580254,1813
 chicago,calendar,ridge,1,68.9430312090504,1813
-chicago,calendar,random_forest,1,57.331982274229915,1813
+chicago,calendar,random_forest,1,57.33198227422991,1813
 chicago,calendar,lgbm_point,1,51.81041953320786,1813
 chicago,calendar,naive_trailing7,2,93.82318178236547,1813
 chicago,calendar,seasonal_naive7,2,68.82294539437396,1813
@@ -122,7 +122,7 @@ chicago,calendar,lgbm_point,3,47.41156434550267,1813
 chicago,calendar,naive_trailing7,4,104.43093530848633,1813
 chicago,calendar,seasonal_naive7,4,70.68836183121897,1813
 chicago,calendar,ridge,4,63.529125212527376,1813
-chicago,calendar,random_forest,4,49.68036005303242,1813
+chicago,calendar,random_forest,4,49.680360053032416,1813
 chicago,calendar,lgbm_point,4,48.87325968706885,1813
 chicago,calendar_weather,naive_trailing7,0,102.52816956898589,1813
 chicago,calendar_weather,seasonal_naive7,0,80.75510204081633,1813
@@ -167,7 +167,7 @@ nyc,internal,lgbm_point,2,172.5969838825538,2072
 nyc,internal,naive_trailing7,3,225.02433811362383,2072
 nyc,internal,seasonal_naive7,3,191.44353281853282,2072
 nyc,internal,ridge,3,154.91930332561347,2072
-nyc,internal,random_forest,3,144.40847759658422,2072
+nyc,internal,random_forest,3,144.4084775965842,2072
 nyc,internal,lgbm_point,3,142.33233222131497,2072
 nyc,internal,naive_trailing7,4,246.33914782129068,2072
 nyc,internal,seasonal_naive7,4,232.48793436293437,2072
@@ -177,7 +177,7 @@ nyc,internal,lgbm_point,4,167.77726243040135,2072
 nyc,calendar,naive_trailing7,0,231.40478488692776,2072
 nyc,calendar,seasonal_naive7,0,223.92519305019306,2072
 nyc,calendar,ridge,0,182.43027318235772,2072
-nyc,calendar,random_forest,0,174.22064465980594,2072
+nyc,calendar,random_forest,0,174.2206446598059,2072
 nyc,calendar,lgbm_point,0,174.48594221948468,2072
 nyc,calendar,naive_trailing7,1,283.43036403750693,2072
 nyc,calendar,seasonal_naive7,1,255.2273166023166,2072
@@ -202,7 +202,7 @@ nyc,calendar,lgbm_point,4,144.88135695101388,2072
 nyc,calendar_weather,naive_trailing7,0,231.40478488692776,2072
 nyc,calendar_weather,seasonal_naive7,0,223.92519305019306,2072
 nyc,calendar_weather,ridge,0,182.07268920703225,2072
-nyc,calendar_weather,random_forest,0,171.95629864012665,2072
+nyc,calendar_weather,random_forest,0,171.95629864012662,2072
 nyc,calendar_weather,lgbm_point,0,158.34691224514575,2072
 nyc,calendar_weather,naive_trailing7,1,283.43036403750693,2072
 nyc,calendar_weather,seasonal_naive7,1,255.2273166023166,2072
@@ -227,17 +227,17 @@ nyc,calendar_weather,lgbm_point,4,133.2340440833782,2072
 sf,internal,naive_trailing7,0,33.41459025470654,2064
 sf,internal,seasonal_naive7,0,36.69912790697674,2064
 sf,internal,ridge,0,30.488258788687247,2064
-sf,internal,random_forest,0,29.854890068548436,2064
+sf,internal,random_forest,0,29.854890068548443,2064
 sf,internal,lgbm_point,0,31.812512061928214,2064
 sf,internal,naive_trailing7,1,38.25200719822813,2064
 sf,internal,seasonal_naive7,1,42.236434108527135,2064
 sf,internal,ridge,1,32.65104653290995,2064
-sf,internal,random_forest,1,33.11437048491723,2064
+sf,internal,random_forest,1,33.11437048491724,2064
 sf,internal,lgbm_point,1,32.95867292868751,2064
 sf,internal,naive_trailing7,2,37.92760243632336,2064
 sf,internal,seasonal_naive7,2,34.80862403100775,2064
 sf,internal,ridge,2,28.51091077917104,2064
-sf,internal,random_forest,2,28.425450656792925,2064
+sf,internal,random_forest,2,28.42545065679293,2064
 sf,internal,lgbm_point,2,28.956241074147293,2064
 sf,internal,naive_trailing7,3,44.671857696567,2064
 sf,internal,seasonal_naive7,3,45.36918604651163,2064
@@ -282,7 +282,7 @@ sf,calendar_weather,lgbm_point,0,29.362030886323716,2064
 sf,calendar_weather,naive_trailing7,1,38.25200719822813,2064
 sf,calendar_weather,seasonal_naive7,1,42.236434108527135,2064
 sf,calendar_weather,ridge,1,33.77201348593318,2064
-sf,calendar_weather,random_forest,1,31.24605040175764,2064
+sf,calendar_weather,random_forest,1,31.246050401757646,2064
 sf,calendar_weather,lgbm_point,1,30.33205094116206,2064
 sf,calendar_weather,naive_trailing7,2,37.92760243632336,2064
 sf,calendar_weather,seasonal_naive7,2,34.80862403100775,2064

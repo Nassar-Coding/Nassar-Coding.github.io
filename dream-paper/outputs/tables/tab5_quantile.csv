@@ -3,7 +3,7 @@ local,austin,lgbm_quantile,5.1624,0.8116,0.413,14.7895
 local,chicago,lgbm_quantile,17.2846,0.7676,0.3747,48.9595
 local,nyc,lgbm_quantile,58.9799,0.769,0.3419,167.1936
 local,sf,lgbm_quantile,10.1888,0.8077,0.3445,29.2863
-global,austin,lgbm_quantile,5.0277,0.8705,0.4855,15.2402
-global,chicago,lgbm_quantile,17.6668,0.8292,0.4389,52.4984
-global,nyc,lgbm_quantile,58.423,0.813,0.4257,170.3993
-global,sf,lgbm_quantile,9.7827,0.7482,0.395,29.8918
+global,austin,lgbm_quantile,4.9906,0.8718,0.4855,15.1693
+global,chicago,lgbm_quantile,17.6183,0.8307,0.456,52.5612
+global,nyc,lgbm_quantile,58.862,0.8175,0.4085,170.4922
+global,sf,lgbm_quantile,9.7475,0.7445,0.3991,29.6108

@@ -35,9 +35,17 @@ rows contemporaneous with the earliest Chicago/NYC test days (≤ ~48 rows,
 ≈0.1% of pooled training). Local models and the censored LOCO are
 unaffected. Direction of bias favors the pooled model, so the
 negative-transfer conclusion is conservative; the marginal SF
-pooling-benefit estimate carries this caveat. Disposition: see register
-entry R1-F1 (decision pending project owner: document as limitation vs
-realign splits to common calendar dates and rerun).
+pooling-benefit estimate carries this caveat. Disposition (owner-directed, Amendment C11): DETECTED AND CORRECTED via
+targeted pooled-model stage censoring — pooled validation-stage fits use
+rows <= min train-end (2023-07-29), pooled test-stage fits use rows <=
+min validation-end (2024-05-04); guard G13 added with a fit-time proof
+manifest (123 / 24 rows censored); pooled/global outputs and all
+downstream stages rerun. Post-fix: negative transfer significant in 3/4
+cities (SF neutral); validation selection picks the LOCAL model in all
+four cities for calendar+weather; the selection experiment shifted from
+7/12 disagreements with 4 harms to 9/12 same-choice, 2 gains, 0 harms —
+the earlier disagreement was substantially an artifact of the
+contaminated pooled model's inflated validation scores.
 
 **F2 (mechanism, explanatory — must appear in the manuscript).** Under
 degenerate point-forecast distributions, once allocated capacity covers
@@ -55,8 +63,8 @@ conditional on the equal-weights objective and the stylized carryover
 dynamics; under the normative-weight sensitivity the ranking compresses.
 The manuscript must state this conditionality wherever the result appears.
 
-### Verdict: **PASS WITH CONDITIONS** — F1 disposition recorded before
-manuscript freeze; F2 and F3 must be stated in the manuscript.
+### Verdict: **PASS** — F1 detected and corrected (Amendment C11, G13);
+F2 and F3 remain binding manuscript statements.
 
 ---
 
@@ -122,9 +130,9 @@ constraints, enforced at the closure review.
 
 | Gate | Verdict | Open items |
 |---|---|---|
-| 1 Methodologist | PASS WITH CONDITIONS | R1-F1 disposition; F2/F3 manuscript statements |
+| 1 Methodologist | PASS | R1-F1 corrected (C11/G13); F2/F3 manuscript statements |
 | 2 Data/Code/Repro | PASS | none blocking |
 | 3 Responsible-AI | PASS WITH CONDITIONS | F6/F7 manuscript statements |
 
-Manuscript rewriting is unblocked once the R1-F1 disposition is recorded;
-F2, F3, F6, F7 transfer to the manuscript-closure checklist.
+All three gates have passed. Manuscript rewriting is UNBLOCKED; F2, F3,
+F6, F7 transfer to the manuscript-closure checklist.

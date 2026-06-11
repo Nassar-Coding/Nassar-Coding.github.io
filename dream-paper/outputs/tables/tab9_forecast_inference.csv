@@ -2,20 +2,20 @@ city,comparison,mean_daily_abs_err_diff,ci95_lo,ci95_hi,ci_excludes_zero,n_days,
 austin,calendar vs internal (lgbm),-1.876,-2.407,-1.372,True,276,28
 austin,cal_weather vs calendar (lgbm),0.001,-0.211,0.209,False,276,28
 austin,cal_weather lgbm vs seasonal_naive,-6.769,-9.075,-4.741,True,276,28
-austin,global vs local (cal_weather lgbm),0.358,-0.097,0.759,False,276,28
+austin,global vs local (cal_weather lgbm),0.609,0.061,1.145,True,276,28
 austin,lagged-weather vs target-day weather (lgbm),0.021,-0.156,0.212,False,276,28
 chicago,calendar vs internal (lgbm),-8.291,-10.643,-6.029,True,276,28
 chicago,cal_weather vs calendar (lgbm),-1.649,-2.705,-0.592,True,276,28
 chicago,cal_weather lgbm vs seasonal_naive,-34.942,-46.969,-25.175,True,276,28
-chicago,global vs local (cal_weather lgbm),3.27,1.408,5.487,True,276,28
+chicago,global vs local (cal_weather lgbm),3.204,1.64,4.9,True,276,28
 chicago,lagged-weather vs target-day weather (lgbm),1.093,0.261,1.974,True,276,28
 nyc,calendar vs internal (lgbm),-24.644,-32.807,-18.115,True,276,28
 nyc,cal_weather vs calendar (lgbm),-16.962,-21.451,-12.403,True,276,28
 nyc,cal_weather lgbm vs seasonal_naive,-117.022,-161.73,-78.847,True,276,28
-nyc,global vs local (cal_weather lgbm),2.974,-0.485,5.992,False,276,28
+nyc,global vs local (cal_weather lgbm),2.971,0.751,5.156,True,276,28
 nyc,lagged-weather vs target-day weather (lgbm),13.209,8.001,18.592,True,276,28
 sf,calendar vs internal (lgbm),-3.514,-5.047,-2.325,True,275,28
 sf,cal_weather vs calendar (lgbm),-1.471,-2.401,-0.651,True,275,28
 sf,cal_weather lgbm vs seasonal_naive,-13.725,-18.248,-9.497,True,275,28
-sf,global vs local (cal_weather lgbm),-0.587,-2.026,1.125,False,275,28
+sf,global vs local (cal_weather lgbm),-0.352,-1.647,1.016,False,275,28
 sf,lagged-weather vs target-day weather (lgbm),1.598,0.597,2.641,True,275,28

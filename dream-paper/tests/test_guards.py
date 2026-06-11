@@ -255,3 +255,38 @@ class TestG12ActiveFamiliesCodeConfigAgreement:
         for city, grp in dm.groupby("city"):
             sim_fams = set(json.loads(grp.iloc[0]["served_fraction_by_family"]))
             assert sim_fams == set(active[city]["active_families"]), city
+
+
+# ---------------------------------------------------------------- G13
+class TestG13PooledTrainingCensoring:
+    """R1-F1 targeted fix: no pooled/global training row may cross the
+    stage-applicable boundary (val stage: min train-end; test stage: min
+    validation-end across pooled cities)."""
+
+    def test_cutoff_helper_takes_minimum_across_cities(self):
+        from run_forecasting import pooled_stage_cutoffs
+        bounds = {"a": (pd.Timestamp("2023-08-04"), pd.Timestamp("2024-05-05")),
+                  "b": (pd.Timestamp("2023-07-29"), pd.Timestamp("2024-05-06")),
+                  "c": (pd.Timestamp("2023-08-03"), pd.Timestamp("2024-05-04"))}
+        t, v = pooled_stage_cutoffs(bounds)
+        assert t == pd.Timestamp("2023-07-29") and v == pd.Timestamp("2024-05-04")
+
+    def test_censoring_proof_manifest_matches_recomputed_boundaries(self):
+        from evaluation.protocol import chrono_split
+        proof = json.loads(need(M / "pooled_censoring.json").read_text())
+        feats_path = ROOT / "data" / "processed" / "features.parquet"
+        if not feats_path.exists():
+            pytest.skip("features.parquet not present in this environment")
+        feats = pd.read_parquet(feats_path, columns=["city", "day"])
+        bounds = {c: chrono_split(feats.loc[feats.city == c, "day"])
+                  for c in sorted(feats.city.unique())}
+        min_t = min(b[0] for b in bounds.values())
+        min_v = min(b[1] for b in bounds.values())
+        assert proof["min_train_end"] == str(pd.Timestamp(min_t).date())
+        assert proof["min_validation_end"] == str(pd.Timestamp(min_v).date())
+        # fit-time proof: the latest row actually used never crosses the boundary
+        assert proof["max_train_day_val_stage"] <= proof["min_train_end"]
+        assert proof["max_train_day_test_stage"] <= proof["min_validation_end"]
+        # the fix must have actually removed boundary rows
+        assert proof["rows_censored_val_stage"] > 0
+        assert proof["rows_censored_test_stage"] > 0

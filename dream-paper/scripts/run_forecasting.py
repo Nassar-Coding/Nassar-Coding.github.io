@@ -42,6 +42,18 @@ ALL_FAMILIES: list = []
 ALL_CITIES: list = []
 
 
+def pooled_stage_cutoffs(bounds: dict):
+    """R1-F1 targeted fix: pooled/global training is censored stage-wise so no
+    pooled training row is contemporaneous with any city's evaluation window.
+    Validation-stage pooled fits use rows <= min(train-end) across cities;
+    test-stage pooled fits use rows <= min(validation-end) across cities.
+    City splits, local models, LOCO censoring, budgets, and evaluation
+    windows are unchanged."""
+    min_t_end = min(b[0] for b in bounds.values())
+    min_v_end = min(b[1] for b in bounds.values())
+    return min_t_end, min_v_end
+
+
 def design_matrix(df: pd.DataFrame, cols: list, add_city_dummies: bool) -> tuple[np.ndarray, list]:
     """Build the numeric matrix with category lists pinned globally, so
     train/test column layouts are identical even when a subset of cities or
@@ -76,6 +88,12 @@ def run() -> None:
 
     # per-city split boundaries
     bounds = {c: chrono_split(feats.loc[feats.city == c, "day"]) for c in cities}
+    # R1-F1: stage cutoffs for pooled/global training (guard G13)
+    min_t_end, min_v_end = pooled_stage_cutoffs(bounds)
+    censor_proof = {"min_train_end": str(pd.Timestamp(min_t_end).date()),
+                    "min_validation_end": str(pd.Timestamp(min_v_end).date()),
+                    "rule": "pooled val-stage fit <= min_train_end; pooled test-stage fit <= min_validation_end",
+                    "applies_to": "global pooled point models and pooled quantile model only"}
 
     metrics_rows, fold_rows, qrows = [], [], []
     test_pred_frames, val_pred_frames = [], []
@@ -105,10 +123,23 @@ def run() -> None:
                         m_tr, m_va, m_te = split_masks(days, *bounds[unit])
                         tr, va, te = m_tr.to_numpy(), m_va.to_numpy(), m_te.to_numpy()
 
-                    model.fit(X[tr], y[tr], names)
+                    if unit == "__pooled__":
+                        d_arr = df["day"].to_numpy()
+                        tr_fit_val = tr & (d_arr <= np.datetime64(min_t_end))
+                        tr_fit_test = (tr | va) & (d_arr <= np.datetime64(min_v_end))
+                        censor_proof["max_train_day_val_stage"] = str(
+                            pd.Timestamp(d_arr[tr_fit_val].max()).date())
+                        censor_proof["max_train_day_test_stage"] = str(
+                            pd.Timestamp(d_arr[tr_fit_test].max()).date())
+                        censor_proof["rows_censored_val_stage"] = int(tr.sum() - tr_fit_val.sum())
+                        censor_proof["rows_censored_test_stage"] = int(
+                            (tr | va).sum() - tr_fit_test.sum())
+                    else:
+                        tr_fit_val, tr_fit_test = tr, tr | va
+                    model.fit(X[tr_fit_val], y[tr_fit_val], names)
                     p_va = np.maximum(model.predict(X[va]), 0.0)
-                    # refit on train+val for the final test evaluation
-                    model.fit(X[tr | va], y[tr | va], names)
+                    # refit (stage-censored for pooled) for the single test evaluation
+                    model.fit(X[tr_fit_test], y[tr_fit_test], names)
                     p_te = np.maximum(model.predict(X[te]), 0.0)
 
                     eval_units = cities if unit == "__pooled__" else [unit]
@@ -165,8 +196,14 @@ def run() -> None:
             m_tr, m_va, m_te = split_masks(df["day"], *bounds[unit])
             tr0, va, te = m_tr.to_numpy(), m_va.to_numpy(), m_te.to_numpy()
         # U8: train-only fit produces all validation-stage quantile outputs ...
+        if unit == "__pooled__":
+            d_arr = df["day"].to_numpy()
+            tr0_fit = tr0 & (d_arr <= np.datetime64(min_t_end))
+            trva_fit = (tr0 | va) & (d_arr <= np.datetime64(min_v_end))
+        else:
+            tr0_fit, trva_fit = tr0, tr0 | va
         qm_val = LightGBMQuantile(seed=GLOBAL_SEED)
-        qm_val.fit(X[tr0], y[tr0], names)
+        qm_val.fit(X[tr0_fit], y[tr0_fit], names)
         qp_val = qm_val.predict_quantiles(X[va])
         vsub = df.loc[va, ["city", "family", "day", "target"]].copy()
         for q in qp_val:
@@ -175,9 +212,9 @@ def run() -> None:
         vsub["feature_set"] = "calendar_weather"; vsub["model"] = "lgbm_quantile"
         vsub["pred"] = vsub["q50"]
         val_pred_frames.append(vsub)
-        # ... and the train+validation refit is evaluated once on test
+        # ... and the (stage-censored for pooled) refit is evaluated once on test
         qm = LightGBMQuantile(seed=GLOBAL_SEED)
-        qm.fit(X[tr0 | va], y[tr0 | va], names)
+        qm.fit(X[trva_fit], y[trva_fit], names)
         qp = qm.predict_quantiles(X[te])
         eval_units = cities if unit == "__pooled__" else [unit]
         for ec in eval_units:
@@ -248,8 +285,10 @@ def run() -> None:
                          "test_mae": float(test_row["mae"].iloc[0])})
     out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(sel_rows).to_csv(out_m / "validation_selection.csv", index=False)
-    # run-id stamp opening this experiment generation (stale-artifact guard G11)
+    # R1-F1 censoring proof manifest (guard G13)
     import json as _json
+    (out_m / "pooled_censoring.json").write_text(_json.dumps(censor_proof, indent=2))
+    # run-id stamp opening this experiment generation (stale-artifact guard G11)
     (out_m / "run_id.json").write_text(_json.dumps(
         {"run_id": f"{GLOBAL_SEED}-{pd.Timestamp.utcnow().strftime('%Y%m%dT%H%M%S')}",
          "forecast_run_completed": pd.Timestamp.utcnow().isoformat()}, indent=2))

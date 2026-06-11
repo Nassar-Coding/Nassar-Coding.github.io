@@ -137,3 +137,22 @@ manuscript-facing path. No old decision number may appear in the new paper.
 | G10 | Dataset IDs agree between data_sources.yml and raw manifests; panel date range equals the configured study window |
 | G11 | Every manuscript-facing table/figure hash matches _provenance.json and carries the current run id; forecast and decision run stamps both present |
 | G12 | Simulation family sets equal the active-family manifest per city |
+
+
+---
+
+# Amendment v1.1 (owner-authorized) — C11: pooled-model stage censoring
+
+Resolves review finding R1-F1 as a detected-and-corrected temporal-validity
+defect, per the project owner's directive (targeted fix; full split
+realignment rejected as unnecessarily broad). City splits, local models,
+LOCO rules, frozen budgets, and all evaluation windows are UNCHANGED.
+
+- Validation-stage pooled/global fits use only rows dated <= the earliest
+  train-end boundary across the pooled cities.
+- Test-stage pooled/global fits use only rows dated <= the earliest
+  validation-end boundary across the pooled cities.
+- Applies to the pooled point models and the pooled quantile model;
+  enforced by guard G13 via the fit-time proof manifest
+  outputs/metrics/pooled_censoring.json (recomputable boundaries, max
+  training day actually used per stage, censored-row counts > 0).

@@ -1,13 +1,13 @@
 city,regime,n_models,spearman_rho
 austin,generous,11,0.9909
 austin,moderate,11,0.9909
-austin,scarce,11,0.9636
+austin,scarce,11,0.9818
 chicago,generous,11,0.9545
 chicago,moderate,11,0.9364
 chicago,scarce,11,0.9545
 nyc,generous,11,0.9636
 nyc,moderate,11,0.9636
 nyc,scarce,11,0.9636
-sf,generous,11,0.9
+sf,generous,11,0.8818
 sf,moderate,11,0.9
 sf,scarce,11,0.9

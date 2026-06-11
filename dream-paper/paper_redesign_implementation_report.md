@@ -7,7 +7,12 @@ the commands in §16.
 ## 1. Executive status
 
 The corrected pipeline (E1–E12) completed end-to-end under the frozen
-protocol. The full test suite passes: **30 passed, 0 failed, 1 skipped** —
+protocol, including the owner-directed Amendment C11 rerun (targeted
+pooled-model stage censoring resolving review finding R1-F1 as a
+DETECTED-AND-CORRECTED temporal-validity defect; guard G13 proves the
+boundary at fit time: pooled val-stage max training day 2023-07-29 =
+min train-end, test-stage 2024-05-04 = min validation-end; 123/24 rows
+censored). The full test suite passes: **32 passed, 0 failed, 1 skipped** —
 the single skip is the stage-gated manuscript-terminology guard (G8), armed
 by `docs/.manuscript_rewritten` and intentionally inactive until the rewrite
 phase; **zero artifact-related skips, zero stale-output violations** (G11
@@ -72,8 +77,11 @@ blocks)
   rule on the internal set (random_forest selected for austin/chicago,
   ridge for sf).
 - Censored zero-shot transfer degrades MAE by +5.4% (sf), +39.1%
-  (chicago), +64.8% (austin), +148.5% (nyc) versus local models —
-  direction of the pre-redesign finding survives temporal censoring.
+  (chicago), +64.8% (austin), +148.5% (nyc) versus local models.
+- Pooled-vs-local (post-C11): pooling raises test MAE significantly in
+  austin (+4.1%), chicago (+6.5%), and nyc (+1.8%) and is neutral in sf
+  (-1.2%, n.s.); validation selection picks the LOCAL calendar+weather
+  LightGBM in all four cities.
 - Quantile model (U8 fitting): test 90% interval coverage 0.768–0.812
   (under-dispersed; reported, not repaired).
 
@@ -89,9 +97,13 @@ blocks)
   best beats trailing-mean naive under greedy in **12/12** pairs (CI < 0).
 - Greedy-vs-proportional: proportional significantly better in **12/12**
   pairs (CI > 0) — reversing the pre-redesign claim (§12).
-- Selection experiment (C7, falsifiable): mixed — 3 gains (austin), 4
-  harms (sf ×3, nyc/generous), 2 CI-ties (nyc), 3 same-choice (chicago).
-  Decision-based selection is NOT established as superior.
+- Selection experiment (C7, falsifiable, post-C11): 9 of 12 settings
+  select the same model under both rules; 2 gains (austin
+  scarce/moderate), 1 CI-tie, 0 harms. Decision-based selection mostly
+  agrees with MAE-based selection and never harmed; it is not
+  established as generally superior. (Pre-C11, the contaminated pooled
+  model had inflated validation scores, manufacturing 7/12 disagreements
+  and 4 apparent harms — corrected by Amendment C11.)
 
 ## 8. Inference outputs
 
@@ -125,7 +137,9 @@ rewrite phase.
 2. Target-day weather value is heterogeneous: present in nyc/chicago/sf,
    null in austin.
 3. Temporally censored zero-shot transfer is weak-to-strongly harmful and
-   heterogeneous (+5% to +149% MAE).
+   heterogeneous (+5% to +149% MAE); pooled training (stage-censored per
+   C11) significantly raises error in three of four cities and is neutral
+   in the fourth.
 4. Under equal weights and pre-specified hypothetical service-pressure
    regimes, the simple proportional rule dominates the greedy
    expected-value policy family in 11/12 settings — allocation-policy
@@ -135,8 +149,9 @@ rewrite phase.
    dominance.
 6. Forecast quality transfers to simulated decision value within a fixed
    policy (12/12).
-7. Decision-loss-based validation selection has mixed held-out effects
-   (gains, harms, and ties) and cannot be recommended as a default.
+7. Decision-loss-based validation selection mostly coincides with
+   MAE-based selection (9/12), occasionally gains (2/12), and never
+   harmed in this benchmark; it is not established as generally superior.
 8. Conclusions are robust to block length (0/48 flips), Austin-`other`
    treatment (identical policy ordering in both treatments — Austin claims
    need NOT be narrowed), abandonment, train+val budgets, and one-family

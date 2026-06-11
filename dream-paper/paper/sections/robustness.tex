@@ -1,22 +1,27 @@
-\paragraph{Stability.} All H1 comparisons hold in each of five
-expanding-window rolling-origin folds per city, and all headline
-forecast differences carry day-block bootstrap $p$-values at or below
-0.0015 except the Austin weather null ($p=0.995$) and the San
-Francisco/Austin pooling effects (not significant).
+\paragraph{Inference stability.} None of the 48 decision-contrast
+conclusions changes when the bootstrap block length moves from the
+primary 28 days to 14 or 56 days; the same holds for the forecast
+contrasts.
 
-\paragraph{Decision-layer sensitivity.} Sweeps over the stylization
-parameters preserve the qualitative conclusions: with 10\% daily backlog
-abandonment, policy ordering is unchanged in all cities; with equalized
-priority weights, the uniform floor worsens dramatically (weighted
-losses scale differently) while the quantile-greedy policy stays within
-0.6--4.2\% of the perfect-information reference in every city. The
-capacity grid itself (70/90/110\%) is the primary sensitivity axis and
-is reported in full rather than averaged.
+\paragraph{Decision-layer sensitivity.} The pre-specified grid preserves
+every qualitative conclusion: with 10\% daily abandonment, policy
+ordering is unchanged in all cities; with one-family-at-a-time
+service-yield multipliers of 0.70 and 1.30 over every active family, the
+ordering direction never reverses (the largest perturbation is New York,
+generous regime, noise yield $\times$1.30); with budgets calibrated on
+train+validation instead of training only, conclusions are unchanged;
+and the Austin analysis with the heterogeneous \emph{other} family
+excluded (budgets recomputed) produces the identical policy ordering as
+the primary analysis, so Austin's conclusions do not depend on its
+residual category. Under the illustrative normative-priority scenario the
+proportional--optimizer gap compresses, which is why the
+proportional-dominance claim is stated as conditional on the neutral
+objective.
 
-\paragraph{What would change the conclusions.} The decision results are
-conditional on the stylization assumptions A4--A6 (interchangeable
-crews, fixed productivity, no intra-day dynamics); we claim regime
-\emph{patterns}, not city-specific magnitudes. The forecast results are
-unconditional on those assumptions. The weather findings are conditional
-on A3 (day-ahead forecast availability), bounded by the lagged-weather
-variant.
+\paragraph{What would change the conclusions.} The simulation results are
+conditional on the stylization assumptions (interchangeable units, fixed
+yield, no intra-day dynamics) and on the equal-weights objective; we
+claim regime \emph{patterns} within this simulated environment, not
+city-specific magnitudes. The forecasting results are unconditional on
+those assumptions; the weather findings are conditional on day-ahead
+forecast availability (A3), bounded by the lagged-weather variant.

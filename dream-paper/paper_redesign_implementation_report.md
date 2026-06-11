@@ -60,10 +60,12 @@ register ran.
 
 ## 5. Tests and guard results
 
-30 passed / 0 failed / 1 stage-gated skip (G8 manuscript guard). G1–G7 and
-G9–G12 all enforce on the regenerated artifacts and pass. Suite runtime
-0.7 s; environment per `reproducibility/pip-freeze.txt` (Python 3.11.15,
-pandas 3.0.3, LightGBM 4.6.0, scikit-learn 1.9.0).
+Final state after Amendment C11 and the manuscript rewrite: **33 passed /
+0 failed / 0 skipped** — G1–G13 all enforce on the regenerated artifacts,
+and the manuscript-terminology guard (G8) is armed and passes against the
+rewritten sections, README, and main.tex. Environment per
+`reproducibility/pip-freeze.txt` (Python 3.11.15, pandas 3.0.3, LightGBM
+4.6.0, scikit-learn 1.9.0).
 
 ## 6. Forecasting outputs (validation-selected headlines; effect sizes with
 95% moving-block bootstrap CIs in tab9; all CIs stable across 14/28/56-day
@@ -214,9 +216,18 @@ python3 -m pytest tests -q                    # guard suite re-check
 Deterministic: seed 20260609 everywhere; the decision layer is
 Monte-Carlo-free; raw data pinned by SHA-256 manifests.
 
-## 17. Readiness for specialist review
+## 17. Review gates and manuscript status
 
-READY. Next phase, in order: (1) Forecasting–Statistics–Optimization
-Methodologist review; (2) Data/Code/Reproducibility audit; (3)
-Responsible-AI/Public-Systems review. The manuscript is rewritten only
-after all three pass, under the U9 working title.
+All three review gates were conducted and PASSED
+(`docs/07_review_gates.md`): the Methodologist review surfaced one new
+finding (R1-F1, pooled boundary overlap), resolved by owner-directed
+Amendment C11 as a detected-and-corrected defect with guard G13; the
+Data/Code/Reproducibility audit verified bit-exact determinism and full
+provenance; the Responsible-AI review imposed binding manuscript framing
+constraints (F6/F7), now satisfied. The manuscript and supplement were
+rewritten AFTER the gates under the U9 working title ("Next-Day
+Municipal Service-Demand Forecasting Across Four Cities: A Benchmark
+with a Controlled Simulated Capacity-Allocation Evaluation"), built
+solely from the corrected artifacts, with F2/F3/F6/F7 statements
+included; compiled main (14 pp), anonymized variant, and supplement
+(10 pp) are in `paper/` and `supplement/`.

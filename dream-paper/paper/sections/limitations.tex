@@ -1,27 +1,29 @@
 \begin{itemize}
-\item \textbf{Stylized decision layer.} The allocation simulation omits
-shifts, travel, specialization, geography, and intra-day dynamics; crews
-are interchangeable with fixed productivity $\kappa$. Conclusions are
-therefore about the \emph{qualitative} structure of the
-accuracy-to-decision mapping under swept parameters, not about any city's
-achievable operational numbers. This is a simulation; nothing here is a
-deployment.
+\item \textbf{Explicit simulation boundary.} The allocation layer is a
+transparent simulation over abstract request-equivalent capacity units;
+it omits shifts, travel, specialization, geography, and intra-day
+dynamics, and none of its parameters estimates any city's actual
+capacity, productivity, or queues. Conclusions concern the structure of
+the accuracy-to-allocation mapping inside this simulated environment.
+\item \textbf{Objective dependence.} The proportional-dominance result is
+conditional on the neutral equal-weights objective; the normative-weight
+sensitivity compresses the gap. No weighting here is socially validated.
 \item \textbf{Reported demand only.} Targets and losses are functions of
 reported requests; unreported need is invisible to both the forecasters
-and the simulated planner (Section~10).
-\item \textbf{Harmonization is a modeling choice.} The eight families are
-deterministic keyword buckets; native taxonomies differ in granularity
-and intake practice across cities, and family-level cross-city
-comparisons inherit that heterogeneity. All mappings and compositions
-are published for audit.
+and the simulated planner (Section~9).
+\item \textbf{Harmonization is a modeling choice.} The service families
+are deterministic keyword buckets; native taxonomies differ across
+cities (Chicago lacks a residential-noise intake type; Austin's
+residual \emph{other} is large, though its exclusion leaves conclusions
+unchanged). All mappings and compositions are published.
 \item \textbf{Weather information set.} Target-day weather uses realized
-observations as a proxy for a day-ahead forecast (A3); the
-lagged-weather-only variant in Section~9 bounds the consequence. One
-station per city coarsens spatial weather variation (A2).
-\item \textbf{Four U.S. cities.} All systems are American Socrata
-portals; generalization to differently structured municipal systems
-(including the Gulf-region cities that motivate the broader research
-programme) is untested and is future work, not an implied claim.
-\item \textbf{No causal claims.} All results are predictive and
-simulational; no intervention occurred in any city.
+observations as a proxy for a day-ahead forecast (A3), bounded by the
+lagged-weather variant; one station per city coarsens spatial variation
+(A2); wind was excluded for data-completeness reasons.
+\item \textbf{Calibration.} The quantile model's intervals are
+under-dispersed (90\% nominal, 77--81\% empirical); conformal
+recalibration is future work.
+\item \textbf{Scope.} Four U.S. Socrata-based systems; fixed a priori
+hyperparameters; no deep or foundation models; no causal claims; no
+deployment; no measurement of social need.
 \end{itemize}

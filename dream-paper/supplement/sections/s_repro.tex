@@ -1,12 +1,20 @@
 \paragraph{One-command rebuild.} From the repository root:
 \begin{verbatim}
 pip install -r requirements.txt
-make test            # 12+ unit tests: harmonization determinism,
-                     # leakage controls, split chronology,
-                     # allocation optimality, simulator conservation
-make all             # panel -> features -> forecasts -> decisions
-                     # -> all tables and figures in outputs/
+make test            # core tests + protocol guards G1-G13
+make all             # panel -> features -> forecasts -> simulated
+                     # decisions -> inference -> artifacts
+python3 -m pytest tests -q   # full guard suite (33 tests) must pass
 \end{verbatim}
+The guard suite enforces the frozen protocol: training-only budget
+calibration invariant to test perturbation; validation-only selection
+invariant to corrupted test metrics; recomputed censor dates on every
+transfer row plus a fit-time proof manifest for pooled-model stage
+censoring (Amendment C11); a single fitted model behind all uncertainty
+arms; structural absence never encoded as zero; exact budget
+conservation; forbidden-terminology scans; configuration--output
+agreement; source-identifier consistency; and provenance hashes binding
+every artifact to its generating run.
 
 \paragraph{Determinism.} A single global seed (\texttt{20260609}) controls
 every stochastic component (NumPy, scikit-learn, LightGBM); expected-value

@@ -1,22 +1,36 @@
 All tables regenerate from \texttt{scripts/make\_tables\_figures.py};
-CSV versions live in \texttt{outputs/tables/}. Test MAE by city, model,
-and feature set (local scope):
+CSV versions live in \texttt{outputs/tables/} with provenance hashes in
+\texttt{\_provenance.json}.
 
-{\small\input{../outputs/tables/tab2_forecast_mae_main}}
+Validation-selected headline (test MAE of the validation-chosen model per
+city and feature set):
 
-Quantile-forecast evaluation (test window):
+{\small\input{../outputs/tables/tab1_valselected_test_mae}}
+
+Selection detail (chosen model, validation MAE, single test evaluation):
+
+{\small\input{../outputs/tables/tab1b_valselected_detail}}
+
+Exhaustive descriptive grid (every model $\times$ feature set; never used
+for selection):
+
+{\small\input{../outputs/tables/tab2_forecast_mae_exhaustive}}
+
+Quantile-forecast evaluation:
 
 {\small\input{../outputs/tables/tab5_quantile}}
 
-Rank agreement between accuracy and decision orderings:
+Rank agreement between accuracy and simulated-decision orderings
+(descriptive):
 
 {\small\input{../outputs/tables/tab4_rank_agreement}}
 
-Accuracy-based versus decision-based model selection:
+Validation selection by MAE versus by decision loss (frozen budgets):
 
 {\small\input{../outputs/tables/tab6_selection}}
 
-The complete decision-evaluation grid (every policy $\times$ city
-$\times$ regime, with gap-closure shares) is
-\texttt{outputs/tables/tab3\_decision\_all.csv} (132 rows); the
-significance tests are \texttt{outputs/metrics/significance\_tests.csv}.
+The complete decision grid (including the labeled, non-bounding hindsight
+myopic diagnostic) is \texttt{tab3\_decision\_all.csv}; block-bootstrap
+intervals for the pre-named contrasts are \texttt{tab8\_inference.csv}
+(decision) and \texttt{tab9\_forecast\_inference.csv} (forecast), each at
+block lengths 14/28/56.

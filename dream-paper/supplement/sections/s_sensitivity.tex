@@ -1,18 +1,21 @@
-Full numbers in \texttt{outputs/tables/tab7\_sensitivity.csv} and
-\texttt{outputs/metrics/decision\_sensitivity.csv}.
+Full numbers in \texttt{outputs/tables/tab7\_sensitivity.csv}.
 \begin{itemize}
-\item \textbf{Priority weights equalized}: policy ordering changes ---
-the point-forecast greedy policy falls behind proportional allocation in
-New York, while quantile-greedy stays within 0.6--4.2\% of the
-perfect-information reference everywhere. Priorities are normative
-inputs; their influence on the ranking is therefore reported, not
-averaged away.
-\item \textbf{10\% daily backlog abandonment}: ordering of all policies
-unchanged in all four cities.
-\item \textbf{Lagged-weather variant (A3 removed)}: removes most of the
-target-day weather gain (New York 165.4 $\rightarrow$ 178.6 against a
-182.4 calendar-only reference); conclusions about weather are therefore
-stated as conditional on day-ahead forecast availability.
-\item \textbf{Capacity grid}: the 70/90/110\% regimes are the central
-sensitivity axis of the paper and all results are reported per regime.
+\item \textbf{Normative-priority scenario} (illustrative, not socially
+validated): the proportional--optimizer gap compresses relative to the
+equal-weights primary; the main text therefore states the
+proportional-dominance claim as conditional on the neutral objective.
+\item \textbf{One-family-at-a-time service yield} ($\times$0.70 and
+$\times$1.30 for every active family, 1{,}125 sensitivity simulations):
+no policy-ordering reversal anywhere; the largest perturbation is New
+York, generous regime, noise yield $\times$1.30.
+\item \textbf{10\% daily abandonment}: policy ordering unchanged in all
+four cities.
+\item \textbf{Budget calibration on train+validation} instead of
+training only: conclusions unchanged.
+\item \textbf{Austin without the residual \emph{other} family} (budgets
+recomputed train-only over the seven retained families): identical
+policy ordering to the primary analysis in all three regimes; Austin's
+conclusions do not depend on its residual category.
+\item \textbf{Bootstrap block length} 14/28/56 days: 0 of 48 decision
+contrasts and none of the forecast contrasts change conclusion.
 \end{itemize}

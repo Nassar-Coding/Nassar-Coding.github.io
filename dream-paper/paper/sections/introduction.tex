@@ -1,50 +1,49 @@
 Municipal 311 systems receive millions of service requests each year ---
 heating failures, water leaks, street damage, sanitation problems, noise
---- and city agencies plan finite daily service capacity against this
-demand. Short-horizon forecasts of request volume are a natural planning
-input, and a growing literature shows that public signals such as weather
-and calendar structure improve such forecasts. But operational planners do
-not consume mean absolute error; they consume allocations. Prior
-single-city evidence \citep[and our own earlier NYC study]{cui2018operational}
-suggests that the mapping from forecast accuracy to decision value is
-neither linear nor guaranteed: under a fixed scarce budget, errors on
-high-volume or high-priority service areas matter more than average error,
-and capacity itself limits how much any forecast can help.
+--- and agencies plan finite daily service capacity against this demand.
+Short-horizon forecasts of request volume are a natural planning input,
+and a growing literature shows that public signals such as weather and
+calendar structure improve such forecasts. But planners do not consume
+mean absolute error; they consume allocations, and the mapping from
+predictive accuracy to allocation quality is neither linear nor
+guaranteed.
 
-This paper asks the question that single-city, point-forecast,
-accuracy-centric studies leave open: \emph{across different cities and
-capacity regimes, when do better municipal demand forecasts actually make
-better staffing decisions --- and when do the two quality orderings come
-apart?} We study four U.S. cities with public 311 systems (New York,
-Chicago, San Francisco, Austin; 2019--2025), harmonize their native request
-taxonomies into eight documented service families, and evaluate a common
-chronological forecasting protocol followed by a stylized but
-backlog-aware daily capacity-allocation simulation under scarce, moderate,
-and generous budgets.
+This paper contributes, first, a reproducible four-city benchmark of
+next-day reported 311 demand --- New York, Chicago, San Francisco, and
+Austin, 2020--2025, built entirely from official open-data APIs with
+versioned harmonization rules and provenance manifests --- and, second, a
+controlled, explicitly simulated evaluation of what forecast differences
+are worth to a family-level capacity allocation under pre-specified
+hypothetical service-pressure regimes. The governing question is:
 
-Concretely, we make four contributions.
-\textbf{(i) A reproducible four-city benchmark} of daily service-family
-demand built entirely from official open-data APIs, with versioned
-harmonization rules, provenance manifests, and leakage-controlled
-chronological splits.
-\textbf{(ii) A cross-city replication test} of the public-signal
-augmentation result: do calendar and weather features reduce next-day
-forecast error in every city, not just in New York?
-\textbf{(iii) A systematic forecast-to-decision analysis} that couples
-every forecaster to the same allocation policies --- proportional
-point-forecast allocation, an expected-value greedy allocation, and an
-uncertainty-aware allocation driven by quantile forecasts --- and measures
-decision loss as priority-weighted unserved demand with backlog carryover.
-\textbf{(iv) An agreement analysis between accuracy rankings and decision
-rankings}, including a direct comparison of accuracy-based versus
-decision-based model selection, quantifying where the standard
-``lower error is better'' heuristic is safe and where it misleads.
+\begin{quote}
+Across heterogeneous municipal 311 reporting systems, under pre-specified
+hypothetical service-pressure regimes, when do differences in next-day
+forecasts of reported administrative demand produce materially different
+outcomes in a transparent simulated family-level capacity allocation, and
+when are predictive rankings sufficient proxies for simulated decision
+rankings?
+\end{quote}
+
+Four design commitments distinguish the evaluation protocol.
+\textbf{(i) Frozen environments:} capacity budgets derive from training
+data only and are identical at model-selection time and at the single
+test evaluation. \textbf{(ii) Validation-only selection:} no headline
+configuration is chosen using test outcomes. \textbf{(iii) Temporal
+censoring:} pooled and transfer models never train on rows
+contemporaneous with any evaluation window. \textbf{(iv) Controlled
+uncertainty contrast:} the value of distributional information is
+measured within one fitted quantile model --- its median, implied-mean,
+and full-distribution representations --- holding everything else fixed.
+A guard suite of automated tests enforces each commitment and fails the
+build if any is violated.
 
 Throughout, we are explicit about what the data can and cannot support.
 Reported requests are not social need \citep{kontokosta2021bias}; the
-allocation layer is a simulation whose capacity, productivity, and priority
-parameters are swept rather than asserted; and no causal or deployment
-claim is made. The study is intended as a careful empirical bridge between
-the forecasting literature, which stops at accuracy, and the
-decision-focused learning literature \citep{elmachtoub2022smart,
-mandi2024decision}, which rarely touches public-sector operational data.
+allocation layer is a simulation over abstract request-equivalent
+capacity units whose parameters are varied over a pre-specified grid rather than asserted; and no
+causal, deployment, or operational-guidance claim is made. The study is
+an empirical bridge between the forecasting literature, which stops at
+accuracy, and the decision-focused learning literature
+\citep{elmachtoub2022smart, mandi2024decision}, which rarely touches
+public-sector data.

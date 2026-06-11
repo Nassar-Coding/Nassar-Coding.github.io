@@ -1,53 +1,51 @@
 \paragraph{Public signals in operational forecasting.}
-\citet{cui2018operational} established, in retail, that publicly available
-signals (social media) measurably improve daily operational forecasts;
-\citet{steinker2017value} did the same for weather in e-commerce
-fulfilment. Our earlier single-city study brought this template to
-municipal service demand, showing calendar and weather gains on NYC 311
-volume. The present paper tests whether that finding is a property of New
-York or a property of 311 systems, and then asks what the gains are worth
-operationally.
+\citet{cui2018operational} established, in retail, that publicly
+available signals (social media) measurably improve daily operational
+forecasts; \citet{steinker2017value} did the same for weather in
+e-commerce fulfilment. An earlier single-city study by the author brought
+this template to municipal service demand on NYC 311. The present paper
+tests whether that finding is a property of New York or of 311 systems
+generally, and then asks what the gains are worth inside a controlled
+simulated allocation.
 
 \paragraph{311 analytics.}
-311 data underpin a literature on urban service analytics, largely
-single-city and prediction-centric: \citet{cheng2022machine} predict
-request volumes and their correlates in Miami-Dade County;
-\citet{kontokosta2017equity} and \citet{kontokosta2021bias} document
-socio-spatial disparities in the propensity to report, establishing that
-311 volumes measure \emph{reported} demand rather than need. We inherit
-the latter caveat explicitly: our targets, metrics, and claims concern
-reported volume, and Section~10 discusses the operational-equity
-consequences. To our knowledge no prior work evaluates 311 forecasting
+311 data underpin a largely single-city, prediction-centric literature:
+\citet{cheng2022machine} predict request volumes and their correlates in
+Miami-Dade County; \citet{kontokosta2017equity} and
+\citet{kontokosta2021bias} document socio-spatial disparities in the
+propensity to report, establishing that 311 volumes measure
+\emph{reported} demand rather than need. We inherit the latter caveat
+explicitly. To our knowledge no prior work evaluates 311 forecasting
 across multiple cities under one protocol, nor couples it to an explicit
-allocation loss.
+allocation loss with frozen pre-test environments.
 
 \paragraph{From prediction to decisions.}
-That predictive accuracy and decision quality are different objectives is
+That predictive accuracy and decision quality are distinct objectives is
 the founding observation of prescriptive analytics
 \citep{bertsimas2020predictive} and decision-focused learning: the SPO
 framework trains models against the downstream objective
 \citep{elmachtoub2022smart}, task-based end-to-end learning does so in
 stochastic programs \citep{donti2017task}, and \citet{mandi2024decision}
-survey and benchmark the field. These benchmarks, however, are dominated
-by synthetic costs or energy/inventory/routing settings; municipal service
-operations appear in none of them. We contribute complementary evidence
-from public-sector data: rather than proposing a new training method, we
-measure \emph{empirically} how far accuracy-optimized models and
-decision-aware policies diverge in a realistic public-operations setting,
-including whether validation-time model selection should use the decision
-loss --- a cheap, deployment-relevant form of decision awareness.
+survey and benchmark the field. Those benchmarks are dominated by
+synthetic costs or energy/inventory/routing settings. We contribute
+complementary public-sector evidence: rather than proposing a training
+method, we measure empirically where accuracy-optimized models,
+distributional information, and decision-aware validation selection do
+and do not change simulated allocation outcomes.
 
 \paragraph{Capacity planning under time-varying demand.}
-Staffing service systems against predictable daily variation is classical
-\citep{green2007coping}; our simulation is a deliberately transparent
-discrete-time instance with integer crews, family priorities, and backlog
-carryover, designed for auditability rather than queueing fidelity.
+Setting service capacity against predictable daily variation is a
+classical operations problem \citep{green2007coping}; our simulation is a
+deliberately transparent discrete-time instance with integer capacity
+units, family-level objectives, and carryover of unresolved
+request-equivalents, designed for auditability rather than queueing
+fidelity.
 
 \paragraph{Cross-city learning and urban computing.}
 Urban computing treats the city as a sensing-and-decision platform
 \citep{zheng2014urban}; cross-city transfer has been studied mainly for
-traffic and crowd-flow prediction \citep{wang2019crosscity}. Global
-(pooled) training across related series is standard in modern forecasting
+traffic and crowd-flow prediction \citep{wang2019crosscity}, and pooled
+training across related series is standard in modern forecasting
 \citep{salinas2020deepar}. We test pooled-versus-local training and
-zero-shot cross-city transfer for 311 demand, and --- unlike the transfer
-literature --- carry the comparison through to decision quality.
+zero-shot transfer under explicit temporal censoring, and carry the
+comparison through to simulated decision quality.

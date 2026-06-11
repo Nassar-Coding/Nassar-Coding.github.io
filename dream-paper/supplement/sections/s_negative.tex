@@ -1,21 +1,30 @@
-Three pre-registered possibilities resolved against the more
-optimistic hypothesis and are retained as findings:
+The corrected protocol produced several results that resolved against the
+more optimistic hypothesis; all are retained as findings:
 \begin{itemize}
 \item \textbf{Weather adds nothing in Austin}: $+0.001$ test MAE on top
-of calendar features ($p = 0.995$). The signal that produces a 9.3\%
-gain in New York produces none in Austin.
-\item \textbf{Pooled training mostly hurts}: $+1.8\%$ (New York,
-$p=0.038$) and $+6.6\%$ (Chicago, $p=0.001$) test MAE versus local
-models; zero-shot transfer degrades MAE by $+44$--$147\%$ except in San
-Francisco ($+3.6\%$). With six years of local history, cross-city
-transfer is not beneficial in this benchmark.
-\item \textbf{Quantile intervals are under-dispersed}: 90\% intervals
-cover 76.8--81.2\%. The uncertainty-aware policy wins under scarcity
-despite this, but the calibration deficit is real and unrepaired in
-this paper.
+of calendar features (block-bootstrap interval covers zero), against a
+9.3\% gain in New York.
+\item \textbf{Pooled training hurts under valid censoring}: with
+stage-censored pooled fits (Amendment C11), pooling raises test MAE
+significantly in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
+($+1.8\%$); San Francisco is neutral. Censored zero-shot transfer
+degrades MAE by $+5\%$ to $+149\%$.
+\item \textbf{The exact point-forecast optimizer loses to proportional
+apportionment} in all 12 city-regime settings under the neutral
+objective --- the identified mechanism being uninformative surplus
+placement under degenerate forecast distributions.
+\item \textbf{Quantile intervals are under-dispersed}: 90\% nominal,
+76.8--81.2\% empirical; unrepaired in this paper.
+\item \textbf{A protocol defect was detected and corrected during review}
+(R1-F1): per-city split boundaries differ by 1--2 calendar days, so
+uncensored pooled fits contained $\approx$0.1\% contemporaneous
+other-city rows. After the targeted censoring fix, the
+selection-experiment story changed from 7/12 disagreements with 4
+apparent harms to 9/12 agreements, 2 gains, 0 harms --- the earlier
+disagreement was substantially an artifact of the contaminated pooled
+model's inflated validation scores. The pre-fix outputs are preserved in
+the repository history for audit.
+\item \textbf{The hindsight myopic reference is not a bound}: being
+per-day myopic under carryover it can be exceeded; it appears only in
+the diagnostic table below and is never used as a denominator.
 \end{itemize}
-We also record that the perfect-information myopic reference was
-exceeded once (Austin, generous regime, proportional policy, 104.6\% of
-gap closed), which is possible because the reference is per-day myopic
-rather than horizon-optimal; this motivated the precise naming used in
-the main text.

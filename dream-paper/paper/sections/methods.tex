@@ -1,46 +1,65 @@
 \paragraph{Feature sets.}
-Mirroring the single-city design that this study extends, four nested
-feature sets isolate the marginal value of each public signal:
-\emph{internal} (lags $1,2,3,7,14,28$ and 7/28-day rolling mean and
-standard deviation of the cell's own history, windows ending at day $t$);
-\emph{calendar} (internal + day-of-week, month, weekend, U.S. federal
-holiday, and smooth day-of-year terms for the target day, all
-deterministic); \emph{weather} (internal + target-day and current-day
-station weather); and \emph{calendar+weather}. Family indicators are
-one-hot encoded; pooled models add city indicators.
+Four nested feature sets isolate the marginal value of each public
+signal: \emph{internal} (lags $1,2,3,7,14,28$ and 7/28-day rolling mean
+and standard deviation, windows ending at day $t$); \emph{calendar}
+(internal + deterministic day-of-week, month, weekend, U.S. federal
+holiday, and smooth day-of-year terms for the target day);
+\emph{weather} (internal + target-day and current-day station weather);
+and \emph{calendar+weather}. Family indicators are one-hot encoded;
+pooled models add city indicators.
 
 \paragraph{Models.}
-Two forecast-free baselines (trailing 7-day mean; same-weekday-last-week
-seasonal naive), ridge regression, a random forest
-\citep{breiman2001random}, and LightGBM gradient boosting with an L1
-objective \citep{ke2017lightgbm}. The probabilistic forecaster is
-quantile-objective LightGBM \citep[following the pinball-loss tradition
-of][]{koenker1978regression} at the five levels of
-Section~3, with non-crossing enforced by cumulative maxima.
-Baselines are never dropped from result tables regardless of ranking.
-Hyperparameters (fixed across cities and feature sets to keep tuning
-budgets matched) are listed in the supplement.
+Two forecast-free baselines (trailing 7-day mean; same-weekday seasonal
+naive), ridge regression, a random forest \citep{breiman2001random}, and
+LightGBM with an L1 objective \citep{ke2017lightgbm} form the
+pre-specified point-model grid; quantile-objective LightGBM
+\citep[following][]{koenker1978regression} provides the predictive
+distribution, with non-crossing enforced by cumulative maxima.
+Hyperparameters are fixed across cities and feature sets; baselines are
+never dropped from tables.
 
 \paragraph{Protocol.}
-Within each city, the earliest 70\% of days form the training window, the
-next 15\% validation, and the final 15\% an untouched test window
-evaluated once; configurations are selected on validation MAE and refit
-on train+validation before the single test evaluation. Stability is
-assessed with five expanding-window rolling-origin folds
-\citep{hyndman2021forecasting}. Statistical comparisons use a paired
-block bootstrap over days, which respects within-day cross-sectional error
-correlation \citep[in the spirit of][]{diebold1995comparing}. Pooled
-(``global'') models train on all four cities jointly and are evaluated on
-each city's test window; leave-one-city-out models test zero-shot
-transfer to an entirely unseen city.
+Within each city, the earliest 70\% of days form training, the next 15\%
+validation, and the final 15\% an untouched test window. For every (city,
+feature set), the model is selected on VALIDATION MAE, frozen, refit on
+train+validation, and evaluated once on test; exhaustive test grids
+appear only as supplementary descriptive evidence. The quantile model is
+fit on training data alone for all validation-stage outputs and refit on
+train+validation for its single test evaluation. Stability is assessed
+with five expanding-window rolling-origin folds
+\citep{hyndman2021forecasting}. Pooled (``global'') models train on all
+four cities with stage-specific temporal censoring: validation-stage fits
+use only rows dated no later than the earliest training cutoff across
+cities, test-stage fits no later than the earliest validation cutoff, so
+no pooled training row is contemporaneous with any evaluation window.
+Leave-one-city-out transfer is likewise censored at the held-out city's
+validation cutoff. All accuracy contrasts use paired moving-block
+bootstrap intervals on daily mean absolute-error differentials (28-day
+blocks, 2{,}000 resamples, seed 20260609; 14- and 56-day blocks as
+pre-specified sensitivity) \citep[in the spirit of][]{diebold1995comparing}.
 
 \paragraph{Decision evaluation.}
-Every point forecaster drives the proportional and greedy expected-value
-policies; the quantile forecaster drives the uncertainty-aware greedy
-policy; uniform and oracle allocations bound the achievable range. The
-simulation of Section~3 runs day-by-day over each city's test window
-under the three capacity regimes, with $\kappa = 50$ requests per crew per
-day, base priority weights $\omega$, and $\alpha = 0$; all three
-stylization parameters are swept in Section~9. Decision metrics are the
-loss \eqref{eq:decision-loss}, its reduction relative to the uniform
-floor, and the share of the uniform-to-oracle gap closed.
+Every point forecaster drives the proportional and greedy policies; the
+quantile model drives the three uncertainty arms; uniform allocation is
+the forecast-free floor. Simulations run day-by-day over each city's test
+window at the frozen budgets with $\kappa = 50$ and equal weights.
+Pre-specified sensitivities: one normative-priority scenario;
+one-family-at-a-time service-yield multipliers of 0.70 and 1.30 over
+every active family; 10\% abandonment; train+validation budget
+calibration; and an Austin variant that excludes the heterogeneous
+\emph{other} family with budgets recomputed accordingly. Validation-time
+model selection by decision loss (simulated on the validation window at
+the same frozen budgets) is compared against selection by validation MAE,
+both frozen before test.
+
+\paragraph{Guard suite.}
+Thirteen automated guards enforce the protocol and fail the build
+otherwise, including: budgets reproducible from training data and
+invariant to test perturbation; selection invariant to test metrics;
+recomputed censoring dates on every transfer row and a fit-time proof
+manifest for pooled censoring; identical fitted model behind all
+uncertainty arms; structural absence never encoded as zero; exact budget
+conservation; forbidden-terminology scans of all manuscript-facing
+artifacts; configuration--output agreement for every sensitivity
+scenario; source-identifier consistency; and provenance hashes binding
+every table and figure to the generating run.

@@ -1,65 +1,65 @@
-Table~\ref{tab:data} summarizes the panel; the full per-model results are
-in the supplement. Three patterns are consistent across the four systems.
+All headline aggregations use validation-only selection; exhaustive grids
+are supplementary. Intervals are paired 28-day moving-block bootstrap
+(stable at 14 and 56 days throughout).
 
-\paragraph{Calendar gains replicate everywhere (H1).}
-The best calendar-augmented model lowers held-out test MAE relative to
-the best internal-history model in every city: $-11.9\%$ in New York
-(207.0 $\rightarrow$ 182.4), $-14.0\%$ in Chicago (59.2 $\rightarrow$
-50.9), $-8.6\%$ in San Francisco (34.5 $\rightarrow$ 31.5), and
-$-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8). All four differences are
-significant under a paired day-block bootstrap ($p \le 0.0005$;
-supplement). Against the same-weekday seasonal-naive baseline, the
-selected LightGBM calendar+weather model reduces test MAE by 41.4\% (New
-York, 282.4 $\rightarrow$ 165.4), 41.5\% (Chicago), 31.3\% (San
-Francisco), and 31.3\% (Austin). H1 survives in all four systems.
+\paragraph{Calendar gains replicate everywhere.}
+The validation-selected calendar model lowers held-out test MAE relative
+to the validation-selected internal-history model in every city:
+$-11.9\%$ in New York (207.0 $\rightarrow$ 182.4), $-15.6\%$ in Chicago
+(60.4 $\rightarrow$ 50.9), $-10.4\%$ in San Francisco (35.2 $\rightarrow$
+31.5), and $-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8); the
+fixed-estimator (LightGBM) calendar effect is significant in all four
+cities. Against the same-weekday seasonal-naive baseline, the selected
+calendar+weather model reduces test MAE by 41.4\% (New York), 41.5\%
+(Chicago), 31.3\% (San Francisco), and 31.3\% (Austin). Validation-only
+selection matters in its own right: on the internal feature set it picks
+the random forest in Austin and Chicago and ridge in San Francisco,
+choices a test-minimum rule would have hidden.
 
 \paragraph{Weather's marginal value is real but city-dependent.}
 On top of calendar features, target-day weather further reduces MAE by
-9.3\% in New York ($p = 0.0005$), 3.3\% in Chicago ($p = 0.0015$), and
-4.7\% in San Francisco ($p = 0.0010$) --- and by exactly nothing in
-Austin ($+0.001$ MAE, $p = 0.995$). The Austin null is retained as a
-finding: a public signal that helps one city is not guaranteed to help
-another, even within one country and one data standard. Moreover, the
-lagged-weather sensitivity variant (assumption A3 removed) erases most
-of New York's weather gain (178.6 versus 165.4 with target-day weather,
-against a 182.4 calendar-only reference), so much of the weather value
-is conditional on an accurate day-ahead weather forecast --- a realistic
-but explicitly stated operational premise.
+9.3\% in New York, 3.3\% in Chicago, and 4.7\% in San Francisco (all
+intervals excluding zero) --- and by exactly nothing in Austin ($+0.001$
+MAE; interval covers zero). The Austin null is retained as a finding.
+The lagged-weather variant (assumption A3 removed) erases most of New
+York's weather gain (178.6 versus 165.4, against a 182.4 calendar-only
+reference), so much of the weather value is conditional on an accurate
+day-ahead weather forecast --- a realistic but explicitly stated premise.
 
-\paragraph{Model ordering is stable.}
-LightGBM is the best point forecaster in every city and feature set,
-followed by the random forest; ridge trails both, and both naive
-baselines are dominated (their rows remain in all tables). Five
-expanding-window rolling-origin folds reproduce the feature-set ordering
-(internal $>$ calendar $>$ calendar+weather in MAE) in every city, so
-the headline comparisons are not artifacts of a single split.
+\paragraph{Stability.}
+Five expanding-window rolling-origin folds reproduce the feature-set
+ordering (internal $>$ calendar $>$ calendar+weather in MAE) in every
+city; the headline comparisons are not artifacts of a single split.
 
-\paragraph{Pooling across cities mostly hurts (RQ4).}
-A single pooled model with city indicators \emph{raises} test MAE
-relative to local models in New York ($+1.8\%$, $p = 0.038$), Chicago
-($+6.6\%$, $p = 0.001$), and Austin ($+2.4\%$, n.s.), and helps only in
-San Francisco ($-2.0\%$, n.s.). Zero-shot transfer (training with the
-target city held out entirely) degrades MAE between $+44\%$ (Chicago)
-and $+147\%$ (New York), except in San Francisco ($+3.6\%$). With six
-years of local history per city, negative transfer is the norm in this
-benchmark; the negative result is kept and discussed in Section~9.
+\paragraph{Pooling and transfer mostly hurt under valid censoring.}
+With stage-censored training (no pooled training row contemporaneous with
+any evaluation window), the pooled model raises test MAE relative to
+local models in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
+($+1.8\%$), each interval excluding zero, and is neutral in San
+Francisco ($-1.2\%$, interval covers zero); validation selection
+accordingly picks the LOCAL calendar+weather model in all four cities.
+Temporally censored zero-shot transfer (training without the target city,
+censored at its validation cutoff) degrades MAE by $+5.4\%$ (San
+Francisco) to $+148.5\%$ (New York). With six years of local history,
+cross-city pooling and transfer are not beneficial in this benchmark;
+the negative result is retained.
 
 \paragraph{Probabilistic forecasts are sharp but under-dispersed.}
-The quantile LightGBM's central 90\% intervals cover 76.8--81.2\% of
-test outcomes (50\% intervals: 34--41\%) across cities. We report this
-miscalibration rather than re-tuning it away post hoc; Section~7 shows
-the uncertainty information is operationally valuable despite it, and
-conformal recalibration is noted as future work.
+The quantile model's central 90\% intervals cover 76.8--81.2\% of test
+outcomes. We report this miscalibration rather than re-tuning it away;
+Section~7 shows the distributional information is nonetheless valuable
+within the optimization policy class, and conformal recalibration is
+noted as future work.
 
 \begin{figure}[t]\centering
 \includegraphics[width=0.9\linewidth]{fig2_accuracy_gain.pdf}
-\caption{Best held-out test-MAE reduction versus the trailing-mean naive
-baseline, by feature set and city.}
+\caption{Held-out test-MAE reduction versus the trailing-mean baseline
+for the validation-selected model of each feature set and city.}
 \label{fig:gain}
 \end{figure}
 \begin{figure}[t]\centering
 \includegraphics[width=0.95\linewidth]{fig4_fold_stability.pdf}
-\caption{Rolling-origin fold MAE (LightGBM) by feature set: the
-calendar and weather orderings are stable across folds in all cities.}
+\caption{Rolling-origin fold MAE (LightGBM) by feature set: the calendar
+and weather orderings are stable across folds in all cities.}
 \label{fig:folds}
 \end{figure}

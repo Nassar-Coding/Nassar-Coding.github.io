@@ -1,18 +1,21 @@
-We built a reproducible four-city benchmark of municipal 311 demand and
-pushed it past the question forecasting studies usually stop at: not
-\emph{how accurate} the forecast is, but \emph{what the accuracy buys}
-when a budget-constrained planner converts it into daily capacity. The
-empirical picture that emerges --- public-signal gains that replicate
-across cities, decision gains that are real but regime-dependent, partial
-agreement between accuracy and decision rankings, and measurable value
-from using forecast uncertainty under scarcity --- supports a simple
-operational doctrine: evaluate municipal forecasting systems on the
-decisions they feed, under the capacity regime they will actually face,
-and with their uncertainty exposed rather than collapsed to a point.
-
-The natural continuations of this programme are spatial disaggregation
-where geographies permit honest comparison, richer service-time and
-closure modeling, decision-focused training against the allocation loss,
-and --- as suitable public data emerge --- extension beyond U.S. systems
-to the rapidly transforming cities of the Gulf region, where this line of
-research is ultimately aimed.
+We built a guarded, reproducible four-city benchmark of next-day reported
+311 demand and coupled it to a controlled, explicitly simulated
+capacity-allocation evaluation with frozen pre-test environments and
+validation-only selection. The corrected evidence supports a precise set
+of claims: public calendar signals improve next-day forecasts in every
+system and weather helps heterogeneously; temporally valid pooling and
+transfer mostly hurt; within the simulation, the choice of allocation
+rule can matter more than forecast refinement, a simple proportional rule
+dominating an exact expected-value optimizer whose point-forecast inputs
+leave surplus capacity uninformed; the same optimizer recovers
+significant value from the full predictive distribution of a single
+quantile model in every setting; and decision-aware validation selection
+mostly coincides with accuracy-based selection while never harming.
+The broader lesson for forecast-driven public operations research is
+methodological: evaluation environments must be frozen before selection,
+selection must never touch test outcomes, and the interface between a
+forecast and a policy deserves the same scrutiny as the forecast itself.
+Natural continuations include conformal recalibration, richer
+service-time modeling where closure data permit, spatial disaggregation
+where geographies allow honest comparison, and extension beyond U.S.
+systems as comparable public data emerge.

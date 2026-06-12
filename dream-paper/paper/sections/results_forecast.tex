@@ -36,8 +36,15 @@ With stage-censored training (no pooled training row contemporaneous with
 any evaluation window), the pooled model raises test MAE relative to
 local models in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
 ($+1.8\%$), each interval excluding zero, and is neutral in San
-Francisco ($-1.2\%$, interval covers zero); validation selection
-accordingly picks the LOCAL calendar+weather model in all four cities.
+Francisco ($-1.2\%$, interval covers zero). Two distinct selection
+procedures operate in this paper and must not be conflated: the
+\emph{within-scope} headline selection (Section~5) chooses among local
+candidates for the local headlines, where the local LightGBM wins in
+every city; the \emph{cross-scope} selection experiment of Section~7
+chooses over the full eleven-configuration grid, where validation MAE
+still prefers the pooled model in Austin (validation MAE 15.08 vs.\
+15.25 local, despite worse test error) and in San Francisco (27.20 vs.\
+28.97, where the pooled model is also genuinely better on test).
 Temporally censored zero-shot transfer (training without the target city,
 censored at its validation cutoff) degrades MAE by $+5.4\%$ (San
 Francisco) to $+148.5\%$ (New York). With six years of local history,

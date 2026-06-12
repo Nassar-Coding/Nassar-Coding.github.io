@@ -236,7 +236,8 @@ def main() -> None:
                       ("decision_selection.csv", "tab6_selection"),
                       ("decision_sensitivity.csv", "tab7_sensitivity"),
                       ("decision_inference.csv", "tab8_inference"),
-                      ("significance_tests.csv", "tab9_forecast_inference")]:
+                      ("significance_tests.csv", "tab9_forecast_inference"),
+                      ("trend_diagnostics.csv", "tab10_trend_diagnostics")]:
         save_table(pd.read_csv(M / src).round(4), name)
 
     # provenance manifest (stale-artifact guard G11)

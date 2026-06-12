@@ -1,53 +1,89 @@
 All simulations run at budgets frozen from training data (New York
 119/153/187 units across the scarce/moderate/generous regimes; Chicago
 29/38/46; San Francisco 26/33/41; Austin 8/11/13; $\kappa=50$), under
-the neutral equal-weights objective. Losses are raw simulated unresolved
-request-equivalents; policy contrasts carry paired 28-day block-bootstrap
-intervals on daily loss differentials. Four findings emerge.
+the neutral equal-weights objective. Losses are waiting-time-weighted
+unresolved stocks (Section~3); policy contrasts carry paired 28-day
+block-bootstrap intervals on the daily loss differentials. Because the
+trend diagnostic of Section~8 finds 45 of the 48 differential series
+trend-dominated (the carryover stock compounds policy differences), we
+read these intervals as \emph{descriptive characterizations of a
+systematic, partly deterministic divergence within the simulation},
+retaining a stationary-inference reading only where the diagnostic
+supports it (Chicago, generous regime). The simulation itself is
+deterministic given the frozen inputs, so every directional statement
+below is exact for this environment; what the trending differentials
+preclude is generalizing the interval widths as stationary sampling
+uncertainty. Four findings emerge.
 
-\paragraph{A simple proportional rule dominates the exact
-expected-value family.}
-Proportional allocation driven by the validation-selected forecaster
-attains the lowest simulated loss in 11 of 12 city-regime settings,
-beating even the full-distribution arm of the quantile model by
-0.1--6.5\% (the exception is San Francisco under generous capacity,
-$+1.3\%$ for the full arm); against the point-forecast greedy policy the
-proportional advantage is significant in all 12 settings. The mechanism
-is identified, not conjectured: under a degenerate point-forecast
-distribution, capacity beyond forecast-plus-carryover has zero marginal
-expected value, so the exact optimizer places surplus units without
-information, while proportional apportionment distributes them in
-proportion to expected workload. Relative to the forecast-free uniform
-floor, the proportional policy with the selected forecaster reduces
-simulated loss by 18--23\% (scarce), 38--70\% (moderate), and 60--93\%
-(generous) across cities. This dominance is a property of the simulated
-environment and its neutral objective --- under the normative-priority
-sensitivity the gap compresses --- and it constitutes no guidance about
-any city's actual operations.
+\paragraph{Point forecasts disable the expected-value optimizer; a
+simple proportional rule is competitive with even its distribution-aware
+form.}
+Two separate statements, with separate strength. First, feeding
+\emph{point} forecasts into the expected-value optimizer is a failure
+mode: it loses to naive proportional apportionment in all 12
+city-regime settings. The mechanism is identified and general: under a
+degenerate forecast distribution the optimizer's marginal-value profile
+is piecewise flat --- equal to $\kappa\omega$ for every unit below the
+point estimate plus carryover, and zero for every unit above it --- so
+under a neutral objective the greedy ordering carries no information in
+either the deficit or the surplus segment, and allocation is decided by
+tie-breaking (worked examples for both segments are in the supplement).
+Second, against the \emph{fair} comparator --- the full-distribution arm
+of the same quantile model, whose tails restore an allocation gradient
+--- proportional apportionment remains competitive to slightly better:
+lower loss in 11 of 12 settings by 0.1--6.5\%, with one reversal (San
+Francisco, generous). This residual edge is an observed pattern for
+which we do not claim a demonstrated mechanism; a plausible candidate
+--- per-day-myopic optimality is not horizon optimality under
+persistent carryover, and proportional apportionment approximates a
+smoother hedge --- is left as a conjecture. Relative to the
+forecast-free uniform floor, the proportional policy with the selected
+forecaster reduces the cumulative unresolved stock by 18--23\%
+(scarce), 38--70\% (moderate), and 60--93\% (generous), the regime
+pattern itself being partly mechanical: under structural under-capacity
+no policy can prevent stock growth, so policy differences compress.
+All of this is a property of the simulated environment and its neutral
+objective --- under the normative-priority sensitivity the gap
+compresses --- and constitutes no guidance about any city's actual
+operations.
 
 \paragraph{Within the optimization family, the full distribution beats
 its own point representations everywhere.}
 Holding the single fitted quantile model and every other input fixed,
-the full-distribution arm significantly outperforms both the median arm
-and the implied-mean arm in 12 of 12 settings. Distributional
-information breaks the surplus-placement ties that disable the
-point-forecast optimizer --- evidence that \emph{how} a forecast enters a
-policy can matter as much as forecast accuracy itself.
+the full-distribution arm outperforms both the median arm and the
+implied-mean arm in 12 of 12 settings, with all paired intervals
+excluding zero. Distributional information breaks the flat-profile ties
+that disable the point-forecast optimizer --- evidence that \emph{how} a
+forecast enters a policy can matter as much as forecast accuracy
+itself. One caveat is owed: the distribution whose value is measured is
+itself imperfect --- its 90\% intervals cover only 77--81\% of outcomes
+(Section~6) --- so this result demonstrates the value of the
+\emph{available, under-dispersed} predictive distribution in this
+simulation, not of calibrated uncertainty; it is plausibly a lower
+bound on the latter.
 
 \paragraph{Forecast quality transfers to simulated decision value within
 a fixed policy.}
 Replacing the trailing-mean baseline with the validation-selected
-forecaster, policy held fixed, reduces simulated daily loss significantly
-in all 12 settings (mean daily reductions from $\approx$1.8 thousand
-request-equivalents in Austin to $\approx$72 thousand in New York under
-scarcity).
+forecaster, policy held fixed, lowers the cumulative unresolved stock in
+all 12 settings (average daily reduction in unresolved \emph{stock}
+from $\approx$1.8 thousand request-equivalents in Austin to
+$\approx$72 thousand in New York under scarcity). Consistently, model
+\emph{rankings} by test MAE and by simulated decision loss agree
+closely across the eleven-configuration grid (Spearman $\rho =
+0.88$--$0.99$ in every city-regime cell): in this environment, accuracy
+is largely a sufficient proxy for simulated decision value among
+reasonable models.
 
 \paragraph{Accuracy-based and decision-based selection mostly agree.}
-Selecting the deployment forecaster by validation decision loss instead
-of validation MAE --- both under the frozen budgets --- yields the same
-choice in 9 of 12 settings, a significant gain in 2 (Austin, scarce and
-moderate, where the decision criterion prefers the local over the pooled
-model), and one interval-tie; it never harmed. Decision-based validation
+Selecting over the cross-scope eleven-configuration grid by validation
+decision loss instead of validation MAE --- both under the frozen
+budgets --- yields the same choice in 9 of 12 settings, a gain in 2
+(Austin, scarce and moderate: validation MAE prefers the pooled model
+there, the decision criterion prefers the local one, and the local
+choice is better on the held-out test), and one interval-tie; it never
+harmed. In San Francisco both criteria select the pooled model, which
+is also the better test model there. Decision-based validation
 selection is therefore a cheap, safe check rather than an established
 improvement.
 

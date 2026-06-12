@@ -15,13 +15,16 @@ helps three cities and adds nothing in the fourth, a retained null.
 Pooled cross-city training, temporally censored so no training row is
 contemporaneous with any evaluation window, raises error significantly in
 three cities; zero-shot transfer degrades error by up to 149\%. In the
-simulation, a simple proportional allocation rule dominates an exact
-expected-value optimization family in 11 of 12 city-regime settings under
-a neutral equal-weights objective --- the mechanism being that point
-forecasts give surplus capacity no informative gradient --- while, within
-the optimization family, using the full predictive distribution of a
-single quantile model significantly beats its own median and implied-mean
-representations in all 12 settings. Forecast quality transfers to
+simulation, feeding point forecasts into an expected-value optimizer is
+a failure mode --- the marginal-value profile a degenerate forecast
+induces is piecewise flat, so the optimizer loses even to naive
+proportional apportionment in all 12 city-regime settings --- while the
+full predictive distribution of a single quantile model restores an
+allocation gradient and beats its own median and implied-mean
+representations in all 12 settings; against that distribution-aware
+optimizer, proportional apportionment remains competitive to slightly
+better (11 of 12, by 0.1--6.5\%, one reversal), conditional on the
+stylized carryover dynamics and the neutral equal-weights objective. Forecast quality transfers to
 simulated decision value within a fixed policy in all 12 settings, and
 validation-time selection by decision loss mostly coincides with
 selection by accuracy (9 of 12), occasionally gaining and never harming.

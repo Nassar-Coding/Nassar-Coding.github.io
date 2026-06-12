@@ -34,6 +34,15 @@ primary). The decision loss over the test horizon $\mathcal{T}$ is
 \end{equation}
 with EQUAL weights $\omega_s = 1$ as the primary, neutral objective (one
 illustrative normative-priority scenario is a labeled sensitivity).
+Because $u_{c,s,t}$ contains the carried stock, a request that remains
+unresolved for $k$ days contributes $k$ times to
+\eqref{eq:decision-loss}: the loss is a \emph{waiting-time-weighted
+cumulative unresolved stock}, not a daily flow. Under the scarce regime
+the simulated system is structurally under-capacitated (supercritical),
+so this stock grows over the horizon and daily losses --- and the daily
+loss \emph{differentials} between policies --- can carry a deterministic
+trend; Section~8 reports a trend diagnostic and the inference framing
+follows it.
 Hypothetical service-pressure regimes set $\kappa B_c$ to 70\%, 90\%, and
 110\% of the city's TRAINING-window mean daily demand; the resulting
 integer budgets are frozen before any model selection and used unchanged

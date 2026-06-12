@@ -290,8 +290,8 @@ def run() -> None:
     (out_m / "pooled_censoring.json").write_text(_json.dumps(censor_proof, indent=2))
     # run-id stamp opening this experiment generation (stale-artifact guard G11)
     (out_m / "run_id.json").write_text(_json.dumps(
-        {"run_id": f"{GLOBAL_SEED}-{pd.Timestamp.utcnow().strftime('%Y%m%dT%H%M%S')}",
-         "forecast_run_completed": pd.Timestamp.utcnow().isoformat()}, indent=2))
+        {"run_id": f"{GLOBAL_SEED}-{pd.Timestamp.now(tz='UTC').strftime('%Y%m%dT%H%M%S')}",
+         "forecast_run_completed": pd.Timestamp.now(tz='UTC').isoformat()}, indent=2))
 
     out_m = OUTPUTS / "metrics"; out_m.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(metrics_rows).to_csv(out_m / "forecast_metrics.csv", index=False)

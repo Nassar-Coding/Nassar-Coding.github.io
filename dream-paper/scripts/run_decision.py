@@ -323,7 +323,7 @@ def run() -> None:
     # run-id stamp for the stale-artifact guard (G11)
     rid_path = out / "run_id.json"
     rid = json.loads(rid_path.read_text()) if rid_path.exists() else {}
-    rid["decision_run_completed"] = pd.Timestamp.utcnow().isoformat()
+    rid["decision_run_completed"] = pd.Timestamp.now(tz='UTC').isoformat()
     write_json(rid_path, rid)
     print(f"decision rows: {len(rows)}; inference: {len(inf_rows)}; "
           f"selection: {len(sel_rows)}; sensitivity: {len(sens_rows)}")

@@ -1,3 +1,9 @@
+> **VENUE SELECTION NOT STARTED.** This document is a pre-redesign draft
+> retained for reference only; it predates the corrected protocol, the
+> benchmark-dominant identity, and the U9 title. No venue has been selected
+> or adapted to; this document will be rewritten only after Prof 1 / Prof 2
+> re-closure.
+
 # Phase 11 — Venue Strategy
 
 ## What the final contribution is

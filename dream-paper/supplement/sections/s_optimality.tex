@@ -8,7 +8,7 @@ $\kappa > 0$, and consider
   \max_{x \in \mathbb{Z}_{\ge 0}^S, \; \sum_s x_s = B}
   \; \sum_{s=1}^S \omega_s\, \mathbb{E}\!\left[\min(D_s, \kappa x_s)\right].
 \]
-The greedy algorithm that assigns crews one at a time to the family with
+The greedy algorithm that assigns capacity units one at a time to the family with
 the largest marginal gain attains the optimum.
 \end{proposition}
 
@@ -30,6 +30,25 @@ In the implementation $\mathbb{E}[\min(D_s, c)]$ is evaluated exactly for
 the discrete distribution defined by linear interpolation of the inverse
 CDF through the five forecast quantiles on a fixed 99-point grid
 (\texttt{src/optimization/allocation.py}); point forecasts use a
-degenerate distribution, and the oracle uses the realized value. The unit
+degenerate distribution, and the hindsight myopic reference uses the realized value. The unit
 test \texttt{test\_greedy\_matches\_bruteforce\_on\_small\_instance}
 verifies greedy-vs-brute-force equality on random instances.
+
+
+\paragraph{The piecewise-flat marginal-value profile of degenerate
+forecasts (mechanism, both segments).} For a degenerate distribution at
+point value $d$, $\mathbb{E}[\min(D, \kappa x)] = \min(d, \kappa x)$,
+so the marginal value of each additional unit equals $\kappa\omega$
+while $\kappa x < d$ (the deficit segment) and $0$ once $\kappa x \ge
+d$ (the surplus segment). Under a neutral objective the greedy ordering
+therefore carries no information in \emph{either} segment, and
+allocation is decided by tie-breaking. Worked examples (computed with
+the repository's own \texttt{greedy\_allocate}): \emph{surplus} ---
+budget 12, three families with point demand 30 each, $\kappa = 10$:
+greedy returns $[6,3,3]$, piling the surplus uninformatively;
+\emph{deficit} --- budget 4 with the same demands: greedy returns
+$[3,1,0]$ versus proportional $[2,1,1]$; with unequal demands
+$50/30/10$ and budget 4, greedy returns $[4,0,0]$ versus proportional
+$[2,1,1]$. Distributional tails make
+$\mathbb{E}[\min(D, \kappa x)]$ strictly concave and restore an
+informative gradient in both segments.

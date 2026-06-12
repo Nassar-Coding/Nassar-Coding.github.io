@@ -4,13 +4,15 @@ capacity-allocation evaluation with frozen pre-test environments and
 validation-only selection. The corrected evidence supports a precise set
 of claims: public calendar signals improve next-day forecasts in every
 system and weather helps heterogeneously; temporally valid pooling and
-transfer mostly hurt; within the simulation, the choice of allocation
-rule can matter more than forecast refinement, a simple proportional rule
-dominating an exact expected-value optimizer whose point-forecast inputs
-leave surplus capacity uninformed; the same optimizer recovers
-significant value from the full predictive distribution of a single
-quantile model in every setting; and decision-aware validation selection
-mostly coincides with accuracy-based selection while never harming.
+transfer mostly hurt; within the simulation, \emph{how} a forecast
+enters the allocation rule can matter as much as which forecaster
+produced it --- point-forecast inputs disable an expected-value
+optimizer entirely, the full predictive distribution of a single
+quantile model restores its gradient in every setting, and a simple
+proportional rule remains competitive with even the distribution-aware
+optimizer under the tested regimes and neutral objective; and
+decision-aware validation selection mostly coincides with
+accuracy-based selection while never harming.
 The broader lesson for forecast-driven public operations research is
 methodological: evaluation environments must be frozen before selection,
 selection must never touch test outcomes, and the interface between a

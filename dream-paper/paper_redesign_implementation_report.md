@@ -82,8 +82,12 @@ blocks)
   (chicago), +64.8% (austin), +148.5% (nyc) versus local models.
 - Pooled-vs-local (post-C11): pooling raises test MAE significantly in
   austin (+4.1%), chicago (+6.5%), and nyc (+1.8%) and is neutral in sf
-  (-1.2%, n.s.); validation selection picks the LOCAL calendar+weather
-  LightGBM in all four cities.
+  (-1.2%, n.s.). Two selection procedures with different candidate sets
+  coexist (revision-pass correction of an earlier conflated sentence):
+  WITHIN-scope headline selection picks the local LightGBM in all four
+  cities among local candidates; the CROSS-scope 11-configuration grid's
+  validation MAE still prefers the pooled model in austin (val 15.08 vs
+  15.25; worse on test) and sf (27.20 vs 28.97; better on test).
 - Quantile model (U8 fitting): test 90% interval coverage 0.768–0.812
   (under-dispersed; reported, not repaired).
 
@@ -143,9 +147,14 @@ rewrite phase.
    C11) significantly raises error in three of four cities and is neutral
    in the fourth.
 4. Under equal weights and pre-specified hypothetical service-pressure
-   regimes, the simple proportional rule dominates the greedy
-   expected-value policy family in 11/12 settings — allocation-policy
-   choice matters more than forecast refinement within this simulation.
+   regimes: feeding point forecasts into the expected-value optimizer is
+   a failure mode (loses to proportional in 12/12; piecewise-flat
+   marginal-value mechanism demonstrated for both deficit and surplus
+   segments); against the fair, distribution-aware comparator the
+   proportional rule remains competitive to slightly better (11/12 by
+   0.1–6.5%, one reversal — observed pattern, mechanism conjectural).
+   How a forecast enters the rule can matter as much as which forecaster
+   produced it; no broader policy-over-forecast claim is made.
 5. Distributional information has significant positive value *within* the
    greedy policy class (12/12), but does not overturn proportional
    dominance.
@@ -202,8 +211,8 @@ supplement: UNCHANGED.
 ## 16. Reproduction commands
 
 ```
-pip install -r requirements.txt
-python3 -m pytest tests -q                    # 30 passed expected post-rerun
+pip install -r reproducibility/pip-freeze.txt   # AUTHORITATIVE environment
+python3 -m pytest tests -q
 python3 src/preprocessing/build_panel.py
 python3 src/features/build_features.py
 python3 scripts/run_forecasting.py
@@ -231,3 +240,15 @@ with a Controlled Simulated Capacity-Allocation Evaluation"), built
 solely from the corrected artifacts, with F2/F3/F6/F7 statements
 included; compiled main (14 pp), anonymized variant, and supplement
 (10 pp) are in `paper/` and `supplement/`.
+
+
+## 18. Revision pass (Prof 1 / Prof 2 closure reviews)
+
+All corrections from the two attached closure reviews were implemented in
+one repair pass without rerunning any core experiment; see
+`prof1_prof2_revision_response_report.md` for the issue-by-issue audit,
+the W1 artifact verification, the W2 trend diagnostic
+(`outputs/metrics/trend_diagnostics.csv`: 45/48 differential series
+trend-dominated; decision-contrast intervals re-scoped as descriptive
+except Chicago/generous), the W3 re-anchored policy framing, and guards
+G14–G16.

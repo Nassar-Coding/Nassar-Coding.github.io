@@ -1,3 +1,22 @@
+> **SUPERSESSION NOTICE (added at the post-gates revision pass, 2026-06-12).**
+> This document is the original Phase 1 problem definition and is retained
+> unedited below for the pre-registration record. Three elements were
+> superseded by the frozen redesign protocol
+> (`docs/06_redesign_specification.md`, freeze commit `9dd97c2`,
+> 2026-06-10 — i.e., BEFORE the corrected rerun, so no objective was
+> changed after results existed):
+> 1. **Terminology (Amendment C8):** "crews" → abstract request-equivalent
+>    capacity units; "backlog" → simulated unresolved request-equivalent
+>    carryover.
+> 2. **Primary objective (redesign §7.6, frozen at 9dd97c2):** the
+>    priority-weighted loss described below is SUPERSEDED — the corrected
+>    protocol uses EQUAL weights as the primary, neutral objective, with
+>    one normative-priority scenario as a labeled sensitivity.
+> 3. **Capacity calibration (C1):** budgets derive from the training
+>    window only, frozen before any selection.
+> Where this document and the frozen protocol disagree, the frozen
+> protocol governs.
+
 # Phase 1 — Scientific Problem Definition
 
 ## Phenomenon

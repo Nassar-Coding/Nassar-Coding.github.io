@@ -18,4 +18,14 @@ policy ordering to the primary analysis in all three regimes; Austin's
 conclusions do not depend on its residual category.
 \item \textbf{Bootstrap block length} 14/28/56 days: 0 of 48 decision
 contrasts and none of the forecast contrasts change conclusion.
+\item \textbf{Trend diagnostic} (Newey--West lag-28 slope tests on the
+daily loss differentials; \texttt{tab10\_trend\_diagnostics}): 45 of 48
+differential series and 11 of 12 loss level series are trend-dominated;
+only Chicago/generous is stationarity-compatible. Decision-contrast
+intervals are therefore read descriptively (main text, Sections~7--8).
+The diagnostic re-derives the daily series deterministically from the
+frozen inputs and asserts equality of every policy's total loss with the
+E7 artifact to $10^{-6}$ before computing any statistic.
 \end{itemize}
+
+{\small\input{../outputs/tables/tab10_trend_diagnostics}}

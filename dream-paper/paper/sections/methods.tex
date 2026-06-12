@@ -33,7 +33,13 @@ use only rows dated no later than the earliest training cutoff across
 cities, test-stage fits no later than the earliest validation cutoff, so
 no pooled training row is contemporaneous with any evaluation window.
 Leave-one-city-out transfer is likewise censored at the held-out city's
-validation cutoff. All accuracy contrasts use paired moving-block
+validation cutoff. Two selection procedures with explicitly different
+candidate sets are used and named throughout: \emph{within-scope
+selection} (per city, feature set, and scope, used for every headline
+table and figure) selects among the five point models of that scope
+only; the \emph{cross-scope selection experiment} (Section~7) selects
+over a pre-specified eleven-configuration grid that pools the ten local
+configurations with the stage-censored global calendar+weather model. All accuracy contrasts use paired moving-block
 bootstrap intervals on daily mean absolute-error differentials (28-day
 blocks, 2{,}000 resamples, seed 20260609; 14- and 56-day blocks as
 pre-specified sensitivity) \citep[in the spirit of][]{diebold1995comparing}.

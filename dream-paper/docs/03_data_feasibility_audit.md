@@ -12,7 +12,7 @@ acquisition.
 | NYC 311 (`erm2-nwe9`, NYC Open Data) | Socrata SODA | 2010– | **selected** (continuity with Paper 1) |
 | Chicago 311 (`v6vf-nfxy`) | Socrata SODA | 2018-12-18– | **selected** (current system only; window starts 2019-01-01) |
 | San Francisco 311 (`vw6y-z8j6`, DataSF, PDDL) | Socrata SODA | 2008– | **selected** |
-| Austin 311 (`i26j-ai4z`) | Socrata SODA | 2014– | **selected** |
+| Austin 311 (`xwdj-i9he`; an earlier draft cited `i26j-ai4z` in error, corrected at the revision pass) | Socrata SODA | 2014– | **selected** |
 | Boston 311 (CKAN, data.boston.gov) | CKAN | 2011– | rejected: different API/yearly-file distribution; harmonization effort not matched by added heterogeneity over the four selected |
 | Kansas City 311 | Socrata | system migration in 2021 fragmented the series | rejected: temporal discontinuity inside the study window |
 | Gulf-region municipal systems (Makkah, Riyadh, Jeddah, Dubai, Doha) | — | — | rejected for this paper: no public request-level open-data equivalents located; recorded as motivated future work, not forced in |
@@ -64,3 +64,5 @@ Prediction task, decision task, operational loss, and reproducibility are
 all supportable with real, legally usable public data; quantities that are
 not supportable are excluded from claims and classified as sensitivity-only
 simulation parameters. PASS.
+
+> **D14 note (added at the revision pass):** references to a 2019–2025 window in this Phase 3 document predate decision D14; the frozen study window is 2020-01-01–2025-12-31 for all cities, set by the scope of NYC's current dataset.

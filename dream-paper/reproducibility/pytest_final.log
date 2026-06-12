@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/user/Nassar-Coding.github.io/dream-paper
+configfile: pyproject.toml
+collecting ... collected 37 items
+
+tests/test_core.py::TestHarmonization::test_first_match_wins_and_is_deterministic PASSED [  2%]
+tests/test_core.py::TestHarmonization::test_densify_inserts_explicit_zeros PASSED [  5%]
+tests/test_core.py::TestLeakage::test_lag_and_rolling_use_only_past PASSED [  8%]
+tests/test_core.py::TestLeakage::test_calendar_features_describe_target_day PASSED [ 10%]
+tests/test_core.py::TestLeakage::test_split_is_chronological_and_disjoint PASSED [ 13%]
+tests/test_core.py::TestLeakage::test_rolling_folds_never_train_on_future PASSED [ 16%]
+tests/test_core.py::TestHolidays::test_known_holidays PASSED             [ 18%]
+tests/test_core.py::TestAllocation::test_largest_remainder_exact_budget PASSED [ 21%]
+tests/test_core.py::TestAllocation::test_greedy_matches_bruteforce_on_small_instance PASSED [ 24%]
+tests/test_core.py::TestAllocation::test_simulator_conserves_workload PASSED [ 27%]
+tests/test_core.py::TestAllocation::test_hindsight_reference_beats_uniform_here_but_is_not_a_bound PASSED [ 29%]
+tests/test_core.py::TestAllocation::test_quantile_policy_uses_full_budget PASSED [ 32%]
+tests/test_guards.py::TestG1CapacityFromTrainingOnly::test_budgets_invariant_to_test_window_perturbation PASSED [ 35%]
+tests/test_guards.py::TestG1CapacityFromTrainingOnly::test_frozen_budgets_artifact_regenerates_from_pretest_data PASSED [ 37%]
+tests/test_guards.py::TestG2SelectionUsesValidationOnly::test_selection_artifact_is_argmin_of_validation_rows PASSED [ 40%]
+tests/test_guards.py::TestG2SelectionUsesValidationOnly::test_selection_invariant_to_test_metric_perturbation PASSED [ 43%]
+tests/test_guards.py::TestG3TransferTemporalCensoring::test_loco_rows_carry_correct_censor_dates PASSED [ 45%]
+tests/test_guards.py::TestG3TransferTemporalCensoring::test_no_uncensored_loco_rows_remain PASSED [ 48%]
+tests/test_guards.py::TestG4SameModelUncertaintyArms::test_arms_derive_from_one_distribution_object PASSED [ 51%]
+tests/test_guards.py::TestG4SameModelUncertaintyArms::test_decision_outputs_contain_all_three_arms PASSED [ 54%]
+tests/test_guards.py::TestG4SameModelUncertaintyArms::test_config_declares_single_quantile_model PASSED [ 56%]
+tests/test_guards.py::TestG5StructuralAbsenceNotZero::test_chicago_noise_structurally_absent PASSED [ 59%]
+tests/test_guards.py::TestG5StructuralAbsenceNotZero::test_panel_has_no_allzero_structural_family PASSED [ 62%]
+tests/test_guards.py::TestG6BudgetConservationOnActiveSets::test_full_budget_used_on_uneven_family_sets PASSED [ 64%]
+tests/test_guards.py::TestG7G8ForbiddenTerminology::test_no_forbidden_tokens_in_output_tables PASSED [ 67%]
+tests/test_guards.py::TestG7G8ForbiddenTerminology::test_no_forbidden_tokens_in_manuscript PASSED [ 70%]
+tests/test_guards.py::TestG9SensitivityClaimsMatchCode::test_scenarios_in_outputs_match_config PASSED [ 72%]
+tests/test_guards.py::TestG9SensitivityClaimsMatchCode::test_primary_yield_is_homogeneous PASSED [ 75%]
+tests/test_guards.py::TestG10SourceConsistency::test_dataset_ids_and_window_agree_across_files PASSED [ 78%]
+tests/test_guards.py::TestG11NoStaleArtifacts::test_provenance_hashes_match_current_files PASSED [ 81%]
+tests/test_guards.py::TestG12ActiveFamiliesCodeConfigAgreement::test_simulation_family_sets_equal_manifest PASSED [ 83%]
+tests/test_guards.py::TestG13PooledTrainingCensoring::test_cutoff_helper_takes_minimum_across_cities PASSED [ 86%]
+tests/test_guards.py::TestG13PooledTrainingCensoring::test_censoring_proof_manifest_matches_recomputed_boundaries PASSED [ 89%]
+tests/test_guards.py::TestG14ManuscriptDatasetIdsMatchConfig::test_printed_ids_subset_of_config PASSED [ 91%]
+tests/test_guards.py::TestG15CaptionTruthfulness::test_caption_phrase PASSED [ 94%]
+tests/test_guards.py::TestG15CaptionTruthfulness::test_generator_emits_correct_caption PASSED [ 97%]
+tests/test_guards.py::TestG16SelectionArtifactConsistency::test_selected_by_val_mae_is_recomputable PASSED [100%]
+
+============================== 37 passed in 1.70s ==============================

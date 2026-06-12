@@ -1,7 +1,26 @@
-\paragraph{Inference stability.} None of the 48 decision-contrast
-conclusions changes when the bootstrap block length moves from the
-primary 28 days to 14 or 56 days; the same holds for the forecast
-contrasts.
+\paragraph{Trend diagnostic and inference framing.} For every city,
+regime, and pre-named contrast we regress the daily loss differential on
+the day index and test the slope with a Newey--West (lag-28) statistic,
+reporting also the share of the mean differential attributable to the
+linear drift (supplement, Table~tab10). The result is unambiguous: 45 of
+48 differential series are trend-dominated (the only stationarity-
+compatible cell is Chicago under generous capacity), and 11 of 12 loss
+\emph{level} series trend as well. This is a structural property of the
+carryover stock, strongest under scarcity but present broadly: policy
+differences compound rather than fluctuate around a stationary mean.
+Accordingly, all decision-contrast intervals in Section~7 are read as
+descriptive characterizations of a systematic divergence within the
+deterministic simulation; a stationary-inference reading is retained
+only for the Chicago/generous cell. The forecast-accuracy contrasts of
+Section~6 are unaffected --- their daily error differentials carry no
+stock --- and their inferential reading stands.
+
+\paragraph{Block-length stability.} None of the 48 decision-contrast
+interval conclusions changes when the bootstrap block length moves from
+the primary 28 days to 14 or 56 days; the same holds for the forecast
+contrasts. (Block-length stability does not, by itself, detect a common
+trend --- which is why the explicit trend diagnostic above is the
+binding check.)
 
 \paragraph{Decision-layer sensitivity.} The pre-specified grid preserves
 every qualitative conclusion: with 10\% daily abandonment, policy

@@ -1,8 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite it as below."
 title: >-
-  From Accuracy to Allocation: When Do Better Municipal Demand Forecasts
-  Make Better Staffing Decisions? (companion repository)
+  Next-Day Municipal Service-Demand Forecasting Across Four Cities:
+  A Benchmark with a Controlled Simulated Capacity-Allocation Evaluation
+  (companion repository)
 authors:
   - family-names: Alsharif
     given-names: Nassar Naif

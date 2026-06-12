@@ -183,8 +183,10 @@ class TestG7G8ForbiddenTerminology:
         marker = ROOT / "docs" / ".manuscript_rewritten"
         if not marker.exists():
             pytest.skip("manuscript guard armed after rewrite stage")
-        for f in list((ROOT / "paper" / "sections").glob("*.tex")) + \
-                 [ROOT / "README.md", ROOT / "paper" / "main.tex"]:
+        for f in (list((ROOT / "paper" / "sections").glob("*.tex"))
+                  + list((ROOT / "supplement" / "sections").glob("*.tex"))
+                  + [ROOT / "README.md", ROOT / "paper" / "main.tex",
+                     ROOT / "supplement" / "supplement.tex"]):
             text = f.read_text().lower()
             for tok in FORBIDDEN_MANUSCRIPT_TOKENS:
                 assert tok not in text, f"forbidden token '{tok}' in {f.name}"
@@ -290,3 +292,65 @@ class TestG13PooledTrainingCensoring:
         # the fix must have actually removed boundary rows
         assert proof["rows_censored_val_stage"] > 0
         assert proof["rows_censored_test_stage"] > 0
+
+
+# ---------------------------------------------------------------- G14
+class TestG14ManuscriptDatasetIdsMatchConfig:
+    """Every Socrata dataset id printed in the manuscript or supplement must
+    be one of the configured ids, and the known-bad Austin id must not
+    appear (Prof 1 W4b / Prof 2 R3)."""
+
+    def test_printed_ids_subset_of_config(self):
+        import re, yaml
+        cfg = yaml.safe_load((ROOT / "configs" / "data_sources.yml").read_text())
+        valid = {s["dataset_id"] for s in cfg["socrata_311"]}
+        tex = ""
+        for f in (list((ROOT / "paper" / "sections").glob("*.tex"))
+                  + list((ROOT / "supplement" / "sections").glob("*.tex"))):
+            tex += f.read_text()
+        printed = set(re.findall(r"\\texttt\{([a-z0-9]{4}-[a-z0-9]{4})\}", tex))
+        assert printed <= valid, f"unknown dataset ids in print: {printed - valid}"
+        assert "i26j-ai4z" not in tex, "stale Austin dataset id reappeared"
+        for vid in valid:
+            assert vid in tex, f"configured id {vid} missing from print"
+
+
+# ---------------------------------------------------------------- G15
+class TestG15CaptionTruthfulness:
+    """The Table 1 caption must not claim a uniform family count per city
+    and must carry the Chicago qualification (Prof 2 R1 / Prof 1 W4a)."""
+
+    def test_caption_phrase(self):
+        frag = ROOT / "paper" / "sections" / "data_stats.tex"
+        if not frag.exists():
+            pytest.skip("data_stats fragment pending regeneration")
+        text = frag.read_text()
+        assert "families per city" not in text, "false uniform-count caption"
+        assert "Chicago has seven" in text, "Chicago qualification missing"
+
+    def test_generator_emits_correct_caption(self):
+        gen = (ROOT / "scripts" / "make_paper_stats.py").read_text()
+        assert "8 harmonized service families per city" not in gen
+        assert "Chicago has seven" in gen
+
+
+# ---------------------------------------------------------------- G16
+class TestG16SelectionArtifactConsistency:
+    """The cross-scope selection experiment's by-MAE choice must equal the
+    recomputed argmin of validation MAE over the pre-specified
+    eleven-configuration grid (W1: manuscript statements are anchored to
+    this artifact, so the artifact itself is re-derived here)."""
+
+    def test_selected_by_val_mae_is_recomputable(self):
+        from run_decision import POINT_CONFIGS
+        sel = pd.read_csv(need(M / "decision_selection.csv"))
+        fm = pd.read_csv(need(M / "forecast_metrics.csv"))
+        val = fm[fm.split == "val"]
+        for city, grp in sel.groupby("city"):
+            maes = {}
+            for c3 in POINT_CONFIGS:
+                r = val[(val.scope == c3[0]) & (val.city == city) &
+                        (val.feature_set == c3[1]) & (val.model == c3[2])]
+                maes[c3] = float(r["mae"].iloc[0])
+            best = "/".join(min(maes, key=maes.get))
+            assert (grp.selected_by_val_mae == best).all(), city

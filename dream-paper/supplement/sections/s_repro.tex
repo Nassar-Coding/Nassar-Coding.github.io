@@ -1,10 +1,12 @@
 \paragraph{One-command rebuild.} From the repository root:
 \begin{verbatim}
-pip install -r requirements.txt
-make test            # core tests + protocol guards G1-G13
+pip install -r reproducibility/pip-freeze.txt   # AUTHORITATIVE frozen
+                     # environment (Python 3.11.15, pandas 3.0.3);
+                     # requirements.txt is a broad development file only
 make all             # panel -> features -> forecasts -> simulated
                      # decisions -> inference -> artifacts
-python3 -m pytest tests -q   # full guard suite (33 tests) must pass
+python3 scripts/run_diagnostics.py   # trend diagnostic (tab10)
+python3 -m pytest tests -q   # full guard suite (37 tests) must pass
 \end{verbatim}
 The guard suite enforces the frozen protocol: training-only budget
 calibration invariant to test perturbation; validation-only selection

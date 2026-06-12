@@ -1,0 +1,2 @@
+tables and figures written; 30 artifacts in provenance manifest
+wrote data_stats.tex and s_harmonization_tables.tex

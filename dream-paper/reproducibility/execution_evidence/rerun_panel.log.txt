@@ -1,0 +1,49 @@
+{
+  "built_at_utc": "2026-06-10T21:26:45.075932+00:00",
+  "nyc_raw_request_total": 19669371,
+  "nyc_kept_request_total": 19669371,
+  "nyc_native_categories": 271,
+  "chicago_duplicate_requests_dropped": 523055,
+  "chicago_excluded_requests": 6102731,
+  "chicago_raw_request_total": 11309296,
+  "chicago_kept_request_total": 4683510,
+  "chicago_native_categories": 107,
+  "sf_excluded_requests": 0,
+  "sf_raw_request_total": 4374676,
+  "sf_kept_request_total": 4374676,
+  "sf_native_categories": 136,
+  "austin_raw_request_total": 1487588,
+  "austin_kept_request_total": 1487588,
+  "austin_native_categories": 346,
+  "austin_weather_missing_after_fill": {
+    "TMAX": 0,
+    "TMIN": 0,
+    "PRCP": 0
+  },
+  "chicago_weather_missing_after_fill": {
+    "TMAX": 0,
+    "TMIN": 0,
+    "PRCP": 0
+  },
+  "nyc_weather_missing_after_fill": {
+    "TMAX": 0,
+    "TMIN": 0,
+    "PRCP": 0
+  },
+  "sf_weather_missing_after_fill": {
+    "TMAX": 6,
+    "TMIN": 7,
+    "PRCP": 0
+  },
+  "panel_rows": 67952,
+  "panel_cities": [
+    "austin",
+    "chicago",
+    "nyc",
+    "sf"
+  ],
+  "panel_date_range": [
+    "2020-01-01",
+    "2025-12-31"
+  ]
+}

@@ -191,6 +191,18 @@ requirements.txt, README.md, CITATION.cff. Evidence: reproducibility/
 pytest_final.log, command_log.md; outputs/metrics/trend_diagnostics.csv;
 outputs/tables/tab10_*; regenerated tables/figures + provenance.
 
+## 14b. Post-re-review note (final cleanup pass)
+
+Re-review item verified: the identical scarce/moderate diagnostic rows
+for San Francisco's three within-greedy-family contrasts in tab10 are
+structurally genuine, not row duplication — at SF's scarce (26-unit) and
+moderate (33-unit) budgets both greedy arms are fully saturated, every
+arm serves exactly $\kappa B$ per day, and the paired differential
+depends only on the allocation-difference vector, which is invariant
+across those budgets; the proportional contrast and the level series
+differ between the regimes (total losses 29.6M vs 16.4M), confirming
+distinct simulations. The pattern occurs in no other city.
+
 ## 15. Remaining issues
 
 - Blocking: none.

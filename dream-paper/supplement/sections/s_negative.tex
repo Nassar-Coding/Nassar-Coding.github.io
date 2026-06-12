@@ -11,8 +11,12 @@ significantly in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
 degrades MAE by $+5\%$ to $+149\%$.
 \item \textbf{The exact point-forecast optimizer loses to proportional
 apportionment} in all 12 city-regime settings under the neutral
-objective --- the identified mechanism being uninformative surplus
-placement under degenerate forecast distributions.
+objective --- the identified mechanism being that a degenerate forecast
+makes the marginal-value profile piecewise flat in \emph{both}
+segments ($\kappa\omega$ below the point estimate plus carryover, zero
+above), so the greedy ordering is tie-broken rather than informed;
+distributional tails restore an allocation gradient (worked examples
+for both segments in the optimality section).
 \item \textbf{Quantile intervals are under-dispersed}: 90\% nominal,
 76.8--81.2\% empirical; unrepaired in this paper.
 \item \textbf{A protocol defect was detected and corrected during review}

@@ -21,13 +21,15 @@ need in less-reporting communities (Kontokosta & Hong, 2021). The
 governing protocol (frozen training-only budgets, validation-only
 selection, temporal censoring of pooled/transfer training, same-model
 uncertainty contrast) is enforced by an automated guard suite
-(`tests/test_guards.py`, G1–G13) that fails the build on violation.
+(`tests/test_guards.py`, G1–G16) that fails the build on violation.
 
 ## Reproduce everything
 
 ```bash
-pip install -r requirements.txt
-make test          # core tests + protocol guards
+# AUTHORITATIVE reproduction environment (Python 3.11.15, pandas 3.0.3):
+pip install -r reproducibility/pip-freeze.txt
+# (requirements.txt is broad development bounds only, kept major-consistent)
+make test          # core tests + protocol guards G1–G16
 
 # 1. acquisition (raw aggregates + provenance manifests are versioned here;
 #    re-run only to refresh from the sources)
@@ -39,7 +41,8 @@ make acquire-311           # official Socrata portals (runs via
 # 2. full pipeline: panel -> features -> forecasts -> simulated decisions
 #    -> inference -> artifacts
 make all
-python3 -m pytest tests -q   # full guard suite must pass post-run
+python3 scripts/run_diagnostics.py   # trend diagnostic (tab10)
+python3 -m pytest tests -q   # full guard suite (37 tests) must pass post-run
 ```
 
 Deterministic seed `20260609`; the decision layer is Monte-Carlo-free.

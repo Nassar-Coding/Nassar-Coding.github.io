@@ -1,4 +1,4 @@
-"""Automated protocol guards (redesign section 9, G1-G12).
+"""Automated protocol guards (redesign section 9, G1-G16).
 
 Two kinds of guard:
   - code-level guards run on synthetic fixtures and must always pass;

@@ -1,0 +1,13 @@
+city,regime,units,n_families,tie_share_steps,mean_tied_families
+austin,scarce,8,8,1.0,5.009
+austin,moderate,11,8,0.999,4.333
+austin,generous,13,8,0.9983,3.97
+chicago,scarce,29,7,1.0,4.045
+chicago,moderate,38,7,1.0,3.61
+chicago,generous,46,7,0.9382,3.48
+nyc,scarce,119,8,1.0,6.927
+nyc,moderate,153,8,1.0,6.066
+nyc,generous,187,8,0.9965,5.355
+sf,scarce,26,8,0.998,2.831
+sf,moderate,33,8,0.9977,2.655
+sf,generous,41,8,0.9208,2.61

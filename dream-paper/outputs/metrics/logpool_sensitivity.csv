@@ -1,0 +1,13 @@
+normalization,city,pooled_mae,local_mae,pct_vs_local,pooled_beats_local
+raw,austin,15.454,14.844,4.1,False
+raw,chicago,52.499,49.295,6.5,False
+raw,nyc,168.388,165.417,1.8,False
+raw,sf,29.709,30.061,-1.17,True
+log1p,austin,15.139,14.844,1.98,False
+log1p,chicago,51.782,49.295,5.05,False
+log1p,nyc,168.889,165.417,2.1,False
+log1p,sf,29.893,30.061,-0.56,True
+per_city_z,austin,15.146,14.844,2.03,False
+per_city_z,chicago,51.277,49.295,4.02,False
+per_city_z,nyc,167.99,165.417,1.56,False
+per_city_z,sf,29.336,30.061,-2.41,True

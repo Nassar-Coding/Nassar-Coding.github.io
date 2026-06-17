@@ -37,3 +37,64 @@ myopic diagnostic) is \texttt{tab3\_decision\_all.csv}; block-bootstrap
 intervals for the pre-named contrasts are \texttt{tab8\_inference.csv}
 (decision) and \texttt{tab9\_forecast\_inference.csv} (forecast), each at
 block lengths 14/28/56.
+
+\paragraph{Dataset audit.} Acquired, excluded, and retained records and
+native-category counts per city (from the build manifests):
+
+{\footnotesize\input{../outputs/tables/tab17_dataset_audit}}
+
+\paragraph{Chronological split boundaries.} Exact per-city train /
+validation / test day ranges (the modeling window ends at the last day of
+acquired data; the densified panel carries the nominal study window to
+2025-12-31):
+
+{\footnotesize\input{../outputs/tables/tab18_split_dates}}
+
+\paragraph{Eleven-configuration cross-scope grid.} The pre-specified
+candidate set for the Section~7 selection experiment is, exactly:
+ten local configurations --- \{naive trailing-7, seasonal-naive-7, ridge,
+random forest, LightGBM\}$\times$internal; \{random forest,
+LightGBM\}$\times$calendar; \{ridge, random forest,
+LightGBM\}$\times$calendar+weather --- plus the stage-censored global
+LightGBM on calendar+weather. No quantile model is a candidate.
+
+\paragraph{Objective non-identification (full grid).} The compact
+main-text view is Table~\ref{tab:tiebreak}; the full grid of every
+tie-break rule and control policy across all 12 city-regime cells is
+\texttt{tab12\_tiebreak\_full.csv}, and the per-cell tie frequency is
+\texttt{tie\_frequency.csv}.
+
+\paragraph{Conformal recalibration.} Empirical 90\% coverage and mean
+interval width before and after split-conformal recalibration, and the
+calibrated-vs-uncalibrated full-arm decision losses:
+
+{\footnotesize\input{../outputs/tables/tab13_conformal_calibration}}
+
+{\footnotesize\input{../outputs/tables/tab13b_conformal_decision}}
+
+\paragraph{Normalized pooling.} Pooled-minus-local test MAE (\% of local)
+under raw, log1p, and per-city-standardized targets:
+
+{\footnotesize\input{../outputs/tables/tab14_logpool}}
+
+\paragraph{Horizon robustness.} Policy ranking at the first
+30/60/90/180 and full test days is \texttt{tab15\_horizon.csv}; the
+claim-bearing orderings (uniform worst; fixed-index point-greedy below all
+identified policies) are stable across horizons, while the three near-tied
+identified policies reshuffle within $<1\%$.
+
+\paragraph{Per-family served fraction.} Served fraction by family under
+the uniform floor and the full-distribution arm (moderate regime), so any
+systematic per-family deprioritization is visible:
+
+{\footnotesize\input{../outputs/tables/tab16_perfamily_served}}
+
+\paragraph{Weather missingness.} Missing values after quality-flag drop
+and $\le 7$-day interpolation, per city:
+
+{\footnotesize\input{../outputs/tables/tab20_weather_missing}}
+
+\paragraph{Guard suite.} What each protocol guard checks and against which
+artifact:
+
+{\footnotesize\input{../outputs/tables/tab19_guards}}

@@ -1,0 +1,21 @@
+\begin{tabular}{lll}
+\toprule
+Guard & Checks & Artifact \\
+\midrule
+G1 & Budgets from training window only; invariant to test perturbation & frozen\_budgets.json \\
+G2 & Model selection uses validation MAE only; invariant to corrupted test metrics & validation\_selection.csv \\
+G3 & Leave-one-city-out transfer rows carry recomputed censor dates & forecast\_metrics.csv \\
+G4 & All three uncertainty arms derive from one fitted quantile model & decision\_metrics.csv \\
+G5 & Structural absence (Chicago noise) never encoded as zero rows & active\_families.json \\
+G6 & Allocation conserves the full budget on uneven family sets & allocation.py \\
+G7/G8 & No forbidden terminology in output tables or manuscript & tables / *.tex \\
+G9 & Every sensitivity scenario in outputs matches the config grid & decision\_sensitivity.csv \\
+G10 & Dataset ids and study window agree across config and manifests & data\_sources.yml / manifests \\
+G11 & Provenance SHA-256 hashes bind every table/figure to the run & \_provenance.json \\
+G12 & Simulated family sets equal the active-family manifest & decision\_metrics.csv \\
+G13 & Pooled training is stage-censored (fit-time proof manifest) & pooled\_censoring.json \\
+G14 & Printed dataset ids are a subset of the configured ids & *.tex \\
+G15 & Table-1 caption carries the Chicago seven-family qualification & data\_stats.tex \\
+G16 & Cross-scope by-MAE selection equals the recomputed argmin & decision\_selection.csv \\
+\bottomrule
+\end{tabular}

@@ -5,7 +5,7 @@
     "decision_run_completed": "2026-06-16T20:25:06.303315+00:00"
   },
   "files": {
-    "figures/fig1_panel_overview.pdf": "578f28d7c2826407",
+    "figures/fig1_panel_overview.pdf": "16826aecb4988955",
     "figures/fig1_panel_overview.png": "85ebb33ddd1dafa0",
     "tables/tab1_valselected_test_mae.csv": "06cbba3b966254ca",
     "tables/tab1_valselected_test_mae.tex": "6a7482d2ecccdbf1",
@@ -13,17 +13,17 @@
     "tables/tab1b_valselected_detail.tex": "4744e769d51cea56",
     "tables/tab2_forecast_mae_exhaustive.csv": "344660bef41eb953",
     "tables/tab2_forecast_mae_exhaustive.tex": "d603346eeb5bb44c",
-    "figures/fig2_accuracy_gain.pdf": "8ab5e1f279e0be74",
+    "figures/fig2_accuracy_gain.pdf": "eb1993f930b7a24a",
     "figures/fig2_accuracy_gain.png": "f1c909bb1621bf4c",
     "tables/tab3_decision_all.csv": "6b18d1164f824af7",
     "tables/tab3_decision_all.tex": "508ce6adf3f537ba",
     "tables/tab3b_decision_main.csv": "09b7e6dccc905a9f",
     "tables/tab3b_decision_main.tex": "3322431fc0b31ad7",
-    "figures/fig3_accuracy_vs_decision.pdf": "6bd9a982f0733562",
+    "figures/fig3_accuracy_vs_decision.pdf": "af8ea222a82bd81f",
     "figures/fig3_accuracy_vs_decision.png": "33dc714809713c4d",
     "tables/tab4_rank_agreement.csv": "3a86a28ec4cca6f3",
     "tables/tab4_rank_agreement.tex": "1ca367f3422b92d4",
-    "figures/fig4_fold_stability.pdf": "865c2ac97e339755",
+    "figures/fig4_fold_stability.pdf": "be494decf56a5fea",
     "figures/fig4_fold_stability.png": "45ecb011e450f3bd",
     "tables/tab5_quantile.csv": "8ee7c4096dfea2db",
     "tables/tab5_quantile.tex": "f869cbd9ed3350af",
@@ -50,6 +50,14 @@
     "tables/tab15_horizon.csv": "e25efda17f26ca6c",
     "tables/tab15_horizon.tex": "20871c52e0b65b98",
     "tables/tab16_perfamily_served.csv": "83bcb764bf6cd9a4",
-    "tables/tab16_perfamily_served.tex": "faa0e1044910ba6d"
+    "tables/tab16_perfamily_served.tex": "faa0e1044910ba6d",
+    "tables/tab17_dataset_audit.csv": "0e7e3a338ecce7ee",
+    "tables/tab17_dataset_audit.tex": "31d0f6617b558734",
+    "tables/tab18_split_dates.csv": "58536c4eaf630ca6",
+    "tables/tab18_split_dates.tex": "187acde94076d8a0",
+    "tables/tab19_guards.csv": "788f16626d6a649d",
+    "tables/tab19_guards.tex": "3aa3ee96d1ee11b0",
+    "tables/tab20_weather_missing.csv": "57bb4f4dd67cd617",
+    "tables/tab20_weather_missing.tex": "b48841fb48fa9afc"
   }
 }

@@ -1,0 +1,6 @@
+City,Dataset id,Retrieved,Native cats,Acquired,Excluded,Retained
+New York,erm2-nwe9,2026-06-09,271,19669371,0,19669371
+Chicago,v6vf-nfxy,2026-06-09,107,11309296,6625786,4683510
+San Francisco,vw6y-z8j6,2026-06-09,136,4374676,0,4374676
+Austin,xwdj-i9he,2026-06-09,346,1487588,0,1487588
+Total,,,860,36840931,6625786,30215145

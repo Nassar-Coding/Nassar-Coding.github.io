@@ -297,6 +297,85 @@ def table_perfamily_unserved() -> None:
     save_table(wide, "tab16_perfamily_served")
 
 
+def table_dataset_audit() -> None:
+    """Acquired / excluded / retained records and native-category counts per
+    city, from the build manifests (review H #93/#179)."""
+    pm = json.loads((DATA_INTERIM / "panel_manifest.json").read_text())
+    raw = ROOT_RAW = OUTPUTS.parent / "data" / "raw" / "311"
+    rows = []
+    for c, lbl in [("nyc", "New York"), ("chicago", "Chicago"),
+                   ("sf", "San Francisco"), ("austin", "Austin")]:
+        man = json.loads((raw / f"{c}_manifest.json").read_text())
+        acquired = pm[f"{c}_raw_request_total"]
+        kept = pm[f"{c}_kept_request_total"]
+        rows.append({"City": lbl, "Dataset id": man["dataset_id"],
+                     "Retrieved": man["retrieved_at_utc"][:10],
+                     "Native cats": pm[f"{c}_native_categories"],
+                     "Acquired": acquired, "Excluded": acquired - kept,
+                     "Retained": kept})
+    tot = {"City": "Total", "Dataset id": "", "Retrieved": "",
+           "Native cats": sum(r["Native cats"] for r in rows),
+           "Acquired": sum(r["Acquired"] for r in rows),
+           "Excluded": sum(r["Excluded"] for r in rows),
+           "Retained": sum(r["Retained"] for r in rows)}
+    save_table(pd.DataFrame(rows + [tot]), "tab17_dataset_audit", float_fmt="%.0f")
+
+
+def table_split_dates() -> None:
+    """Exact per-city chronological train/validation/test boundaries (review J
+    #116/#180)."""
+    from evaluation.protocol import chrono_split
+    feats = pd.read_parquet(OUTPUTS.parent / "data" / "processed" / "features.parquet",
+                            columns=["city", "day"])
+    rows = []
+    labels = {"nyc": "New York", "chicago": "Chicago", "sf": "San Francisco",
+              "austin": "Austin"}
+    for c in cities_present():
+        days = feats.loc[feats.city == c, "day"]
+        t_end, v_end = chrono_split(days)
+        d = pd.to_datetime(days)
+        rows.append({"City": labels[c],
+                     "Train": f"{d.min().date()} .. {pd.Timestamp(t_end).date()}",
+                     "Validation": f"{(pd.Timestamp(t_end)+pd.Timedelta(days=1)).date()} .. {pd.Timestamp(v_end).date()}",
+                     "Test": f"{(pd.Timestamp(v_end)+pd.Timedelta(days=1)).date()} .. {d.max().date()}"})
+    save_table(pd.DataFrame(rows), "tab18_split_dates")
+
+
+def table_guards() -> None:
+    """The protocol guard suite: what each guard checks and against which
+    artifact (review M #152/#192)."""
+    g = [("G1", "Budgets from training window only; invariant to test perturbation", "frozen_budgets.json"),
+         ("G2", "Model selection uses validation MAE only; invariant to corrupted test metrics", "validation_selection.csv"),
+         ("G3", "Leave-one-city-out transfer rows carry recomputed censor dates", "forecast_metrics.csv"),
+         ("G4", "All three uncertainty arms derive from one fitted quantile model", "decision_metrics.csv"),
+         ("G5", "Structural absence (Chicago noise) never encoded as zero rows", "active_families.json"),
+         ("G6", "Allocation conserves the full budget on uneven family sets", "allocation.py"),
+         ("G7/G8", "No forbidden terminology in output tables or manuscript", "tables / *.tex"),
+         ("G9", "Every sensitivity scenario in outputs matches the config grid", "decision_sensitivity.csv"),
+         ("G10", "Dataset ids and study window agree across config and manifests", "data_sources.yml / manifests"),
+         ("G11", "Provenance SHA-256 hashes bind every table/figure to the run", "_provenance.json"),
+         ("G12", "Simulated family sets equal the active-family manifest", "decision_metrics.csv"),
+         ("G13", "Pooled training is stage-censored (fit-time proof manifest)", "pooled_censoring.json"),
+         ("G14", "Printed dataset ids are a subset of the configured ids", "*.tex"),
+         ("G15", "Table-1 caption carries the Chicago seven-family qualification", "data_stats.tex"),
+         ("G16", "Cross-scope by-MAE selection equals the recomputed argmin", "decision_selection.csv")]
+    save_table(pd.DataFrame(g, columns=["Guard", "Checks", "Artifact"]), "tab19_guards")
+
+
+def table_weather_missing() -> None:
+    """Weather missingness after quality-flag drop and gap fill, per city
+    (review E #59)."""
+    pm = json.loads((DATA_INTERIM / "panel_manifest.json").read_text())
+    labels = {"nyc": "New York", "chicago": "Chicago", "sf": "San Francisco",
+              "austin": "Austin"}
+    rows = []
+    for c, lbl in labels.items():
+        mm = pm[f"{c}_weather_missing_after_fill"]
+        rows.append({"City": lbl, "TMAX missing": mm.get("TMAX", 0),
+                     "TMIN missing": mm.get("TMIN", 0), "PRCP missing": mm.get("PRCP", 0)})
+    save_table(pd.DataFrame(rows), "tab20_weather_missing", float_fmt="%.0f")
+
+
 def main() -> None:
     F.mkdir(parents=True, exist_ok=True)
     fig_panel_overview()
@@ -318,7 +397,8 @@ def main() -> None:
     # review-revision validity tables (tie-break, conformal, pooling, horizon,
     # per-family); each guarded by presence of its sensitivity metrics file
     for fn in (table_tiebreak, table_conformal, table_logpool, table_horizon,
-               table_perfamily_unserved):
+               table_perfamily_unserved, table_dataset_audit, table_split_dates,
+               table_guards, table_weather_missing):
         try:
             fn()
         except FileNotFoundError:

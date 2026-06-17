@@ -1,0 +1,18 @@
+\begin{tabular}{llrrlr}
+\toprule
+city & feature\_set & naive\_mae & poisson\_glm\_mae & selected\_model & selected\_mae \\
+\midrule
+austin & internal & 30.371 & 31.228 & random\_forest & 16.529 \\
+austin & calendar & 30.371 & 26.055 & lgbm\_point & 14.843 \\
+austin & calendar\_weather & 30.371 & 26.126 & lgbm\_point & 14.844 \\
+chicago & internal & 111.461 & 90.160 & random\_forest & 60.374 \\
+chicago & calendar & 111.461 & 74.126 & lgbm\_point & 50.945 \\
+chicago & calendar\_weather & 111.461 & 73.525 & lgbm\_point & 49.295 \\
+nyc & internal & 305.618 & 263.048 & lgbm\_point & 207.022 \\
+nyc & calendar & 305.618 & 253.983 & lgbm\_point & 182.378 \\
+nyc & calendar\_weather & 305.618 & 253.053 & lgbm\_point & 165.417 \\
+sf & internal & 44.769 & 41.869 & ridge & 35.183 \\
+sf & calendar & 44.769 & 36.664 & lgbm\_point & 31.532 \\
+sf & calendar\_weather & 44.769 & 36.336 & lgbm\_point & 30.061 \\
+\bottomrule
+\end{tabular}

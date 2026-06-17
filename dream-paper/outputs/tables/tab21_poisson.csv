@@ -1,0 +1,13 @@
+city,feature_set,naive_mae,poisson_glm_mae,selected_model,selected_mae
+austin,internal,30.371,31.228,random_forest,16.529
+austin,calendar,30.371,26.055,lgbm_point,14.843
+austin,calendar_weather,30.371,26.126,lgbm_point,14.844
+chicago,internal,111.461,90.16,random_forest,60.374
+chicago,calendar,111.461,74.126,lgbm_point,50.945
+chicago,calendar_weather,111.461,73.525,lgbm_point,49.295
+nyc,internal,305.618,263.048,lgbm_point,207.022
+nyc,calendar,305.618,253.983,lgbm_point,182.378
+nyc,calendar_weather,305.618,253.053,lgbm_point,165.417
+sf,internal,44.769,41.869,ridge,35.183
+sf,calendar,44.769,36.664,lgbm_point,31.532
+sf,calendar_weather,44.769,36.336,lgbm_point,30.061

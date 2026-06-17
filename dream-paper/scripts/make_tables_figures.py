@@ -362,6 +362,15 @@ def table_guards() -> None:
     save_table(pd.DataFrame(g, columns=["Guard", "Checks", "Artifact"]), "tab19_guards")
 
 
+def table_poisson() -> None:
+    """Poisson GLM count baseline vs the validation-selected model and naive
+    (review F #65/#66)."""
+    p = pd.read_csv(M / "poisson_baseline.csv")
+    keep = p[["city", "feature_set", "naive_mae", "poisson_glm_mae",
+              "selected_model", "selected_mae"]]
+    save_table(keep, "tab21_poisson")
+
+
 def table_weather_missing() -> None:
     """Weather missingness after quality-flag drop and gap fill, per city
     (review E #59)."""
@@ -398,7 +407,7 @@ def main() -> None:
     # per-family); each guarded by presence of its sensitivity metrics file
     for fn in (table_tiebreak, table_conformal, table_logpool, table_horizon,
                table_perfamily_unserved, table_dataset_audit, table_split_dates,
-               table_guards, table_weather_missing):
+               table_guards, table_weather_missing, table_poisson):
         try:
             fn()
         except FileNotFoundError:

@@ -20,6 +20,14 @@ LightGBM quantile & as above, pinball objective per level & levels .05/.25/.50/.
 \end{tabular}
 \end{center}
 
+As the target is a non-negative count, a Poisson GLM (log link,
+standardized inputs) is reported as an additional count-data baseline
+(\texttt{tab21\_poisson}); fit per city and feature set on train+validation
+and evaluated once on test, it beats the naive trailing-mean in 11 of 12
+(city, feature set) cells but is dominated by the validation-selected
+gradient-boosted and tree models in all 12, so it is reported but is not a
+candidate in the pre-registered selection or decision grids.
+
 Categorical handling: one-hot family indicators everywhere; one-hot city
 indicators in pooled (global) models only. Predictions are clipped at
 zero. The selected configuration per (scope, city, feature set, model)

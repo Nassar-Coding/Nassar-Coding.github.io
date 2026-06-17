@@ -114,16 +114,19 @@ def greedy_allocate(dists: list, weights: np.ndarray, units: int,
     return alloc
 
 
-def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> dict:
+def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list,
+             b0: np.ndarray | None = None) -> dict:
     """Day-by-day simulation over the active family set.
 
     demand    : [T, S] realized reported demand per day and active family
     allocator : callable(day_index, carryover_vector) -> integer units [S]
+    b0        : optional initial carryover vector [S]; defaults to zeros
+                (the primary). Used only by the initial-backlog sensitivity.
     """
     T, S = demand.shape
     w = np.array([cfg.weights.get(f, 1.0) for f in families])
     kap = cfg.kappa_vec(S)
-    carryover = np.zeros(S)
+    carryover = np.zeros(S) if b0 is None else np.asarray(b0, dtype=float).copy()
     daily_loss, served_by_family, demand_by_family = [], np.zeros(S), np.zeros(S)
     loss_by_family = np.zeros(S)
     for t in range(T):
@@ -146,6 +149,7 @@ def simulate(demand: np.ndarray, allocator, cfg: SimConfig, families: list) -> d
         "total_served": float(served_by_family.sum()),
         "daily_loss": np.asarray(daily_loss),
         "final_carryover": float(carryover.sum()),
+        "final_carryover_vec": carryover.copy(),
         "served_fraction_by_family": {f: round(float(v), 4)
                                       for f, v in zip(families, served_frac)},
         "loss_share_by_family": {f: (round(float(v / loss_by_family.sum()), 4)

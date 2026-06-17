@@ -40,6 +40,7 @@ sensitivity:
 	$(PY) scripts/run_logpool_sensitivity.py
 	$(PY) scripts/run_conformal_calibration.py
 	$(PY) scripts/run_horizon_sensitivity.py
+	$(PY) scripts/run_backlog_sensitivity.py
 	$(PY) scripts/run_poisson_baseline.py
 
 tables:

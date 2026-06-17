@@ -1,0 +1,6 @@
+policy,zero,warmup,train_avg
+point_greedy_fixed,4.0,4.0,4.0
+point_greedy_proportional,1.33,1.42,1.75
+proportional,1.83,1.58,1.33
+quantile_full,2.83,3.0,2.92
+uniform,5.0,5.0,5.0

@@ -5,7 +5,7 @@
     "decision_run_completed": "2026-06-16T20:25:06.303315+00:00"
   },
   "files": {
-    "figures/fig1_panel_overview.pdf": "665916812ada41d8",
+    "figures/fig1_panel_overview.pdf": "cc3fdfceecaefd72",
     "figures/fig1_panel_overview.png": "85ebb33ddd1dafa0",
     "tables/tab1_valselected_test_mae.csv": "06cbba3b966254ca",
     "tables/tab1_valselected_test_mae.tex": "6a7482d2ecccdbf1",
@@ -13,17 +13,17 @@
     "tables/tab1b_valselected_detail.tex": "4744e769d51cea56",
     "tables/tab2_forecast_mae_exhaustive.csv": "344660bef41eb953",
     "tables/tab2_forecast_mae_exhaustive.tex": "d603346eeb5bb44c",
-    "figures/fig2_accuracy_gain.pdf": "b8b012a78e5358c8",
+    "figures/fig2_accuracy_gain.pdf": "25ba947d91c61309",
     "figures/fig2_accuracy_gain.png": "f1c909bb1621bf4c",
     "tables/tab3_decision_all.csv": "6b18d1164f824af7",
     "tables/tab3_decision_all.tex": "508ce6adf3f537ba",
     "tables/tab3b_decision_main.csv": "09b7e6dccc905a9f",
     "tables/tab3b_decision_main.tex": "3322431fc0b31ad7",
-    "figures/fig3_accuracy_vs_decision.pdf": "681306b831d55a25",
+    "figures/fig3_accuracy_vs_decision.pdf": "8b977f1b6816aa96",
     "figures/fig3_accuracy_vs_decision.png": "33dc714809713c4d",
     "tables/tab4_rank_agreement.csv": "3a86a28ec4cca6f3",
     "tables/tab4_rank_agreement.tex": "1ca367f3422b92d4",
-    "figures/fig4_fold_stability.pdf": "b071f1171ba100f8",
+    "figures/fig4_fold_stability.pdf": "c300dddc873bb7ac",
     "figures/fig4_fold_stability.png": "45ecb011e450f3bd",
     "tables/tab5_quantile.csv": "8ee7c4096dfea2db",
     "tables/tab5_quantile.tex": "f869cbd9ed3350af",
@@ -60,6 +60,8 @@
     "tables/tab20_weather_missing.csv": "57bb4f4dd67cd617",
     "tables/tab20_weather_missing.tex": "b48841fb48fa9afc",
     "tables/tab21_poisson.csv": "80fdcc1f4ca476aa",
-    "tables/tab21_poisson.tex": "9479f10635edaa6d"
+    "tables/tab21_poisson.tex": "9479f10635edaa6d",
+    "tables/tab22_b0.csv": "8fe487e0a9f2a7e1",
+    "tables/tab22_b0.tex": "08ed4ed922374857"
   }
 }

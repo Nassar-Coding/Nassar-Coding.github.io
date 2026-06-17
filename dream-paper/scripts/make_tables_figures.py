@@ -362,6 +362,17 @@ def table_guards() -> None:
     save_table(pd.DataFrame(g, columns=["Guard", "Checks", "Artifact"]), "tab19_guards")
 
 
+def table_backlog() -> None:
+    """Initial-backlog (b0) sensitivity: mean policy rank (1=best) under each
+    initial-carryover condition, showing the ordering is stable (review D
+    #30/#50)."""
+    b = pd.read_csv(M / "b0_sensitivity.csv")
+    piv = b.pivot_table(index="policy", columns="b0_condition", values="rank",
+                        aggfunc="mean").round(2).reset_index()
+    cols = ["policy"] + [c for c in ["zero", "warmup", "train_avg"] if c in piv.columns]
+    save_table(piv[cols], "tab22_b0")
+
+
 def table_poisson() -> None:
     """Poisson GLM count baseline vs the validation-selected model and naive
     (review F #65/#66)."""
@@ -407,7 +418,7 @@ def main() -> None:
     # per-family); each guarded by presence of its sensitivity metrics file
     for fn in (table_tiebreak, table_conformal, table_logpool, table_horizon,
                table_perfamily_unserved, table_dataset_audit, table_split_dates,
-               table_guards, table_weather_missing, table_poisson):
+               table_guards, table_weather_missing, table_poisson, table_backlog):
         try:
             fn()
         except FileNotFoundError:

@@ -188,3 +188,43 @@ correctly narrowed, pooling is robust to normalization, the horizon framing is
 honest, reproducibility is verified, and the evidence the review asked to "see"
 is tabulated. If the author prefers to avoid compression, INFORMS JDS / IJF
 remain the SWITCH targets with the same evidence package.
+
+---
+
+## 14. Addendum — pre-compression pass (commit `b95c8b9`)
+
+- **b₀ / warm-up sweep (items 30/50):** `run_backlog_sensitivity.py` runs the
+  key policies under b₀=0, validation warm-up carryover, and training-average
+  daily demand. The claim-bearing ordering (uniform worst; fixed-index
+  point-greedy below the three identified policies) is unchanged in **0/12**
+  cells. No stop condition. Added `tab22_b0` and a `robustness.tex` sentence;
+  the formulation "b₀ varied as a labeled sensitivity" wording is now backed.
+  `simulate()` gained a backward-compatible `b0` parameter and a final-carryover
+  vector. (Guard G8 correctly caught the forbidden token "backlog"; the
+  manuscript uses "carryover" and the artifacts are named `b0_*`.)
+- **IEEE BigData framing (items 4/198/201/202):** a compact 5V paragraph in the
+  introduction (Volume/Variety/Veracity/Value; Velocity explicitly out of scope
+  — no real-time, streaming, or deployment claim).
+- **Title (Decision 1):** changed to "Next-Day Reported Municipal
+  Service-Demand Forecasting Across Four Cities: A Reproducible Benchmark with
+  Simulated Allocation Evaluation" (`main.tex` and `main_anon.tex`).
+- **Novelty pass (Decision 3):** scanned for absolute-novelty language
+  ("first/novel/unprecedented/unique/first-of-its-kind"); none present beyond
+  the already-bounded "To our knowledge no prior work evaluates 311 forecasting
+  across multiple cities under one protocol, nor couples it to an explicit
+  allocation loss…" in `related.tex`, which rests on the conjunction (not 311
+  alone, multi-city alone, decision alone, or public data alone). No change
+  required.
+- **Self-plagiarism (Decision 5):** Paper 1's text is **not present in the
+  repository**, so a literal byte-level overlap diff could not be run. A scan of
+  the current manuscript sources found no verbatim reuse of single-city framing;
+  the prior single-city study is cited and distinguished in `related.tex`
+  (lines 5–9), and the only other Paper-1 link is a code comment naming the
+  trailing-mean baseline. **No Paper 1 citation/positioning text was added or
+  changed** this pass (author Decision 4: ignore). Definitive overlap
+  confirmation requires the author to supply Paper 1's source; it does not block
+  compression.
+- **Repository visibility (Decision 6):** the clean public repository remains
+  private; no change.
+- **Compile/guards:** paper 17 pp, supplement 16 pp compile; guards 37/37;
+  forbidden-token scan clean; provenance manifest 58 artifacts.

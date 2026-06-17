@@ -1,33 +1,29 @@
-City agencies use short-horizon forecasts of 311 service-request volume as
-a planning input, but forecast accuracy is only a proxy for the decisions
-a forecast supports. We build a reproducible benchmark from 36.8 million
+Short-horizon forecasts of 311 service-request volume are a natural
+planning input, but forecast accuracy is only a proxy for the decisions a
+forecast supports. We build a reproducible benchmark from 36.8 million
 acquired service-request records (30.2 million retained after documented
 exclusions) across four U.S. cities (New York, Chicago, San Francisco,
 Austin; 2020--2025), harmonized into documented service families and
 joined with NOAA station weather, and we evaluate next-day forecasters
-jointly with a transparent, explicitly simulated family-level
-capacity-allocation model under pre-specified hypothetical
-service-pressure regimes, with capacity budgets frozen from training data
-only and all model selection performed on validation data only. Calendar
-augmentation reduces next-day error in every city (8.6--14.0\%, all
-28-day block-bootstrap intervals excluding zero); target-day weather
-helps three cities and adds nothing in the fourth, a retained null.
-Pooled cross-city training, temporally censored so no training row is
-contemporaneous with any evaluation window, raises error significantly in
-three cities; zero-shot transfer degrades error by up to 149\%. In the
-simulation, feeding point forecasts into an expected-value optimizer is
-a failure mode --- the marginal-value profile a degenerate forecast
-induces is piecewise flat, so the optimizer loses even to naive
-proportional apportionment in all 12 city-regime settings --- while the
-full predictive distribution of a single quantile model restores an
-allocation gradient and beats its own median and implied-mean
-representations in all 12 settings; against that distribution-aware
-optimizer, proportional apportionment remains competitive to slightly
-better (11 of 12, by 0.1--6.5\%, one reversal), conditional on the
-stylized carryover dynamics and the neutral equal-weights objective. Forecast quality transfers to
-simulated decision value within a fixed policy in all 12 settings, and
-validation-time selection by decision loss mostly coincides with
-selection by accuracy (9 of 12), occasionally gaining and never harming.
-All data are public, every number regenerates from one command under a
-guard suite that enforces the protocol, and the simulation makes no claim
-about any city's actual operations.
+jointly with an explicitly simulated, family-level capacity-allocation
+model under pre-specified hypothetical service-pressure regimes. The
+allocation layer is a transparent simulation over abstract
+request-equivalent capacity units; it concerns reported demand, not need,
+and makes no claim about any city's real capacity, productivity, or
+operations. Capacity budgets are frozen from training data only and all
+model selection uses validation data only. Calendar augmentation reduces
+next-day error in every city (8.6--14.0\%, all 28-day block-bootstrap
+intervals excluding zero); target-day weather --- a day-ahead-forecast
+proxy --- helps three cities and adds nothing in the fourth, a retained
+null. Temporally censored cross-city pooling raises error in three of
+four cities, a result that holds under log-scale and per-city-standardized
+normalization. In the simulation, a degenerate point forecast leaves the
+expected-value allocation objective non-identified across nearly the
+entire feasible set (92--100\% of allocation steps are ties), so realized
+loss is determined by the secondary tie-break rule: a naive fixed rule
+loses to proportional apportionment in all 12 city-regime settings, while
+either a proportional secondary rule or a genuine quantile-interpolated
+predictive distribution recovers proportional's performance. Forecast
+\emph{representation} can therefore matter as much as forecast accuracy.
+All data are public and every number regenerates from one command under a
+guard suite that enforces the protocol.

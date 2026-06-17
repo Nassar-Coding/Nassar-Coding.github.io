@@ -3,9 +3,9 @@
 
 PY := python3
 
-.PHONY: all setup acquire-weather acquire-311 panel features forecast decision tables test clean
+.PHONY: all setup acquire-weather acquire-311 panel features forecast decision sensitivity tables test clean
 
-all: panel features forecast decision tables
+all: panel features forecast decision sensitivity tables
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -30,6 +30,16 @@ forecast:
 
 decision:
 	$(PY) scripts/run_decision.py
+
+# Targeted validity sensitivities added for the external-review revision:
+# tie-break / objective non-identification, normalized pooling, conformal
+# recalibration, and horizon-length robustness. Each reads only frozen
+# pipeline outputs and writes its own metrics file.
+sensitivity:
+	$(PY) scripts/run_tiebreak_sensitivity.py
+	$(PY) scripts/run_logpool_sensitivity.py
+	$(PY) scripts/run_conformal_calibration.py
+	$(PY) scripts/run_horizon_sensitivity.py
 
 tables:
 	$(PY) scripts/make_tables_figures.py

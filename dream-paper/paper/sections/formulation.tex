@@ -25,8 +25,9 @@ workload carries over:
   b_{c,s,t+1} = (1-\alpha)\, u_{c,s,t+1},
 \end{align}
 where $b$ is simulated unresolved request-equivalent carryover (observable
-state at decision time) and $\alpha$ an abandonment rate ($\alpha=0$
-primary). The decision loss over the test horizon $\mathcal{T}$ is
+state at decision time), initialized at $b_{c,s,0}=0$, and $\alpha$ an
+abandonment rate ($\alpha=0$ primary; $b_0$ and $\alpha$ are varied as
+labeled sensitivities). The decision loss over the test horizon $\mathcal{T}$ is
 \begin{equation}
   L_c \;=\; \sum_{t \in \mathcal{T}} \sum_{s \in \mathcal{S}_c}
   \omega_s\, u_{c,s,t},
@@ -44,9 +45,13 @@ loss \emph{differentials} between policies --- can carry a deterministic
 trend; Section~8 reports a trend diagnostic and the inference framing
 follows it.
 Hypothetical service-pressure regimes set $\kappa B_c$ to 70\%, 90\%, and
-110\% of the city's TRAINING-window mean daily demand; the resulting
-integer budgets are frozen before any model selection and used unchanged
-for validation-stage selection and the single test evaluation. Nothing in
+110\% of the city's TRAINING-window mean daily demand $\bar d_c$: that is,
+$B_c=\max\!\big(\mathrm{round}(f\,\bar d_c/\kappa),\,|\mathcal S_c|\big)$
+for $f\in\{0.7,0.9,1.1\}$, floored at the active-family count. The
+resulting integer budgets are frozen before any model selection and used
+unchanged for validation-stage selection and the single test evaluation;
+$\kappa$ sets only the scale of a capacity unit and is varied as a
+labeled sensitivity. Nothing in
 this construction estimates any city's actual capacity, productivity, or
 queues.
 
@@ -59,7 +64,12 @@ exactly maximizes $\sum_s \omega_s\, \mathbb{E}[\min(D_s, \kappa x_s)]$
 over integer allocations, where $D_s$ is the forecast
 demand-plus-carryover distribution --- degenerate for point forecasts,
 piecewise-linear from the quantile model. Greedy is optimal for this
-objective because $\mathbb{E}[\min(D, c)]$ is concave in $c$. A
+objective because $\mathbb{E}[\min(D, c)]$ is concave in $c$; ties in
+marginal value are resolved by a fixed secondary key (ascending family
+index). Under a degenerate point forecast this objective is
+\emph{non-identified} across most of the feasible set, so the realized
+allocation --- and hence its loss --- depends on that key; we treat the
+key as a first-class object and report its effect in Section~7. A
 hindsight myopic reference (greedy on realized demand) appears in
 supplementary diagnostics only; being per-day myopic it is not a
 horizon-optimal bound and is never used as a denominator or target.
@@ -68,7 +78,13 @@ horizon-optimal bound and is never used as a denominator or target.
 The value of distributional information is isolated within ONE fitted
 quantile model: a degenerate-median arm, an implied-mean arm, and a
 full-distribution arm differ only in how the same predictive distribution
-enters the greedy policy. The separately trained point models serve as
+enters the greedy policy. The predictive distribution is reconstructed by
+linear interpolation of the inverse CDF through the five forecast
+quantiles on a fixed 99-point grid on $[0.01,0.99]$, with flat (clamped)
+tails beyond the $.05$ and $.95$ levels; the implied mean is the average
+of the 99 grid samples and the median arm is the $.50$ quantile. We write
+``quantile-interpolated predictive distribution'' for this object
+throughout. The separately trained point models serve as
 forecasting benchmarks, not as the uncertainty comparator.
 
 \paragraph{Evaluation questions.}

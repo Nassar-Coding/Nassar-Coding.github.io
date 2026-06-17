@@ -222,6 +222,81 @@ def fig_fold_stability() -> None:
     save_fig(fig, "fig4_fold_stability")
 
 
+def table_tiebreak() -> None:
+    """Tie-break / objective non-identification evidence (review B). Main-text
+    compact view + full supplement grid. pct_vs_proportional: positive = better
+    than proportional, negative = worse."""
+    d = pd.read_csv(M / "tiebreak_sensitivity.csv")
+    tf = pd.read_csv(M / "tie_frequency.csv")[["city", "regime", "tie_share_steps",
+                                               "mean_tied_families"]]
+    piv = d.pivot_table(index=["city", "regime"], columns="policy",
+                        values="pct_vs_proportional")
+    main = piv.reset_index()[["city", "regime"]].copy()
+    main = main.merge(tf, on=["city", "regime"])
+    main["tie_pct"] = (main["tie_share_steps"] * 100).round(1)
+    colmap = {"point_greedy/fixed_index": "fixed_tb",
+              "point_greedy/random_max": "random_worst",
+              "point_greedy/random_min": "random_best",
+              "point_greedy/proportional_unmet": "proportional_tb",
+              "quantile_full": "full_distribution"}
+    for src, dst in colmap.items():
+        main[dst] = piv[src].round(2).values
+    main = main[["city", "regime", "tie_pct", "fixed_tb", "random_worst",
+                 "random_best", "proportional_tb", "full_distribution"]]
+    main.columns = ["City", "Regime", "Tie %", "Fixed", "Rand. worst",
+                    "Rand. best", "Prop. TB", "Full dist."]
+    save_table(main, "tab11_tiebreak_main", float_fmt="%.2f")
+    save_table(d.round(2), "tab12_tiebreak_full")
+
+
+def table_conformal() -> None:
+    """Conformal recalibration: coverage/width before-after, and the calibrated
+    vs uncalibrated full-arm decision (review G)."""
+    cal = pd.read_csv(M / "conformal_calibration.csv")
+    save_table(cal, "tab13_conformal_calibration")
+    dec = pd.read_csv(M / "conformal_decision.csv")
+    save_table(dec, "tab13b_conformal_decision")
+
+
+def table_logpool() -> None:
+    """Normalized/log-scale pooling vs local (review F #75-#79)."""
+    lp = pd.read_csv(M / "logpool_sensitivity.csv")
+    wide = lp.pivot_table(index="city", columns="normalization",
+                          values="pct_vs_local").reset_index()
+    wide = wide.rename(columns={c: f"pooled_{c}_pct_vs_local"
+                                for c in ["raw", "log1p", "per_city_z"]})
+    save_table(wide.round(2), "tab14_logpool")
+
+
+def table_horizon() -> None:
+    """Policy ranking by evaluation horizon (review D #49, #190)."""
+    h = pd.read_csv(M / "horizon_sensitivity.csv")
+    save_table(h[["city", "regime", "horizon", "best_policy", "worst_policy",
+                  "ranking"]], "tab15_horizon")
+
+
+def table_perfamily_unserved() -> None:
+    """Per-family served fraction by policy so systematic deprioritization is
+    visible rather than hidden in aggregate loss (review L #22/#140/#191).
+    Moderate regime; forecast-free uniform vs the full-distribution arm."""
+    dm = pd.read_csv(M / "decision_metrics.csv")
+    rows = []
+    for city, grp in dm.groupby("city"):
+        for policy, config in [("uniform", "uniform"),
+                               ("greedy_ev_quantile", "quantile/full_arm")]:
+            r = grp[(grp.regime == "moderate") & (grp.policy == policy) &
+                    (grp.config == config)]
+            if r.empty:
+                continue
+            sf = json.loads(r.iloc[0]["served_fraction_by_family"])
+            for fam, frac in sf.items():
+                rows.append({"city": city, "policy": config, "family": fam,
+                             "served_fraction": round(float(frac), 4)})
+    wide = pd.DataFrame(rows).pivot_table(
+        index=["city", "family"], columns="policy", values="served_fraction").reset_index()
+    save_table(wide, "tab16_perfamily_served")
+
+
 def main() -> None:
     F.mkdir(parents=True, exist_ok=True)
     fig_panel_overview()
@@ -239,6 +314,15 @@ def main() -> None:
                       ("significance_tests.csv", "tab9_forecast_inference"),
                       ("trend_diagnostics.csv", "tab10_trend_diagnostics")]:
         save_table(pd.read_csv(M / src).round(4), name)
+
+    # review-revision validity tables (tie-break, conformal, pooling, horizon,
+    # per-family); each guarded by presence of its sensitivity metrics file
+    for fn in (table_tiebreak, table_conformal, table_logpool, table_horizon,
+               table_perfamily_unserved):
+        try:
+            fn()
+        except FileNotFoundError:
+            pass
 
     # provenance manifest (stale-artifact guard G11)
     run_id = json.loads((M / "run_id.json").read_text())

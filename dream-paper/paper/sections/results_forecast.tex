@@ -47,16 +47,28 @@ still prefers the pooled model in Austin (validation MAE 15.08 vs.\
 28.97, where the pooled model is also genuinely better on test).
 Temporally censored zero-shot transfer (training without the target city,
 censored at its validation cutoff) degrades MAE by $+5.4\%$ (San
-Francisco) to $+148.5\%$ (New York). With six years of local history,
-cross-city pooling and transfer are not beneficial in this benchmark;
-the negative result is retained.
+Francisco) to $+148.5\%$ (New York). The pooling result is not an artifact
+of pooling raw counts across cities of very different scale: refitting the
+pooled model on a $\log(1{+}y)$ target or on per-city-standardized targets
+shrinks the penalty (most for the smallest city, Austin: $+4.1\%
+\rightarrow +2.0\%$) but does not reverse it --- pooling still raises test
+MAE in three of four cities under both normalizations, with San Francisco
+the lone neutral case. With six years of local history, cross-city pooling
+and transfer are not beneficial in this benchmark; the negative result,
+robust to target normalization, is retained.
 
-\paragraph{Probabilistic forecasts are sharp but under-dispersed.}
+\paragraph{Probabilistic forecasts are sharp but under-dispersed; conformal
+recalibration restores coverage.}
 The quantile model's central 90\% intervals cover 76.8--81.2\% of test
-outcomes. We report this miscalibration rather than re-tuning it away;
-Section~7 shows the distributional information is nonetheless valuable
-within the optimization policy class, and conformal recalibration is
-noted as future work.
+outcomes. Split-conformal recalibration using validation residuals only
+(per city, per quantile level) raises empirical 90\% coverage to
+88.3--90.3\% while widening intervals modestly. We report both the raw
+miscalibration and its conformal correction; Section~7 shows that the
+distributional information identifies the simulated allocation objective
+whether or not the intervals are recalibrated (the calibrated full arm
+changes simulated loss by a median of $-0.1\%$), so the decision result
+reflects identification rather than the particular dispersion of the
+intervals.
 
 \begin{figure}[t]\centering
 \includegraphics[width=0.9\linewidth]{fig2_accuracy_gain.pdf}

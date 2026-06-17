@@ -29,8 +29,10 @@ observations as a proxy for a day-ahead forecast (A3), bounded by the
 lagged-weather variant; one station per city coarsens spatial variation
 (A2); wind was excluded for data-completeness reasons.
 \item \textbf{Calibration.} The quantile model's intervals are
-under-dispersed (90\% nominal, 77--81\% empirical); conformal
-recalibration is future work.
+under-dispersed (90\% nominal, 77--81\% empirical); a split-conformal
+recalibration (restoring 88--90\% coverage) leaves the simulated-allocation
+result essentially unchanged (Sections~6--7), so the decision finding does
+not rest on calibrated uncertainty but on identification of the objective.
 \item \textbf{Scope.} Four U.S. Socrata-based systems; fixed a priori
 hyperparameters; no deep or foundation models; no causal claims; no
 deployment; no measurement of social need.

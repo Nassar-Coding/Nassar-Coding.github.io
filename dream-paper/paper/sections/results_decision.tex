@@ -13,67 +13,91 @@ supports it (Chicago, generous regime). The simulation itself is
 deterministic given the frozen inputs, so every directional statement
 below is exact for this environment; what the trending differentials
 preclude is generalizing the interval widths as stationary sampling
-uncertainty. Four findings emerge.
+uncertainty. Three findings emerge.
 
-\paragraph{Point forecasts disable the expected-value optimizer; a
-simple proportional rule is competitive with even its distribution-aware
-form.}
-Two separate statements, with separate strength. First, feeding
-\emph{point} forecasts into the expected-value optimizer is a failure
-mode: it loses to naive proportional apportionment in all 12
-city-regime settings. The mechanism is identified and general: under a
-degenerate forecast distribution the optimizer's marginal-value profile
-is piecewise flat --- equal to $\kappa\omega$ for every unit below the
-point estimate plus carryover, and zero for every unit above it --- so
-under a neutral objective the greedy ordering carries no information in
-either the deficit or the surplus segment, and allocation is decided by
-tie-breaking (worked examples for both segments are in the supplement).
-Second, against the \emph{fair} comparator --- the full-distribution arm
-of the same quantile model, whose tails restore an allocation gradient
---- proportional apportionment remains competitive to slightly better:
-lower loss in 11 of 12 settings by 0.1--6.5\%, with one reversal (San
-Francisco, generous). This residual edge is an observed pattern for
-which we do not claim a demonstrated mechanism; a plausible candidate
---- per-day-myopic optimality is not horizon optimality under
-persistent carryover, and proportional apportionment approximates a
-smoother hedge --- is left as a conjecture. Relative to the
-forecast-free uniform floor, the proportional policy with the selected
-forecaster reduces the cumulative unresolved stock by 18--23\%
-(scarce), 38--70\% (moderate), and 60--93\% (generous), the regime
-pattern itself being partly mechanical: under structural under-capacity
-no policy can prevent stock growth, so policy differences compress.
-All of this is a property of the simulated environment and its neutral
-objective --- under the normative-priority sensitivity the gap
-compresses --- and constitutes no guidance about any city's actual
-operations.
+\paragraph{Degenerate point forecasts non-identify the allocation
+objective; the realized outcome is tie-break dependent.}
+Degenerate point-forecast representations collapse the marginal-value
+profile of the myopic expected-value allocation objective. Under the
+neutral objective the per-unit marginal value equals $\kappa\omega$ for
+every unit below the point estimate plus carryover and zero above it, so
+all under-served families share an identical marginal value and the
+greedy ordering carries no information in either the deficit or the
+surplus segment (worked examples for both segments are in the
+supplement). Empirically the objective is non-identified across nearly
+the entire feasible set: 92--100\% of allocation steps are ties, with
+2.6--6.9 active families tied at the maximum marginal value
+(Table~\ref{tab:tiebreak}). Realized allocation loss is therefore
+determined by the secondary tie-break rule, not by the point forecast.
+Under our original implementation the fixed ascending-index tie-break
+underperformed proportional apportionment in all 12 city-regime cells
+(by 1.2--58\%); a random tie-break is intermediate and a
+Gaussian/Poisson smoothing of the point forecast only partly recovers
+performance. A \emph{proportional} secondary tie-break --- a
+representation-free regularization toward proportional apportionment ---
+fully recovers proportional performance ($-0.03\%$ to $+0.8\%$ across the
+12 cells). The issue is thus representation-induced \emph{non-identification}
+of the allocation objective under degenerate forecasts, not mathematical
+infeasibility of the optimizer. Relative to the forecast-free uniform
+floor, the proportional policy with the selected forecaster reduces the
+cumulative unresolved stock by 18--23\% (scarce), 38--70\% (moderate),
+and 60--93\% (generous), the regime pattern itself being partly
+mechanical: under structural under-capacity no policy can prevent stock
+growth, so policy differences compress. All of this is a property of the
+simulated environment and its neutral objective --- under the
+normative-priority sensitivity the gap compresses --- and constitutes no
+guidance about any city's actual operations.
 
-\paragraph{Within the optimization family, the full distribution beats
-its own point representations everywhere.}
-Holding the single fitted quantile model and every other input fixed,
-the full-distribution arm outperforms both the median arm and the
-implied-mean arm in 12 of 12 settings, with all paired intervals
-excluding zero. Distributional information breaks the flat-profile ties
-that disable the point-forecast optimizer --- evidence that \emph{how} a
-forecast enters a policy can matter as much as forecast accuracy
-itself. One caveat is owed: the distribution whose value is measured is
-itself imperfect --- its 90\% intervals cover only 77--81\% of outcomes
-(Section~6) --- so this result demonstrates the value of the
-\emph{available, under-dispersed} predictive distribution in this
-simulation, not of calibrated uncertainty; it is plausibly a lower
-bound on the latter.
+\begin{table}[t]\centering\small
+\caption{Objective non-identification under degenerate point forecasts.
+``Tie \%'' is the share of allocation steps with more than one active
+family tied at the maximum marginal value. The remaining columns give the
+simulated loss of the point-forecast greedy policy under five tie-break
+rules, as \% relative to proportional apportionment (negative $=$ worse
+than proportional). The identical point forecast ranges from far worse
+(fixed ascending-index) to indistinguishable from proportional
+(proportional secondary rule); the full quantile-interpolated
+distribution recovers most of the gap. Full grid in the supplement.}
+\label{tab:tiebreak}
+{\footnotesize\input{../outputs/tables/tab11_tiebreak_main}}
+\end{table}
 
-\paragraph{Forecast quality transfers to simulated decision value within
-a fixed policy.}
+\paragraph{A genuine predictive distribution identifies the objective,
+equivalent in effect to a proportional tie-break.}
+Holding the single fitted quantile model and every other input fixed, the
+quantile-interpolated full-distribution arm outperforms both the median
+arm and the implied-mean arm in 12 of 12 settings \emph{under the
+fixed-index tie-break}, with all paired intervals excluding zero. This
+advantage is the same non-identification phenomenon: the median and
+implied-mean arms are themselves degenerate point forecasts and inherit
+the same flat-profile ties, whereas the full distribution's tails supply
+a genuine, non-flat marginal-value profile. When the median and
+implied-mean arms are instead resolved with the proportional secondary
+tie-break, the full-distribution advantage disappears entirely (full
+better in 0 of 12 cells, by $-0.6\%$ at the median); both then match
+proportional. The defensible claim is therefore narrow and is the paper's
+central decision finding: forecast \emph{representation} matters because
+degenerate point forecasts can make the downstream allocation objective
+non-identifying, and a genuine predictive distribution is one of two
+equivalent remedies --- the other being an explicit secondary rule. This
+is not an artifact of the model's miscalibration: split-conformal
+recalibration lifts the quantile model's 90\% interval coverage from
+77--81\% to 88--90\% (Section~6) yet changes the full-arm simulated loss
+by a median of $-0.1\%$ (at most $0.9\%$), so the effect reflects
+identification of the objective, not the particular dispersion of the
+intervals.
+
+\paragraph{Forecast quality is associated with lower simulated decision
+loss within a fixed policy.}
 Replacing the trailing-mean baseline with the validation-selected
 forecaster, policy held fixed, lowers the cumulative unresolved stock in
-all 12 settings (average daily reduction in unresolved \emph{stock}
-from $\approx$1.8 thousand request-equivalents in Austin to
-$\approx$72 thousand in New York under scarcity). Consistently, model
-\emph{rankings} by test MAE and by simulated decision loss agree
-closely across the eleven-configuration grid (Spearman $\rho =
-0.88$--$0.99$ in every city-regime cell): in this environment, accuracy
-is largely a sufficient proxy for simulated decision value among
-reasonable models.
+all 12 settings (average daily reduction in unresolved \emph{stock} from
+$\approx$1.8 thousand request-equivalents in Austin to $\approx$72
+thousand in New York under scarcity). Consistently, model \emph{rankings}
+by test MAE and by simulated decision loss agree closely across the
+eleven-configuration grid (Spearman $\rho = 0.88$--$0.99$ in every
+city-regime cell): in this environment, accuracy is largely a sufficient
+proxy for simulated decision value among reasonable models.
 
 \paragraph{Accuracy-based and decision-based selection mostly agree.}
 Selecting over the cross-scope eleven-configuration grid by validation
@@ -81,17 +105,19 @@ decision loss instead of validation MAE --- both under the frozen
 budgets --- yields the same choice in 9 of 12 settings, a gain in 2
 (Austin, scarce and moderate: validation MAE prefers the pooled model
 there, the decision criterion prefers the local one, and the local
-choice is better on the held-out test), and one interval-tie; it never
-harmed. In San Francisco both criteria select the pooled model, which
-is also the better test model there. Decision-based validation
-selection is therefore a cheap, safe check rather than an established
-improvement.
+choice is better on the held-out test), and one interval-tie; it did not
+increase test loss in any cell of this pre-specified grid. In San
+Francisco both criteria select the pooled model, which is also the better
+test model there. Decision-based validation selection is therefore a
+low-cost diagnostic rather than an established improvement.
 
 \begin{figure}[t]\centering
 \includegraphics[width=0.95\linewidth]{fig3_accuracy_vs_decision.pdf}
 \caption{Forecast accuracy (test MAE, $x$) versus simulated decision
 value (\% loss reduction relative to the uniform floor, $y$) for the
-pre-specified point-forecast grid under the greedy expected-value policy,
-by city and hypothetical service-pressure regime.}
+pre-specified point-forecast grid under the greedy expected-value policy
+with the fixed-index tie-break --- the non-identified point-forecast
+policy of this section, shown as a diagnostic --- by city and
+hypothetical service-pressure regime.}
 \label{fig:acc-dec}
 \end{figure}

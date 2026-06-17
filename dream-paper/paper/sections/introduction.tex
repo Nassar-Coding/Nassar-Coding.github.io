@@ -8,13 +8,19 @@ mean absolute error; they consume allocations, and the mapping from
 predictive accuracy to allocation quality is neither linear nor
 guaranteed.
 
-This paper contributes, first, a reproducible four-city benchmark of
-next-day reported 311 demand --- New York, Chicago, San Francisco, and
-Austin, 2020--2025, built entirely from official open-data APIs with
-versioned harmonization rules and provenance manifests --- and, second, a
-controlled, explicitly simulated evaluation of what forecast differences
-are worth to a family-level capacity allocation under pre-specified
-hypothetical service-pressure regimes. The governing question is:
+This paper makes exactly three contributions. \textbf{(1)} A reproducible
+four-city benchmark of next-day reported 311 demand --- New York, Chicago,
+San Francisco, and Austin, 2020--2025 --- built entirely from official
+open-data APIs with versioned harmonization rules, provenance manifests,
+and SHA-256 checksums, regenerable by one command. \textbf{(2)} A
+leakage-controlled evaluation of local, pooled, transfer, calendar,
+weather, and probabilistic next-day forecasting, with frozen pre-test
+environments, validation-only selection, and temporally censored pooling
+and transfer. \textbf{(3)} A controlled, explicitly simulated family-level
+capacity-allocation study, under pre-specified hypothetical
+service-pressure regimes, that isolates when and how forecast
+\emph{representation} changes downstream simulated decision value. The
+governing question is:
 
 \begin{quote}
 Across heterogeneous municipal 311 reporting systems, under pre-specified

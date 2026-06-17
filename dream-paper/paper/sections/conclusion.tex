@@ -6,18 +6,19 @@ of claims: public calendar signals improve next-day forecasts in every
 system and weather helps heterogeneously; temporally valid pooling and
 transfer mostly hurt; within the simulation, \emph{how} a forecast
 enters the allocation rule can matter as much as which forecaster
-produced it --- point-forecast inputs disable an expected-value
-optimizer entirely, the full predictive distribution of a single
-quantile model restores its gradient in every setting, and a simple
-proportional rule remains competitive with even the distribution-aware
-optimizer under the tested regimes and neutral objective; and
-decision-aware validation selection mostly coincides with
-accuracy-based selection while never harming.
+produced it --- a degenerate point forecast leaves the expected-value
+allocation objective non-identified, so its realized loss is determined
+by the secondary tie-break rule, and either a proportional secondary rule
+or the quantile-interpolated predictive distribution of a single quantile
+model recovers a simple proportional policy's performance under the
+tested regimes and neutral objective; and decision-aware validation
+selection mostly coincides with accuracy-based selection and did not
+increase test loss in the pre-specified grid.
 The broader lesson for forecast-driven public operations research is
 methodological: evaluation environments must be frozen before selection,
 selection must never touch test outcomes, and the interface between a
 forecast and a policy deserves the same scrutiny as the forecast itself.
-Natural continuations include conformal recalibration, richer
-service-time modeling where closure data permit, spatial disaggregation
-where geographies allow honest comparison, and extension beyond U.S.
-systems as comparable public data emerge.
+Natural continuations include richer service-time modeling where
+case-closure data permit, spatial disaggregation where geographies allow
+honest comparison, and extension beyond U.S. systems as comparable public
+data emerge.

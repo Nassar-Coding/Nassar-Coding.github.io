@@ -251,7 +251,7 @@ Items classified **Still open before IEEE BigData** (1): 193.
 
 | # | Remaining task | Why it blocks | Effort | Affects |
 |-:|---|---|---|---|
-| 193 | Execute the 10-page compression: decide what validity evidence stays in the main paper vs the supplement (the plan is in `ieee_bigdata_10_page_compression_plan.md`). | IEEE 10-page limit; the paper currently compiles at 17 pp. | the compression pass | Formatting only |
+| 193 | Execute the 10-page compression in an environment with the official `IEEEtran.cls` (unavailable in this sandbox — CTAN blocked, no `.cls` on disk). A two-column 10pt IEEE-geometry **approximation compiles to 10 pages** with the full content (3 wide tables need full-width floats), so the fit is feasible and modest. | IEEE 10-page limit + missing toolchain | the IEEE conversion (mechanical) | Formatting/tooling only |
 
 **No scientific blockers remain, and no writing blockers remain.** The only
 open item is the 10-page compression itself, for which a plan has been produced

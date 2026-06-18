@@ -10,16 +10,16 @@ compiles. Cross-checked against `professor_review_triage_register.md`,
 `ieee_bigdata_feasibility_gate.md`, and `professor_review_implementation_report.md`
 (all present in this directory).
 
-**Updated after the pre-compression pass (commit `b95c8b9`).**
+**Updated after IEEE compression (official IEEEtran build = 9 pages).**
 
 ```text
 Total issues: 202
-Implemented and verified: 73
+Implemented and verified: 74
 Already satisfied: 95
 Moved to supplement: 1
 Deferred to journal extension: 28
 Rejected / out of scope: 3
-Still open before IEEE BigData: 1
+Still open before IEEE BigData: 0
 Author decision required: 1
 Total accounted for: 202
 ```
@@ -247,11 +247,11 @@ diff, which needs Paper 1's text) remains an author decision.
 
 # Remaining IEEE BigData Blockers
 
-Items classified **Still open before IEEE BigData** (1): 193.
-
-| # | Remaining task | Why it blocks | Effort | Affects |
-|-:|---|---|---|---|
-| 193 | Execute the 10-page compression in an environment with the official `IEEEtran.cls` (unavailable in this sandbox — CTAN blocked, no `.cls` on disk). A two-column 10pt IEEE-geometry **approximation compiles to 10 pages** with the full content (3 wide tables need full-width floats), so the fit is feasible and modest. | IEEE 10-page limit + missing toolchain | the IEEE conversion (mechanical) | Formatting/tooling only |
+**None.** Item 193 (10-page compression) is now **done**: the official IEEEtran
+v1.8b build (`paper/main_ieee.tex` → `main_ieee.pdf`) is **9 pages** with the
+full scientific spine intact, 0 overflows, 0 undefined references. No validity
+evidence was cut. The only remaining pre-submission item is the author's
+self-plagiarism confirmation against Paper 1 (item 167, below).
 
 **No scientific blockers remain, and no writing blockers remain.** The only
 open item is the 10-page compression itself, for which a plan has been produced
@@ -353,15 +353,13 @@ bounded citation kept per author instruction).
 
 # Final Verdict
 
-**(1) Ready for 10-page IEEE BigData compression.**
+**(1) IEEE BigData manuscript ready for final human review.**
 
-After the pre-compression pass, every science and writing item is resolved: the
-b₀/warm-up sweep was run (0/12 ranking reversals; the manuscript sentence is now
-backed), the 5V BigData framing is in the introduction, the title is updated, and
-the novelty pass confirmed the one novelty claim is already bounded. The only
-item Still open before submission is the 10-page compression itself (193), for
-which a reviewed-pending plan now exists. The single remaining author decision
-(167, a literal self-plagiarism diff) needs Paper 1's text but does **not** block
-compression and shows no detectable verbatim reuse in the current sources.
-Verdict (2) is no longer warranted (no pre-compression blockers remain);
-(3)/(4) are not warranted (no reopened science, evidence supports GO).
+The compression is complete: the official IEEEtran v1.8b build is **9 pages**
+with the full scientific spine intact (non-identification/tie-break table, b₀
+result, simulation boundary all in the main text), 0 overflows, 0 undefined
+references, guards 37/37. No validity evidence was cut and no unsupported claim
+was introduced. Every science, writing, and formatting item is resolved. The
+only remaining item is human: the author's self-plagiarism confirmation against
+Paper 1 (item 167; its text is unavailable here), which does not block the
+manuscript. No submission has occurred; the repository remains private.

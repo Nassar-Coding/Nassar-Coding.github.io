@@ -19,10 +19,10 @@ $x_{c,s,t+1} \in \mathbb{Z}_{\ge 0}$, $\sum_s x_{c,s,t+1} = B_c$; a unit
 resolves up to $\kappa$ request-equivalents the next day. Unresolved
 workload carries over:
 \begin{align}
-  w_{c,s,t+1} &= b_{c,s,t} + y_{c,s,t+1}, \qquad
-  \mathrm{resolved} = \min(w_{c,s,t+1},\, \kappa\, x_{c,s,t+1}), \nonumber \\
-  u_{c,s,t+1} &= w_{c,s,t+1} - \mathrm{resolved}, \qquad
-  b_{c,s,t+1} = (1-\alpha)\, u_{c,s,t+1},
+  w_{c,s,t+1} &= b_{c,s,t} + y_{c,s,t+1}, \nonumber \\
+  \mathrm{resolved} &= \min(w_{c,s,t+1},\, \kappa\, x_{c,s,t+1}), \nonumber \\
+  u_{c,s,t+1} &= w_{c,s,t+1} - \mathrm{resolved}, \nonumber \\
+  b_{c,s,t+1} &= (1-\alpha)\, u_{c,s,t+1},
 \end{align}
 where $b$ is simulated unresolved request-equivalent carryover (observable
 state at decision time), initialized at $b_{c,s,0}=0$, and $\alpha$ an

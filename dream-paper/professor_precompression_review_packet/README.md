@@ -17,6 +17,8 @@ explicitly deferred pending this review).
 | `04_status_checklist.md` | Row-by-row status of all 202 professor-review items (73 implemented / 95 already satisfied / 1 supplement / 28 journal / 3 rejected / 1 still-open=compression / 1 author=self-plagiarism diff). |
 | `05_b0_sensitivity_summary.csv/.tex` | The initial-carryover (b₀) sensitivity summary: mean policy rank under b₀=0, validation warm-up, and training-average conditions. |
 | `06_b0_sensitivity_full.csv` | Full per-cell b₀ sensitivity (city × regime × policy × condition × loss × rank). |
+| `07_main_manuscript_IEEE_9pp.pdf` | **The compressed IEEE BigData draft** — official IEEEtran v1.8b, two-column conference format, **9 pages**, full scientific spine intact. |
+| `08_compression_report.md` | The compression implementation report (dry run, fixes, page counts, checks, verdict). |
 
 ## Current status
 
@@ -36,10 +38,14 @@ explicitly deferred pending this review).
 - **BigData framing has been added** — a concise 5V paragraph in the
   introduction (Volume / Variety / Veracity / Value; Velocity explicitly out of
   scope: no real-time, streaming, or deployment claim).
-- **The only remaining IEEE BigData item is the 10-page compression** (plan in
-  `03_compression_plan.md`). A literal self-plagiarism diff against the prior
-  single-city paper still awaits that paper's text and is a final human-review
-  item; no verbatim reuse was detected in current sources.
+- **The 10-page compression is complete.** The official IEEEtran v1.8b build
+  (`07_main_manuscript_IEEE_9pp.pdf`) is **9 pages** with the full scientific
+  spine intact (non-identification/tie-break table, b₀ result, and simulation
+  boundary all in the main text), 0 overflows, 0 undefined references; no
+  validity evidence was cut. The only remaining item is a literal
+  self-plagiarism diff against the prior single-city paper, which awaits that
+  paper's text and is a final human-review item; no verbatim reuse was detected
+  in current sources.
 - **The repository remains private.** The clean public-release repository has
   not been made public.
 - **No submission has occurred.** Nothing has been submitted anywhere.

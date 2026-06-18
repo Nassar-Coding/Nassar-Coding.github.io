@@ -9,16 +9,22 @@ stage-censored pooled fits (Amendment C11), pooling raises test MAE
 significantly in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
 ($+1.8\%$); San Francisco is neutral. Censored zero-shot transfer
 degrades MAE by $+5\%$ to $+149\%$.
-\item \textbf{The exact point-forecast optimizer loses to proportional
-apportionment} in all 12 city-regime settings under the neutral
-objective --- the identified mechanism being that a degenerate forecast
-makes the marginal-value profile piecewise flat in \emph{both}
-segments ($\kappa\omega$ below the point estimate plus carryover, zero
-above), so the greedy ordering is tie-broken rather than informed;
-distributional tails restore an allocation gradient (worked examples
-for both segments in the optimality section).
+\item \textbf{Degenerate point forecasts non-identify the allocation
+objective}: under the neutral objective a degenerate forecast makes the
+marginal-value profile piecewise flat in \emph{both} segments
+($\kappa\omega$ below the point estimate plus carryover, zero above), so
+92--100\% of allocation steps are ties and the realized allocation is
+decided by the secondary tie-break rather than the forecast. Under the
+fixed ascending-index rule the point-forecast greedy policy underperforms
+proportional apportionment in all 12 city-regime settings; a proportional
+secondary tie-break recovers proportional behavior, and the
+quantile-interpolated distribution removes the non-identification and
+recovers much of the fixed-index loss gap (worked examples for both
+segments in the optimality section).
 \item \textbf{Quantile intervals are under-dispersed}: 90\% nominal,
-76.8--81.2\% empirical; unrepaired in this paper.
+76.8--81.2\% empirical. Split-conformal recalibration substantially
+improved empirical coverage (to 88--90\%; calibration table above); the
+calibrated sensitivity did not reverse the decision-level conclusions.
 \item \textbf{A protocol defect was detected and corrected during review}
 (R1-F1): per-city split boundaries differ by 1--2 calendar days, so
 uncensored pooled fits contained $\approx$0.1\% contemporaneous

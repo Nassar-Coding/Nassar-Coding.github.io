@@ -331,7 +331,8 @@ bounded citation kept per author instruction).
 4. **`make all` run:** yes — full integrated pipeline incl. the `sensitivity`
    stage (now also the b₀ sweep), exit 0; headline numbers reproduce to the digit.
 5. **Guards passed:** yes.
-6. **Guard count:** 37 (0 skipped).
+6. **Guard count:** 16 guard categories (G1–G16), exercised by a 37-test suite
+   (0 skipped).
 7. **Manuscript compiled:** yes (`pdflatex`, 17 pp, all cross-references resolve).
 8. **Supplement compiled:** yes (16 pp).
 9. **New evidence tables provenance-tracked:** yes — 58 artifacts in

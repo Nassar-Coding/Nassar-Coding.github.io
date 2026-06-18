@@ -30,9 +30,9 @@ explicitly deferred pending this review).
   framing has been removed and is **not** restored.
 - **b₀ sensitivity is now run and supports the formulation claim.** Under all
   three initial-carryover conditions the claim-bearing ordering (uniform worst;
-  fixed-index point-greedy below the three identified policies) is unchanged in
-  **0/12** city-regime cells. The manuscript sentence stating b₀ is varied as a
-  labeled sensitivity is therefore backed by evidence.
+  fixed-index point-greedy below the three identified policies) **held in 12/12**
+  city-regime cells (changed in 0/12). The manuscript sentence stating b₀ is
+  varied as a labeled sensitivity is therefore backed by evidence.
 - **BigData framing has been added** — a concise 5V paragraph in the
   introduction (Volume / Variety / Veracity / Value; Velocity explicitly out of
   scope: no real-time, streaming, or deployment claim).
@@ -47,6 +47,7 @@ explicitly deferred pending this review).
 ## Verification at this snapshot
 
 - Main paper and supplement compile (`pdflatex`); 17 pp / 16 pp.
-- Guard suite: **37 passed, 0 skipped**; forbidden-token scan clean.
+- Guard suite: 16 protocol guards (G1–G16), **37-test suite passes (0 skipped)**;
+  forbidden-token scan clean.
 - `make all` reproduces every headline number to the digit; provenance manifest
   covers 58 artifacts.

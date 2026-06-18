@@ -50,8 +50,9 @@ $B_c=\max\!\big(\mathrm{round}(f\,\bar d_c/\kappa),\,|\mathcal S_c|\big)$
 for $f\in\{0.7,0.9,1.1\}$, floored at the active-family count. The
 resulting integer budgets are frozen before any model selection and used
 unchanged for validation-stage selection and the single test evaluation;
-$\kappa$ sets only the scale of a capacity unit and is varied as a
-labeled sensitivity. Nothing in
+$\kappa$ sets only the scale of a capacity unit. Rather than sweeping a
+global $\kappa$ grid, the sensitivity analysis varies one family's
+service-yield multiplier at a time (factors $0.70$ and $1.30$). Nothing in
 this construction estimates any city's actual capacity, productivity, or
 queues.
 

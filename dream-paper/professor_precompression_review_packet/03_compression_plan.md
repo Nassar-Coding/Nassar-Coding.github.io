@@ -50,13 +50,17 @@ narrowed Claim B. Make no deployment/staffing/backlog/causal/social-need claims.
 
 ---
 
-## 2. Figures — keep 3 in main, move 1
+## 2. Figures — keep up to 3 in main, move 1
 
-- **Keep:** Fig 1 (four-city panel overview — establishes Variety/Veracity),
-  Fig 2 (accuracy gain by feature set), Fig 3 (accuracy vs simulated decision
-  value — the fixed-index diagnostic).
-- **Move to supplement:** Fig 4 (rolling-origin fold stability) — supports a
-  robustness sentence that can cite the supplement figure.
+Actual compiled numbering: **Fig 1** = four-city panel overview; **Fig 2** =
+accuracy gain by feature set; **Fig 3** = rolling-origin fold stability;
+**Fig 4** = accuracy vs simulated decision value (the fixed-index diagnostic).
+
+- **Keep:** Fig 1 (panel overview — Variety/Veracity), Fig 2 (accuracy gain),
+  and **Fig 4** (accuracy vs simulated decision value — secondary but useful).
+- **Move to supplement if space is tight:** **Fig 3** (rolling-origin fold
+  stability) — supports a one-sentence robustness claim that can cite the
+  supplement figure.
 
 ## 3. Tables — main vs supplement
 

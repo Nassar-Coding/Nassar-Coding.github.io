@@ -50,7 +50,7 @@ Per-city verification of the raw/retained data and the feature build:
 
 **Root cause (confirmed):** `build_features` calls
 `feats.dropna(subset=weather_cols)` (line 96), so the single shared feature
-panel — used by *every* feature set — is bounded by weather availability. NOAA
+panel — used by *every* feature set — is bounded by the frozen weather-joined layer. The pinned NOAA
 GHCN-Daily for the four stations ends 2025-02-06; with the target-day join
 (weather day − 1) this caps the modeled span at 2025-02-05. **Real 311
 observations through 2025-12-31 exist and are retained in the panel, but are not
@@ -60,7 +60,7 @@ documented reason → **stop gate #2 not triggered**.
 **Manuscript clarification added** (`data.tex` + Table-1 caption + supplement
 `s_tables`): the 311 acquisition / study window and densified panel span
 2020–2025-12-31, while the modeled span (all forecasting and decision
-evaluation) runs 2020-01-28 → 2025-02-05, bounded by weather availability; later
+evaluation) runs 2020-01-28 → 2025-02-05, bounded by the frozen weather-joined panel; later
 311 observations are retained but not modeled.
 
 ## 8. A3 — Chicago exclusion count (before/after)
@@ -138,8 +138,8 @@ stale `8.6--14`, and stale Chicago counts.
 
 | Stop gate | Triggered? |
 |---|---|
-| 1 A2 provenance irreconcilable | **No** — weather-bounded, documented |
-| 2 real post-2025-02-05 obs excluded w/o reason | **No** — reason is weather availability; now documented |
+| 1 A2 provenance irreconcilable | **No** — frozen weather-joined window, documented (Stage 2B) |
+| 2 real post-2025-02-05 obs excluded w/o reason | **No** — pinned weather layer ends 2025-02-06; frozen common window; documented |
 | 3 numeric citations break refs / exceed 10 pp | **No** — 9 pp, all resolve |
 | 4 family-starvation contradicts decision-value framing | **No** — coexists; framed as "not a fairness guarantee" |
 | 5 any edit hides non-identification/tie-break | **No** — `tab11` unchanged, in main |

@@ -304,6 +304,6 @@ items as **mandatory**; all are implemented in Stage 2 (see
 The A1/A2/A3/B2 must-fixes are likewise implemented. A2 provenance was resolved
 during Stage 2: the modeled span ends 2025-02-05 because `build_features` drops
 rows with missing weather (`dropna(subset=weather_cols)`) and NOAA GHCN-Daily
-weather for the four stations was available only through 2025-02-06; real 311
+the pinned NOAA GHCN-Daily layer for the four stations covers only through 2025-02-06; real 311
 observations through 2025-12-31 are retained in the densified panel but not
 modeled — a documented reason, so stop gate #2 is **not** triggered.

@@ -41,3 +41,19 @@ items as mandatory. All are now implemented.
 - **No route switch is authorized in Stage 2.** Official IEEE BigData
   special-session scope was not re-verified this stage (no browsing performed
   for it); investigate only before final submission if a switch is considered.
+
+---
+
+## Stage 2B — frozen-window decision (weather not refreshed)
+
+| Decision | Options | Choice | Evidence | Action |
+|---|---|---|---|---|
+| Weather/window for IEEE submission | (a) refresh weather + rerun to 2025-12-31; (b) **retain frozen weather-joined common window** | **(b) retain frozen window** | refresh reopens all audited numbers/guards; manuscript already compressed/audited at 9 pp; bottleneck is framing not window length | A2 wording corrected to pinned-layer framing; no rerun |
+
+**Provenance (verified):** both layers acquired 2026-06-09; pinned NOAA
+GHCN-Daily mirror covers the four stations through **2025-02-06**, 311 covers
+through **2025-12-31**; `build_features` drops missing-weather rows, so the
+modeled span ends **2025-02-05**. The manuscript must not claim general NOAA
+unavailability and must not claim the 311 layer was "later refreshed" (it was
+the same-day acquisition); the correct framing is the **frozen weather-joined
+common evaluation window** acquired for this benchmark.

@@ -17,13 +17,15 @@ entries (4{,}184{,}157 records) and aviation-routed aircraft-noise filings
 (1{,}918{,}574 records), and San Francisco's administrative duplicate
 markers. The 311 acquisition and study window is 2020-01-01 through
 2025-12-31, the full scope of NYC's current dataset, and the densified
-panel spans this window. The \emph{modeled span} is shorter: because every
-feature set shares one panel joined with station weather and rows lacking
-weather are dropped, the feature-supported span --- and hence all
-forecasting and decision evaluation --- runs 2020-01-28 through 2025-02-05,
-bounded by NOAA GHCN-Daily availability for the four stations at
-acquisition (through 2025-02-06); the later 311 observations are retained
-in the panel but not modeled. As an acquisition-integrity check, the
+panel spans this window. The \emph{modeled span} is shorter and is fixed
+by a frozen weather-joined evaluation panel: every feature set shares one
+panel that includes station weather and rows lacking weather are dropped,
+so the modeled span --- and hence all forecasting and decision evaluation
+--- runs 2020-01-28 through 2025-02-05. The NOAA GHCN-Daily layer acquired
+for this benchmark covers the four stations through 2025-02-06, whereas the
+311 layer covers through 2025-12-31; the later 311 observations are
+therefore retained in the panel but lie outside this frozen common
+evaluation window and are not modeled. As an acquisition-integrity check, the
 NYC layer was produced by two independent methods --- server-side
 aggregation and client-side aggregation of a streamed export --- which
 agreed exactly (270{,}978 aggregated rows).

@@ -7,14 +7,22 @@ The validation-selected calendar model lowers held-out test MAE relative
 to the validation-selected internal-history model in every city:
 $-11.9\%$ in New York (207.0 $\rightarrow$ 182.4), $-15.6\%$ in Chicago
 (60.4 $\rightarrow$ 50.9), $-10.4\%$ in San Francisco (35.2 $\rightarrow$
-31.5), and $-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8); the
-fixed-estimator (LightGBM) calendar effect is significant in all four
-cities. Against the same-weekday seasonal-naive baseline, the selected
+31.5), and $-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8) --- a
+validation-selected comparison spanning $10.2$--$15.6\%$. As a separate
+comparison holding the estimator fixed, the LightGBM calendar effect
+(internal $\rightarrow$ calendar, same model) is $10.0$--$14.0\%$ and
+significant in all four cities, all 28-day block-bootstrap intervals
+excluding zero. Against the same-weekday seasonal-naive baseline, the selected
 calendar+weather model reduces test MAE by 41.4\% (New York), 41.5\%
 (Chicago), 31.3\% (San Francisco), and 31.3\% (Austin). Validation-only
 selection matters in its own right: on the internal feature set it picks
 the random forest in Austin and Chicago and ridge in San Francisco,
-choices a test-minimum rule would have hidden.
+choices a test-minimum rule would have hidden. As a count-data check, a
+Poisson GLM (supplement) beats the naive trailing mean in 11 of 12 (city,
+feature-set) cells but is dominated by the validation-selected models in
+all 12; consistent with this being a benchmark-and-protocol contribution
+rather than an algorithmic leaderboard, we add no further models here and
+defer modern deep or hierarchical baselines to a journal version.
 
 \paragraph{Weather's marginal value is real but city-dependent.}
 On top of calendar features, target-day weather further reduces MAE by

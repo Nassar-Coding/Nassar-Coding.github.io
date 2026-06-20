@@ -44,9 +44,10 @@ native-category counts per city (from the build manifests):
 {\footnotesize\input{../outputs/tables/tab17_dataset_audit}}
 
 \paragraph{Chronological split boundaries.} Exact per-city train /
-validation / test day ranges (the modeling window ends at the last day of
-acquired data; the densified panel carries the nominal study window to
-2025-12-31):
+validation / test day ranges. The modeled span ends 2025-02-05, bounded by
+NOAA GHCN-Daily weather availability for the four stations (through
+2025-02-06); later 311 observations are retained in the densified panel,
+which carries the nominal study window to 2025-12-31, but are not modeled:
 
 {\footnotesize\input{../outputs/tables/tab18_split_dates}}
 

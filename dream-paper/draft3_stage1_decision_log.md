@@ -17,3 +17,27 @@ Branch `draft_3`, from commit `360198d`.
 | D2 5V framing | edit / keep | **keep** (A3 fix strengthens Veracity) | introduction 5V paragraph | none |
 | E citation/page budget | keep plainnat / switch to IEEE numeric | **keep for now** (9 pp; numeric would only save space) | `main_ieee.pdf` 9 pp | none required |
 | Paper-1 self-plagiarism | author provides text / accept partial scan | **author item (non-blocking)** | Paper 1 text not in repo; no verbatim reuse detected | none in Stage 2 |
+
+---
+
+## Prof 2 reclassification + Stage 2 outcomes (Draft 3 Stage 2)
+
+Prof 2 agreed with the Stage-1 factual audit but reclassified several optional
+items as mandatory. All are now implemented.
+
+| ID | Stage-1 class | Prof 2 reclass | Stage 2 outcome |
+|---|---|---|---|
+| R1 family-starvation | optional | **disclosure mandatory** (metric still optional) | added a concise main-text disclosure in `responsible.tex` grounded in `tab16`: under the equal request-equivalent objective the forecast-driven full-distribution policy serves a near-zero fraction of water/sewer in all four cities (0.0000 Austin/Chicago/SF, 0.0025 NYC) and of SF public safety (0.0000); "lower aggregate loss is not a fairness guarantee" |
+| R2 citation style | page-budget note | **formatting/compliance requirement** | converted `main_ieee.tex` to IEEE numeric: `\bibliographystyle{IEEEtran}` + `\usepackage[numbers,sort&compress]{natbib}`; added `paper/IEEEtran.bst` v1.12; bibtex regenerated; bracketed numeric refs, 20 numbered entries, no undefined citations; 9 pages |
+| R3 BigData Volume | already satisfied | **small precision edit** | added one clause to the intro 5V Volume sentence: scale enters via acquisition/exclusion/harmonization/provenance; the predictive task is defined on daily aggregated city–family panels, not raw records |
+| R4 decision-loss wording | optional | **mandatory** | replaced the residual "all paired intervals excluding zero" with descriptive blocked-resampling wording in `results_decision`; trend/nonstationarity caveat retained |
+| R5 baseline criticism | reviewer misunderstanding | **conscious tradeoff** | added a main-text Poisson sentence in `results_forecast` (beats naive 11/12, dominated by selected 12/12); stated benchmark-and-protocol contribution, not an algorithmic leaderboard; deep/hierarchical baselines deferred to journal |
+
+## Venue-track note (Part 7)
+
+- Default route: **main IEEE BigData path** (unchanged).
+- Special session / workshop: **fallback only**; would require official current
+  CFP/scope verification.
+- **No route switch is authorized in Stage 2.** Official IEEE BigData
+  special-session scope was not re-verified this stage (no browsing performed
+  for it); investigate only before final submission if a switch is considered.

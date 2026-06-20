@@ -1,7 +1,7 @@
 All simulations run at budgets frozen from training data (New York
 119/153/187 units across the scarce/moderate/generous regimes; Chicago
 29/38/46; San Francisco 26/33/41; Austin 8/11/13; $\kappa=50$), under
-the neutral equal-weights objective. Losses are waiting-time-weighted
+the equal request-equivalent-weights objective. Losses are waiting-time-weighted
 unresolved stocks (Section~3); policy contrasts carry paired 28-day
 block-bootstrap intervals on the daily loss differentials. Because the
 trend diagnostic of Section~8 finds 45 of the 48 differential series
@@ -19,7 +19,7 @@ uncertainty. Three findings emerge.
 objective; the realized outcome is tie-break dependent.}
 Degenerate point-forecast representations collapse the marginal-value
 profile of the myopic expected-value allocation objective. Under the
-neutral objective the per-unit marginal value equals $\kappa\omega$ for
+equal-weight objective the per-unit marginal value equals $\kappa\omega$ for
 every unit below the point estimate plus carryover and zero above it, so
 all under-served families share an identical marginal value and the
 greedy ordering carries no information in either the deficit or the
@@ -44,7 +44,7 @@ cumulative unresolved stock by 18--23\% (scarce), 38--70\% (moderate),
 and 60--93\% (generous), the regime pattern itself being partly
 mechanical: under structural under-capacity no policy can prevent stock
 growth, so policy differences compress. All of this is a property of the
-simulated environment and its neutral objective --- under the
+simulated environment and its equal-weight objective --- under the
 normative-priority sensitivity the gap compresses --- and constitutes no
 guidance about any city's actual operations.
 
@@ -67,7 +67,8 @@ non-identification, a second route alongside a proportional tie-break.}
 Holding the single fitted quantile model and every other input fixed, the
 quantile-interpolated full-distribution arm outperforms both the median
 arm and the implied-mean arm in 12 of 12 settings \emph{under the
-fixed-index tie-break}, with all paired intervals excluding zero. This
+fixed-index tie-break}; the paired blocked-resampling summaries are
+reported descriptively and, in this comparison, do not cross zero. This
 advantage is the same non-identification phenomenon: the median and
 implied-mean arms are themselves degenerate point forecasts and inherit
 the same flat-profile ties, whereas the full distribution's tails supply

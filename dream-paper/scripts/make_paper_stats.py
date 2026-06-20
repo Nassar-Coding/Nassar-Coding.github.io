@@ -49,16 +49,18 @@ def data_stats() -> str:
     df = pd.DataFrame(rows)
     body = " \\\\\n".join(" & ".join(str(v) for v in r) for r in df.values)
     return (
-        "\\begin{table}[t]\\centering\n"
+        "\\begin{table*}[t]\\centering\n"
         "\\caption{Dataset summary after preprocessing (study window "
         f"{manifest['panel_date_range'][0]} to {manifest['panel_date_range'][1]}; "
         "eight defined service-family categories with city-specific active sets --- "
         "Chicago has seven because the noise family is structurally absent; "
-        "no synthetic data).}\n"
+        "no synthetic data). Counts, panel rows, and per-day means are for the "
+        "densified study window; forecasting and decision evaluation use the "
+        "shorter weather-bounded modeled span through 2025-02-05 (see text).}\n"
         "\\label{tab:data}\n"
         "\\small\\begin{tabular}{lrrrrr}\n\\toprule\n"
         + " & ".join(df.columns) + " \\\\\n\\midrule\n"
-        + body + " \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}\n"
+        + body + " \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n"
     )
 
 

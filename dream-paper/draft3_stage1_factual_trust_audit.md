@@ -280,3 +280,30 @@ budget.
 must-fix issues (A1, A2, A3, B2), all small and contained; several optional
 improvements; one standing author item (venue track default = continue; Paper-1
 self-plagiarism diff still needs that paper's text but does not block Stage 2).
+
+---
+
+## Addendum — Prof 2 reclassification (Draft 3 Stage 2)
+
+Prof 2 agreed with this factual audit and reclassified several Stage-1 optional
+items as **mandatory**; all are implemented in Stage 2 (see
+`draft3_stage2_implementation_report.md`):
+
+- **R1 (family starvation):** optional → **disclosure mandatory**. Added in
+  `responsible.tex`, grounded in `tab16` (water/sewer served ≈0 in all four
+  cities; SF public safety served ≈0).
+- **R2 (citation style):** page-budget note → **compliance requirement**.
+  `main_ieee.tex` converted to IEEE numeric (`IEEEtran.bst`, `[numbers]natbib`).
+- **R3 (Volume framing):** already satisfied → **small precision edit**. Intro
+  Volume clause clarifies the modeling unit is daily aggregate panels.
+- **R4 (decision-loss wording):** optional → **mandatory**. Residual "intervals
+  excluding zero" replaced with descriptive wording.
+- **R5 (baseline criticism):** "reviewer misunderstanding" → **conscious
+  tradeoff**. Poisson mentioned in main text; deep baselines deferred to journal.
+
+The A1/A2/A3/B2 must-fixes are likewise implemented. A2 provenance was resolved
+during Stage 2: the modeled span ends 2025-02-05 because `build_features` drops
+rows with missing weather (`dropna(subset=weather_cols)`) and NOAA GHCN-Daily
+weather for the four stations was available only through 2025-02-06; real 311
+observations through 2025-12-31 are retained in the densified panel but not
+modeled — a documented reason, so stop gate #2 is **not** triggered.

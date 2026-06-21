@@ -24,10 +24,14 @@ every unit below the point estimate plus carryover and zero above it, so
 all under-served families share an identical marginal value and the
 greedy ordering carries no information in either the deficit or the
 surplus segment (worked examples for both segments are in the
-supplement). Empirically the objective is non-identified across nearly
-the entire feasible set: 92--100\% of allocation steps are ties, with
-2.6--6.9 active families tied at the maximum marginal value
-(Table~\ref{tab:tiebreak}). Realized allocation loss is therefore
+supplement). That ties arise under a symmetric coverage objective is not
+in itself surprising; the empirical question is whether this
+non-identification is rare enough to ignore or pervasive enough to govern
+the downstream conclusion. On real multi-city municipal data it is
+pervasive: the objective is non-identified across nearly the entire
+feasible set --- 92--100\% of allocation steps are ties, with 2.6--6.9
+active families tied at the maximum marginal value
+(Table~\ref{tab:tiebreak}), across four heterogeneous demand structures. Realized allocation loss is therefore
 determined by the secondary tie-break rule, not by the point forecast.
 Under our original implementation the fixed ascending-index tie-break
 underperformed proportional apportionment in all 12 city-regime cells
@@ -49,7 +53,13 @@ the supplement show that some low-volume families receive near-zero served
 fractions under the equal request-equivalent objective. All of this is a
 property of the simulated environment and its equal-weight objective ---
 under the normative-priority sensitivity the gap compresses --- and
-constitutes no guidance about any city's actual operations.
+constitutes no guidance about any city's actual operations. The design
+lesson is bounded but real: when forecasts feed a discrete coverage-type
+objective with symmetric per-unit value, predictive representation and the
+secondary tie-break rule are first-class design choices, not implementation
+details. We state this only for the tested objective, regimes, reported
+municipal demand, and simulated request-equivalent allocation; it is a
+forecast-to-decision design phenomenon, not deployment evidence.
 
 \begin{table*}[t]\centering\small
 \caption{Objective non-identification under degenerate point forecasts.

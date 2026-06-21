@@ -1,30 +1,37 @@
-Short-horizon forecasts of 311 service-request volume are a natural
-planning input, but forecast accuracy is only a proxy for the decisions a
-forecast supports. We build a reproducible benchmark from 36.8 million
-acquired service-request records (30.2 million retained after documented
-exclusions) across four U.S. cities (New York, Chicago, San Francisco,
-Austin; 2020--2025), harmonized into documented service families and
-joined with NOAA station weather, and we evaluate next-day forecasters
-jointly with an explicitly simulated, family-level capacity-allocation
-model under pre-specified hypothetical service-pressure regimes. The
-allocation layer is a transparent simulation over abstract
-request-equivalent capacity units; it concerns reported demand, not need,
-and makes no claim about any city's real capacity, productivity, or
-operations. Capacity budgets are frozen from training data only and all
-model selection uses validation data only. Calendar augmentation reduces
-next-day error in every city (10.0--14.0\%, all 28-day block-bootstrap
-intervals excluding zero); target-day weather --- a day-ahead-forecast
-proxy --- helps three cities and adds nothing in the fourth, a retained
-null. Temporally censored cross-city pooling raises error in three of
-four cities, a result that holds under log-scale and per-city-standardized
-normalization. In the simulation, a degenerate point forecast leaves the
-expected-value allocation objective non-identified across nearly the
-entire feasible set (92--100\% of allocation steps are ties), so realized
-loss is determined by the secondary tie-break rule: a naive fixed rule
-loses to proportional apportionment in all 12 city-regime settings, while
-a proportional secondary rule recovers proportional performance and a
-genuine quantile-interpolated predictive distribution removes the
-non-identification and recovers much of the loss gap. Forecast
-\emph{representation} can therefore matter as much as forecast accuracy.
-All data are public and every number regenerates from one command under a
-guard suite that enforces the protocol.
+We present a reproducible multi-city benchmark for next-day reported
+municipal service-demand forecasting and evaluate how forecast
+representations behave when embedded in a controlled request-equivalent
+allocation simulation. Short-horizon 311 forecasts are a natural planning
+input, but forecast accuracy is only a proxy for the decisions a forecast
+supports. The benchmark is built from 36.8 million acquired service-request
+records (30.2 million retained after documented exclusions) across four
+heterogeneous U.S. municipal systems (New York, Chicago, San Francisco,
+Austin; 2020--2025), harmonized into common service families and joined
+with NOAA station weather; acquisition, exclusion, harmonization, and
+provenance are guarded and one-command reproducible. The allocation layer
+is a transparent simulation over abstract request-equivalent capacity
+units: it concerns reported demand, not social need, and makes no claim
+about any city's real capacity, productivity, or operations. Budgets are
+frozen from training data and all model selection uses validation data
+only. Calendar augmentation reduces next-day error in every city
+(10.0--14.0\%, all 28-day block-bootstrap intervals excluding zero);
+target-day weather --- a day-ahead-forecast proxy --- helps three cities
+and adds nothing in the fourth, a retained null; temporally censored
+cross-city pooling raises error in three of four cities, robust to
+log-scale and per-city-standardized normalization. Coupling forecasts to
+the simulation exposes a forecast-to-decision phenomenon: a degenerate
+point forecast leaves the equal request-equivalent objective non-identified
+across nearly the entire feasible set (92--100\% of allocation steps are
+ties), so the realized outcome is set by the secondary tie-break rule.
+Under the naive fixed-index default this loses to proportional
+apportionment in all 12 city-regime settings; a proportional secondary
+rule recovers proportional performance, and a genuine quantile-interpolated
+predictive distribution removes most of the non-identification gap. When
+forecasts feed a discrete coverage-type objective with symmetric per-unit
+value, predictive representation and tie-breaking become first-class design
+choices rather than implementation details --- a bounded, simulation-
+internal lesson, not a deployment or fairness claim. Aggregate simulated-
+loss reductions are not fairness guarantees: some low-volume families
+receive near-zero served fractions under this objective. All data are
+public and every number regenerates from one command under a guard suite
+that enforces the protocol.

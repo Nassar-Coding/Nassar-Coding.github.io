@@ -6,21 +6,30 @@ and a growing literature shows that public signals such as weather and
 calendar structure improve such forecasts. But planners do not consume
 mean absolute error; they consume allocations, and the mapping from
 predictive accuracy to allocation quality is neither linear nor
-guaranteed.
+guaranteed. We present a reproducible multi-city benchmark for next-day
+reported municipal service-demand forecasting and evaluate how forecast
+representations behave when embedded in a controlled request-equivalent
+allocation simulation.
 
-This paper makes exactly three contributions. \textbf{(1)} A reproducible
-four-city benchmark of next-day reported 311 demand --- New York, Chicago,
-San Francisco, and Austin, 2020--2025 --- built entirely from official
-open-data APIs with versioned harmonization rules, provenance manifests,
-and SHA-256 checksums, regenerable by one command. \textbf{(2)} A
-leakage-controlled evaluation of local, pooled, transfer, calendar,
-weather, and probabilistic next-day forecasting, with frozen pre-test
-environments, validation-only selection, and temporally censored pooling
-and transfer. \textbf{(3)} A controlled, explicitly simulated family-level
-capacity-allocation study, under pre-specified hypothetical
-service-pressure regimes, that isolates when and how forecast
-\emph{representation} changes downstream simulated decision value. The
-governing question is:
+This paper makes four contributions, ordered from artifact to
+interpretation. \textbf{(1) Benchmark and protocol:} a reproducible
+four-city benchmark of next-day reported 311 demand (New York, Chicago,
+San Francisco, Austin; 2020--2025) on a common service-family schema,
+built from official open-data APIs with versioned harmonization,
+provenance manifests, SHA-256 checksums, and leakage-controlled temporal
+evaluation, regenerable by one command. \textbf{(2) Forecasting evidence:}
+a leakage-controlled evaluation of calendar, weather, and public-signal
+value; local versus pooled and temporally censored cross-city transfer;
+uncertainty representation; and a count-data (Poisson) baseline --- with
+negative and null findings reported transparently. \textbf{(3)
+Forecast-to-decision evaluation:} a controlled request-equivalent
+allocation simulation that exposes point-forecast non-identification, its
+dependence on the secondary tie-break rule, and the gap a distributional
+representation recovers. \textbf{(4) Responsible use and veracity:}
+reported demand is not social need, aggregate simulated loss is not a
+fairness guarantee (we disclose family-level served fractions), and every
+number is provenance-tracked and guard-enforced. The governing question
+is:
 
 \begin{quote}
 Across heterogeneous municipal 311 reporting systems, under pre-specified
@@ -31,18 +40,14 @@ when are predictive rankings sufficient proxies for simulated decision
 rankings?
 \end{quote}
 
-Four design commitments distinguish the evaluation protocol.
-\textbf{(i) Frozen environments:} capacity budgets derive from training
-data only and are identical at model-selection time and at the single
-test evaluation. \textbf{(ii) Validation-only selection:} no headline
-configuration is chosen using test outcomes. \textbf{(iii) Temporal
-censoring:} pooled and transfer models never train on rows
-contemporaneous with any evaluation window. \textbf{(iv) Controlled
-uncertainty contrast:} the value of distributional information is
-measured within one fitted quantile model --- its median, implied-mean,
-and full-distribution representations --- holding everything else fixed.
-A guard suite of automated tests enforces each commitment and fails the
-build if any is violated.
+Four design commitments distinguish the protocol (Section on methods):
+frozen training-only capacity budgets, identical at selection and test;
+validation-only model selection; temporal censoring so pooled and transfer
+models never train on rows contemporaneous with any evaluation window; and
+a controlled uncertainty contrast that varies only how one fitted quantile
+model's median, implied-mean, and full-distribution representations enter
+the policy. A guard suite of automated tests enforces each commitment and
+fails the build on violation.
 
 The contribution is one of data and evaluation rather than of a new
 algorithm, and it sits in the big-data tradition along four of the usual

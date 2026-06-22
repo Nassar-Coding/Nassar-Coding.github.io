@@ -49,28 +49,24 @@ model's median, implied-mean, and full-distribution representations enter
 the policy. A guard suite of automated tests enforces each commitment and
 fails the build on violation.
 
-The contribution is one of data and evaluation rather than of a new
-algorithm, and it sits in the big-data tradition along four of the usual
-axes. \emph{Volume:} tens of millions of acquired municipal records (36.8
-million acquired, 30.2 million retained); this scale enters through
-acquisition, exclusion, harmonization, and provenance, while the
-predictive task itself is defined on daily aggregated city--family
-panels rather than on the raw records directly. \emph{Variety:} four
-heterogeneous 311 systems with distinct intake taxonomies, harmonized
-service families, calendar structure, and NOAA station weather.
-\emph{Veracity:} provenance manifests, documented exclusions, SHA-256
-checksums, leakage guards, and one-command reproduction make the assembled
-benchmark auditable. \emph{Value:} we measure whether forecasting
-improvements do or do not translate into simulated allocation outcomes.
-Velocity is deliberately out of scope --- the modeling unit is the daily
-aggregate, and we claim no real-time, streaming, or deployed system.
+The contribution is one of data and evaluation, not a new algorithm, and
+it sits in the big-data tradition: \emph{Volume} --- tens of millions of
+acquired municipal records (36.8M acquired, 30.2M retained), entering
+through acquisition, exclusion, harmonization, and provenance, while the
+predictive task is defined on daily aggregated city--family panels, not
+raw records; \emph{Variety} --- four heterogeneous 311 systems with
+distinct taxonomies, harmonized families, calendar, and NOAA weather;
+\emph{Veracity} --- provenance manifests, documented exclusions, SHA-256
+checksums, leakage guards, and one-command reproduction; \emph{Value} ---
+whether forecasting gains do or do not translate into simulated allocation
+outcomes. Velocity is out of scope: the modeling unit is the daily
+aggregate and we claim no real-time, streaming, or deployed system.
 
 Throughout, we are explicit about what the data can and cannot support.
 Reported requests are not social need \citep{kontokosta2021bias}; the
 allocation layer is a simulation over abstract request-equivalent
-capacity units whose parameters are varied over a pre-specified grid rather than asserted; and no
-causal, deployment, or operational-guidance claim is made. The study is
-an empirical bridge between the forecasting literature, which stops at
-accuracy, and the decision-focused learning literature
-\citep{elmachtoub2022smart, mandi2024decision}, which rarely touches
-public-sector data.
+capacity units (a simulation unit, not a real workforce measure), with
+parameters varied over a pre-specified grid rather than asserted; and no
+causal, deployment, or operational-guidance claim is made. The study bridges the forecasting
+literature, which stops at accuracy, and decision-focused learning
+\citep{elmachtoub2022smart, mandi2024decision}.

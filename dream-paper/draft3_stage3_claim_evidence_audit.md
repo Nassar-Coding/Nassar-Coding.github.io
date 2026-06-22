@@ -65,3 +65,32 @@ replaced by the bounded principle.
 
 **Audit result: PASS** — claims and evidence are aligned in both directions; no
 Stage-3 enthusiasm overstatement detected.
+
+---
+
+## Stage 3B post-trim re-verification
+
+The page-trim (compressed 5V paragraph, boundary paragraph, responsible-use
+closing sentence, conclusion continuations) was re-audited — trimming is exactly
+where a caveat can be lost:
+
+- **Load-bearing caveats survive (each ≥1 occurrence):** *not a fairness
+  guarantee* (4), *simulation/not deployment* (3), *reported demand is not need*
+  (4), *request-equivalent capacity is a simulation unit, not a real workforce
+  measure* (intro; expressed without the guard-forbidden words "staffing"/"crew"),
+  *no causal/operational-guidance/endorsement claim* (2).
+- **Claim-bearing items preserved:** identity sentence (2×), prior-work delta,
+  non-identification obviousness defense, bounded central principle (abstract +
+  decision), Table II / non-identification evidence (`tab11`), family-starvation
+  disclosure (responsible + decision cross-reference), A2 frozen-window wording,
+  calendar 10.0–14.0%, Chicago 4,184,157, equal-request-equivalent wording,
+  numeric IEEE citations.
+- **No new overstatement:** the distribution is still "recovers most of the gap"
+  / "a second route" (never equal to proportional); the 1.2–58% cost is still
+  the recoverable cost of the naive fixed-index default; no operational/
+  deployment/social-need/city-validation claim introduced (guard 37/37, scan
+  clean). One guard correctly caught an accidental "staffing/crews" phrase added
+  during the trim; it was reworded to "a real workforce measure" and the guard
+  passes.
+
+**Stage 3B audit result: PASS** (no caveat lost, no overstatement introduced).

@@ -5,3 +5,9 @@ __pycache__/
 *.pyc
 .pytest_cache/
 outputs/logs/*.tmp
+
+# IEEE build byproducts (the PDF and .bbl are versioned; these are not)
+paper/main_ieee.aux
+paper/main_ieee.blg
+paper/main_ieee.log
+paper/main_ieee.out

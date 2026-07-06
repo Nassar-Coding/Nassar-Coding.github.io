@@ -11,25 +11,36 @@ reported municipal service-demand forecasting and evaluate how forecast
 representations behave when embedded in a controlled request-equivalent
 allocation simulation.
 
-This paper makes four contributions, ordered from artifact to
-interpretation. \textbf{(1) Benchmark and protocol:} a reproducible
+The contributions form an explicit hierarchy rather than co-equal
+claims. The \textbf{primary contribution is the artifact}: a reproducible
 four-city benchmark of next-day reported 311 demand (New York, Chicago,
 San Francisco, Austin; 2020--2025) on a common service-family schema,
 built from official open-data APIs with versioned harmonization,
 provenance manifests, SHA-256 checksums, and leakage-controlled temporal
-evaluation, regenerable by one command. \textbf{(2) Forecasting evidence:}
-a leakage-controlled evaluation of calendar, weather, and public-signal
-value; local versus pooled and temporally censored cross-city transfer;
-uncertainty representation; and a count-data (Poisson) baseline --- with
-negative and null findings reported transparently. \textbf{(3)
-Forecast-to-decision evaluation:} a controlled request-equivalent
-allocation simulation that exposes point-forecast non-identification, its
-dependence on the secondary tie-break rule, and the gap a distributional
-representation recovers. \textbf{(4) Responsible use and veracity:}
-reported demand is not social need, aggregate simulated loss is not a
-fairness guarantee (we disclose family-level served fractions), and every
-number is provenance-tracked and guard-enforced. The governing question
-is:
+evaluation, regenerable by one command. The artifact is a benchmark
+(data, protocol, and automated enforcement), not a data collection
+alone; its evaluation protocol includes a controlled request-equivalent
+allocation simulation that extends evaluation beyond accuracy, and this
+simulation is a measurement instrument of the benchmark, not a
+standalone simulation study. The \textbf{headline empirical finding} is
+what that instrument reveals: a degenerate point forecast leaves the
+equal request-equivalent allocation objective non-identified (92--100\%
+of allocation steps tied), so the realized outcome is set by the
+secondary tie-break rule; a proportional secondary rule recovers
+proportional performance and a genuine predictive distribution removes
+most of the non-identification gap. \textbf{Supporting evidence}
+characterizes the forecasting layer: leakage-controlled calendar,
+weather, and public-signal value; local versus pooled and temporally
+censored cross-city transfer; uncertainty representation; and a
+count-data (Poisson) baseline, with negative and null findings reported
+transparently. Responsible use is enforced as a property of the protocol
+rather than claimed as a contribution: reported demand is never
+interpreted as social need, aggregate simulated loss is never presented
+as a fairness guarantee (family-level served fractions are disclosed),
+and every number is provenance-tracked and guard-enforced.
+
+The single research question of the study, the question this
+instrument is built to answer, is:
 
 \begin{quote}
 Across heterogeneous municipal 311 reporting systems, under pre-specified
@@ -40,7 +51,7 @@ when are predictive rankings sufficient proxies for simulated decision
 rankings?
 \end{quote}
 
-Four design commitments distinguish the protocol (Section on methods):
+Four design commitments distinguish the protocol (Section~5):
 frozen training-only capacity budgets, identical at selection and test;
 validation-only model selection; temporal censoring so pooled and transfer
 models never train on rows contemporaneous with any evaluation window; and
@@ -70,3 +81,11 @@ parameters varied over a pre-specified grid rather than asserted; and no
 causal, deployment, or operational-guidance claim is made. The study bridges the forecasting
 literature, which stops at accuracy, and decision-focused learning
 \citep{elmachtoub2022smart, mandi2024decision}.
+
+The paper is organized as follows. Section~2 positions the work;
+Section~3 formalizes the prediction task, the simulated allocation, and
+the loss; Sections~4 and~5 describe the data and the models, protocol,
+and guard suite. Section~6 reports forecasting results and Section~7
+the simulated capacity-allocation evaluation; Section~8 examines
+robustness and sensitivity, and Sections~9--11 discuss responsible use,
+limitations, and conclusions.

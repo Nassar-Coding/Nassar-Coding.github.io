@@ -3,7 +3,8 @@ municipal service-demand forecasting and evaluate how forecast
 representations behave when embedded in a controlled request-equivalent
 allocation simulation. Short-horizon 311 forecasts are a natural planning
 input, but forecast accuracy is only a proxy for the decisions a forecast
-supports. The benchmark is built from 36.8 million acquired service-request
+supports. The benchmark, the paper's primary artifact, is built from
+36.8 million acquired service-request
 records (30.2 million retained after documented exclusions) across four
 heterogeneous U.S. municipal systems (New York, Chicago, San Francisco,
 Austin; 2020--2025), harmonized into common service families and joined
@@ -19,7 +20,8 @@ target-day weather --- a day-ahead-forecast proxy --- helps three cities
 and adds nothing in the fourth, a retained null; temporally censored
 cross-city pooling raises error in three of four cities, robust to
 log-scale and per-city-standardized normalization. Coupling forecasts to
-the simulation exposes a forecast-to-decision phenomenon: a degenerate
+the simulation yields the paper's headline finding, a
+forecast-to-decision phenomenon: a degenerate
 point forecast leaves the equal request-equivalent objective non-identified
 across nearly the entire feasible set (92--100\% of allocation steps are
 ties), so the realized outcome is set by the secondary tie-break rule.

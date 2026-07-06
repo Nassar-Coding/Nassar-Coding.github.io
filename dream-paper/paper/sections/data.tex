@@ -1,4 +1,7 @@
 \paragraph{311 service requests.}
+\emph{Input: official open-data portals. Output: versioned daily
+aggregates with full provenance. Goal: an acquisition layer any reader
+can re-run and audit.}
 We use the official open-data portals of four U.S. cities, selected by
 pre-stated criteria (API uniformity, coverage of the 2020--2025 study
 window --- set by the scope of NYC's current dataset, decision D14 ---
@@ -32,6 +35,9 @@ agreed exactly (270{,}978 aggregated rows).
 \input{sections/data_stats}
 
 \paragraph{Harmonized service families.}
+\emph{Input: four native category taxonomies. Output: one eight-family
+schema. Goal: cross-city comparability without claiming compositional
+identity.}
 Each city's native taxonomy ($\sim$\,one to three hundred categories) is
 mapped to eight service families --- noise; housing/building;
 water/sewer; public safety; streets/transport; sanitation; parks/trees;
@@ -49,6 +55,8 @@ native-category composition of every family in every city, and no
 cross-city claim in this paper assumes compositional identity.
 
 \paragraph{Weather.}
+\emph{Input: NOAA GHCN-Daily station records. Output: daily weather
+features per city. Goal: a bounded, checksummed public weather signal.}
 NOAA GHCN-Daily station observations (precipitation, max/min temperature,
 snowfall, snow depth; derived mean temperature) from one first-order
 station per city (Central Park; O'Hare; San Francisco Downtown; Camp

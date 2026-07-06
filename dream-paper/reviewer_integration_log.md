@@ -85,6 +85,52 @@ sentences later resolve primacy.
 **GATE 1: PASS** (compile clean, guards 37/37, protected items intact,
 coherence panel 3/3).
 
+## Group 2 — Problem Formulation & Technical Exposition
+
+- **G2-T1** (`formulation.tex`) — section rewritten for a non-OR reader:
+  new "Data in brief" opener; plain-language walk-through added after the
+  carryover align block ("In words: each day's workload $w$ is new
+  requests plus carried stock; …"); no definition, equation, or audited
+  number changed (verified by the per-equation audit below). DONE.
+- **G2-T2** — per-equation verification log (independent agents, each
+  checking manuscript vs implementation, all verdicts CORRECT):
+  | Equation / statement | Verdict | Key evidence |
+  |---|---|---|
+  | Carryover recursion w=b+y; resolved=min(w,κx); u=w−resolved; b′=(1−α)u; b₀=0; α=0 primary | correct | allocation.py:129,133,135–137,142; SimConfig α default 0.0 |
+  | Decision loss L_c=ΣΣω_s·u; k-day request counts k times; ω_s=1 primary | correct | allocation.py:135–139,148; loss on u before abandonment |
+  | Budget B_c=max(round(f·d̄_c/κ),\|S_c\|), f∈{0.7,0.9,1.1}, train-only mean, frozen pre-selection | correct | run_decision.py:79,84–91,122–125; decision.yml:7,10,13–15; frozen_budgets.json matches 119/153/187, 29/38/46, 26/33/41, 8/11/13; budgets independently recomputed from stored means |
+  | Greedy exactly maximizes Σω·E[min(D,κx)]; concavity; ascending-index tie key | correct | allocation.py:94–114 (heap tuple gives index tie-break); brute-force optimality test test_core.py:100–115 |
+  | Quantile-interpolated distribution: 99-pt grid [0.01,0.99], linear interp, clamped tails, implied mean = grid mean, median arm = .50 | correct | allocation.py:73,79,87–88; models.py:20; run_decision.py:148–156,211–213 |
+  | Proportional = largest-remainder of ŷ+b; uniform forecast-free; full budget always | correct | allocation.py:51–62,170–175; runtime assert alloc.sum()==units |
+  | Protocol constants: 70/15/15; val-MAE selection + train+val refit; 28d/2000/seed 20260609 (14/56 sens.); κ=50; non-crossing cummax; 5 folds | correct | protocol.py:16,31; run_forecasting.py:138,142,271–287; decision.yml:59–62; models.py:90–93 |
+  Rendering: visual inspection of pages 2–5 at high zoom — **clean, zero
+  defects** (align block, eq. (2), the budget expression
+  max{round(f·d̄/κ),\|S_c\|}, greedy objective, quantile superscripts;
+  gutters ink-free, right edge exact, no overfull).
+  NOTE (tracker "UNRESOLVED" field): the reviewer-clarification answer on
+  whether Fatimah meant math/rendering/exposition is still pending; per
+  the tracker instruction the rendering was checked regardless, and both
+  math-vs-code and exposition were covered.
+- **G2-T3** — "Data in brief" paragraph opens Section III, before the
+  prediction task (reordering-free preview; Section IV not duplicated).
+  DONE.
+- **G2-T4** — input → output → goal opener applied to all five
+  formulation subsections that define the pipeline (prediction task,
+  allocation, policies, uncertainty contrast — plus the data preview),
+  all five methods subsections, and the three main data paragraphs
+  (12 openers total). Results/robustness sections are findings, not
+  pipeline definitions; pattern not applied there (recorded scope
+  decision). DONE.
+- **G2-T5** — "Why a simulated allocation layer" motivation paragraph
+  now precedes the mechanism ("Simulated allocation"), framing the
+  simulation as a scientific instrument consistent with the Group-1
+  hierarchy. DONE.
+
+**GATE 2: PASS** — recompile clean (10 pp, 0 overfull, 0 undefined);
+Sections III–IV visually inspected (self + independent inspector, zero
+defects); every formula logged (table above); no audited number changed;
+guards 37/37; forbidden scan clean; I/O/G pattern present (12 openers).
+
 ## Group 5 — Decisions (recorded here as the tracker's decision log)
 
 *(filled in when Group 5 executes)*

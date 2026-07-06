@@ -1,4 +1,15 @@
+\paragraph{Data in brief.}
+The unit of analysis is the calendar day. For each of the four cities
+the benchmark provides a daily panel: the count of 311 requests created
+in city $c$ and harmonized service family $s$ on day $t$, joined with
+deterministic calendar information and one station's weather
+observations. Section~4 details sources, exclusions, harmonization, and
+provenance; everything below is defined on this panel.
+
 \paragraph{Prediction task.}
+\emph{Input: the panel through day $t$. Output: next-day forecasts for
+every active family. Goal: measure what each public signal adds, under
+strict leakage control.}
 Let $y_{c,s,t}$ denote the number of 311 requests created in city $c$ and
 harmonized service family $s \in \mathcal{S}_c$ on calendar day $t$, where
 $\mathcal{S}_c$ is the city's \emph{active} family set (eight families in
@@ -12,7 +23,22 @@ features of day $t{+}1$ are deterministic; target-day weather uses the
 realized observation for $t{+}1$ as a stand-in for a day-ahead weather
 forecast (assumption A3, bounded by a lagged-weather variant).
 
+\paragraph{Why a simulated allocation layer.}
+Accuracy metrics alone cannot reveal whether differences between
+forecasts would ever change a decision. The benchmark therefore couples
+every forecaster to one deliberately transparent allocation simulation:
+a scientific instrument for measuring the forecast-to-decision mapping
+under a known objective, with every parameter exposed as configuration
+and every allocation step auditable. The instrument models no city's
+actual operations; its value is that any difference in simulated outcome
+is attributable, by construction, to the forecasts and the policy rule
+alone.
+
 \paragraph{Simulated allocation.}
+\emph{Input: the day-$t{+}1$ forecasts and the observable carryover
+state. Output: an integer split of a fixed capacity budget across
+families. Goal: score each forecast by the unresolved workload its
+allocations leave behind.}
 Each evening a simulated planner allocates a fixed budget of $B_c$
 abstract capacity units across active families,
 $x_{c,s,t+1} \in \mathbb{Z}_{\ge 0}$, $\sum_s x_{c,s,t+1} = B_c$; a unit
@@ -27,7 +53,11 @@ workload carries over:
 where $b$ is simulated unresolved request-equivalent carryover (observable
 state at decision time), initialized at $b_{c,s,0}=0$, and $\alpha$ an
 abandonment rate ($\alpha=0$ primary; $b_0$ and $\alpha$ are varied as
-labeled sensitivities). The decision loss over the test horizon $\mathcal{T}$ is
+labeled sensitivities). In words: each day's workload $w$ is new requests
+plus carried stock; allocated capacity resolves up to $\kappa$
+request-equivalents per unit; whatever remains unresolved ($u$) carries
+into the next day's state $b$. The decision loss over the test horizon
+$\mathcal{T}$ is
 \begin{equation}
   L_c \;=\; \sum_{t \in \mathcal{T}} \sum_{s \in \mathcal{S}_c}
   \omega_s\, u_{c,s,t},
@@ -59,6 +89,9 @@ this construction estimates any city's actual capacity, productivity, or
 queues.
 
 \paragraph{Policies.}
+\emph{Input: the same observable state for every policy. Output: a full
+allocation of the budget. Goal: isolate how the forecast's
+representation, not its information set, changes the allocation.}
 All policies receive the same observable state and allocate the full
 budget: \emph{uniform} (equal units; forecast-free floor);
 \emph{proportional} (largest-remainder apportionment of
@@ -78,6 +111,9 @@ supplementary diagnostics only; being per-day myopic it is not a
 horizon-optimal bound and is never used as a denominator or target.
 
 \paragraph{Controlled uncertainty contrast.}
+\emph{Input: one fitted quantile model. Output: three policy arms that
+differ only in the representation handed to the same policy. Goal:
+isolate the value of distributional information.}
 The value of distributional information is isolated within ONE fitted
 quantile model: a degenerate-median arm, an implied-mean arm, and a
 full-distribution arm differ only in how the same predictive distribution

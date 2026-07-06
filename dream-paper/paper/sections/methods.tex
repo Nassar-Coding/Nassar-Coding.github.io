@@ -1,4 +1,6 @@
 \paragraph{Feature sets.}
+\emph{Input: the daily panel. Output: four nested predictor sets. Goal:
+isolate the marginal value of each public signal.}
 Four nested feature sets isolate the marginal value of each public
 signal: \emph{internal} (lags $1,2,3,7,14,28$ and 7/28-day rolling mean
 and standard deviation, windows ending at day $t$); \emph{calendar}
@@ -9,6 +11,8 @@ and \emph{calendar+weather}. Family indicators are one-hot encoded;
 pooled models add city indicators.
 
 \paragraph{Models.}
+\emph{Input: the feature sets. Output: a pre-specified grid of point and
+quantile forecasters. Goal: reproducible comparison, not a leaderboard.}
 Two forecast-free baselines (trailing 7-day mean; same-weekday seasonal
 naive), ridge regression, a random forest \citep{breiman2001random}, and
 LightGBM with an L1 objective \citep{ke2017lightgbm} form the
@@ -19,6 +23,9 @@ Hyperparameters are fixed across cities and feature sets; baselines are
 never dropped from tables.
 
 \paragraph{Protocol.}
+\emph{Input: each city's day sequence. Output: splits, model selections,
+and one test evaluation per configuration. Goal: leakage-controlled
+selection that never touches test outcomes.}
 Within each city, the earliest 70\% of days form training, the next 15\%
 validation, and the final 15\% an untouched test window. For every (city,
 feature set), the model is selected on VALIDATION MAE, frozen, refit on
@@ -45,6 +52,9 @@ blocks, 2{,}000 resamples, seed 20260609; 14- and 56-day blocks as
 pre-specified sensitivity) \citep[in the spirit of][]{diebold1995comparing}.
 
 \paragraph{Decision evaluation.}
+\emph{Input: every forecaster's next-day forecasts. Output: simulated
+decision losses at frozen budgets. Goal: compare policies and
+representations on the decision loss, not only on accuracy.}
 Every point forecaster drives the proportional and greedy policies; the
 quantile model drives the three uncertainty arms; uniform allocation is
 the forecast-free floor. Simulations run day-by-day over each city's test
@@ -59,6 +69,8 @@ the same frozen budgets) is compared against selection by validation MAE,
 both frozen before test.
 
 \paragraph{Guard suite.}
+\emph{Input: the repository's data, configuration, and outputs. Output:
+37 automated checks. Goal: fail the build on any protocol violation.}
 Sixteen automated protocol guards (G1--G16), exercised by a 37-test suite,
 enforce the protocol and fail the build
 otherwise, including: budgets reproducible from training data and

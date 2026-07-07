@@ -4,10 +4,8 @@ aggregates with full provenance. Goal: an acquisition layer any reader
 can re-run and audit.}
 We use the official open-data portals of four U.S. cities, selected by
 pre-stated criteria (API uniformity, coverage of the 2020--2025 study
-window --- set by the scope of NYC's current dataset, decision D14 ---
-category
-granularity, and heterogeneity in size and climate; see the feasibility
-audit in the companion repository): New York (\texttt{erm2-nwe9}, NYC Open
+window, category granularity, and heterogeneity in size and climate; see
+the feasibility audit in the companion repository): New York (\texttt{erm2-nwe9}, NYC Open
 Data), Chicago (\texttt{v6vf-nfxy}, current 311 system, live since
 December 2018), San Francisco (\texttt{vw6y-z8j6}, DataSF, PDDL license),
 and Austin (\texttt{xwdj-i9he}). Acquisition uses server-side daily
@@ -63,9 +61,9 @@ station per city (Central Park; O'Hare; San Francisco Downtown; Camp
 Mabry), retrieved from NOAA's AWS Open Data mirror with checksums.
 Quality-flagged values are dropped; short temperature gaps ($\le 7$
 days) are interpolated; missing snow fields are treated as zero. Wind
-speed was excluded for all cities because the San Francisco station does
-not report it and Central Park has a multi-month gap --- a documented
-deviation from the single-city study this work extends. A single station
+speed was excluded for all cities on data-completeness grounds: the San
+Francisco station does not report it and Central Park has a multi-month
+gap; the exclusion is recorded in the repository's decision log. A single station
 per city is a documented spatial simplification (A2).
 No synthetic demand or synthetic weather is used anywhere in the study.
 

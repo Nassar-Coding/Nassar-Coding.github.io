@@ -19,10 +19,9 @@ built from official open-data APIs with versioned harmonization,
 provenance manifests, SHA-256 checksums, and leakage-controlled temporal
 evaluation, regenerable by one command. The artifact is a benchmark
 (data, protocol, and automated enforcement), not a data collection
-alone; its evaluation protocol includes a controlled request-equivalent
-allocation simulation that extends evaluation beyond accuracy, and this
-simulation is a measurement instrument of the benchmark, not a
-standalone simulation study. The \textbf{headline empirical finding} is
+alone; its evaluation protocol includes the controlled
+request-equivalent allocation simulation as a measurement instrument of
+the benchmark, not a standalone simulation study. The \textbf{headline empirical finding} is
 what that instrument reveals: a degenerate point forecast leaves the
 equal request-equivalent allocation objective non-identified (92--100\%
 of allocation steps tied), so the realized outcome is set by the
@@ -82,10 +81,8 @@ causal, deployment, or operational-guidance claim is made. The study bridges the
 literature, which stops at accuracy, and decision-focused learning
 \citep{elmachtoub2022smart, mandi2024decision}.
 
-The paper is organized as follows. Section~2 positions the work;
-Section~3 formalizes the prediction task, the simulated allocation, and
-the loss; Sections~4 and~5 describe the data and the models, protocol,
-and guard suite. Section~6 reports forecasting results and Section~7
-the simulated capacity-allocation evaluation; Section~8 examines
-robustness and sensitivity, and Sections~9--11 discuss responsible use,
-limitations, and conclusions.
+The paper proceeds from positioning (Section~2) through formulation,
+data, and methods (Sections~3--5) to forecasting results (Section~6),
+the simulated allocation evaluation (Section~7), robustness
+(Section~8), and responsible use, limitations, and conclusions
+(Sections~9--11).

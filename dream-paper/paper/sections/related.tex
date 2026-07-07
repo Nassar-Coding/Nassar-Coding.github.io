@@ -2,15 +2,14 @@
 \citet{cui2018operational} established, in retail, that publicly
 available signals (social media) measurably improve daily operational
 forecasts; \citet{steinker2017value} did the same for weather in
-e-commerce fulfilment. An earlier single-city study on NYC 311 by the
-present author brought this template to municipal reported demand in one
-city. The present work differs in scope and in kind: it spans four
-heterogeneous 311 systems under one leakage-controlled protocol; adds
-local-versus-pooled and temporally censored cross-city transfer; couples
-forecasting to a controlled request-equivalent allocation simulation
-rather than stopping at accuracy; characterizes point-forecast
-non-identification, its tie-break dependence, and the family-level
-served-fraction tradeoffs it exposes; and ships a stronger provenance- and
+e-commerce fulfilment. The present work brings this template to
+municipal reported demand at multi-city scale and extends it in kind:
+four heterogeneous 311 systems under one leakage-controlled protocol;
+local-versus-pooled and temporally censored cross-city transfer;
+forecasting coupled to a controlled request-equivalent allocation
+simulation rather than stopping at accuracy; characterization of
+point-forecast non-identification, its tie-break dependence, and the
+family-level served-fraction tradeoffs it exposes; and a provenance- and
 guard-backed reproducible benchmark.
 
 \paragraph{311 analytics.}
@@ -34,7 +33,12 @@ framework trains models against the downstream objective
 \citep{elmachtoub2022smart}, task-based end-to-end learning does so in
 stochastic programs \citep{donti2017task}, and \citet{mandi2024decision}
 survey and benchmark the field. Those benchmarks are dominated by
-synthetic costs or energy/inventory/routing settings. We contribute
+synthetic costs or energy/inventory/routing settings; the same holds for
+the standard predict-then-optimize tooling, whose suites are
+shortest-path, knapsack, and travelling-salesperson instances with
+generated costs \citep{tang2024pyepo}, and the contextual-optimization
+survey of \citet{sadana2025survey} likewise notes the scarcity of
+realistic public testbeds. We contribute
 complementary public-sector evidence: rather than proposing a training
 method, we measure empirically where accuracy-optimized models,
 distributional information, and decision-aware validation selection do
@@ -42,7 +46,10 @@ and do not change simulated allocation outcomes.
 
 \paragraph{Capacity planning under time-varying demand.}
 Setting service capacity against predictable daily variation is a
-classical operations problem \citep{green2007coping}; our simulation is a
+classical operations problem \citep{green2007coping}, and recent
+public-sector work couples coherent point and probabilistic demand
+forecasts to deployment planning in emergency medical services
+\citep{rostamitabar2025hierarchical}. Our simulation is a
 deliberately transparent discrete-time instance with integer capacity
 units, family-level objectives, and carryover of unresolved
 request-equivalents, designed for auditability rather than queueing
@@ -53,6 +60,29 @@ Urban computing treats the city as a sensing-and-decision platform
 \citep{zheng2014urban}; cross-city transfer has been studied mainly for
 traffic and crowd-flow prediction \citep{wang2019crosscity}, and pooled
 training across related series is standard in modern forecasting
-\citep{salinas2020deepar}. We test pooled-versus-local training and
+\citep{salinas2020deepar}. Recent urban benchmarks operate at this
+platform scale: \citet{liu2023largest} release a five-year,
+8{,}600-sensor traffic-forecasting benchmark, and \citet{ning2023uukg}
+build two-city (New York, Chicago) urban knowledge-graph datasets whose
+downstream tasks include 311 request prediction; both evaluate
+predictive accuracy only. We test pooled-versus-local training and
 zero-shot transfer under explicit temporal censoring, and carry the
 comparison through to simulated decision quality.
+Table~\ref{tab:positioning} summarizes the positioning.
+
+\begin{table*}[t]\centering\scriptsize
+\caption{Positioning against representative prior work.}
+\label{tab:positioning}
+\begin{tabular}{@{}l l l l@{}}
+\toprule
+Study & Data scope & Evaluation focus & Forecast$\to$allocation layer \\
+\midrule
+\citet{xu2017predicting} & Chicago 311 (one city) & space--time demand prediction & motivated, not evaluated \\
+\citet{cheng2022machine} & Miami-Dade 311 (one county) & request volumes and correlates & none evaluated \\
+\citet{ning2023uukg} & NYC{+}Chicago knowledge graphs & spatiotemporal prediction incl.\ 311 & none evaluated \\
+\citet{liu2023largest} & California traffic (8{,}600 sensors) & large-scale traffic forecasting & none evaluated \\
+\citet{mandi2024decision} & stylized/synthetic decision tasks & decision-focused training methods & in the training objective \\
+This work & four 311 systems, 36.8M records & leakage-controlled forecasting protocol & controlled allocation simulation, tie-break analysis \\
+\bottomrule
+\end{tabular}
+\end{table*}

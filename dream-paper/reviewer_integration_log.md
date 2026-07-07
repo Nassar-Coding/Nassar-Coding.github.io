@@ -131,6 +131,64 @@ Sections III–IV visually inspected (self + independent inspector, zero
 defects); every formula logged (table above); no audited number changed;
 guards 37/37; forbidden scan clean; I/O/G pattern present (12 openers).
 
+## Group 3 — Related Work, Positioning & Prior-Paper Removal
+
+- **G3-T1** — five recent references added, EVERY one verified against an
+  authoritative source before entering `references.bib` (verification via
+  publisher-domain-restricted searches after the subagent verification
+  fan-out hit a session limit; the arXiv/DBLP/Crossref APIs are blocked by
+  the sandbox proxy):
+  | Key | Verified at | Facts confirmed |
+  |---|---|---|
+  | ning2023uukg | proceedings.neurips.cc + OpenReview (u2cXRGm95Y) | authors Ning/Liu/Wang/Zeng/Xiong; NeurIPS 2023 D&B; two cities NYC+Chicago; 5 USTP tasks incl. 311 prediction |
+  | liu2023largest | proceedings.neurips.cc + neurips.cc poster 73480 | 10 authors match; NeurIPS 2023 D&B; 8,600 CA sensors, 5 years 2017–2021 |
+  | tang2024pyepo | link.springer.com (10.1007/s12532-024-00255-x) | Tang & Khalil; Math. Prog. Computation 16:297–335 (2024); shortest-path/knapsack/TSP suites |
+  | sadana2025survey | arXiv 2306.10374 + EJOR listing | 6 authors match; EJOR 320(2):271–289 (2025) |
+  | rostamitabar2025hierarchical | journals.sagepub.com (10.1177/10946705241232169) + robjhyndman.com | JSR 28(2):278–295 (2025); ambulance demand, coherent point+probabilistic forecasts for deployment planning |
+  Placement: PyEPO + Sadana in "From prediction to decisions" (synthetic-
+  testbed positioning); LargeST + UUKG in "Cross-city learning and urban
+  computing" (accuracy-only benchmark positioning); Rostami-Tabar &
+  Hyndman in "Capacity planning" (recent public-sector forecasting).
+  Deltas stated concretely in prose. DONE.
+- **G3-T2** — comparison table added (`tab:positioning`, table*,
+  scriptsize): rows Xu 2017 / Cheng 2022 / UUKG 2023 / LargeST 2023 /
+  Mandi 2024 / this work; axes data scope, evaluation focus,
+  forecast→allocation layer. Every row fact spot-checked against the
+  verification evidence above or the already-verified existing prose
+  (Xu "motivated, not evaluated" was verified in the Stage-1 audit;
+  Cheng volumes+correlates from the bib entry; UUKG/LargeST accuracy-only
+  from their verified abstracts; Mandi stylized/synthetic from the JAIR
+  abstract and our existing verified prose). DONE.
+- **G3-T3** — ALL prior-study mentions removed. related.tex II(a):
+  positioning content retained at literature level, no self-attribution
+  ("The present work brings this template to municipal reported demand at
+  multi-city scale and extends it in kind: …"). data.tex IV(c): wind
+  exclusion justified by data facts alone (SF station does not report
+  wind; Central Park multi-month gap) + pointer to the repository's
+  decision log (fact-checked: D15 in docs/04_decision_log.md documents
+  exactly this). Grep for all six terms returns ZERO hits across
+  manuscript + supplement + README. No factual claim left unsupported
+  (the old "differs from" sentence was rewritten so its referent is the
+  literature template, not the removed prior study). DONE.
+
+**GATE 3: PASS** — all new bib entries verified real (table above);
+citations resolve (0 undefined; 25 references); comparison-table claims
+spot-checked; prior-study grep zero across manuscript+supplement; guards
+37/37; protected wording intact.
+
+**RED-pair carryover to G4-T4 (explicit):** after the Group 1–3
+additions the compiled paper is 11 pages with a 34-line reference tail
+on page 11 (~10.3 effective). Levers already applied: prose compression
+(~12 lines: intro hierarchy/roadmap, data selection-criteria
+parenthetical incl. removal of internal "decision D14" jargon,
+formulation motivation), positioning table at scriptsize, IEEE BSTCTL
+author truncation (et al. after 6 names — standard IEEE mechanism,
+IEEEtranN supports it; 19 et-al entries in the bbl). Remaining levers
+for G4: caption shortening (G4-T2), reproducibility-statement rewrite
+(G4-T3), em-dash rewrites (G4-T1), small figure-width reductions if
+needed (logged as an extra lever beyond the tracker's list — legibility
+unaffected for vector PDFs). No claim-bearing evidence cut anywhere.
+
 ## Group 5 — Decisions (recorded here as the tracker's decision log)
 
 *(filled in when Group 5 executes)*

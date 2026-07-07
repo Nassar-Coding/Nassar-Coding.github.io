@@ -275,3 +275,52 @@ frozen-window wording, zero prior-study hits).
 guarded (37/37), and within the page target (10 pages held); the final
 commit references all Task IDs; the tracker Status column is fully
 filled (see `Reviewer_Task_Tracker_v2_status.xlsx`).
+
+---
+
+## MICRO-PASS v3a (M1/M2/M3) — post-integration bounded fixes
+
+- **M1 (Fig. 2 baseline consistency): DONE** (commit d3ddcfe). Code
+  evidence: `scripts/make_tables_figures.py:117-118` — the % reduction
+  denominator is `model == "naive_trailing7"` (internal feature set),
+  i.e., the trailing 7-day mean; line 119 computes `100·(1 − sel/naive)`.
+  Surfaces now naming it explicitly: y-axis label ("% test-MAE reduction
+  vs trailing 7-day-mean baseline (validation-selected model)"), the
+  Fig. 2 caption ("versus the trailing 7-day-mean baseline"), and the one
+  body sentence naming this baseline (results_decision "Replacing the
+  trailing 7-day-mean baseline…"). No body sentence cites
+  `\ref{fig:gain}` (verified). Bare "naive" removed from the label. Bars
+  unchanged: regeneration from frozen metrics left every table
+  byte-identical (only figure re-renders + provenance hashes moved).
+  Seasonal-naive 41.4/41.5/31.3/31.3 untouched.
+- **M2 (IEEE cross-reference style): DONE** (commit 998d33a). All 22
+  in-prose arabic section references converted to `\ref{sec:…}` against
+  11 new labels in both `main_ieee.tex` and `main.tex` (shared sections
+  render Roman in the IEEE build, arabic in the article build — each
+  matching its own headings). Compiled IEEE text: `Section [0-9]` = 0
+  hits; targets verified (V=Methods, VII=Decision ×6, VIII=Robustness
+  ×4; ranges III–V, VI–VII, IX–XI). Supplement: two main-paper
+  references hardcoded Roman (Sections VII–VIII; Section VII); its one
+  self-reference uses `\ref{ssec:compute}` and stays arabic BY DESIGN —
+  the supplement's own headings are arabic (article class), so Roman
+  would mismatch headings, contradicting M2's stated purpose.
+- **M3 (page-buffer via figure geometry): ATTEMPTED ONCE, FAILED,
+  REVERTED CLEANLY.** Attempt: Fig. 1 panel height 1.9→1.45 in, Fig. 4
+  height 2.6→2.1 in, `\textfloatsep`/`\floatsep` (+dbl) tightened to
+  6pt. Result: page 10 fill 108→95 lines, references ending ~58% down
+  the right column ≈ **9.79 effective pages** — recovery ≈ 0.09 page,
+  short of both the ≥0.25-page aim and the ≤9.75 DoD. Per the
+  one-attempt rule: **buffer unreachable via figure geometry**; all M3
+  changes reverted (script, preamble, figures, provenance restored to
+  the M2 state; rebuild verified 10 pages, byte-size identical build).
+
+**GATE M: PASS** — 10 pages exactly (≤10.0); 0 overfull; 0 unresolved
+citations/references; guards 37/37 after every task; forbidden scan
+clean; frozen numbers all present and unchanged (36.8M/30.2M;
+10.0–14.0% + 10.2–15.6% both labeled; Chicago 4,184,157; exclusion
+components 523,055/4,184,157/1,918,574 — their 6,625,786 total was never
+printed as a single number before or after this pass; 92–100%; 1.2–58%;
+−0.03..+0.8%; 18–23/38–70/60–93%; Spearman 0.88–0.99; budgets
+119/153/187, 29/38/46, 26/33/41, 8/11/13; κ=50); protected-wording
+checklist fully intact; diff since pre-pass commit `edeae2b` touches
+only M1/M2 surfaces (M3 net-zero).

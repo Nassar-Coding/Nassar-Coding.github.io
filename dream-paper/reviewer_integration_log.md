@@ -240,4 +240,38 @@ frozen-window wording, zero prior-study hits).
 
 ## Group 5 — Decisions (recorded here as the tracker's decision log)
 
-*(filled in when Group 5 executes)*
+- **G5-T1 — Foundation time-series baseline (Amazon Chronos-2): DEFERRED
+  to the journal version.** Rationale: the binary-baseline prior decision
+  (one serious guarded baseline or none — the Poisson GLM fills that
+  role), the Stage-3 scope lock (no new experiments in this pass), and
+  the fact that adding any model to THIS submission would reopen every
+  audited number and re-trigger the full guard/provenance chain days
+  before the deadline; that trade is an author call, and the tracker
+  itself classifies it as such. NOT silently dropped: one honest
+  future-work sentence added to the conclusion naming foundation TS
+  models ("… evaluating recent time-series foundation models (e.g.,
+  Amazon's Chronos-2) as additional forecasting baselines in a journal
+  extension"), +1 line, compiled (still 10 pages), guards 37/37.
+  Chronos-2's existence verified (Amazon Science announcement;
+  amazon/chronos-2 on Hugging Face) before naming it in print; no
+  citation added (future-work mention, not a result claim; keeps the
+  bibliography inside the page budget).
+- **G5-T2 — Journal-version plan (post-submission): RECORDED.** Target
+  venues per Khamis: Sustainable Cities and Society (Elsevier) and the
+  International Journal of Forecasting (Elsevier). Required additions
+  for the journal version: (a) clarified research objectives (largely
+  addressed by Group 1; revisit against journal scope), (b) strengthened
+  novelty discussion vs. recent literature (Group 3 baseline to build
+  on), (c) expanded broader implications of the findings, (d) the
+  foundation-TS baseline candidate (Chronos-2, per G5-T1) plus the
+  previously deferred deep/hierarchical baselines, with the guard suite
+  extended to cover any new model, and (e) consider the richer
+  service-time modeling / spatial disaggregation continuations named in
+  the conclusion. TIMING: all journal work starts AFTER the conference
+  decision; none of it consumed conference-deadline time in this pass.
+
+**GATE 5: PASS** — both Decide tasks have recorded outcomes + rationale
+(nothing silently dropped); the one manuscript line added is compiled,
+guarded (37/37), and within the page target (10 pages held); the final
+commit references all Task IDs; the tracker Status column is fully
+filled (see `Reviewer_Task_Tracker_v2_status.xlsx`).

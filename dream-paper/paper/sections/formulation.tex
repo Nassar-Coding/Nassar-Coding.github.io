@@ -3,7 +3,7 @@ The unit of analysis is the calendar day. For each of the four cities
 the benchmark provides a daily panel: the count of 311 requests created
 in city $c$ and harmonized service family $s$ on day $t$, joined with
 deterministic calendar information and one station's weather
-observations. Section~4 details sources, exclusions, harmonization, and
+observations. Section~\ref{sec:data} details sources, exclusions, harmonization, and
 provenance; everything below is defined on this panel.
 
 \paragraph{Prediction task.}
@@ -73,7 +73,7 @@ cumulative unresolved stock}, not a daily flow. Under the scarce regime
 the simulated system is structurally under-capacitated (supercritical),
 so this stock grows over the horizon and daily losses, and the daily
 loss \emph{differentials} between policies, can carry a deterministic
-trend; Section~8 reports a trend diagnostic and the inference framing
+trend; Section~\ref{sec:robust} reports a trend diagnostic and the inference framing
 follows it.
 Hypothetical service-pressure regimes set $\kappa B_c$ to 70\%, 90\%, and
 110\% of the city's TRAINING-window mean daily demand $\bar d_c$: that is,
@@ -104,7 +104,7 @@ marginal value are resolved by a fixed secondary key (ascending family
 index). Under a degenerate point forecast this objective is
 \emph{non-identified} across most of the feasible set, so the realized
 allocation, and hence its loss, depends on that key; we treat the
-key as a first-class object and report its effect in Section~7. A
+key as a first-class object and report its effect in Section~\ref{sec:decision}. A
 hindsight myopic reference (greedy on realized demand) appears in
 supplementary diagnostics only; being per-day myopic it is not a
 horizon-optimal bound and is never used as a denominator or target.

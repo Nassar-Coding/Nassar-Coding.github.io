@@ -46,9 +46,9 @@ local models in Austin ($+4.1\%$), Chicago ($+6.5\%$), and New York
 ($+1.8\%$), each interval excluding zero, and is neutral in San
 Francisco ($-1.2\%$, interval covers zero). Two distinct selection
 procedures operate in this paper and must not be conflated: the
-\emph{within-scope} headline selection (Section~5) chooses among local
+\emph{within-scope} headline selection (Section~\ref{sec:methods}) chooses among local
 candidates for the local headlines, where the local LightGBM wins in
-every city; the \emph{cross-scope} selection experiment of Section~7
+every city; the \emph{cross-scope} selection experiment of Section~\ref{sec:decision}
 chooses over the full eleven-configuration grid, where validation MAE
 still prefers the pooled model in Austin (validation MAE 15.08 vs.\
 15.25 local, despite worse test error) and in San Francisco (27.20 vs.\
@@ -71,7 +71,7 @@ The quantile model's central 90\% intervals cover 76.8--81.2\% of test
 outcomes. Split-conformal recalibration using validation residuals only
 (per city, per quantile level) raises empirical 90\% coverage to
 88.3--90.3\% while widening intervals modestly. We report both the raw
-miscalibration and its conformal correction; Section~7 shows that the
+miscalibration and its conformal correction; Section~\ref{sec:decision} shows that the
 distributional information identifies the simulated allocation objective
 whether or not the intervals are recalibrated (the calibrated full arm
 changes simulated loss by a median of $-0.1\%$), so the decision result

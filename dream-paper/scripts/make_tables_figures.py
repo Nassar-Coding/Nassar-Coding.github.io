@@ -122,7 +122,7 @@ def fig_accuracy_gain() -> None:
         ax.bar(np.arange(len(cities)) + (j - 1.5) * width, vals, width,
                label=fset, color=colors[j])
     ax.set_xticks(range(len(cities)), [CITY_LABELS[c] for c in cities])
-    ax.set_ylabel("% test-MAE reduction vs naive\n(validation-selected model)")
+    ax.set_ylabel("% test-MAE reduction vs trailing\n7-day-mean baseline\n(validation-selected model)")
     ax.legend(fontsize=7, ncol=4)
     fig.tight_layout()
     save_fig(fig, "fig2_accuracy_gain")

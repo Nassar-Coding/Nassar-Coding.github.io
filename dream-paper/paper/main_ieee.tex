@@ -59,11 +59,13 @@ Cities: A Reproducible Benchmark with Simulated Allocation Evaluation}
 \input{sections/conclusion}
 
 \paragraph{Reproducibility statement.}
-All data are public; the companion repository contains acquisition scripts
-with exact query URLs, SHA-256 manifests for every raw file, deterministic
-seeds, unit tests (including leakage and allocation-optimality checks), and
-a \texttt{Makefile} that regenerates every number, table, and figure in
-this paper from the versioned raw data with a single command.
+Every number, table, and figure in this paper regenerates from the
+versioned raw data with one command (\texttt{make all}) in the companion
+repository, which contains the acquisition scripts with exact query URLs,
+SHA-256 manifests for every raw file, the frozen-budget and
+pooled-censoring proof manifests, deterministic seeds, and the
+16-guard/37-test suite of Section~5 that fails the build on any protocol
+violation.
 
 \bibliographystyle{IEEEtranN}
 \bibliography{references}

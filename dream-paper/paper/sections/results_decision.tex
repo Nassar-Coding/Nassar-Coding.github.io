@@ -29,7 +29,7 @@ in itself surprising; the empirical question is whether this
 non-identification is rare enough to ignore or pervasive enough to govern
 the downstream conclusion. On real multi-city municipal data it is
 pervasive: the objective is non-identified across nearly the entire
-feasible set --- 92--100\% of allocation steps are ties, with 2.6--6.9
+feasible set: 92--100\% of allocation steps are ties, with 2.6--6.9
 active families tied at the maximum marginal value
 (Table~\ref{tab:tiebreak}), across four heterogeneous demand structures. Realized allocation loss is therefore
 determined by the secondary tie-break rule, not by the point forecast.
@@ -37,8 +37,8 @@ Under our original implementation the fixed ascending-index tie-break
 underperformed proportional apportionment in all 12 city-regime cells
 (by 1.2--58\%); a random tie-break is intermediate and a
 Gaussian/Poisson smoothing of the point forecast only partly recovers
-performance. A \emph{proportional} secondary tie-break --- a
-representation-free regularization toward proportional apportionment ---
+performance. A \emph{proportional} secondary tie-break (a
+representation-free regularization toward proportional apportionment)
 fully recovers proportional performance ($-0.03\%$ to $+0.8\%$ across the
 12 cells). The issue is thus representation-induced \emph{non-identification}
 of the allocation objective under degenerate forecasts, not mathematical
@@ -51,8 +51,8 @@ growth, so policy differences compress. These aggregate simulated-loss
 reductions are not fairness guarantees: the responsible-use discussion and
 the supplement show that some low-volume families receive near-zero served
 fractions under the equal request-equivalent objective. All of this is a
-property of the simulated environment and its equal-weight objective ---
-under the normative-priority sensitivity the gap compresses --- and
+property of the simulated environment and its equal-weight objective
+(under the normative-priority sensitivity the gap compresses) and
 constitutes no guidance about any city's actual operations. The design
 lesson is bounded but real: when forecasts feed a discrete coverage-type
 objective with symmetric per-unit value, predictive representation and the
@@ -64,13 +64,10 @@ forecast-to-decision design phenomenon, not deployment evidence.
 \begin{table*}[t]\centering\small
 \caption{Objective non-identification under degenerate point forecasts.
 ``Tie \%'' is the share of allocation steps with more than one active
-family tied at the maximum marginal value. The remaining columns give the
-simulated loss of the point-forecast greedy policy under five tie-break
-rules, as \% relative to proportional apportionment (negative $=$ worse
-than proportional). The identical point forecast ranges from far worse
-(fixed ascending-index) to indistinguishable from proportional
-(proportional secondary rule); the full quantile-interpolated
-distribution recovers most of the gap. Full grid in the supplement.}
+family tied at the maximum marginal value; remaining columns give the
+point-forecast greedy policy's simulated loss under five tie-break
+rules, as \% relative to proportional apportionment (negative $=$
+worse). Full grid in the supplement.}
 \label{tab:tiebreak}
 {\footnotesize\input{../outputs/tables/tab11_tiebreak_main}}
 \end{table*}
@@ -94,8 +91,8 @@ headline finding, the result the benchmark's decision-evaluation
 instrument exists to measure: forecast \emph{representation} matters because
 degenerate point forecasts can make the downstream allocation objective
 non-identifying, and a genuine predictive distribution is one of two
-remedies for that non-identification --- the other being an explicit
-secondary rule --- though the two address the same mechanism and need not
+remedies for that non-identification (the other being an explicit
+secondary rule), though the two address the same mechanism and need not
 produce identical simulated loss. This is not an artifact of the model's miscalibration: split-conformal
 recalibration lifts the quantile model's 90\% interval coverage from
 77--81\% to 88--90\% (Section~6) yet changes the full-arm simulated loss
@@ -117,8 +114,8 @@ proxy for simulated decision value among reasonable models.
 
 \paragraph{Accuracy-based and decision-based selection mostly agree.}
 Selecting over the cross-scope eleven-configuration grid by validation
-decision loss instead of validation MAE --- both under the frozen
-budgets --- yields the same choice in 9 of 12 settings, a gain in 2
+decision loss instead of validation MAE (both under the frozen
+budgets) yields the same choice in 9 of 12 settings, a gain in 2
 (Austin, scarce and moderate: validation MAE prefers the pooled model
 there, the decision criterion prefers the local one, and the local
 choice is better on the held-out test), and one interval-tie; it did not
@@ -128,12 +125,10 @@ test model there. Decision-based validation selection is therefore a
 low-cost diagnostic rather than an established improvement.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.95\linewidth]{fig3_accuracy_vs_decision.pdf}
-\caption{Forecast accuracy (test MAE, $x$) versus simulated decision
-value (\% loss reduction relative to the uniform floor, $y$) for the
-pre-specified point-forecast grid under the greedy expected-value policy
-with the fixed-index tie-break --- the non-identified point-forecast
-policy of this section, shown as a diagnostic --- by city and
-hypothetical service-pressure regime.}
+\includegraphics[width=0.86\linewidth]{fig3_accuracy_vs_decision.pdf}
+\caption{Test MAE ($x$) versus simulated loss reduction relative to the
+uniform floor ($y$), point-forecast grid under the greedy policy with
+the fixed-index tie-break (the non-identified diagnostic view), by city
+and regime.}
 \label{fig:acc-dec}
 \end{figure}

@@ -12,11 +12,10 @@ with NOAA station weather; acquisition, exclusion, harmonization, and
 provenance are guarded and one-command reproducible. The allocation layer
 is a transparent simulation over abstract request-equivalent capacity
 units: it concerns reported demand, not social need, and makes no claim
-about any city's real capacity, productivity, or operations. Budgets are
-frozen from training data and all model selection uses validation data
-only. Calendar augmentation reduces next-day error in every city
+about any city's real capacity, productivity, or operations. Budgets are frozen from
+training data; model selection uses validation only. Calendar augmentation reduces next-day error in every city
 (10.0--14.0\%, all 28-day block-bootstrap intervals excluding zero);
-target-day weather --- a day-ahead-forecast proxy --- helps three cities
+target-day weather (a day-ahead-forecast proxy) helps three cities
 and adds nothing in the fourth, a retained null; temporally censored
 cross-city pooling raises error in three of four cities, robust to
 log-scale and per-city-standardized normalization. Coupling forecasts to
@@ -31,8 +30,8 @@ rule recovers proportional performance, and a genuine quantile-interpolated
 predictive distribution removes most of the non-identification gap. When
 forecasts feed a discrete coverage-type objective with symmetric per-unit
 value, predictive representation and tie-breaking become first-class design
-choices rather than implementation details --- a bounded, simulation-
-internal lesson, not a deployment or fairness claim. Aggregate simulated-
+choices rather than implementation details; this is a bounded,
+simulation-internal lesson, not a deployment or fairness claim. Aggregate simulated-
 loss reductions are not fairness guarantees: some low-volume families
 receive near-zero served fractions under this objective. All data are
 public and every number regenerates from one command under a guard suite

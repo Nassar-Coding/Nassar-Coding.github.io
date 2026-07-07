@@ -39,9 +39,9 @@ J.~Mandi \emph{et~al.}, ``Decision-focused learning: Foundations, state of the
   Intelligence Research}, vol.~80, pp. 1623--1701, 2024.
 
 \bibitem[Cui et~al.(2018)Cui, Gallino, Moreno, and Zhang]{cui2018operational}
-R.~Cui, S.~Gallino, A.~Moreno, and D.~J. Zhang, ``The operational value of
-  social media information,'' \emph{Production and Operations Management},
-  vol.~27, no.~10, pp. 1749--1769, 2018.
+R.~Cui \emph{et~al.}, ``The operational value of social media information,''
+  \emph{Production and Operations Management}, vol.~27, no.~10, pp. 1749--1769,
+  2018.
 
 \bibitem[Steinker et~al.(2017)Steinker, Hoberg, and
   Thonemann]{steinker2017value}
@@ -50,15 +50,15 @@ S.~Steinker, K.~Hoberg, and U.~W. Thonemann, ``The value of weather information
   vol.~26, no.~10, pp. 1854--1874, 2017.
 
 \bibitem[Xu et~al.(2017)Xu, Kwan, McLafferty, and Wang]{xu2017predicting}
-L.~Xu, M.-P. Kwan, S.~McLafferty, and S.~Wang, ``Predicting demand for 311
-  non-emergency municipal services: An adaptive space-time kernel approach,''
-  \emph{Applied Geography}, vol.~89, pp. 133--141, 2017.
+L.~Xu \emph{et~al.}, ``Predicting demand for 311 non-emergency municipal
+  services: An adaptive space-time kernel approach,'' \emph{Applied Geography},
+  vol.~89, pp. 133--141, 2017.
 
 \bibitem[Cheng et~al.(2022)Cheng, Ganapati, Narasimhan, and
   Yusuf]{cheng2022machine}
-S.~Cheng, S.~Ganapati, G.~Narasimhan, and F.~B. Yusuf, ``A machine
-  learning-based analysis of 311 requests in the {Miami-Dade} county,''
-  \emph{Growth and Change}, vol.~53, no.~4, pp. 1627--1645, 2022.
+S.~Cheng \emph{et~al.}, ``A machine learning-based analysis of 311 requests in
+  the {Miami-Dade} county,'' \emph{Growth and Change}, vol.~53, no.~4, pp.
+  1627--1645, 2022.
 
 \bibitem[Kontokosta et~al.(2017)Kontokosta, Hong, and
   Korsberg]{kontokosta2017equity}
@@ -82,10 +82,9 @@ B.~Tang and E.~B. Khalil, ``{PyEPO}: A {PyTorch}-based end-to-end
 
 \bibitem[Sadana et~al.(2025)Sadana, Chenreddy, Delage, Forel, Frejinger, and
   Vidal]{sadana2025survey}
-U.~Sadana, A.~Chenreddy, E.~Delage, A.~Forel, E.~Frejinger, and T.~Vidal, ``A
-  survey of contextual optimization methods for decision-making under
-  uncertainty,'' \emph{European Journal of Operational Research}, vol. 320,
-  no.~2, pp. 271--289, 2025.
+U.~Sadana \emph{et~al.}, ``A survey of contextual optimization methods for
+  decision-making under uncertainty,'' \emph{European Journal of Operational
+  Research}, vol. 320, no.~2, pp. 271--289, 2025.
 
 \bibitem[Green et~al.(2007)Green, Kolesar, and Whitt]{green2007coping}
 L.~V. Green, P.~J. Kolesar, and W.~Whitt, ``Coping with time-varying demand
@@ -98,21 +97,20 @@ B.~Rostami-Tabar and R.~J. Hyndman, ``Hierarchical time series forecasting in
   no.~2, pp. 278--295, 2025.
 
 \bibitem[Zheng et~al.(2014)Zheng, Capra, Wolfson, and Yang]{zheng2014urban}
-Y.~Zheng, L.~Capra, O.~Wolfson, and H.~Yang, ``Urban computing: Concepts,
-  methodologies, and applications,'' \emph{ACM Transactions on Intelligent
-  Systems and Technology}, vol.~5, no.~3, pp. 38:1--38:55, 2014.
+Y.~Zheng \emph{et~al.}, ``Urban computing: Concepts, methodologies, and
+  applications,'' \emph{ACM Transactions on Intelligent Systems and
+  Technology}, vol.~5, no.~3, pp. 38:1--38:55, 2014.
 
 \bibitem[Wang et~al.(2019)Wang, Geng, Ma, Liu, and Yang]{wang2019crosscity}
-L.~Wang, X.~Geng, X.~Ma, F.~Liu, and Q.~Yang, ``Cross-city transfer learning
-  for deep spatio-temporal prediction,'' \emph{arXiv preprint
-  arXiv:1802.00386}, 2019, also presented at IJCAI 2019.
+L.~Wang \emph{et~al.}, ``Cross-city transfer learning for deep spatio-temporal
+  prediction,'' \emph{arXiv preprint arXiv:1802.00386}, 2019, also presented at
+  IJCAI 2019.
 
 \bibitem[Salinas et~al.(2020)Salinas, Flunkert, Gasthaus, and
   Januschowski]{salinas2020deepar}
-D.~Salinas, V.~Flunkert, J.~Gasthaus, and T.~Januschowski, ``{DeepAR}:
-  Probabilistic forecasting with autoregressive recurrent networks,''
-  \emph{International Journal of Forecasting}, vol.~36, no.~3, pp. 1181--1191,
-  2020.
+D.~Salinas \emph{et~al.}, ``{DeepAR}: Probabilistic forecasting with
+  autoregressive recurrent networks,'' \emph{International Journal of
+  Forecasting}, vol.~36, no.~3, pp. 1181--1191, 2020.
 
 \bibitem[Liu et~al.(2023)Liu, Xia, Liang, Hu, Wang, Bai, Huang, Liu, Hooi, and
   Zimmermann]{liu2023largest}
@@ -121,10 +119,9 @@ X.~Liu \emph{et~al.}, ``{LargeST}: A benchmark dataset for large-scale traffic
   (NeurIPS 2023), Datasets and Benchmarks Track}, 2023.
 
 \bibitem[Ning et~al.(2023)Ning, Liu, Wang, Zeng, and Xiong]{ning2023uukg}
-Y.~Ning, H.~Liu, H.~Wang, Z.~Zeng, and H.~Xiong, ``{UUKG}: Unified urban
-  knowledge graph dataset for urban spatiotemporal prediction,'' in
-  \emph{Advances in Neural Information Processing Systems 36 (NeurIPS 2023),
-  Datasets and Benchmarks Track}, 2023.
+Y.~Ning \emph{et~al.}, ``{UUKG}: Unified urban knowledge graph dataset for
+  urban spatiotemporal prediction,'' in \emph{Advances in Neural Information
+  Processing Systems 36 (NeurIPS 2023), Datasets and Benchmarks Track}, 2023.
 
 \bibitem[Breiman(2001)]{breiman2001random}
 L.~Breiman, ``Random forests,'' \emph{Machine Learning}, vol.~45, no.~1, pp.
@@ -152,9 +149,8 @@ F.~X. Diebold and R.~S. Mariano, ``Comparing predictive accuracy,''
 
 \bibitem[Samorani et~al.(2022)Samorani, Harris, Blount, Lu, and
   Santoro]{samorani2022overbooked}
-M.~Samorani, S.~L. Harris, L.~G. Blount, H.~Lu, and M.~A. Santoro, ``Overbooked
-  and overlooked: Machine learning and racial bias in medical appointment
-  scheduling,'' \emph{Manufacturing \& Service Operations Management}, vol.~24,
-  no.~6, pp. 2825--2842, 2022.
+M.~Samorani \emph{et~al.}, ``Overbooked and overlooked: Machine learning and
+  racial bias in medical appointment scheduling,'' \emph{Manufacturing \&
+  Service Operations Management}, vol.~24, no.~6, pp. 2825--2842, 2022.
 
 \end{thebibliography}

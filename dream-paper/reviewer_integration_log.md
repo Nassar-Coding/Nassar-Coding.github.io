@@ -189,6 +189,55 @@ for G4: caption shortening (G4-T2), reproducibility-statement rewrite
 needed (logged as an extra lever beyond the tracker's list — legibility
 unaffected for vector PDFs). No claim-bearing evidence cut anywhere.
 
+## Group 4 — Style, Length & Presentation
+
+- **G4-T1 (em dashes)** — count logged: **50 (baseline) → 0**. Every
+  prose `---` rewritten as parentheses, commas, colons, or semicolons
+  with meaning unchanged; numeric en-dash ranges (`10.0--14.0`,
+  `92--100\%`, etc.) untouched. DONE.
+- **G4-T2 (captions)** — shortened: Fig. 1 (interpretive second sentence
+  moved out; the observation lives in the body), Fig. 3 (6 lines → 4),
+  Fig. 4 (minor), Table II/tiebreak caption (interpretive sentence
+  removed; it duplicated protected body text which remains), and the
+  generated Table `tab:data` caption shortened **in both**
+  `sections/data_stats.tex` and its generator
+  `scripts/make_paper_stats.py` (kept identical); G15-guarded strings
+  preserved ("Chicago has seven" present in fragment+generator; no
+  "families per city"). Grayscale legibility unaffected. DONE.
+- **G4-T3 (reproducibility statement)** — rewritten in `main_ieee.tex`
+  (and `main.tex` for consistency) to name THIS paper's concrete
+  artifacts, fact-checked against the repo: one command = `make all`
+  (verified Makefile target), acquisition scripts with exact query URLs,
+  SHA-256 manifests, frozen-budget + pooled-censoring proof manifests,
+  deterministic seeds, 16-guard/37-test suite. DONE.
+- **G4-T4 (page budget)** — **final: 10 physical pages, hard venue limit
+  ≤ 10.0 MET**; page 10's right column ends at reference [25] with about
+  a quarter column of whitespace (verified visually), leaving room for
+  the one line Group 5 adds. **Recorded buffer target: ≤ 9.75 was the
+  recommendation; it was NOT reachable without cutting claim-bearing
+  evidence** (the Group 1–3 additions — hierarchy, RQ, roadmap, data
+  preview, I/O/G pattern, motivation, five verified references, and the
+  positioning table — are all reviewer-mandated). Levers used, in order:
+  prose compression across intro/data/formulation/methods/responsible/
+  limitations/robustness (incl. removal of internal "decision D14"
+  jargon), scriptsize positioning table, IEEE BSTCTL et-al author
+  truncation (6 then 3 names — standard IEEE production practice),
+  caption shortening, reproducibility-statement rewrite, and small
+  figure-width reductions (0.95→0.84–0.86 linewidth, vector PDFs,
+  legibility unaffected). **No claim-bearing evidence, protected
+  wording, or audited number was cut.** DONE.
+
+**GATE 4: PASS** — full recompile (10 pp; 0 overfull; 0 unresolved
+refs/citations; numeric citations intact); page count at the enforced
+hard limit with recorded buffer rationale; guards 37/37; forbidden-token
+scan clean ("staffing" appearing only inside the verbatim Green–Kolesar–
+Whitt reference title, which the guard correctly does not scan and which
+must not be altered); em-dash/caption changes verified (visual render of
+page 10 + G15); ALL protected items intact (identity sentence, Chicago
+4,184,157, calendar 10.0–14.0%, no "neutral objective", "recovers most
+of the fixed-index gap", fairness caveat, bounded principle,
+frozen-window wording, zero prior-study hits).
+
 ## Group 5 — Decisions (recorded here as the tracker's decision log)
 
 *(filled in when Group 5 executes)*

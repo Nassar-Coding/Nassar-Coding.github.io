@@ -4,10 +4,9 @@ aggregates with full provenance. Goal: an acquisition layer any reader
 can re-run and audit.}
 We use the official open-data portals of four U.S. cities, selected by
 pre-stated criteria (API uniformity, coverage of the 2020--2025 study
-window, category granularity, and heterogeneity in size and climate; see
-the feasibility audit in the companion repository): New York (\texttt{erm2-nwe9}, NYC Open
-Data), Chicago (\texttt{v6vf-nfxy}, current 311 system, live since
-December 2018), San Francisco (\texttt{vw6y-z8j6}, DataSF, PDDL license),
+window, category granularity, and heterogeneity in size and climate;
+see the repository's feasibility audit): New York (\texttt{erm2-nwe9}, NYC Open
+Data), Chicago (\texttt{v6vf-nfxy}, current system since December 2018), San Francisco (\texttt{vw6y-z8j6}, DataSF, PDDL license),
 and Austin (\texttt{xwdj-i9he}). Acquisition uses server-side daily
 aggregation (counts per day~$\times$~native category) through the SODA
 API; every query URL, retrieval timestamp, and SHA-256 checksum is
@@ -17,18 +16,18 @@ non-service categories: Chicago's ``311 INFORMATION ONLY CALL'' log
 entries (4{,}184{,}157 records) and aviation-routed aircraft-noise filings
 (1{,}918{,}574 records), and San Francisco's administrative duplicate
 markers. The 311 acquisition and study window is 2020-01-01 through
-2025-12-31, the full scope of NYC's current dataset, and the densified
-panel spans this window. The \emph{modeled span} is shorter and is fixed
+2025-12-31 (the full scope of NYC's current dataset), and the densified
+panel spans it. The \emph{modeled span} is shorter and is fixed
 by a frozen weather-joined evaluation panel: every feature set shares one
 panel that includes station weather and rows lacking weather are dropped,
-so the modeled span --- and hence all forecasting and decision evaluation
---- runs 2020-01-28 through 2025-02-05. The NOAA GHCN-Daily layer acquired
+so the modeled span, and hence all forecasting and decision
+evaluation, runs 2020-01-28 through 2025-02-05. The NOAA GHCN-Daily layer acquired
 for this benchmark covers the four stations through 2025-02-06, whereas the
 311 layer covers through 2025-12-31; the later 311 observations are
 therefore retained in the panel but lie outside this frozen common
 evaluation window and are not modeled. As an acquisition-integrity check, the
-NYC layer was produced by two independent methods --- server-side
-aggregation and client-side aggregation of a streamed export --- which
+NYC layer was produced by two independent methods (server-side
+aggregation and client-side aggregation of a streamed export), which
 agreed exactly (270{,}978 aggregated rows).
 \input{sections/data_stats}
 
@@ -37,9 +36,9 @@ agreed exactly (270{,}978 aggregated rows).
 schema. Goal: cross-city comparability without claiming compositional
 identity.}
 Each city's native taxonomy ($\sim$\,one to three hundred categories) is
-mapped to eight service families --- noise; housing/building;
+mapped to eight service families (noise; housing/building;
 water/sewer; public safety; streets/transport; sanitation; parks/trees;
-other --- by an ordered, case-insensitive, versioned keyword rule set
+other) by an ordered, case-insensitive, versioned keyword rule set
 applied identically to all cities. The rules were audited against each
 city's real category inventory and frozen before any model was trained;
 after the freeze, the unmapped ``other'' share is 6.2\% (New York),
@@ -68,9 +67,8 @@ per city is a documented spatial simplification (A2).
 No synthetic demand or synthetic weather is used anywhere in the study.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.95\linewidth]{fig1_panel_overview.pdf}
-\caption{Daily citywide 311 request totals (blue) with 28-day centred
-mean (red), 2020--2025. Scale, seasonality, and disruption patterns
-differ visibly across the four systems.}
+\includegraphics[width=0.84\linewidth]{fig1_panel_overview.pdf}
+\caption{Daily citywide 311 totals (blue) and 28-day centred mean
+(red), 2020--2025.}
 \label{fig:panel}
 \end{figure}

@@ -63,7 +63,7 @@ $\mathcal{T}$ is
   \label{eq:decision-loss}
 \end{equation}
 with EQUAL request-equivalent weights $\omega_s = 1$ as the primary
-objective --- a deliberately simple equal-weight choice, not a normatively
+objective, a deliberately simple equal-weight choice, not a normatively
 neutral or normative priority policy (one illustrative normative-priority
 scenario is a labeled sensitivity).
 Because $u_{c,s,t}$ contains the carried stock, a request that remains
@@ -71,8 +71,8 @@ unresolved for $k$ days contributes $k$ times to
 \eqref{eq:decision-loss}: the loss is a \emph{waiting-time-weighted
 cumulative unresolved stock}, not a daily flow. Under the scarce regime
 the simulated system is structurally under-capacitated (supercritical),
-so this stock grows over the horizon and daily losses --- and the daily
-loss \emph{differentials} between policies --- can carry a deterministic
+so this stock grows over the horizon and daily losses, and the daily
+loss \emph{differentials} between policies, can carry a deterministic
 trend; Section~8 reports a trend diagnostic and the inference framing
 follows it.
 Hypothetical service-pressure regimes set $\kappa B_c$ to 70\%, 90\%, and
@@ -97,13 +97,13 @@ budget: \emph{uniform} (equal units; forecast-free floor);
 $\hat{y}_{c,s,t+1} + b_{c,s,t}$); and \emph{greedy expected-value}, which
 exactly maximizes $\sum_s \omega_s\, \mathbb{E}[\min(D_s, \kappa x_s)]$
 over integer allocations, where $D_s$ is the forecast
-demand-plus-carryover distribution --- degenerate for point forecasts,
-piecewise-linear from the quantile model. Greedy is optimal for this
+demand-plus-carryover distribution (degenerate for point forecasts,
+piecewise-linear from the quantile model). Greedy is optimal for this
 objective because $\mathbb{E}[\min(D, c)]$ is concave in $c$; ties in
 marginal value are resolved by a fixed secondary key (ascending family
 index). Under a degenerate point forecast this objective is
 \emph{non-identified} across most of the feasible set, so the realized
-allocation --- and hence its loss --- depends on that key; we treat the
+allocation, and hence its loss, depends on that key; we treat the
 key as a first-class object and report its effect in Section~7. A
 hindsight myopic reference (greedy on realized demand) appears in
 supplementary diagnostics only; being per-day myopic it is not a

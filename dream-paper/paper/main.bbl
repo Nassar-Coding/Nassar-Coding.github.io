@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -90,6 +90,14 @@ Constantine~E. Kontokosta, Boyeong Hong, and Kristi Korsberg.
   the propensity to complain.
 \newblock \emph{arXiv preprint arXiv:1710.02452}, 2017.
 
+\bibitem[Liu et~al.(2023)Liu, Xia, Liang, Hu, Wang, Bai, Huang, Liu, Hooi, and
+  Zimmermann]{liu2023largest}
+Xu~Liu, Yutong Xia, Yuxuan Liang, Junfeng Hu, Yiwei Wang, Lei Bai, Chao Huang,
+  Zhenguang Liu, Bryan Hooi, and Roger Zimmermann.
+\newblock {LargeST}: A benchmark dataset for large-scale traffic forecasting.
+\newblock In \emph{Advances in Neural Information Processing Systems 36
+  (NeurIPS 2023), Datasets and Benchmarks Track}, 2023.
+
 \bibitem[Mandi et~al.(2024)Mandi, Kotary, Berden, Mulamba, Bucarey, Guns, and
   Fioretto]{mandi2024decision}
 Jayanta Mandi, James Kotary, Senne Berden, Maxime Mulamba, V{\'\i}ctor Bucarey,
@@ -99,6 +107,29 @@ Jayanta Mandi, James Kotary, Senne Berden, Maxime Mulamba, V{\'\i}ctor Bucarey,
 \newblock \emph{Journal of Artificial Intelligence Research}, 80:\penalty0
   1623--1701, 2024.
 \newblock \doi{10.1613/jair.1.15320}.
+
+\bibitem[Ning et~al.(2023)Ning, Liu, Wang, Zeng, and Xiong]{ning2023uukg}
+Yansong Ning, Hao Liu, Hao Wang, Zhenyu Zeng, and Hui Xiong.
+\newblock {UUKG}: Unified urban knowledge graph dataset for urban
+  spatiotemporal prediction.
+\newblock In \emph{Advances in Neural Information Processing Systems 36
+  (NeurIPS 2023), Datasets and Benchmarks Track}, 2023.
+
+\bibitem[Rostami-Tabar and Hyndman(2025)]{rostamitabar2025hierarchical}
+Bahman Rostami-Tabar and Rob~J. Hyndman.
+\newblock Hierarchical time series forecasting in emergency medical services.
+\newblock \emph{Journal of Service Research}, 28\penalty0 (2):\penalty0
+  278--295, 2025.
+\newblock \doi{10.1177/10946705241232169}.
+
+\bibitem[Sadana et~al.(2025)Sadana, Chenreddy, Delage, Forel, Frejinger, and
+  Vidal]{sadana2025survey}
+Utsav Sadana, Abhilash Chenreddy, Erick Delage, Alexandre Forel, Emma
+  Frejinger, and Thibaut Vidal.
+\newblock A survey of contextual optimization methods for decision-making under
+  uncertainty.
+\newblock \emph{European Journal of Operational Research}, 320\penalty0
+  (2):\penalty0 271--289, 2025.
 
 \bibitem[Salinas et~al.(2020)Salinas, Flunkert, Gasthaus, and
   Januschowski]{salinas2020deepar}
@@ -126,6 +157,14 @@ Sebastian Steinker, Kai Hoberg, and Ulrich~W. Thonemann.
 \newblock \emph{Production and Operations Management}, 26\penalty0
   (10):\penalty0 1854--1874, 2017.
 \newblock \doi{10.1111/poms.12721}.
+
+\bibitem[Tang and Khalil(2024)]{tang2024pyepo}
+Bo~Tang and Elias~B. Khalil.
+\newblock {PyEPO}: A {PyTorch}-based end-to-end predict-then-optimize library
+  for linear and integer programming.
+\newblock \emph{Mathematical Programming Computation}, 16:\penalty0 297--335,
+  2024.
+\newblock \doi{10.1007/s12532-024-00255-x}.
 
 \bibitem[Wang et~al.(2019)Wang, Geng, Ma, Liu, and Yang]{wang2019crosscity}
 Leye Wang, Xu~Geng, Xiaojuan Ma, Feng Liu, and Qiang Yang.

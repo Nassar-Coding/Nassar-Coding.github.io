@@ -7,7 +7,7 @@ The validation-selected calendar model lowers held-out test MAE relative
 to the validation-selected internal-history model in every city:
 $-11.9\%$ in New York (207.0 $\rightarrow$ 182.4), $-15.6\%$ in Chicago
 (60.4 $\rightarrow$ 50.9), $-10.4\%$ in San Francisco (35.2 $\rightarrow$
-31.5), and $-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8) --- a
+31.5), and $-10.2\%$ in Austin (16.5 $\rightarrow$ 14.8), a
 validation-selected comparison spanning $10.2$--$15.6\%$. As a separate
 comparison holding the estimator fixed, the LightGBM calendar effect
 (internal $\rightarrow$ calendar, same model) is $10.0$--$14.0\%$ and
@@ -27,12 +27,12 @@ defer modern deep or hierarchical baselines to a journal version.
 \paragraph{Weather's marginal value is real but city-dependent.}
 On top of calendar features, target-day weather further reduces MAE by
 9.3\% in New York, 3.3\% in Chicago, and 4.7\% in San Francisco (all
-intervals excluding zero) --- and by exactly nothing in Austin ($+0.001$
+intervals excluding zero), and by exactly nothing in Austin ($+0.001$
 MAE; interval covers zero). The Austin null is retained as a finding.
 The lagged-weather variant (assumption A3 removed) erases most of New
 York's weather gain (178.6 versus 165.4, against a 182.4 calendar-only
 reference), so much of the weather value is conditional on an accurate
-day-ahead weather forecast --- a realistic but explicitly stated premise.
+day-ahead weather forecast, a realistic but explicitly stated premise.
 
 \paragraph{Stability.}
 Five expanding-window rolling-origin folds reproduce the feature-set
@@ -59,7 +59,7 @@ Francisco) to $+148.5\%$ (New York). The pooling result is not an artifact
 of pooling raw counts across cities of very different scale: refitting the
 pooled model on a $\log(1{+}y)$ target or on per-city-standardized targets
 shrinks the penalty (most for the smallest city, Austin: $+4.1\%
-\rightarrow +2.0\%$) but does not reverse it --- pooling still raises test
+\rightarrow +2.0\%$) but does not reverse it: pooling still raises test
 MAE in three of four cities under both normalizations, with San Francisco
 the lone neutral case. With six years of local history, cross-city pooling
 and transfer are not beneficial in this benchmark; the negative result,
@@ -79,14 +79,14 @@ reflects identification rather than the particular dispersion of the
 intervals.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.9\linewidth]{fig2_accuracy_gain.pdf}
+\includegraphics[width=0.84\linewidth]{fig2_accuracy_gain.pdf}
 \caption{Held-out test-MAE reduction versus the trailing-mean baseline
 for the validation-selected model of each feature set and city.}
 \label{fig:gain}
 \end{figure}
 \begin{figure}[t]\centering
-\includegraphics[width=0.95\linewidth]{fig4_fold_stability.pdf}
-\caption{Rolling-origin fold MAE (LightGBM) by feature set: the calendar
-and weather orderings are stable across folds in all cities.}
+\includegraphics[width=0.86\linewidth]{fig4_fold_stability.pdf}
+\caption{Rolling-origin fold MAE (LightGBM) by feature set; orderings
+are stable across folds in all cities.}
 \label{fig:folds}
 \end{figure}

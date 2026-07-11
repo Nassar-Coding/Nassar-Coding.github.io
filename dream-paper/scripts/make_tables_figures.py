@@ -243,6 +243,8 @@ def table_tiebreak() -> None:
         main[dst] = piv[src].round(2).values
     main = main[["city", "regime", "tie_pct", "fixed_tb", "random_worst",
                  "random_best", "proportional_tb", "full_distribution"]]
+    main["city"] = main["city"].map({"austin": "Austin", "chicago": "Chicago",
+                                     "nyc": "NYC", "sf": "SF"})
     main.columns = ["City", "Regime", "Tie %", "Fixed", "Rand. worst",
                     "Rand. best", "Prop. TB", "Full dist."]
     save_table(main, "tab11_tiebreak_main", float_fmt="%.2f")

@@ -1,38 +1,25 @@
 We present a reproducible multi-city benchmark for next-day reported
 municipal service-demand forecasting and evaluate how forecast
 representations behave when embedded in a controlled request-equivalent
-allocation simulation. Short-horizon 311 forecasts are a natural planning
-input, but forecast accuracy is only a proxy for the decisions a forecast
-supports. The benchmark, the paper's primary artifact, is built from
-36.8 million acquired service-request
-records (30.2 million retained after documented exclusions) across four
-heterogeneous U.S. municipal systems (New York, Chicago, San Francisco,
-Austin; 2020--2025), harmonized into common service families and joined
-with NOAA station weather; acquisition, exclusion, harmonization, and
-provenance are guarded and one-command reproducible. The allocation layer
-is a transparent simulation over abstract request-equivalent capacity
-units: it concerns reported demand, not social need, and makes no claim
-about any city's real capacity, productivity, or operations. Budgets are frozen from
-training data; model selection uses validation only. Calendar augmentation reduces next-day error in every city
-(10.0--14.0\%, all 28-day block-bootstrap intervals excluding zero);
-target-day weather (a day-ahead-forecast proxy) helps three cities
-and adds nothing in the fourth, a retained null; temporally censored
-cross-city pooling raises error in three of four cities, robust to
-log-scale and per-city-standardized normalization. Coupling forecasts to
-the simulation yields the paper's headline finding, a
-forecast-to-decision phenomenon: a degenerate
-point forecast leaves the equal request-equivalent objective non-identified
-across nearly the entire feasible set (92--100\% of allocation steps are
-ties), so the realized outcome is set by the secondary tie-break rule.
-Under the naive fixed-index default this loses to proportional
-apportionment in all 12 city-regime settings; a proportional secondary
-rule recovers proportional performance, and a genuine quantile-interpolated
-predictive distribution removes most of the non-identification gap. When
-forecasts feed a discrete coverage-type objective with symmetric per-unit
-value, predictive representation and tie-breaking become first-class design
-choices rather than implementation details; this is a bounded,
-simulation-internal lesson, not a deployment or fairness claim. Aggregate simulated-
-loss reductions are not fairness guarantees: some low-volume families
-receive near-zero served fractions under this objective. All data are
-public and every number regenerates from one command under a guard suite
-that enforces the protocol.
+allocation simulation; the benchmark is the paper's primary artifact.
+It is built from 36.8 million acquired service-request records (30.2
+million retained after documented exclusions) across four heterogeneous
+U.S. municipal systems (New York, Chicago, San Francisco, Austin;
+2020--2025), harmonized into common service families under a
+leakage-controlled protocol. The allocation layer is a transparent
+simulation over abstract request-equivalent capacity units: it concerns
+reported demand, not social need, and makes no claim about any city's
+real capacity or operations. Public calendar signals improve next-day
+forecasts in every city, weather helps heterogeneously with one
+retained null, and temporally censored cross-city pooling mostly raises
+error; the body quantifies each effect. Coupling forecasts to the
+simulation yields the paper's headline finding: a degenerate point
+forecast leaves the equal request-equivalent objective non-identified
+(92--100\% of allocation steps are ties), so the realized outcome is
+set by the secondary tie-break rule. A proportional secondary rule
+recovers proportional performance, and a genuine quantile-interpolated
+predictive distribution removes most of the non-identification gap.
+Aggregate simulated-loss reductions are not fairness guarantees: some
+low-volume families receive near-zero served fractions under this
+objective. All data are public and every number regenerates from one
+command under a guard suite that enforces the protocol.

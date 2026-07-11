@@ -324,3 +324,51 @@ printed as a single number before or after this pass; 92–100%; 1.2–58%;
 119/153/187, 29/38/46, 26/33/41, 8/11/13; κ=50); protected-wording
 checklist fully intact; diff since pre-pass commit `edeae2b` touches
 only M1/M2 surfaces (M3 net-zero).
+
+---
+
+## MICRO-PASS v3b (N1/N2/N3)
+
+*(Executed in a fresh container after an environment reset: the clone
+came up on the stale default branch; restored `draft_3` @ b8f8fca,
+reinstalled the toolchain, rebuilt the regenerable `data/interim` /
+`data/processed` layers deterministically from tracked raw data, and
+verified a byte-identical baseline compile and guards 37/37 before any
+edit.)*
+
+- **N1 (Table III city labels): DONE** (2f3103f). Fixed at the generator
+  source (`make_tables_figures.py`, `table_tiebreak`): display map
+  austin→Austin, chicago→Chicago, nyc→NYC, sf→SF applied to the City
+  column before emit; fragment + CSV regenerated (never hand-edited).
+  Numeric grid verified identical (pandas equality on all non-City
+  columns). Caption clause appended: "NYC = New York; SF = San
+  Francisco." Rendered check: Table III fits, no wrap, 0 overfull.
+- **N2 (orphan paragraph letter): DONE** (4ffd17a).
+  `\paragraph{Reproducibility statement.}` → `\paragraph*{…}` in BOTH
+  main files; the IEEE build renders the same italic run-in without the
+  letter. Statement text verified character-identical (hash of the span
+  heading→bibliography). Compiled text: "a) Reproducibility" = 0 hits;
+  all other a)/b) run-ins untouched.
+- **N3 (abstract trim): DONE** (904a790). 430 → **221 words** (target
+  200–250). All five MUST items survive meaning-intact; per-signal
+  forecasting detail compressed to one summary sentence. **Dropped from
+  the abstract only (all remain in the body):** calendar 10.0–14.0% and
+  the 28-day block-bootstrap qualifier; the weather/pooling per-city
+  specifics beyond the summary sentence; "all 12 city-regime settings" /
+  naive fixed-index default sentence; budget-freezing and
+  validation-only-selection mechanics; the "first-class design choices"
+  bounded-principle elaboration (still in Sections I, VII, and XI); the
+  NOAA-join clause. No new numbers; no strengthened claims.
+
+**GATE N: PASS** — both builds recompiled (IEEE: **10 pages**, page 10's
+right column ends ≈68% down ≈ 9.84 effective, slack ≈ one-third column;
+article: 19 pp); 0 overfull; 0 unresolved; guards 37/37 after every
+task; forbidden scan clean; every tracker frozen number present in the
+body (abstract omissions listed above); protected wording intact
+(identity sentence, equal request-equivalent, qualified "removes most of
+the non-identification gap", both fairness caveats, bounded principle in
+body, zero prior-study hits, no "neutral objective"); diff since
+pre-pass b8f8fca limited to N1 surfaces (generator, tab11 fragment+CSV,
+provenance, figure re-renders from the same frozen metrics, Table III
+caption), N2 surfaces (two main files), and N3 (abstract.tex) plus
+rebuilt PDFs.

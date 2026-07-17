@@ -59,11 +59,12 @@ Francisco) to $+148.5\%$ (New York). The pooling result is not an artifact
 of pooling raw counts across cities of very different scale: refitting the
 pooled model on a $\log(1{+}y)$ target or on per-city-standardized targets
 shrinks the penalty (most for the smallest city, Austin: $+4.1\%
-\rightarrow +2.0\%$) but does not reverse it: pooling still raises test
-MAE in three of four cities under both normalizations, with San Francisco
-the lone neutral case. With six years of local history, cross-city pooling
-and transfer are not beneficial in this benchmark; the negative result,
-robust to target normalization, is retained.
+\rightarrow +2.0\%$) but does not reverse it. Under the tested
+stage-censored LightGBM
+configurations and target normalizations, pooled training raises test
+MAE in three cities and is neutral in San Francisco; the tested
+zero-shot transfer configurations perform worse than local models. The
+negative result, robust to target normalization, is retained.
 
 \paragraph{Probabilistic forecasts are sharp but under-dispersed; conformal
 recalibration restores coverage.}

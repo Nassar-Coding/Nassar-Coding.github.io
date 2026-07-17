@@ -101,10 +101,12 @@ demand-plus-carryover distribution (degenerate for point forecasts,
 piecewise-linear from the quantile model). Greedy is optimal for this
 objective because $\mathbb{E}[\min(D, c)]$ is concave in $c$; ties in
 marginal value are resolved by a fixed secondary key (ascending family
-index). Under a degenerate point forecast this objective is
-\emph{non-identified} across most of the feasible set, so the realized
-allocation, and hence its loss, depends on that key; we treat the
-key as a first-class object and report its effect in Section~\ref{sec:decision}. A
+index). Degenerate point forecasts produce piecewise-flat marginal
+values under this equal-weight coverage objective, so more than one
+active family can attain the maximum marginal value at a sequential
+allocation step; at such steps the realized allocation, and hence its
+loss, depends on that key. We treat the key as a first-class object and
+report the measured tie shares in Section~\ref{sec:decision}. A
 hindsight myopic reference (greedy on realized demand) appears in
 supplementary diagnostics only; being per-day myopic it is not a
 horizon-optimal bound and is never used as a denominator or target.
@@ -129,8 +131,8 @@ forecasting benchmarks, not as the uncertainty comparator.
 For each city and regime we compare forecast accuracy (MAE, with paired
 28-day moving-block bootstrap intervals; pinball loss and coverage for
 quantiles) and simulated decision loss \eqref{eq:decision-loss} (raw
-losses, absolute paired daily differences with block-bootstrap intervals,
-and percentage reduction relative to the uniform floor), asking when
+losses, paired daily differentials with block-bootstrap intervals, and
+reduction versus the uniform floor), asking when
 predictive and decision orderings agree, whether distributional
 information changes outcomes, and whether validation-time selection by
 decision loss differs from selection by accuracy.

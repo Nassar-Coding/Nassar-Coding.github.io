@@ -28,11 +28,12 @@ supplement). That ties arise under a symmetric coverage objective is not
 in itself surprising; the empirical question is whether this
 non-identification is rare enough to ignore or pervasive enough to govern
 the downstream conclusion. On real multi-city municipal data it is
-pervasive: the objective is non-identified across nearly the entire
-feasible set: 92--100\% of allocation steps are ties, with 2.6--6.9
-active families tied at the maximum marginal value
-(Table~\ref{tab:tiebreak}), across four heterogeneous demand structures. Realized allocation loss is therefore
-determined by the secondary tie-break rule, not by the point forecast.
+pervasive: under the equal-weight objective the greedy marginal-value
+ordering is tied at 92--100\% of sequential allocation steps, with
+2.6--6.9 active families tied at the maximum marginal value
+(Table~\ref{tab:tiebreak}), across four heterogeneous demand
+structures. Realized allocation loss is therefore determined by the
+secondary tie-break rule, not by the point forecast.
 Under our original implementation the fixed ascending-index tie-break
 underperformed proportional apportionment in all 12 city-regime cells
 (by 1.2--58\%); a random tie-break is intermediate and a
@@ -63,8 +64,10 @@ forecast-to-decision design phenomenon, not deployment evidence.
 
 \begin{table*}[t]\centering\small
 \caption{Objective non-identification under degenerate point forecasts.
-``Tie \%'' is the share of allocation steps with more than one active
-family tied at the maximum marginal value; remaining columns give the
+``Tie \%'' is the share of sequential allocation steps at which more
+than one active family attains the maximum marginal value (a per-step
+statistic, not a fraction of the feasible allocation set); remaining
+columns give the
 point-forecast greedy policy's simulated loss under five tie-break
 rules, as \% relative to proportional apportionment (negative $=$
 worse). Full grid in the supplement. NYC = New York; SF = San
@@ -94,7 +97,12 @@ degenerate point forecasts can make the downstream allocation objective
 non-identifying, and a genuine predictive distribution is one of two
 remedies for that non-identification (the other being an explicit
 secondary rule), though the two address the same mechanism and need not
-produce identical simulated loss. This is not an artifact of the model's miscalibration: split-conformal
+produce identical simulated loss. Plain proportional apportionment is
+itself a strong policy in this environment, as shown in
+Table~\ref{tab:tiebreak}. The full-distribution arm resolves the
+flat-marginal-value tie pathology produced by degenerate forecasts under
+the tested objective; it is not claimed to dominate proportional
+allocation. This is not an artifact of the model's miscalibration: split-conformal
 recalibration lifts the quantile model's 90\% interval coverage from
 77--81\% to 88--90\% (Section~\ref{sec:forecast}) yet changes the full-arm simulated loss
 by a median of $-0.1\%$ (at most $0.9\%$), so the effect reflects

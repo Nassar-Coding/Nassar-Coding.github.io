@@ -59,7 +59,7 @@ def fig_panel_overview() -> None:
     panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
     cities = cities_present()
     daily = panel.groupby(["city", "day"])["n"].sum().reset_index()
-    fig, axes = plt.subplots(len(cities), 1, figsize=(7.0, 1.9 * len(cities)),
+    fig, axes = plt.subplots(len(cities), 1, figsize=(7.0, 1.6 * len(cities)),
                              sharex=True, squeeze=False)
     for ax, city in zip(axes[:, 0], cities):
         d = daily[daily.city == city]
@@ -206,7 +206,7 @@ def table_rank_agreement() -> None:
 def fig_fold_stability() -> None:
     folds = pd.read_csv(M / "fold_metrics.csv")
     cities = cities_present()
-    fig, axes = plt.subplots(1, len(cities), figsize=(2.4 * len(cities), 2.6),
+    fig, axes = plt.subplots(1, len(cities), figsize=(2.4 * len(cities), 2.2),
                              sharey=False, squeeze=False)
     for ax, city in zip(axes[0], cities):
         sub = folds[(folds.city == city) & (folds.model == "lgbm_point")]

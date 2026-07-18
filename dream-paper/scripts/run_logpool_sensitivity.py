@@ -1,4 +1,4 @@
-"""C3 sensitivity: normalized / log-scale global pooling (professor #75-#79).
+"""C3 sensitivity: normalized / log-scale global pooling (review register #75-#79).
 
 Tests whether the published "cross-city pooling hurts" conclusion is an artifact
 of pooling RAW counts across cities whose daily volumes differ by an order of

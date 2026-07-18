@@ -1,5 +1,5 @@
 """Initial-backlog (b0) / warm-up sensitivity for the decision layer
-(professor #30/#50). The primary simulation starts at b0=0; this script checks
+(review register #30/#50). The primary simulation starts at b0=0; this script checks
 whether the claim-bearing policy ordering is sensitive to that choice by
 re-running the key policies under three initial-carryover conditions:
 

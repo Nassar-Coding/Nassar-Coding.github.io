@@ -1,0 +1,223 @@
+{
+ "base_rev": "2144c93",
+ "items": [
+  {
+   "item": "36.8",
+   "label": "scale acquired",
+   "count_base": 3,
+   "count_now": 3,
+   "classification": "unchanged"
+  },
+  {
+   "item": "30.2",
+   "label": "scale retained",
+   "count_base": 2,
+   "count_now": 2,
+   "classification": "unchanged"
+  },
+  {
+   "item": "10.0$--$14.0",
+   "label": "calendar fixed-estimator range",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "10.2$--$15.6",
+   "label": "calendar validation-selected range",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "4{,}184{,}157",
+   "label": "Chicago info-only exclusion",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "523{,}055",
+   "label": "Chicago duplicate exclusion",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "1{,}918{,}574",
+   "label": "Chicago aircraft-noise exclusion",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "92--100",
+   "label": "tie share",
+   "count_base": 4,
+   "count_now": 4,
+   "classification": "unchanged"
+  },
+  {
+   "item": "1.2--58",
+   "label": "fixed-index cost range",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "-0.03",
+   "label": "proportional-TB recovery low",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "+0.8",
+   "label": "proportional-TB recovery high",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "18--23",
+   "label": "loss reduction scarce",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "38--70",
+   "label": "loss reduction moderate",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "60--93",
+   "label": "loss reduction generous",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "0.88",
+   "label": "Spearman low",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "0.99",
+   "label": "Spearman high",
+   "count_base": 2,
+   "count_now": 2,
+   "classification": "unchanged"
+  },
+  {
+   "item": "119/153/187",
+   "label": "NYC budgets",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "29/38/46",
+   "label": "Chicago budgets",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "26/33/41",
+   "label": "SF budgets",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "8/11/13",
+   "label": "Austin budgets",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "kappa=50",
+   "label": "kappa (inline)",
+   "count_base": 1,
+   "count_now": 3,
+   "classification": "authorized wording-only change (count moved, number still present)"
+  },
+  {
+   "item": "2.6--6.9",
+   "label": "tied families range",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "76.8--81.2",
+   "label": "raw coverage",
+   "count_base": 2,
+   "count_now": 2,
+   "classification": "unchanged"
+  },
+  {
+   "item": "88.3--90.3",
+   "label": "conformal coverage",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "41.4",
+   "label": "seasonal-naive reduction NYC",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "41.5",
+   "label": "seasonal-naive reduction Chicago",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "31.3",
+   "label": "seasonal-naive reduction SF/Austin",
+   "count_base": 2,
+   "count_now": 2,
+   "classification": "unchanged"
+  },
+  {
+   "item": "not a fairness guarantee",
+   "label": "protected wording",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "equal request-equivalent",
+   "label": "protected wording",
+   "count_base": 7,
+   "count_now": 7,
+   "classification": "unchanged"
+  },
+  {
+   "item": "recovers most of the fixed-index gap",
+   "label": "protected wording",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  },
+  {
+   "item": "removes most of the non-identification gap",
+   "label": "protected wording",
+   "count_base": 1,
+   "count_now": 1,
+   "classification": "unchanged"
+  }
+ ],
+ "unexplained": 0
+}

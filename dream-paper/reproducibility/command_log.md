@@ -29,7 +29,7 @@
 - VERIFIED by committed artifacts: all rerun logs (outputs/logs/, tracked in
   git), provenance hashes (outputs/tables/_provenance.json), proof manifests
   (frozen_budgets.json, pooled_censoring.json), pytest_final.log.
-- The earlier reviewers' Drive mirror lacked outputs/logs and a pytest
+- An earlier external mirror lacked outputs/logs and a pytest
   artifact; both are present and tracked in this repository. Nothing in this
   log is reconstructed from memory alone; every command above corresponds to
   a committed log file or a committed artifact it produced.

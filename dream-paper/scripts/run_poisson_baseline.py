@@ -1,4 +1,4 @@
-"""Poisson GLM count-data baseline (professor #65/#66).
+"""Poisson GLM count-data baseline (review register #65/#66).
 
 311 targets are non-negative counts, so a Poisson regression is a natural
 benchmark a reviewer expects. We add it as a REPORTED baseline only: it does not

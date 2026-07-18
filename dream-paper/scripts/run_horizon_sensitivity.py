@@ -1,4 +1,4 @@
-"""Horizon-length sensitivity of the decision-layer policy ranking (professor
+"""Horizon-length sensitivity of the decision-layer policy ranking (review register
 #48-#50, #190). Cumulative simulated unresolved-stock loss is non-stationary
 under the carryover dynamics, so policy rankings could in principle depend on
 the evaluation horizon. We recompute the cumulative loss of the key policies at

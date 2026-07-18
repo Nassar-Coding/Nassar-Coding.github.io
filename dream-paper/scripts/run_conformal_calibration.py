@@ -1,5 +1,5 @@
 """C2: split-conformal recalibration of the quantile model and its effect on the
-distribution-aware allocation (professor #82, #83, #86, #92).
+distribution-aware allocation (review register #82, #83, #86, #92).
 
 The published quantile model is sharp but under-dispersed (90% intervals cover
 ~77-81%). This script applies split-conformal recalibration using VALIDATION

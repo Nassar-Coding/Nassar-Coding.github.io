@@ -1,6 +1,6 @@
 """Tie-breaking and degeneracy sensitivity for the point-forecast greedy policy.
 
-Professor review B (#9-#16, #188): the headline "point forecasts disable the
+Review register B (#9-#16, #188): the headline "point forecasts disable the
 expected-value optimizer" must be shown to be a statement about *objective
 non-identification under a degenerate forecast*, not an artifact of one
 particular tie-break rule. Under a neutral (equal-weights) objective and a

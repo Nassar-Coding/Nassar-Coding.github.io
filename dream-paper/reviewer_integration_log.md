@@ -372,3 +372,65 @@ pre-pass b8f8fca limited to N1 surfaces (generator, tab11 fragment+CSV,
 provenance, figure re-renders from the same frozen metrics, Table III
 caption), N2 surfaces (two main files), and N3 (abstract.tex) plus
 rebuilt PDFs.
+
+---
+
+## FINAL PASS v4 (P1–P6) — pre-submission record (in progress)
+
+- **P1 (a0453af):** IEEE-style unnumbered Acknowledgment (exact mandated
+  text) before References in both builds; 10 pages held; last reference
+  stayed on page 10; guards 37/37.
+- **P2 (bbb715c):** feasible-set language → measured step-level wording
+  (formulation + VII(a) + Table III caption); proportional-relationship
+  passage inserted in VII(b); pooling/transfer claims narrowed to the
+  tested stage-censored LightGBM configurations (model class verified
+  from run_logpool_sensitivity.py + forecast_metrics.csv before
+  asserting); foundation-model sentence made generic (no product
+  citation). Forbidden P2a phrases grep to zero. Page-budget maintenance:
+  gentle figure-height/floatsep adjustments + two micro-trims.
+- **P3a evidence:** `src/preprocessing/build_panel.py:132` —
+  `wide[["TMAX","TMIN"]].interpolate(limit=7)`; pandas linear
+  interpolation, which by construction uses the valid observations on
+  BOTH sides of a gap (two-sided); executed at panel-build time, BEFORE
+  any temporal splitting; filled values flow into wx_t1 (target-day) and
+  wx_t0 (current-day) predictors in any stage. Row-level audit
+  (recomputed from raw GHCN files): San Francisco 14 TMAX + 12 TMIN
+  filled values (all inside the modeled span); Austin 2 + 2 (one of each
+  inside the span); ~272 affected feature rows (SF), ~48 (Austin).
+  NOTE: the v4 prompt anticipated "six TMAX and seven TMIN, all SF" —
+  those are the counts of values that REMAIN missing after limit-7
+  interpolation (gaps > 7 days, subsequently dropped rows), not the
+  interpolated values; the manuscript sentence uses the measured
+  interpolation counts.
+- **P3b:** two-sided disclosure sentence added to IV(c) with the measured
+  numbers. **P3d:** oracle-proxy framing in formulation + the
+  lower-information limitation sentence in Limitations. Deliberate guard
+  edit: bare token "oracle" removed from FORBIDDEN_MANUSCRIPT_TOKENS to
+  permit the mandated wording; "oracle gap"/"oracle_gap" remain banned.
+- **P3c:** PREREGISTERED method (1) — drop every forecast target whose
+  predictors depend on a two-sided interpolated value, from every stage;
+  script `scripts/run_weather_causal_sensitivity.py`; running.
+- **P4:** `scripts/run_kappa_sweep.py` — kappa ∈ {1,5,10,25,50,100},
+  budgets recomputed from the frozen stored training means, identical
+  forecasts/seeds/tie-break definitions; fast incremental-gain greedy
+  verified equivalent to the published implementation (30 randomized
+  trials × 3 rules) and cross-checked against committed κ=50 cells;
+  running. `make kappa` target added; tab23/tab24 generators added
+  (guarded on artifact existence).
+- **P5:** discovery = 2026-06-11 gate review (commit 4ba0068); correction
+  = commit e5592bb (Amendment C11, 2026-06-11T18:49:36Z);
+  `CORRECTIONS.md` added; `audit/pre_fix_outputs/` populated from the
+  pre-correction tree (4ba0068) with an audit README; supplement §
+  negative-results disclosure extended with the mandated provenance text.
+- **P6 prep:** `scripts/build_release.sh` (orphan clean-history release,
+  allowlist, self-stripping), `release/README.md` (P6b minimums),
+  `release/DATA_LICENSES.md`, `scripts/verify_manifests.py` (8/8 frozen
+  inputs verified), P6d scans on the release set: reviewer names /
+  session IDs / home paths / API keys / stage identifiers all ZERO after
+  cleaning six script docstrings and one command-log line (one benign
+  generic "a reviewer expects" retained in run_poisson_baseline.py).
+  GATE-E comparator `scripts/check_protected_numbers.py` vs pre-pass
+  2144c93: 31/31 protected items unchanged, 0 unexplained.
+  AUTHOR GATES (not actionable by the agent): public repo
+  visibility/URL, archival DOI, release-tag signing identity, P6f
+  reproducibility-statement URL/tag/DOI insertion.

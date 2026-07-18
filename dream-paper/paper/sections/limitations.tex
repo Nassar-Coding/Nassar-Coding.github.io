@@ -2,39 +2,41 @@
 \item \textbf{Explicit simulation boundary.} The allocation layer is a
 transparent simulation over abstract request-equivalent capacity units;
 it omits shifts, travel, specialization, geography, and intra-day
-dynamics, and none of its parameters estimates any city's actual
-capacity, productivity, or queues. Conclusions concern the structure of
-the accuracy-to-allocation mapping inside this simulated environment.
-\item \textbf{Queue instability and horizon dependence.} Under the
-scarce (and to a lesser degree moderate) regimes the simulated system is
+dynamics and estimates no city's actual capacity, productivity, or
+queues. Conclusions concern the accuracy-to-allocation mapping inside
+this simulated environment.
+\item \textbf{Queue instability and horizon dependence.} Under the scarce
+(and to a lesser degree moderate) regimes the simulated system is
 structurally under-capacitated, so the unresolved stock grows over the
-evaluation horizon; cumulative-loss magnitudes and percentage reductions
-therefore depend on the horizon length, regime comparisons are partly
-mechanical (differences compress under supercriticality), and
-decision-contrast intervals are descriptive rather than stationary
-inference (Section~\ref{sec:robust}).
-\item \textbf{Objective dependence.} The proportional-dominance result is
+horizon; cumulative-loss magnitudes and reductions depend on horizon
+length, regime comparisons are partly mechanical, and decision-contrast
+intervals are descriptive rather than stationary inference
+(Section~\ref{sec:robust}).
+\item \textbf{Objective dependence.} The policy-ordering result is
 conditional on the equal request-equivalent-weights objective; the
 normative-weight sensitivity compresses the gap. Equal weights are a
 deliberately simple choice, not a normatively neutral one, and no
 weighting here is socially validated.
 \item \textbf{Reported demand only.} Targets and losses are functions of
-reported requests; unreported need is invisible to both the forecasters
-and the simulated planner (Section~\ref{sec:responsible}).
+reported requests; unreported need is invisible to the forecasters and
+the simulated planner (Section~\ref{sec:responsible}).
 \item \textbf{Harmonization is a modeling choice.} The service families
-are deterministic keyword buckets; native taxonomies differ across
-cities (Chicago lacks a residential-noise intake type; excluding
-Austin's large residual \emph{other} leaves conclusions unchanged).
-All mappings and compositions are published.
+are deterministic keyword buckets; native taxonomies differ across cities
+(Chicago lacks a residential-noise intake type; excluding Austin's large
+residual \emph{other} leaves conclusions unchanged). All mappings and
+compositions are published.
 \item \textbf{Weather information set.} Target-day weather uses realized
-observations as a proxy for a day-ahead forecast (A3), bounded by the
-lagged-weather variant; one station per city coarsens spatial variation
-(A2); wind was excluded for data-completeness reasons.
-\item \textbf{Calibration.} The quantile model's intervals are
-under-dispersed (90\% nominal, 77--81\% empirical); a split-conformal
-recalibration (restoring 88--90\% coverage) leaves the simulated-allocation
-result essentially unchanged (Sections~\ref{sec:forecast}--\ref{sec:decision}), so the decision finding does
-not rest on calibrated uncertainty but on identification of the objective.
+observations as an oracle proxy for an accurate day-ahead forecast (A3);
+lagged weather is a lower-information comparison, not a substitute for
+evaluating archived day-ahead forecasts with realistic forecast error.
+One station per city coarsens spatial variation (A2); wind was excluded
+for data completeness.
+\item \textbf{Calibration.} The quantile intervals are under-dispersed
+(90\% nominal, 77--81\% empirical); split-conformal recalibration
+(restoring 88--90\% coverage) leaves the allocation result essentially
+unchanged (Sections~\ref{sec:forecast}--\ref{sec:decision}), so the
+decision finding rests on identification of the objective, not on
+calibrated uncertainty.
 \item \textbf{Scope.} Four U.S. Socrata-based systems; fixed a priori
 hyperparameters; no deep or foundation models; no causal claims; no
 deployment; no measurement of social need.

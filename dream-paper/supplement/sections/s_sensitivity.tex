@@ -35,3 +35,54 @@ contrast differ between the regimes, confirming distinct simulations.)
 \end{itemize}
 
 {\small\input{../outputs/tables/tab10_trend_diagnostics}}
+
+\begingroup\sloppy
+\paragraph{Global $\kappa$ granularity sweep (P4).} We rerun the complete
+decision evaluation at $\kappa \in \{1,5,10,25,50,100\}$, recomputing each
+city--regime integer budget from the same frozen training-window formula
+and unchanged training means, with identical forecasts, objective,
+carryover, weights, regimes, seeds, and tie-break definitions (no
+retuning). All four cities, three regimes, and every policy are included;
+the fast incremental-gain greedy used here is verified equal to the
+published \texttt{greedy\_allocate} on randomized instances, and the
+$\kappa=50$ cells reproduce the committed
+\texttt{tiebreak\_sensitivity} values. The claim-bearing ordering holds
+in all 72 city--regime--$\kappa$ cells: uniform is worst and fixed-index
+point-greedy is below the identified policies (proportional, proportional
+tie-break, full distribution) in every cell. Magnitudes
+(\texttt{tab23\_kappa\_summary}, full grid
+\texttt{tab24\_kappa\_full}): the tie share stays near-saturated at fine
+granularity ($99.5\%$ mean at $\kappa=1$, $96.6\%$ at $\kappa=100$) and
+the fixed-index penalty is \emph{largest} at $\kappa=1$ (e.g., New
+York/generous $-72.2\%$ vs.\ $-58.3\%$ at $\kappa=50$), so the tie
+pathology is most consequential under fine, not coarse, discrete units.
+The proportional secondary rule stays within $0.2\%$ of direct
+proportional across the sweep, and the full-distribution arm never falls
+below proportional in aggregate (it is not claimed to dominate it).
+
+Fixed-index penalty (\% vs.\ proportional; negative $=$ worse) by $\kappa$:
+
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab23c_kappa_fixedindex}}
+
+Tie share (\% of sequential allocation steps) by $\kappa$:
+
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab23d_kappa_tieshare}}
+
+(Full per-policy grid and all magnitude columns in \texttt{tab23\_kappa\_summary} / \texttt{tab24\_kappa\_full}; the $\kappa=100$ non-monotonicity in low-volume Austin reflects the active-family budget floor binding at coarse granularity.)
+
+\paragraph{Two-sided weather-interpolation causal sensitivity (P3c).}
+Short temperature gaps ($\le 7$ days) are filled by two-sided linear
+interpolation (\texttt{build\_panel.py}), which can borrow a later
+observation. Under the preregistered method---drop every forecast target
+whose weather predictors depend on an interpolated value, from every
+temporal stage, and refit---we find 14 TMAX and 12 TMIN interpolated
+values in San Francisco and two of each in Austin. Refitting the two
+weather-consuming feature sets on the reduced data changes test MAE by at
+most $1.3\%$ in San Francisco (and $0.0\%$ in Austin, whose affected
+rows fall only in the test window), leaves the validation-selected model
+unchanged in both cities and both feature sets, and reverses no
+feature-set or allocation-policy ordering
+(\texttt{weather\_causal\_sensitivity.csv}); the weather gain is not an
+interpolation artifact.
+\endgroup
+

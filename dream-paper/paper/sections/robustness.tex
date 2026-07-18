@@ -22,23 +22,38 @@ contrasts. (Block-length stability alone cannot detect a common trend; the
 trend diagnostic above is the binding check.)
 
 \paragraph{Decision-layer sensitivity.} The pre-specified grid preserves
-every qualitative conclusion: with 10\% daily abandonment, policy
-ordering is unchanged in all cities; with one-family-at-a-time
-service-yield multipliers of 0.70 and 1.30 over every active family, the
-ordering direction never reverses (the largest perturbation is New York,
-generous regime, noise yield $\times$1.30); with budgets calibrated on
-train+validation instead of training only, conclusions are unchanged;
-and the Austin analysis with the heterogeneous \emph{other} family
-excluded (budgets recomputed) produces the identical policy ordering as
-the primary analysis, so Austin's conclusions do not depend on its
-residual category. Initial carryover: replacing the primary $b_0=0$ with a
-validation warm-up carryover or with each family's training-average daily
-demand leaves the claim-bearing ordering (uniform worst; the fixed-index
-point-greedy below the three identified policies) unchanged in all 12
-city-regime cells (initial-carryover table, supplement). Under the illustrative normative-priority scenario the
-proportional--optimizer gap compresses, which is why the
-proportional-dominance claim is stated as conditional on the equal-weight
-objective.
+every qualitative conclusion: 10\% daily abandonment, one-family-at-a-time
+service-yield multipliers of 0.70 and 1.30 over every active family, and
+train+validation budget calibration each leave the policy ordering
+unchanged in all cities, and the Austin analysis excluding the
+heterogeneous \emph{other} family (budgets recomputed) reproduces the
+primary ordering. Replacing the primary $b_0=0$ with a validation warm-up
+carryover or each family's training-average daily demand leaves the
+claim-bearing ordering (uniform worst; fixed-index point-greedy below the
+three identified policies) unchanged in all 12 cells (supplement). Under
+the normative-priority scenario the proportional--optimizer gap
+compresses, which is why the policy-ordering claim is stated as
+conditional on the equal-weight objective.
+
+\paragraph{Allocation granularity ($\kappa$).}
+A global sweep over $\kappa \in \{1,5,10,25,50,100\}$, budgets recomputed
+from the same frozen training means, preserves the claim-bearing ordering
+in all 72 city-regime-$\kappa$ cells: uniform worst, fixed-index
+point-greedy below the identified policies. This includes $\kappa=1$, the
+finest discrete request-equivalent granularity tested, where the
+objective stays tie-dominated ($99.5\%$ mean tie share) and the
+fixed-index penalty is largest, so the pathology is not an artifact of
+coarse units; the proportional secondary rule tracks direct proportional
+throughout ($\le 0.2\%$ below). Per-cell magnitudes are in the supplement.
+
+\paragraph{Two-sided weather interpolation.}
+Short temperature gaps are filled by two-sided interpolation
+(Section~\ref{sec:data}), which can borrow a later value; dropping every
+target whose weather predictors depend on an interpolated value (San
+Francisco and Austin) and refitting moves test MAE by at most $1.3\%$ (San
+Francisco; none in Austin), leaves the validation-selected model and all
+feature-set and policy orderings unchanged, so the weather gain is not an
+interpolation artifact.
 
 \paragraph{What would change the conclusions.} The simulation results are
 conditional on the stylization assumptions (interchangeable units, fixed

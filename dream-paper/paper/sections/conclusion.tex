@@ -12,18 +12,15 @@ tested regimes and objective). The supporting forecasting evidence is
 precise: public calendar signals improve next-day forecasts in every
 system and weather helps heterogeneously; under the tested censored
 configurations, pooling and transfer mostly hurt; and decision-aware
-validation selection mostly
-coincides with accuracy-based selection, without increasing test loss in
-the pre-specified grid. These aggregate simulated-loss reductions can
-nonetheless hide family-level tradeoffs: some low-volume families are
-served at near-zero fractions under this objective.
-The broader lesson for forecast-driven public-sector analytics is
-methodological: evaluation environments must be frozen before selection,
-selection must never touch test outcomes, the interface between a
-forecast and a policy deserves the same scrutiny as the forecast itself,
-and reproducible benchmarks should report boundaries and failure modes,
-not only aggregate gains.
+validation selection mostly coincides with accuracy-based selection
+without increasing test loss. These aggregate reductions can nonetheless
+hide family-level tradeoffs: some low-volume families are served at
+near-zero fractions under this objective. The broader lesson is
+methodological: freeze evaluation environments before selection, keep
+selection away from test outcomes, scrutinize the forecast-to-policy
+interface as much as the forecast, and report boundaries and failure
+modes, not only aggregate gains.
 Natural continuations include richer service-time modeling, spatial
 disaggregation, extension beyond U.S. systems, and evaluating recent
-global and foundation-model approaches to time-series forecasting as
-additional baselines in a journal extension.
+global and foundation-model time-series approaches as additional
+baselines in a journal extension.

@@ -46,6 +46,9 @@ sensitivity:
 tables:
 	$(PY) scripts/make_tables_figures.py
 
+kappa:
+	$(PY) scripts/run_kappa_sweep.py
+
 test:
 	$(PY) -m pytest tests -q
 

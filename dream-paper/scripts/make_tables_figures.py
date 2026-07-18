@@ -59,7 +59,7 @@ def fig_panel_overview() -> None:
     panel = pd.read_parquet(DATA_INTERIM / "panel_311.parquet")
     cities = cities_present()
     daily = panel.groupby(["city", "day"])["n"].sum().reset_index()
-    fig, axes = plt.subplots(len(cities), 1, figsize=(7.0, 1.6 * len(cities)),
+    fig, axes = plt.subplots(len(cities), 1, figsize=(7.0, 1.33 * len(cities)),
                              sharex=True, squeeze=False)
     for ax, city in zip(axes[:, 0], cities):
         d = daily[daily.city == city]
@@ -251,6 +251,30 @@ def table_tiebreak() -> None:
     save_table(d.round(2), "tab12_tiebreak_full")
 
 
+def table_kappa_sweep() -> None:
+    """P4 (final pass v4): global kappa-granularity sweep magnitudes.
+
+    Emitted only when the sweep artifact exists; the sweep itself runs via
+    `make kappa` (scripts/run_kappa_sweep.py) and is not part of `make all`."""
+    path = M / "kappa_sweep_summary.csv"
+    if not path.exists():
+        return
+    ks = pd.read_csv(path)
+    save_table(ks, "tab23_kappa_summary", float_fmt="%.3f")   # machine-readable (all columns)
+    full = pd.read_csv(M / "kappa_sweep.csv")
+    save_table(full.round(3), "tab24_kappa_full", float_fmt="%.3f")
+    # compact rendered view: fixed-index gap (% vs proportional) by kappa
+    comp = ks.pivot_table(index=["city", "regime"], columns="kappa",
+                          values="fixed_index_gap_pct").reset_index()
+    comp.columns = ["City", "Regime"] + [f"kappa={int(k)}" for k in sorted(ks["kappa"].unique())]
+    save_table(comp.round(1), "tab23c_kappa_fixedindex", float_fmt="%.1f")
+    tie = ks.pivot_table(index=["city", "regime"], columns="kappa",
+                         values="tie_share_steps").reset_index()
+    tie.columns = ["City", "Regime"] + [f"kappa={int(k)}" for k in sorted(ks["kappa"].unique())]
+    save_table((tie.assign(**{c: (tie[c]*100) for c in tie.columns[2:]})).round(1),
+               "tab23d_kappa_tieshare", float_fmt="%.1f")
+
+
 def table_conformal() -> None:
     """Conformal recalibration: coverage/width before-after, and the calibrated
     vs uncalibrated full-arm decision (review G)."""
@@ -418,7 +442,7 @@ def main() -> None:
 
     # review-revision validity tables (tie-break, conformal, pooling, horizon,
     # per-family); each guarded by presence of its sensitivity metrics file
-    for fn in (table_tiebreak, table_conformal, table_logpool, table_horizon,
+    for fn in (table_tiebreak, table_kappa_sweep, table_conformal, table_logpool, table_horizon,
                table_perfamily_unserved, table_dataset_audit, table_split_dates,
                table_guards, table_weather_missing, table_poisson, table_backlog):
         try:

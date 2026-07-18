@@ -434,3 +434,39 @@ rebuilt PDFs.
   AUTHOR GATES (not actionable by the agent): public repo
   visibility/URL, archival DOI, release-tag signing identity, P6f
   reproducibility-statement URL/tag/DOI insertion.
+
+### FINAL PASS v4 — GATE P closure (all commits pushed to origin/draft_3)
+
+Commits: P1 a0453af, P2 bbb715c, P3 e2acba9, P4 0660508, P5 e8e377b, P6 3c66899.
+
+- **A. Manuscript compliance:** main_ieee 10 pages incl. acknowledgment
+  (page-10 fill 111 lines, reference [25] on page 10), 0 overfull, 0
+  unresolved; supplement 17 pages compiles (pre-existing wide-table
+  overfull only; v4 additions add zero); IEEE two-column preserved; no
+  margin/font/bibliography manipulation. PASS.
+- **B. Claim integrity:** feasible-set overclaims 0; broad
+  "not beneficial in this benchmark" 0; only "not claimed to dominate
+  proportional" (the required negation); oracle-proxy framing present;
+  pooling conditionalized to tested LightGBM configs; abstract/
+  conclusion/README aligned. PASS.
+- **C. Experimental completeness:** kappa grid 72/72 cells complete
+  (4x3x6), uniform worst and fixed-index-below-identified in every cell;
+  magnitudes reported (tab23c/tab23d/tab24), not only rankings; P3c
+  complete (two-sided interpolation was found, so the sensitivity ran).
+  PASS.
+- **D. Reproducibility (agent-executable parts):** guards 37/37;
+  provenance hashes regenerated and G11-bound; manifest verifier 8/8;
+  frozen-vs-live warning documented; licensing documented. Repo
+  visibility, DOI, orphan-release push, and the clean-container acid test
+  are AUTHOR-GATED (build_release.sh + release/README.md carry the exact
+  commands). PARTIAL -> author actions remain.
+- **E. Numerical protection:** check_protected_numbers.py vs pre-pass
+  2144c93 -> 31/31 items, 0 unexplained (kappa=50 count 1->3 is an
+  authorized wording addition; number unchanged). PASS.
+- **F. Final report:** delivered to the author in-session.
+
+Author-gated remaining before submission: (1) make the clean public repo
+public; (2) mint the Zenodo DOI and insert repo URL/tag/DOI into the
+reproducibility statement (P6f placeholder in place) and CITATION.cff;
+(3) run scripts/build_release.sh + the clean-container acid test in CI;
+(4) confirm the IEEE PDF-eXpress pass and submit.

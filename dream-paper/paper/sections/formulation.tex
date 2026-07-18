@@ -18,10 +18,12 @@ noise is structurally absent from the intake taxonomy). At the end of day
 $t$ (the information cutoff), a forecaster produces a point forecast
 $\hat{y}_{c,s,t+1}$ and, for the probabilistic model, quantile forecasts
 $\hat{q}^{\,\tau}_{c,s,t+1}$, $\tau \in \{.05,.25,.50,.75,.95\}$.
-Endogenous features use observations through day $t$ only; calendar
-features of day $t{+}1$ are deterministic; target-day weather uses the
-realized observation for $t{+}1$ as a stand-in for a day-ahead weather
-forecast (assumption A3, bounded by a lagged-weather variant).
+Endogenous features use observations through day $t$ only, and calendar
+features of day $t{+}1$ are deterministic. Realized target-day weather
+is used as an oracle proxy for an accurate day-ahead forecast
+(assumption A3): the resulting weather gain is an upper-information
+experiment rather than an evaluation of an operational forecast
+provider, bounded below by a lagged-weather variant.
 
 \paragraph{Why a simulated allocation layer.}
 Accuracy metrics alone cannot reveal whether differences between

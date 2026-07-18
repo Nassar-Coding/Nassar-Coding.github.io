@@ -58,8 +58,13 @@ NOAA GHCN-Daily station observations (precipitation, max/min temperature,
 snowfall, snow depth; derived mean temperature) from one first-order
 station per city (Central Park; O'Hare; San Francisco Downtown; Camp
 Mabry), retrieved from NOAA's AWS Open Data mirror with checksums.
-Quality-flagged values are dropped; short temperature gaps ($\le 7$
-days) are interpolated; missing snow fields are treated as zero. Wind
+Quality-flagged values are dropped; missing snow fields are treated as
+zero. Short temperature gaps ($\le 7$ days) are filled by two-sided
+linear interpolation on the frozen weather series; this can use
+observations after the missing date. The procedure fills 14 TMAX and 12
+TMIN station values in San Francisco and two of each in Austin (one of
+each inside the modeled span), and is evaluated with a causal
+sensitivity described in Section~\ref{sec:robust}. Wind
 speed was excluded for all cities on data-completeness grounds: the San
 Francisco station does not report it and Central Park has a multi-month
 gap; the exclusion is recorded in the repository's decision log. A single station

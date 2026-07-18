@@ -30,7 +30,10 @@ T = ROOT / "outputs" / "tables"
 FORBIDDEN_OUTPUT_TOKENS = ["oracle_gap", "gap_closed", "gap closed",
                            "achievable range", "oracle gap"]
 FORBIDDEN_MANUSCRIPT_TOKENS = FORBIDDEN_OUTPUT_TOKENS + [
-    "staffing", "crew", "oracle", "backlog"]
+    "staffing", "crew", "backlog"]
+# P3d (final pass v4): the bare token "oracle" was removed from the
+# manuscript ban to permit the mandated "oracle proxy" weather framing;
+# "oracle gap" and "oracle_gap" remain banned via FORBIDDEN_OUTPUT_TOKENS.
 
 
 def need(path: Path):

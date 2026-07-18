@@ -32,8 +32,17 @@ other-city rows. After the targeted censoring fix, the
 selection-experiment story changed from 7/12 disagreements with 4
 apparent harms to 9/12 agreements, 2 gains, 0 harms --- the earlier
 disagreement was substantially an artifact of the contaminated pooled
-model's inflated validation scores. The pre-fix outputs are preserved in
-the repository history for audit.
+model's inflated validation scores. The defect was discovered on
+2026-06-11 during the documented pre-submission review-gate process
+(gate 1, methodologist review; finding R1-F1). Commit \texttt{e5592bb}
+introduced the correction (stage censoring, Amendment C11, with guard
+G13 and a fit-time proof manifest). All forecasts, simulations, tables,
+figures, and manuscript values were regenerated after the correction,
+and the provenance-hash guard verifies that every released manuscript
+artifact derives from the corrected run. The public release tag and
+archival DOI point only to the corrected version; pre-correction outputs
+are retained under \texttt{audit/pre\_fix\_outputs/} for audit and are
+not used by the paper (see \texttt{CORRECTIONS.md}).
 \item \textbf{The hindsight myopic reference is not a bound}: being
 per-day myopic under carryover it can be exceeded; it appears only in
 the diagnostic table below and is never used as a denominator.

@@ -33,6 +33,14 @@ for item in "${ALLOW[@]}"; do
     cp -r "$SRC/$item" "$STAGE/$item"
   fi
 done
+# refuse to build release metadata while author placeholders remain:
+# final hashes are only meaningful after DOI/URL/tag insertion + PDF rebuild
+if grep -qE 'RELEASE_TAG_PENDING|RELEASE_COMMIT_PENDING|DOI_PENDING' \
+     "$SRC/release/README.md" "$SRC/CITATION.cff" 2>/dev/null; then
+  echo "ERROR: release placeholders (tag/commit/DOI) are still unset." >&2
+  echo "Insert the author-supplied DOI/URL/tag, rebuild both PDFs, then rerun." >&2
+  exit 2
+fi
 # release README replaces the development README
 cp "$SRC/release/README.md" "$STAGE/README.md"
 cp "$SRC/release/DATA_LICENSES.md" "$STAGE/DATA_LICENSES.md"

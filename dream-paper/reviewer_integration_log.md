@@ -470,3 +470,25 @@ public; (2) mint the Zenodo DOI and insert repo URL/tag/DOI into the
 reproducibility statement (P6f placeholder in place) and CITATION.cff;
 (3) run scripts/build_release.sh + the clean-container acid test in CI;
 (4) confirm the IEEE PDF-eXpress pass and submit.
+
+
+### v4 closure (Q1-Q3)
+
+- Q1: rendered IV(c) sentence verified to already carry the audited
+  filled-value counts (14 TMAX + 12 TMIN SF; 2+2 Austin) -- the "six/seven"
+  canned wording never entered the manuscript. Supplement weather-missing
+  caption now states its values are those REMAINING missing after
+  quality-flag drop and interpolation (distinct from the filled values).
+  P3c coverage of Austin confirmed from weather_causal_sensitivity.csv
+  (10 rows; 24 affected test rows; train/val 0 because Austin's affected
+  days fall in the test window) -- no rerun required.
+- Q2: pre-existing supplement wide-table overflow reduced 18 -> 1
+  remaining 2.2pt sliver, via landscape floats with measured scalebox
+  factors (tab6 0.65, tab10 0.55), portrait resizebox for
+  tab13/13b/14/19, emergencystretch, and two discretionary breaks; zero
+  content or value changes; supplement now 19 pages.
+- Q3: PDF SHA-256 values previously reported in this log and in-session
+  are INTERIM: final hashes are computed only after the author-supplied
+  DOI/URL/tag are inserted and both PDFs are rebuilt. build_release.sh now
+  refuses to emit release metadata while any placeholder
+  (RELEASE_TAG_PENDING / RELEASE_COMMIT_PENDING / DOI_PENDING) remains.

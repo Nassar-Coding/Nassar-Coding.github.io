@@ -1,6 +1,6 @@
-All tables regenerate from \texttt{scripts/make\_tables\_figures.py};
+{\sloppy All tables regenerate from \texttt{scripts/\allowbreak make\_tables\_figures.py};
 CSV versions live in \texttt{outputs/tables/} with provenance hashes in
-\texttt{\_provenance.json}.
+\texttt{\_provenance.json}.\par}
 
 Validation-selected headline (test MAE of the validation-chosen model per
 city and feature set):
@@ -30,7 +30,10 @@ Rank agreement between accuracy and simulated-decision orderings
 
 Validation selection by MAE versus by decision loss (frozen budgets):
 
-{\small\input{../outputs/tables/tab6_selection}}
+\begin{landscape}
+\noindent\scalebox{0.65}{%
+\input{../outputs/tables/tab6_selection}}
+\end{landscape}
 
 The complete decision grid (including the labeled, non-bounding hindsight
 myopic diagnostic) is \texttt{tab3\_decision\_all.csv}; block-bootstrap
@@ -73,14 +76,14 @@ every tie-break rule and control policy across all 12 city-regime cells is
 interval width before and after split-conformal recalibration, and the
 calibrated-vs-uncalibrated full-arm decision losses:
 
-{\footnotesize\input{../outputs/tables/tab13_conformal_calibration}}
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab13_conformal_calibration}}
 
-{\footnotesize\input{../outputs/tables/tab13b_conformal_decision}}
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab13b_conformal_decision}}
 
 \paragraph{Normalized pooling.} Pooled-minus-local test MAE (\% of local)
 under raw, log1p, and per-city-standardized targets:
 
-{\footnotesize\input{../outputs/tables/tab14_logpool}}
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab14_logpool}}
 
 \paragraph{Horizon robustness.} Policy ranking at the first
 30/60/90/180 and full test days is \texttt{tab15\_horizon.csv}; the
@@ -107,12 +110,14 @@ validation-selected model (test MAE) per city and feature set:
 
 {\footnotesize\input{../outputs/tables/tab21_poisson}}
 
-\paragraph{Weather missingness.} Missing values after quality-flag drop
-and $\le 7$-day interpolation, per city:
+\paragraph{Weather missingness.} Values shown are those that REMAIN
+missing after the quality-flag drop and the $\le 7$-day two-sided
+interpolation (they are distinct from, and additional to, the
+interpolation-filled values audited in the main text), per city:
 
 {\footnotesize\input{../outputs/tables/tab20_weather_missing}}
 
 \paragraph{Guard suite.} What each protocol guard checks and against which
 artifact:
 
-{\footnotesize\input{../outputs/tables/tab19_guards}}
+\noindent\resizebox{\linewidth}{!}{\input{../outputs/tables/tab19_guards}}

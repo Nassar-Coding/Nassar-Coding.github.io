@@ -8,7 +8,7 @@ public archival release for the IEEE BigData 2026 submission.
 
 - **Release:** tag `RELEASE_TAG_PENDING` at commit `RELEASE_COMMIT_PENDING`
 - **Archival DOI:** `DOI_PENDING` (minted on deposit; see CITATION.cff)
-- **Final PDF hashes:** `PDF_SHA256SUMS.txt`
+- **Final PDF hashes:** `PDF_SHA256SUMS.txt` — computed only at release build time, after the DOI/URL/tag above are inserted and both PDFs rebuilt; any hash quoted before that step is INTERIM and non-final
 - **Corrections record:** `CORRECTIONS.md` (includes the R1-F1
   pooled-censoring correction; pre-correction outputs are under
   `audit/pre_fix_outputs/`)

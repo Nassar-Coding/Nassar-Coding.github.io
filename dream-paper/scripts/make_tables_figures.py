@@ -252,7 +252,7 @@ def table_tiebreak() -> None:
 
 
 def table_kappa_sweep() -> None:
-    """P4 (final pass v4): global kappa-granularity sweep magnitudes.
+    """Global kappa-granularity sweep magnitudes.
 
     Emitted only when the sweep artifact exists; the sweep itself runs via
     `make kappa` (scripts/run_kappa_sweep.py) and is not part of `make all`."""

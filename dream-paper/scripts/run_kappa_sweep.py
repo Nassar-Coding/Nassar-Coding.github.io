@@ -1,4 +1,4 @@
-"""P4 (final pass v4): global kappa granularity sweep.
+"""Global kappa granularity sweep.
 
 Fixed design, preregistered before any result was computed:
   kappa in {1, 5, 10, 25, 50, 100}. For every kappa the city-regime integer

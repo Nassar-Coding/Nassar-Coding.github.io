@@ -1,8 +1,7 @@
-"""GATE P item E (final pass v4): machine-readable before/after comparison of
-protected numbers across the P1-P6 pass.
+"""Machine-readable before/after comparison of
+protected numbers across a revision pass.
 
-Compares occurrence counts of every protected number/string from the tracker
-Rules sheet between a BASE git revision (pre-pass) and the working tree, over
+Compares occurrence counts of every protected number/string from the frozen protected-numbers register between a BASE git revision (pre-pass) and the working tree, over
 the manuscript sections, supplement sections, and README. Classifies each
 difference; any UNEXPLAINED difference exits nonzero.
 

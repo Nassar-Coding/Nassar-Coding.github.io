@@ -1,10 +1,8 @@
-"""P3c (final pass v4): causal sensitivity for two-sided weather interpolation.
+"""Causal sensitivity for two-sided weather interpolation.
 
-PREREGISTERED METHOD (chosen before any result was computed): method (1) of
-the v4 specification -- drop every forecast target whose predictors depend on
+PREREGISTERED METHOD (chosen before any result was computed): method (1): drop every forecast target whose predictors depend on
 a two-sided interpolated weather value, from EVERY temporal stage (training,
-validation, and test), then refit and re-evaluate. Method (2)
-(forward-only interpolation) was not used.
+validation, and test), then refit and re-evaluate. The forward-only-interpolation alternative was not used.
 
 Affected values (row-level audit, build_panel.py:132 pandas linear
 interpolate(limit=7), two-sided by construction):

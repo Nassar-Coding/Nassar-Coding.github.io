@@ -492,3 +492,29 @@ reproducibility statement (P6f placeholder in place) and CITATION.cff;
   DOI/URL/tag are inserted and both PDFs are rebuilt. build_release.sh now
   refuses to emit release metadata while any placeholder
   (RELEASE_TAG_PENDING / RELEASE_COMMIT_PENDING / DOI_PENDING) remains.
+
+---
+
+## BACK-PORT PASS (B1-B3)
+
+- **B1 (92fdb9f):** release privacy neutralizations back-ported to source
+  (2 supplement headings + 5 script/test docstrings, verbatim identical
+  to the release edits); build_release.sh header neutralized and the
+  release-only deltas (execution-evidence exclusion, docs marker,
+  CITATION URL) made build steps; placeholder guard now stages but
+  refuses PDF_SHA256SUMS.txt. Full-scope audit battery: all zero.
+  Guards 37/37; Gate E 31/31, 0 unexplained.
+- **B2 (b9fe4e4):** deterministic builds — \pdftrailerid{} in all three
+  preambles + SOURCE_DATE_EPOCH=1780963200 (2026-06-09T00:00:00Z) in
+  paper/Makefile and the release README. Verified byte-identical across
+  two clean-state builds: main_ieee 178c8a9c…, supplement b14114b5…,
+  article 2047f885… .
+- **B3:** deterministic rebuild metrics — main IEEE 10 pages, page-10
+  slack ~68pt (~5.7 lines), 0 overfull, 0 unresolved; supplement 19
+  pages; guards 37/37. Release tree regenerated purely by
+  build_release.sh (224 files; PRE-RELEASE warning; no metadata file).
+  Diff vs pushed 6d1d638: exactly 8 entries, all deterministic-build
+  artifacts (epoch line in README/Makefile, trailer-ID line in three
+  tex preambles, three rebuilt PDFs); ZERO script or supplement-source
+  diffs — the back-port is character-exact. Placeholders remain
+  unfilled; nothing pushed or tagged.

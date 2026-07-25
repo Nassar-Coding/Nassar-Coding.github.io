@@ -1,4 +1,7 @@
 \documentclass[11pt]{article}
+% deterministic builds: fixed trailer ID (timestamps pinned via SOURCE_DATE_EPOCH)
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs,longtable}

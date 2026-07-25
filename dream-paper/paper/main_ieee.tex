@@ -1,4 +1,7 @@
 \documentclass[conference]{IEEEtran}
+% deterministic builds: fixed trailer ID (timestamps pinned via SOURCE_DATE_EPOCH)
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}

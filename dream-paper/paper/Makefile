@@ -1,3 +1,4 @@
+export SOURCE_DATE_EPOCH=1780963200  # 2026-06-09T00:00:00Z (project seed date)
 PDF = main.pdf
 TEX = main.tex
 

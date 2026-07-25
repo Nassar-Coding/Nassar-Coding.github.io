@@ -63,6 +63,7 @@ make kappa                            # global kappa-granularity sweep
 python scripts/run_weather_causal_sensitivity.py
 
 # compile the manuscript and supplement
+export SOURCE_DATE_EPOCH=1780963200   # pins PDF timestamps for byte-stable builds
 cd paper       && pdflatex main_ieee && bibtex main_ieee && pdflatex main_ieee && pdflatex main_ieee
 cd ../supplement && pdflatex supplement && pdflatex supplement
 ```

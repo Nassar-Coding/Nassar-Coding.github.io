@@ -6,8 +6,11 @@ Reproducible four-city benchmark of next-day reported 311 service demand
 controlled request-equivalent capacity-allocation simulation. This is the
 public archival release for the IEEE BigData 2026 submission.
 
-- **Release:** tag `RELEASE_TAG_PENDING` at commit `RELEASE_COMMIT_PENDING`
-- **Archival DOI:** `DOI_PENDING` (minted on deposit; see CITATION.cff)
+- **Release:** annotated tag `v1.0.0` — the canonical pointer to this
+  release. A release commit cannot carry its own hash, so no commit hash
+  is printed here; the tag is the citable revision identifier and
+  resolves to it via `git rev-list -n 1 v1.0.0`.
+- **Archival DOI:** `10.5281/zenodo.21842702` (minted on deposit; see CITATION.cff)
 - **Final PDF hashes:** `PDF_SHA256SUMS.txt` — computed only at release build time, after the DOI/URL/tag above are inserted and both PDFs rebuilt; any hash quoted before that step is INTERIM and non-final
 - **Corrections record:** `CORRECTIONS.md` (includes the R1-F1
   pooled-censoring correction; pre-correction outputs are under
